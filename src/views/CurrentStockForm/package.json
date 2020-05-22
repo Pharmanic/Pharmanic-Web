@@ -1,0 +1,7 @@
+{
+    "name": "CurrentStockForm",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./CurrentStockForm.js"
+  }
+  

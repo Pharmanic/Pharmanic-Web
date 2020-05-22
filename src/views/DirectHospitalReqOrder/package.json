@@ -1,0 +1,6 @@
+{
+    "name": "DirectHospitalReqOrder",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./DirectHospitalReqOrder.js"
+  }

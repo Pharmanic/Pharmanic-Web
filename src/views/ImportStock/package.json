@@ -1,0 +1,7 @@
+{
+    "name": "ImportStock",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./ImportStock.js"
+  }
+  

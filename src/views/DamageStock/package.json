@@ -1,0 +1,7 @@
+{
+    "name": "DamageStock",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./DamageStock.js"
+  }
+  

@@ -1,0 +1,7 @@
+{
+    "name": "DirectHospitalForm",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./DirectHospitalForm.js"
+  }
+  
