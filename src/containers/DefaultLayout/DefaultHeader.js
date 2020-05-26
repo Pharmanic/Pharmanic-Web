@@ -41,7 +41,7 @@ class DefaultHeader extends Component {
             <NavLink to="#" className="nav-link"> Hospital By Rdhs</NavLink>
           </NavItem>
           <NavItem className="px-3">
-            <NavLink to="#" className="nav-link"> Rdhs Office</NavLink>
+            <NavLink to="#" className="nav-link"> Rdhs Off</NavLink>
           </NavItem>
           <NavItem className="px-3">
             <NavLink to="#" className="nav-link"> Direct Hospital</NavLink>
