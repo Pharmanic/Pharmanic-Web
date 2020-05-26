@@ -16,6 +16,8 @@ import {
   Tables,
   Tabs,
   Tooltips,
+  Rdhs_Hospital_Current_Stock,
+
 } from './Base';
 
 import { ButtonDropdowns, ButtonGroups, Buttons, BrandButtons } from './Buttons';
@@ -26,7 +28,7 @@ import { Alerts, Badges, Modals } from './Notifications';
 import { Login, Page404, Page500, Register } from './Pages';
 import { Colors, Typography } from './Theme';
 import Widgets from './Widgets';
-
+import {Rdhs_Hospital_Current_Stock} from './../rdhsHospital/Rdhs_Hospital_Current_Stock';
 export {
   Badges,
   Typography,
