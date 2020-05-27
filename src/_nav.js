@@ -82,6 +82,24 @@ export default {
       },
       class: ''             // optional class names space delimited list for title item ex: "text-center"
     },
+     {
+      name: 'Ministry Stores',
+      url: '/ministry_stores',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register Ministry Store',
+          url: '/ministry_stores/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'Ministry Stores',
+          url: '/ministry_stores/ministry_stores_list',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
     {
       name: 'WareHouse',
       url: '/ministry/store',
