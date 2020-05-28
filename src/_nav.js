@@ -119,17 +119,35 @@ export default {
       ],
     },
     {
-      name: 'Direc Hospitals',
+      name: 'Hospital by RDHS',
+      url: '/hospital_by_rdhs',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register RDHS',
+          url: '/hospital_by_rdhs/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'RDHS List',
+          url: '/hospital_by_rdhs/hospital_by_rdhs_list',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
+    {
+      name: 'Direct Hospitals',
       url: '/direct_hospitals',
       icon: 'icon-home',
       children: [
         {
-          name: 'Register Direc Hospitals',
+          name: 'Register Direct Hospitals',
           url: '/direct_hospitals/register',
           icon: 'icon-plus',
         },
         {
-          name: 'Direc Hospitals',
+          name: 'Direct Hospitals',
           url: '/direct_hospitals/direct_hospitals',
           icon: 'icon-list',
         },

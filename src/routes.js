@@ -58,6 +58,8 @@ const RDHSList = React.lazy(() => import('./views/RDHS-Ministry/RDHSList'));
 const RDHSRegister = React.lazy(() => import('./views/RDHS-Ministry/RegisterRDHS'));
 const DirectHospitalList = React.lazy(() => import('./views/Direct Hospital/DirectHospitals'));
 const DirectHospitalRegister = React.lazy(() => import('./views/Direct Hospital/RegisterDirectHospital'));
+const HospitalByRDHSList = React.lazy(() => import('./views/Hospital by RDHS/HospitalByRDHS'));
+const HospitalByRDHSRegister = React.lazy(() => import('./views/Hospital by RDHS/RegisterHospitalByRDHS'));
 
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -132,6 +134,10 @@ const routes = [
   { path: '/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
   { path: '/direct_hospitals/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
   { path: '/direct_hospitals/register', exact: true, name: 'Direct Hospital Registration', component: DirectHospitalRegister },
+
+  { path: '/hospital_by_rdhs', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },
+  { path: '/hospital_by_rdhs/hospital_by_rdhs_list', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },
+  { path: '/hospital_by_rdhs/register', exact: true, name: 'Hospital By RDHS Registration', component: HospitalByRDHSRegister },
 
 ];
 

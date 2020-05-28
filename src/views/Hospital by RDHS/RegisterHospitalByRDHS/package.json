@@ -1,0 +1,7 @@
+{
+  "name": "RegisterHospitalByRDHS",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./RegisterHospitalByRDHS.js"
+}
+ 
