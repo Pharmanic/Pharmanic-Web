@@ -30,25 +30,67 @@ class DefaultHeader extends Component {
 
         
 
-      / <Nav className="d-md-down-none" navbar>
+    <Nav className="d-md-down-none" navbar>
+          
+     
           <NavItem className="px-3">
             <NavLink to="/dashboard" className="nav-link" >Dashboard</NavLink>
           </NavItem>
           <NavItem className="px-3">
             <Link to="/users" className="nav-link">Users</Link>
           </NavItem>
+
+          <UncontrolledDropdown nav direction="down">
+          <DropdownToggle nav>
           <NavItem className="px-3">
-            <NavLink to="#" className="nav-link"> Hospital By Rdhs</NavLink>
+          <NavLink to="#" className="nav-link">Ministry</NavLink>
           </NavItem>
+          </DropdownToggle>
+          <DropdownMenu right>
+          < Link to="#"> <DropdownItem>Vehicle</DropdownItem></ Link>
+          < Link to="#"> <DropdownItem>Drivers</DropdownItem></ Link>
+              </DropdownMenu>
+          </UncontrolledDropdown>
+
+     
+          <UncontrolledDropdown nav direction="down">
+          <DropdownToggle nav>
           <NavItem className="px-3">
-            <NavLink to="#" className="nav-link"> Rdhs Office</NavLink>
+          <NavLink to="#" className="nav-link">Rdhs</NavLink>
           </NavItem>
+          </DropdownToggle>
+          <DropdownMenu right>
+          < Link to="#"> <DropdownItem>Vehicle</DropdownItem></ Link>
+          < Link to="#"> <DropdownItem>Drivers</DropdownItem></ Link>
+              </DropdownMenu>
+          </UncontrolledDropdown>
+
+          <UncontrolledDropdown nav direction="down">
+          <DropdownToggle nav>
           <NavItem className="px-3">
-            <NavLink to="#" className="nav-link"> Direct Hospital</NavLink>
+          <NavLink to="#" className="nav-link">Hospital By Rdhs</NavLink>
           </NavItem>
+          </DropdownToggle>
+          <DropdownMenu right>
+          < Link to="/rhcstock"> <DropdownItem> Drug Stock</DropdownItem></ Link>
+          < Link to="#"> <DropdownItem>Order Request</DropdownItem></ Link>
+              </DropdownMenu>
+          </UncontrolledDropdown>
+
+          <UncontrolledDropdown nav direction="down">
+          <DropdownToggle nav>
           <NavItem className="px-3">
-            <NavLink to="#" className="nav-link">Ministry Store</NavLink>
+          <NavLink to="#" className="nav-link">Direct Hospital</NavLink>
           </NavItem>
+          </DropdownToggle>
+          <DropdownMenu right>
+          < Link to="#"> <DropdownItem> Drug Stock</DropdownItem></ Link>
+          < Link to="#"> <DropdownItem>Order Request</DropdownItem></ Link>
+              </DropdownMenu>
+          </UncontrolledDropdown>
+
+
+
         </Nav>
         <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">
@@ -60,6 +102,7 @@ class DefaultHeader extends Component {
           <NavItem className="d-md-down-none">
             <NavLink to="#" className="nav-link"><i className="icon-location-pin"></i></NavLink>
           </NavItem>
+
 
 
 
