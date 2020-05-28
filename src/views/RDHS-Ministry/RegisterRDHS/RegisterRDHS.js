@@ -25,7 +25,7 @@ import {
   Row,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-class RegisterMinistryStore extends Component {
+class RegisterRDHS extends Component {
 
   emptyItem = {
     location: '',
@@ -98,10 +98,10 @@ class RegisterMinistryStore extends Component {
           <Col xs="12" md="8">
             <Card>
               <CardHeader>
-                <strong>Ministry Store Registration</strong>
+                <strong>RDHS Registration</strong>
               </CardHeader>
               <CardBody>
-                <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="ministryStoreForm">
+                <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="RDHSForm">
                   {/*<FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Ministry Store ID</Label>
@@ -177,4 +177,4 @@ class RegisterMinistryStore extends Component {
   }
 }
 
-export default RegisterMinistryStore;
+export default RegisterRDHS;

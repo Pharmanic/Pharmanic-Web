@@ -54,7 +54,8 @@ const User = React.lazy(() => import('./views/Users/User'));
 //Ministry 
 const MinistryStoresList = React.lazy(() => import('./views/Ministry Store/MinistryStores'));
 const MinistryStoreRegister = React.lazy(() => import('./views/Ministry Store/RegisterMinistryStore'));
-
+const RDHSList = React.lazy(() => import('./views/RDHS-Ministry/RDHSList'));
+const RDHSRegister = React.lazy(() => import('./views/RDHS-Ministry/RegisterRDHS'));
 
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -121,6 +122,10 @@ const routes = [
   { path: '/ministry_stores', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
   { path: '/ministry_stores/ministry_stores_list', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
   { path: '/ministry_stores/register', exact: true, name: 'Ministry Store Registration', component: MinistryStoreRegister },
+
+  { path: '/rdhs', exact: true, name: 'Ministry Stores', component: RDHSList },
+  { path: '/rdhs/rdhs_list', exact: true, name: 'Ministry Stores', component: RDHSList },
+  { path: '/rdhs/register', exact: true, name: 'Ministry Store Registration', component: RDHSRegister },
 
 ];
 
