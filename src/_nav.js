@@ -82,6 +82,78 @@ export default {
       },
       class: ''             // optional class names space delimited list for title item ex: "text-center"
     },
+     {
+      name: 'Ministry Stores',
+      url: '/ministry_stores',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register Ministry Store',
+          url: '/ministry_stores/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'Ministry Stores',
+          url: '/ministry_stores/ministry_stores_list',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
+    {
+      name: 'RDHS',
+      url: '/rdhs',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register RDHS',
+          url: '/rdhs/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'RDHS List',
+          url: '/rdhs/rdhs_list',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
+    {
+      name: 'Hospital by RDHS',
+      url: '/hospital_by_rdhs',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register RDHS',
+          url: '/hospital_by_rdhs/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'RDHS List',
+          url: '/hospital_by_rdhs/hospital_by_rdhs_list',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
+    {
+      name: 'Direct Hospitals',
+      url: '/direct_hospitals',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register Direct Hospitals',
+          url: '/direct_hospitals/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'Direct Hospitals',
+          url: '/direct_hospitals/direct_hospitals',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
     {
       name: 'WareHouse',
       url: '/ministry/store',
