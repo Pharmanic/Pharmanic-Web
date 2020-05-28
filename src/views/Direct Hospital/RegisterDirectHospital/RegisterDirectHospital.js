@@ -25,7 +25,7 @@ import {
   Row,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-class RegisterMinistryStore extends Component {
+class RegisterDirectHospital extends Component {
 
   emptyItem = {
     location: '',
@@ -177,4 +177,4 @@ class RegisterMinistryStore extends Component {
   }
 }
 
-export default RegisterMinistryStore;
+export default RegisterDirectHospital;

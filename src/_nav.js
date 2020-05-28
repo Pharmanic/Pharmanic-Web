@@ -101,6 +101,42 @@ export default {
       ],
     },
     {
+      name: 'RDHS',
+      url: '/rdhs',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register RDHS',
+          url: '/rdhs/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'RDHS List',
+          url: '/rdhs/rdhs_list',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
+    {
+      name: 'Direc Hospitals',
+      url: '/direct_hospitals',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register Direc Hospitals',
+          url: '/direct_hospitals/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'Direc Hospitals',
+          url: '/direct_hospitals/direct_hospitals',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
+    {
       name: 'WareHouse',
       url: '/ministry/store',
       icon: 'icon-home',

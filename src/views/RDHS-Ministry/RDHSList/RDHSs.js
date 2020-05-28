@@ -10,7 +10,7 @@ import {
 
 
 
-class MinistryStores extends Component {
+class RDHSs extends Component {
   
 
   constructor(props) {
@@ -18,15 +18,15 @@ class MinistryStores extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.state = {ministrystores: [], isLoading: true}; 
+    this.state = {rdhss: [], isLoading: true}; 
   }
 
   componentDidMount() {
     this.setState({isLoading: true});
 
-    fetch('/ministrystores')
+    fetch('/rdhss')
       .then(response => response.json())
-      .then(data => this.setState({ministrystores: data, isLoading: false}));
+      .then(data => this.setState({rdhss: data, isLoading: false}));
   }
 
   toggle() {
@@ -44,17 +44,17 @@ class MinistryStores extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-    const {ministrystores, isLoading} = this.state;
+    const {rdhss, isLoading} = this.state;
 
     if (isLoading) {
       return <p>Loading...</p>;
     }
 
-    const groupList = ministrystores.map(ministrystore => {
-      return <tr key={ministrystore.m_store_id}>
-        <td style={{whiteSpace: 'nowrap'}}>{ministrystore.location}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{ministrystore.total_storage}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{ministrystore.avilable_storage}</td>
+    const groupList = rdhss.map(rdhs => {
+      return <tr key={rdhs.m_store_id}>
+        <td style={{whiteSpace: 'nowrap'}}>{rdhs.location}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{rdhs.total_storage}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{rdhs.avilable_storage}</td>
       </tr>
     });
     return (
@@ -63,7 +63,7 @@ class MinistryStores extends Component {
           <Col>
             <Card>
               <CardHeader>
-                Ministry Ware Houses
+                RDHS 
               </CardHeader>
               <CardBody>
                 
@@ -98,4 +98,4 @@ class MinistryStores extends Component {
   }
 }
 
-export default MinistryStores;
+export default RDHSs;
