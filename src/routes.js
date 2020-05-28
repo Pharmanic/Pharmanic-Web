@@ -56,6 +56,8 @@ const MinistryStoresList = React.lazy(() => import('./views/Ministry Store/Minis
 const MinistryStoreRegister = React.lazy(() => import('./views/Ministry Store/RegisterMinistryStore'));
 const RDHSList = React.lazy(() => import('./views/RDHS-Ministry/RDHSList'));
 const RDHSRegister = React.lazy(() => import('./views/RDHS-Ministry/RegisterRDHS'));
+const DirectHospitalList = React.lazy(() => import('./views/Direct Hospital/DirectHospitals'));
+const DirectHospitalRegister = React.lazy(() => import('./views/Direct Hospital/RegisterDirectHospital'));
 
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -126,6 +128,10 @@ const routes = [
   { path: '/rdhs', exact: true, name: 'Ministry Stores', component: RDHSList },
   { path: '/rdhs/rdhs_list', exact: true, name: 'Ministry Stores', component: RDHSList },
   { path: '/rdhs/register', exact: true, name: 'Ministry Store Registration', component: RDHSRegister },
+
+  { path: '/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
+  { path: '/direct_hospitals/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
+  { path: '/direct_hospitals/register', exact: true, name: 'Direct Hospital Registration', component: DirectHospitalRegister },
 
 ];
 

@@ -119,6 +119,24 @@ export default {
       ],
     },
     {
+      name: 'Direc Hospitals',
+      url: '/direct_hospitals',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register Direc Hospitals',
+          url: '/direct_hospitals/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'Direc Hospitals',
+          url: '/direct_hospitals/direct_hospitals',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
+    {
       name: 'WareHouse',
       url: '/ministry/store',
       icon: 'icon-home',
