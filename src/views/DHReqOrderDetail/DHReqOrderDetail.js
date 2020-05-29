@@ -1,4 +1,5 @@
 import React, { Component} from 'react';
+import SupplyToDHModel from '../SupplyToDHModel/SupplyToDHModel';
 import {
   Card,
   CardBody,
@@ -6,20 +7,96 @@ import {
   Col,
   Row,
   Table,
-  Button
+  Button, Modal, ModalBody, ModalFooter, ModalHeader,
+  Form,
+  FormGroup,
+  FormText,
+  FormFeedback,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButtonDropdown,
+  InputGroupText,
+  Label,
+  Badge
 } from 'reactstrap';
+
+import { } from 'reactstrap';
+
 import { Link, withRouter } from 'react-router-dom';
 
 
 class DHReqOrderDetail extends Component {
-  
+  supplyToDHModelRef=({toggleDanger}) =>{
+    this.toggleModal = toggleDanger;
+  }
+  onSupplyClick=()=>{
+    this.toggleModal();
+  }
 
+  emptyItem = {
+    request_id:{
+        id:'',
+        order_id:{
+          order_id:'',
+          hospital_reg_no:{
+            reg_no:'',
+            name:'',
+            address:'',
+            email:'',
+            telephone:'',
+            doctor_incharge:''
+          },
+          m_store_id:{
+            m_store_id:'',
+            location:''
+          },
+          date:'',
+          state:''
+        },
+        sr_no:{
+          sr_no:'',
+          name:'',
+          side_effect:'',
+          description:''
+        },
+        quantity:'',
+        can_supply_status:''
+        },
+  track_id:{
+    track_id:'',
+    vehicle_id:{
+      vehicle_no:'',
+      type:'',
+      capacity:''
+    },
+    driver_id:{
+      nic:'',
+      name:'',
+      email:'',
+      address:'',
+      telephone:''
+    },
+    starting_point:'',
+    destination:'',
+    date:''
+  }
+
+            
+    };
   constructor(props) {
     super(props);
-
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.state = {dhreqorderdetails: [], isLoading: true}; 
+    this.state = {
+      dhreqorderdetails: [], 
+      isLoading: true,
+      ministrytracks:[],
+      item:this.emptyItem,
+      shouldShowModal: false,
+      modalOrderId: -1 }; 
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -27,18 +104,64 @@ class DHReqOrderDetail extends Component {
     //     const group = await (await fetch(`/dhreqorderdetails/${this.props.match.params.id}`)).json();
     //     this.setState({item: group});
     //   }
-    this.setState({isLoading: true});
-    console.log('param',this.props.match.params.id);
+    this.setState({isLoading: true,danger: false,modal: false,});
+    this.toggleDanger = this.toggleDanger.bind(this);
+    console.log('param',this.props.match);
     fetch(`/dhreqorderdetails/${this.props.match.params.id}`)
       .then(response => response.json())
       .then(data => this.setState({dhreqorderdetails: data, isLoading: false}));
 
-    
+      fetch('/ministrytracks')
+      .then(response => response.json())
+      .then(data => this.setState({ministrytracks: data, isLoading: false}));
+  }
+
+  handleChange(event) {
+    const target = event.target;
+    const value = target.value;
+    console.log('value',value);
+    const name = target.name;
+    console.log('name',name);
+    let item = {...this.state.item};
+    if(name=='track_id'){
+      const ministrytracks=this.state.ministrytracks;
+      console.log('ministrytracks',ministrytracks);
+      const ministrytrack = ministrytracks.find(mt => mt.track_id===target.value);
+      console.log('ministrytrack',ministrytrack);
+      item[name]=ministrytrack;
+      this.setState({item});
+      console.log('item',item);
+    }else{
+      item[name] = value;
+      this.setState({item});
+      console.log('item',item);
+    } 
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault();
+    const {item} = this.state;
+    console.log('object content',item);
+    await fetch('/supplyordertodh/add', {
+      method:'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(item),
+    });
+    this.props.history.push('/ministrydamagestocks');
   }
 
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
+    });
+  }
+
+  toggleDanger() {
+    this.setState({
+      danger: !this.state.danger,
     });
   }
 
@@ -50,12 +173,25 @@ class DHReqOrderDetail extends Component {
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
+  toggleModal = (event)=>{
+    console.log(event.target.id);
+    this.setState({shouldShowModal: !this.state.shouldShowModal, modalOrderId: event.target.id})
+  }
+
   render() {
-    const {dhreqorderdetails, isLoading} = this.state;
+    const {dhreqorderdetails, isLoading,ministrytracks,item} = this.state;
     console.log('reqlist',dhreqorderdetails);
     if (isLoading) {
       return <p>Loading...</p>;
     }
+
+    const trackList = ministrytracks.map(ministrytrack => {
+      return <option 
+                key={ministrytrack.track_id} 
+                value={ministrytrack.track_id}>
+            {ministrytrack.destination}
+            </option>
+    });
 
     const groupList = dhreqorderdetails.map(dhreqorderdetail => {
       return <tr key={dhreqorderdetail.id}>
@@ -65,15 +201,19 @@ class DHReqOrderDetail extends Component {
         <td style={{whiteSpace: 'nowrap'}}>{dhreqorderdetail.order_id.m_store_id.m_store_id}</td>
         <td style={{whiteSpace: 'nowrap'}}>
               {dhreqorderdetail.can_supply_status===1?
-                'available'
-            :'notavailable'}
+                <Badge color="success">Available</Badge>
+            :<Badge color="danger">Not Available</Badge>}
         </td>
       <td style={{whiteSpace: 'nowrap'}}>
-      <Button block outline color="info">Supply Order</Button>
+      {dhreqorderdetail.can_supply_status===1?    
+      <Button id = {dhreqorderdetail.id} block outline color="info" onClick= {this.toggleModal}>Supply Orders</Button>               
+            : <Button block outline color="info" disabled>Supply Order</Button>}    
       </td>
       </tr>
     });
-
+    
+    const {shouldShowModal, modalOrderId} = this.state;
+    console.log("shouldShowModal: "+ shouldShowModal);
     return (
       <div className="animated fadeIn">
         <Row>
@@ -91,7 +231,7 @@ class DHReqOrderDetail extends Component {
                     <th>Medicine</th>
                     <th>Quantity</th>
                     <th>Ministry store ID</th>
-                    <th>Can supply status</th>
+                    <th>Status</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -103,6 +243,9 @@ class DHReqOrderDetail extends Component {
             </Card>
           </Col>
         </Row>
+        {shouldShowModal ? <SupplyToDHModel 
+          orderId = {modalOrderId}
+         toggle={this.toggleModal} shouldShowModal = {shouldShowModal}/> : null}
       </div>
     );
   }
