@@ -160,7 +160,7 @@ export default {
       ],
     },
     {
-      name: 'Direct Hospitals',
+      name: 'Direct Hospital',
       url: '/direct_hospitals',
       icon: 'icon-home',
       children: [

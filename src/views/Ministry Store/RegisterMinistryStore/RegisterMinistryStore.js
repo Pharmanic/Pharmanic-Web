@@ -28,9 +28,12 @@ import { Link, withRouter } from 'react-router-dom';
 class RegisterMinistryStore extends Component {
 
   emptyItem = {
+    name: '',
+    email: '',
+    tel_no: '',
     location: '',
-    total_storage:'',
-    available_storage:''
+    total_storage: '',
+    available_storage: ''
 
   };
 
@@ -70,8 +73,8 @@ class RegisterMinistryStore extends Component {
       },
       body: JSON.stringify(item),
     })
-    .then(res => res.json()) //returns array of data
-    ;
+      .then(res => res.json()) //returns array of data
+      ;
     this.props.history.push('/ministry_stores/ministry_stores_list');
   }
 
@@ -81,12 +84,12 @@ class RegisterMinistryStore extends Component {
 
   toggleFade() {
     this.setState((prevState) => { return { fadeIn: !prevState } });
- }
+  }
 
- resetForm = () => { 
-   this.setState({ item: this.emptyItem});
-}
- 
+  resetForm = () => {
+    this.setState({ item: this.emptyItem });
+  }
+
   render() {
     const {item} = this.state;
     const title = <h2>{'Add Group'}</h2>;
@@ -102,26 +105,47 @@ class RegisterMinistryStore extends Component {
               </CardHeader>
               <CardBody>
                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="ministryStoreForm">
-                  {/*<FormGroup row>
+                  <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Ministry Store ID</Label>
+                      <Label htmlFor="text-input">Name</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="stock_id" name="stock_id" placeholder="Stock ID" value={item.stock_id|| ''}
-                            onChange={this.handleChange} autoComplete="stock_id"/>
+                      <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={item.name || ''}
+                        onChange={this.handleChange} autoComplete="name" />
                     </Col>
-                  </FormGroup>*/}
+                  </FormGroup>
+
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">E-Mail</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="email" name="email" placeholder="E-Mail" initialValue="" value={item.email || ''}
+                        onChange={this.handleChange} autoComplete="email" />
+                    </Col>
+                  </FormGroup>
+
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Telephone No</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="tel_no" name="tel_no" placeholder="Tel_no" initialValue="" value={item.tel_no || ''}
+                        onChange={this.handleChange} autoComplete="tel_no" />
+                    </Col>
+                  </FormGroup>
+                  
                   <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Location</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="location" name="location" placeholder="Location"  initialValue="" value={item.location || ''}
+                      <Input type="text" id="location" name="location" placeholder="Location" initialValue="" value={item.location || ''}
                         onChange={this.handleChange} autoComplete="location" />
                     </Col>
                   </FormGroup>
 
-                    <FormGroup row>
+                  <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Total Storage</Label>
                     </Col>
@@ -141,7 +165,7 @@ class RegisterMinistryStore extends Component {
                     </Col>
                   </FormGroup>
 
-                  
+
                   {/*<FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Order date</Label>
