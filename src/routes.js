@@ -1,6 +1,9 @@
 import React from 'react';
 import Rdhs_Hospital_Current_Stock from './rdhsHospital/Rdhs_Hospital_Current_Stock';
-const RdhsHopitalDrugStore = React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Current_Stock'));
+
+import Rdhs_Hospital_Login from './rdhsHospital/Rdhs_Hospital_Login';
+const RdhsHopitalDrugStore= React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Current_Stock'));
+
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
 const Carousels = React.lazy(() => import('./views/Base/Carousels'));
@@ -66,6 +69,7 @@ const HospitalByRDHSRegister = React.lazy(() => import('./views/Hospital by RDHS
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/rhcstock', name: 'Rdhs_Hospital_Current_Stock', component: Rdhs_Hospital_Current_Stock },
+  { path: '/rdhoslog', name: 'Rdhs_Hospital_Current_Stock', component: Rdhs_Hospital_Login},
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/importstock', name: 'ImportStock', component: ImportStock },
   { path: '/importstockform', name: 'ImportStockForm', component: ImportStockForm },
