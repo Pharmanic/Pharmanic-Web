@@ -52,6 +52,9 @@ class MinistryStores extends Component {
 
     const groupList = ministrystores.map(ministrystore => {
       return <tr key={ministrystore.m_store_id}>
+        <td style={{whiteSpace: 'nowrap'}}>{ministrystore.name}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{ministrystore.email}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{ministrystore.tel_no}</td>
         <td style={{whiteSpace: 'nowrap'}}>{ministrystore.location}</td>
         <td style={{whiteSpace: 'nowrap'}}>{ministrystore.total_storage}</td>
         <td style={{whiteSpace: 'nowrap'}}>{ministrystore.avilable_storage}</td>
@@ -71,7 +74,10 @@ class MinistryStores extends Component {
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
                   <thead className="thead-light">
                   <tr>
-                    <th className="text-center">Location</th>
+                    <th>Name</th>
+                    <th>E-Mail</th>
+                    <th>Tel No</th>
+                    <th>Location</th>
                     <th>Total Storage</th>
                     <th>Available Storage</th>
                   

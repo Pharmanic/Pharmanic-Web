@@ -29,8 +29,8 @@ class RegisterRDHS extends Component {
 
   emptyItem = {
     location: '',
-    total_storage:'',
-    available_storage:''
+    total_storage: '',
+    available_storage: ''
 
   };
 
@@ -70,8 +70,8 @@ class RegisterRDHS extends Component {
       },
       body: JSON.stringify(item),
     })
-    .then(res => res.json()) //returns array of data
-    ;
+      .then(res => res.json()) //returns array of data
+      ;
     this.props.history.push('/ministry_stores/ministry_stores_list');
   }
 
@@ -81,12 +81,12 @@ class RegisterRDHS extends Component {
 
   toggleFade() {
     this.setState((prevState) => { return { fadeIn: !prevState } });
- }
+  }
 
- resetForm = () => { 
-   this.setState({ item: this.emptyItem});
-}
- 
+  resetForm = () => {
+    this.setState({ item: this.emptyItem });
+  }
+
   render() {
     const {item} = this.state;
     const title = <h2>{'Add Group'}</h2>;
@@ -102,26 +102,18 @@ class RegisterRDHS extends Component {
               </CardHeader>
               <CardBody>
                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="RDHSForm">
-                  {/*<FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Ministry Store ID</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input type="text" id="stock_id" name="stock_id" placeholder="Stock ID" value={item.stock_id|| ''}
-                            onChange={this.handleChange} autoComplete="stock_id"/>
-                    </Col>
-                  </FormGroup>*/}
+
                   <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Location</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="location" name="location" placeholder="Location"  initialValue="" value={item.location || ''}
+                      <Input type="text" id="location" name="location" placeholder="Location" initialValue="" value={item.location || ''}
                         onChange={this.handleChange} autoComplete="location" />
                     </Col>
                   </FormGroup>
 
-                    <FormGroup row>
+                  <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Total Storage</Label>
                     </Col>
@@ -141,7 +133,7 @@ class RegisterRDHS extends Component {
                     </Col>
                   </FormGroup>
 
-                  
+
                   {/*<FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Order date</Label>
