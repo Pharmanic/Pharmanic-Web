@@ -74,8 +74,6 @@ class DirectHospitals extends Component {
                     <th className="text-center">Location</th>
                     <th>Total Storage</th>
                     <th>Available Storage</th>
-                  
-                  
                   </tr>
                   </thead>
                   <tbody>
