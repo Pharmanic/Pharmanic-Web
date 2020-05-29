@@ -6,8 +6,12 @@ import {
   Col,
   Row,
   Table,
+  Button,
+  CardFooter,
 } from 'reactstrap';
-
+import { Link } from 'react-router-dom';
+import ImportStockForm from '../ImportStockForm/ImportStockForm';
+import Paginations from './Pagination';
 
 
 class CurrentStock extends Component {
@@ -18,7 +22,9 @@ class CurrentStock extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.state = {exportedstocks: [], isLoading: true}; 
+    this.state = {exportedstocks: [], isLoading: true,
+      currentPage:1,
+      dataPerPage:5}; 
   }
 
   componentDidMount() {
@@ -44,13 +50,18 @@ class CurrentStock extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-    const {exportedstocks, isLoading} = this.state;
+    const {exportedstocks, isLoading,currentPage,dataPerPage} = this.state;
+    const indexOfLastData=currentPage * dataPerPage;
+    const indexOfFirstData=indexOfLastData - dataPerPage;
+    const currentData=exportedstocks.slice(indexOfFirstData,indexOfLastData);
+
+    const paginate = pageNumber => this.setState({currentPage:pageNumber});
 
     if (isLoading) {
       return <p>Loading...</p>;
     }
 
-    const groupList = exportedstocks.map(exportedstock => {
+    const groupList = currentData.map(exportedstock => {
       return <tr key={exportedstock.stock_id}>
         <td style={{whiteSpace: 'nowrap'}}>{exportedstock.stock_id}</td>
         <td style={{whiteSpace: 'nowrap'}}>{exportedstock.export_date}</td>
@@ -59,20 +70,24 @@ class CurrentStock extends Component {
     });
     return (
       <div className="animated fadeIn">
+       
         <Row>
-          <Col>
+          <Col lg="5">
+          <ImportStockForm/>
+          </Col>
+          <Col lg="7">
             <Card>
               <CardHeader>
-                Imported Stocks
+              <i className="fa fa-align-justify"></i>  Imported Stocks    
               </CardHeader>
               <CardBody>                
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
                   <thead className="thead-light">
                   <tr>
-                    <th className="text-center">Stock ID</th>
+                    <th>Stock ID</th>
                     <th>Import Date</th>
-                    <th className="text-center">Order Date</th>
+                    <th>Order Date</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -80,6 +95,9 @@ class CurrentStock extends Component {
                   </tbody>
                 </Table>
               </CardBody>
+              <CardFooter>
+              <Paginations dataPerPage={dataPerPage} totalData={exportedstocks.length} paginate={paginate}/>
+              </CardFooter>
             </Card>
           </Col>
         </Row>
