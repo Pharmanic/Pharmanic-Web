@@ -78,9 +78,9 @@ class CurrentStock extends Component {
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
                   <thead className="thead-light">
                   <tr>
-                    <th className="text-center">Order ID</th>
+                    <th>Order ID</th>
                     <th>Hospital</th>
-                    <th className="text-center">Warehouse</th>
+                    <th>Warehouse</th>
                     <th>Date</th>
                     <th>Actions</th>
                   </tr>
