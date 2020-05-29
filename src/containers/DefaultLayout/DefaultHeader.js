@@ -30,7 +30,7 @@ class DefaultHeader extends Component {
 
         
 
-    <Nav className="d-md-down-none" navbar>
+    <Nav className="d-md-down-none" navbar bg="dark" variant="light">
           
      
           <NavItem className="px-3">
@@ -72,7 +72,7 @@ class DefaultHeader extends Component {
           </NavItem>
           </DropdownToggle>
           <DropdownMenu right>
-          < Link to="/rhcstock"> <DropdownItem> Drug Stock</DropdownItem></ Link>
+          < Link to="/rdhoslog"> <DropdownItem>LogIn</DropdownItem></ Link>
           < Link to="#"> <DropdownItem>Order Request</DropdownItem></ Link>
               </DropdownMenu>
           </UncontrolledDropdown>
@@ -80,11 +80,11 @@ class DefaultHeader extends Component {
           <UncontrolledDropdown nav direction="down">
           <DropdownToggle nav>
           <NavItem className="px-3">
-          <NavLink to="#" className="nav-link">Direct Hospital</NavLink>
+          <NavLink to="#" className="nav-link">  Direct Hospital</NavLink>
           </NavItem>
           </DropdownToggle>
           <DropdownMenu right>
-          < Link to="#"> <DropdownItem> Drug Stock</DropdownItem></ Link>
+          < Link to="#"> <DropdownItem > Drug Stock</DropdownItem></ Link>
           < Link to="#"> <DropdownItem>Order Request</DropdownItem></ Link>
               </DropdownMenu>
           </UncontrolledDropdown>
