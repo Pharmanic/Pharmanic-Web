@@ -25,7 +25,10 @@ import {
   Row,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-class CurrentStockForm extends Component {
+
+
+
+class ImportStockForm extends Component {
 
     emptyItem = {
         stock_id:'',
@@ -42,7 +45,7 @@ class CurrentStockForm extends Component {
       item:this.emptyItem,
       collapse: true,
       fadeIn: true,
-      timeout: 300
+      timeout: 300,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -52,7 +55,7 @@ class CurrentStockForm extends Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    let item = {...this.state.item};
+    let item = {...this.state.item};  
     item[name] = value;
     this.setState({item});
   }
@@ -88,10 +91,10 @@ class CurrentStockForm extends Component {
       <div className="animated fadeIn">
         
         <Row>
-          <Col xs="12" md="6">
+          <Col>
             <Card>
               <CardHeader>
-                <strong>Basic Form</strong> Elements
+                Add an Import Stock
               </CardHeader>
               <CardBody>
                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal">           
@@ -101,7 +104,7 @@ class CurrentStockForm extends Component {
                     </Col>
                     <Col xs="12" md="9">
                       <Input type="text" id="stock_id" name="stock_id" placeholder="Stock ID" value={item.stock_id|| ''}
-                            onChange={this.handleChange} autoComplete="stock_id"/>
+                            onChange={this.handleChange} autoComplete="stock_id" />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -123,14 +126,12 @@ class CurrentStockForm extends Component {
                     </Col>
                   </FormGroup>
                   <FormGroup>
-                    <Button color="primary" type="submit">Save</Button>{' '}
-                    <Button color="secondary" tag={Link} to="/directhospitals">Cancel</Button>
+                    <Button size="sm" color="primary" type="submit"> <i className="fa fa-dot-circle-o"></i>Save</Button>{' '}
+                    <Button size="sm" color="danger"><i className="fa fa-ban"></i>Cancel</Button>
                    </FormGroup>
                 </Form>
               </CardBody>
               <CardFooter>
-                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
               </CardFooter>
             </Card>           
           </Col>
@@ -140,4 +141,4 @@ class CurrentStockForm extends Component {
   }
 }
 
-export default CurrentStockForm;
+export default ImportStockForm;
