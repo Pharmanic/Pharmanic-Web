@@ -25,6 +25,7 @@ import {
   Row,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
+
 class CurrentStockForm extends Component {
 
     emptyItem = {
@@ -83,7 +84,7 @@ class CurrentStockForm extends Component {
       medicines: [],
       exportedstocks:[],
       medicine:this.emptyMedicine,
-      store:this.emptyStore
+      store:this.emptyStore,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -160,7 +161,16 @@ class CurrentStockForm extends Component {
       },
       body: JSON.stringify(item),
     });
-    this.props.history.push('/ministrycurrentstocks');
+    this.setState({
+      item:this.emptyItem
+    });
+   // this.props.history.push('/currentstock');
+  }
+
+  reset(){
+    this.setState({
+      item:this.emptyItem
+    });
   }
 
   toggle() {
@@ -204,7 +214,7 @@ class CurrentStockForm extends Component {
     return (
       <div className="animated fadeIn">        
         <Row>
-          <Col xs="12" md="6">
+          <Col>
             <Card>
               <CardHeader>
                 <strong>Current Stock</strong> Form
@@ -216,11 +226,10 @@ class CurrentStockForm extends Component {
                       <Label htmlFor="select">Imported ID</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      
-                      <select name="stock_id" id="stock_id" value={item.stock_id|| ''} onChange={this.handleChange}>
+                      <Input type="select" name="stock_id" id="stock_id" value={item.stock_id.stock_id|| ''} onChange={this.handleChange}>
                       <option>Select a stock</option>
                       {exportList}  
-                      </select>
+                      </Input>
                     </Col>
                   </FormGroup>
                 <FormGroup row>
@@ -228,10 +237,10 @@ class CurrentStockForm extends Component {
                       <Label htmlFor="select">Ministry Store</Label>
                     </Col>
                     <Col xs="12" md="9">                  
-                      <select name="m_store_id" id="stock_id" value={item.m_store_id|| ''} onChange={this.handleChange}>
+                      <Input type="select" name="m_store_id" id="stock_id" value={item.m_store_id.m_store_id|| ''} onChange={this.handleChange}>
                       <option>Select a store</option>
                       {groupList} 
-                      </select>
+                      </Input>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -239,10 +248,10 @@ class CurrentStockForm extends Component {
                       <Label htmlFor="select">Medicine</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <select name="sr_no" id="sr_no" value={item.sr_no|| ''} onChange={this.handleChange}>
+                      <Input type="select" name="sr_no" id="sr_no" value={item.sr_no.sr_no|| ''} onChange={this.handleChange}>
                       <option>Select a medicine</option>
                       {medList} 
-                      </select>
+                      </Input>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -264,14 +273,12 @@ class CurrentStockForm extends Component {
                     </Col>
                   </FormGroup>
                   <FormGroup>
-                    <Button color="primary" type="submit">Save</Button>{' '}
-                    <Button color="secondary" tag={Link} to="/ministrycurrentstocks">Cancel</Button>
+                    <Button size="sm" color="primary" type="submit"><i className="fa fa-dot-circle-o"></i>Submit</Button>{' '}
+                    <Button size="sm" color="danger"><i className="fa fa-ban"></i>Reset</Button>
                    </FormGroup>
                 </Form>
               </CardBody>
               <CardFooter>
-                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
               </CardFooter>
             </Card>           
           </Col>

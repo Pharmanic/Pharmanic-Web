@@ -3,7 +3,7 @@ import Rdhs_Hospital_Current_Stock from './rdhsHospital/Rdhs_Hospital_Current_St
 
 import Rdhs_Hospital_Login from './rdhsHospital/Rdhs_Hospital_Login';
 const RdhsHopitalDrugStore= React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Current_Stock'));
-
+const RdhsHospitalExpireDrug = React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Expiration'));
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
 const Carousels = React.lazy(() => import('./views/Base/Carousels'));
@@ -37,11 +37,14 @@ const DirectHospital = React.lazy(() => import('./views/DirectHospital'));
 const DirectHospitalForm = React.lazy(() => import('./views/DirectHospitalForm'));
 const DirectHospitalReqOrder = React.lazy(() => import('./views/DirectHospitalReqOrder'));
 const DHReqOrderDetail = React.lazy(() => import('./views/DHReqOrderDetail'));
+const SupplyToDHModel = React.lazy(() => import('./views/SupplyToDHModel'));
 const Medicine = React.lazy(() => import('./views/Medicine'));
 const Driver = React.lazy(() => import('./views/Driver'));
 const MinistryStore = React.lazy(() => import('./views/MinistryStore'));
 const Vehicle = React.lazy(() => import('./views/Vehicle'));
 const Rdhs = React.lazy(() => import('./views/Rdhs'));
+const RdhsReqOrder = React.lazy(() => import('./views/RdhsReqOrder'));
+const RdhsReqOrderDetail = React.lazy(() => import('./views/RdhsReqOrderDetail'));
 const CoreUIIcons = React.lazy(() => import('./views/Icons/CoreUIIcons'));
 const Flags = React.lazy(() => import('./views/Icons/Flags'));
 const FontAwesome = React.lazy(() => import('./views/Icons/FontAwesome'));
@@ -69,6 +72,7 @@ const HospitalByRDHSRegister = React.lazy(() => import('./views/Hospital by RDHS
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/rhcstock', name: 'Rdhs_Hospital_Current_Stock', component: Rdhs_Hospital_Current_Stock },
+  { path: '/rhexpire', name: 'Rdhs_Hospital_Expiration', component: RdhsHospitalExpireDrug },
   { path: '/rdhoslog', name: 'Rdhs_Hospital_Current_Stock', component: Rdhs_Hospital_Login},
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/importstock', name: 'ImportStock', component: ImportStock },
@@ -81,11 +85,14 @@ const routes = [
   { path: '/ministry/directhospitalform', name: 'DirectHospitalForm', component: DirectHospitalForm },
   { path: '/ministry/directhospitalreqorder', name: 'DirectHospitalReqOrder', component: DirectHospitalReqOrder },
   { path: '/dhreqorderdetail/:id', name: 'DHReqOrderDetail', component: DHReqOrderDetail },
+  { path: '/supplytodhmodel/:id', name: 'SupplyToDHModel', component: SupplyToDHModel},
   { path: '/ministry/medicine', name: 'Medicine', component: Medicine },
   { path: '/ministry/driver', name: 'Driver', component: Driver },
   { path: '/ministry/store', name: 'MinistryStore', component: MinistryStore },
   { path: '/ministry/vehicle', name: 'Vehicle', component: Vehicle },
   { path: '/ministry/rdhs', name: 'Rdhs', component: Rdhs },
+  { path: '/ministry/rdhsreqorder', name: 'RdhsReqOrder', component: RdhsReqOrder},
+  { path: '/rdhsreqorderdetail/:id', name: 'RdhsReqOrderDetail', component: RdhsReqOrderDetail },
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
   { path: '/theme/typography', name: 'Typography', component: Typography },

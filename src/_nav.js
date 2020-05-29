@@ -10,68 +10,91 @@ export default {
       },
     },
     {
-      name: 'ImportStock',
-      url: '/importstock',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
+      title: true,
+      name: 'Ministry',
+      wrapper: {            // optional wrapper object
+        element: '',        // required valid HTML5 element tag
+        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
       },
+      class: ''             // optional class names space delimited list for title item ex: "text-center"
     },
     {
-      name: 'ImportStockForm',
-      url: '/importstockform',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
+      name: 'WareHouse',
+      url: '/ministry/store',
+      icon: 'icon-home',
     },
     {
-      name: 'CurrentStock',
-      url: '/currentstock',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
+      name: 'Rdhs',
+      url: '/ministry/rdhs',
+      icon: 'icon-home',
     },
     {
-      name: 'CurrentStockForm',
-      url: '/currentstockForm',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
+      name: 'DirectHospital',
+      url: '/ministry/directhospital',
+      icon: 'icon-home',
     },
     {
-      name: 'DamageStock',
-      url: '/damagestock',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
+      name: 'Medicine',
+      url: '/ministry/medicine',
+      icon: 'icon-drop',
     },
     {
-      name: 'DamageStockForm',
-      url: '/damagestockForm',
+      name: 'Vehicle',
+      url: '/ministry/vehicle',
       icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
     },
     {
-      name: 'DirectHospitalReqOrder',
+      name: 'Driver',
+      url: '/ministry/driver',
+      icon: 'icon-user',
+    },
+    {
+      title: true,
+      name: 'Ministry Store',
+      wrapper: {            // optional wrapper object
+        element: '',        // required valid HTML5 element tag
+        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+      },
+      class: ''             // optional class names space delimited list for title item ex: "text-center"
+    },
+    {
+ 
+          name: 'Imported Stocks',
+          url: '/importstock',
+          icon: 'icon-layers',
+
+    },
+    {
+          name: 'Current Stocks',
+          url: '/currentstock',
+          icon: 'icon-layers',
+    },
+    {
+          name: 'Returned Stocks',
+          url: '/damagestock',
+          icon: 'icon-layers',
+        
+        
+      
+    },
+    {
+      title: true,
+      name: 'Order Requests',
+      wrapper: {            // optional wrapper object
+        element: '',        // required valid HTML5 element tag
+        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+      },
+      class: ''             // optional class names space delimited list for title item ex: "text-center"
+    },
+    {
+      name: 'LM Hospital',
       url: '/ministry/directhospitalreqorder',
-      icon: 'icon-home',
+      icon: 'icon-bell',
     },
     {
-      name: 'DirectHospitalReqOrderDetail',
-      url: '/directhospitalreqorderdetail',
-      icon: 'icon-home',
+      name: 'RDHS',
+      url: '/ministry/rdhsreqorder',
+      icon: 'icon-bell',
     },
     {
       title: true,

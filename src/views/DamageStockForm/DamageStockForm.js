@@ -32,6 +32,7 @@ class CurrentStockForm extends Component {
         quantity:'',
         reason:'',
         batch_id:{
+          batch_id:'',
           expire_date: '',
           name: '',
           available_quantity: '',
@@ -87,7 +88,6 @@ class CurrentStockForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
   componentDidMount() {
     this.setState({isLoading: true});
     fetch('/ministrystores')
@@ -97,6 +97,10 @@ class CurrentStockForm extends Component {
       fetch('/medicines')
       .then(response => response.json())
       .then(data => this.setState({medicines: data, isLoading: false}));
+
+      fetch('/ministrycurrentstocks')
+      .then(response => response.json())
+      .then(data => this.setState({ministrycurrentstocks: data, isLoading: false}));
 
   }
 
@@ -147,7 +151,7 @@ class CurrentStockForm extends Component {
       },
       body: JSON.stringify(item),
     });
-    this.props.history.push('/ministrydamagestocks');
+    //this.props.history.push('/ministrydamagestocks');
   }
 
   toggle() {
@@ -159,24 +163,9 @@ class CurrentStockForm extends Component {
   }
 
   render() {
-    const {item,ministrystores,isLoading,medicines,ministrycurrentstocks} = this.state;
+    const {item,ministrycurrentstocks} = this.state;
     const title = <h2>{'Add Group'}</h2>;
-    
-    const groupList = ministrystores.map(ministrystore => {
-      return <option 
-                key={ministrystore.m_store_id} 
-                value={ministrystore.m_store_id}>
-            {ministrystore.location}
-            </option>
-    });
-
-    const medList = medicines.map(medicine => {
-      return <option 
-                key={medicine.sr_no} 
-                value={medicine.sr_no}>
-            {medicine.name}
-            </option>
-    });
+   
     const batchList = ministrycurrentstocks.map(ministrycurrentstock => {
       return <option 
                 key={ministrycurrentstock.batch_id} 
@@ -188,7 +177,7 @@ class CurrentStockForm extends Component {
     return (
       <div className="animated fadeIn">        
         <Row>
-          <Col xs="12" md="6">
+          <Col>
             <Card>
               <CardHeader>
                 <strong>Damage Drug</strong> Form
@@ -200,9 +189,11 @@ class CurrentStockForm extends Component {
                       <Label htmlFor="select">Batch ID</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="select" name="batch_id" id="batch_id"  value={item.batch_id|| ''} onChange={this.handleChange} >
+                      <Input type="select" name="batch_id" id="batch_id"  value={item.batch_id.batch_id|| ''} onChange={this.handleChange} >
+                            <option>Select a batch</option>
                             {batchList}                                              
                       </Input>
+                     
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -233,14 +224,12 @@ class CurrentStockForm extends Component {
                     </Col>
                   </FormGroup>
                   <FormGroup>
-                    <Button color="primary" type="submit">Save</Button>{' '}
-                    <Button color="secondary" tag={Link} to="/ministrycurrentstocks">Cancel</Button>
+                    <Button size="sm" color="primary" type="submit"><i className="fa fa-dot-circle-o"></i>Save</Button>{' '}
+                    <Button size="sm" color="danger" >Cancel</Button>
                    </FormGroup>
                 </Form>
               </CardBody>
               <CardFooter>
-                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
               </CardFooter>
             </Card>           
           </Col>

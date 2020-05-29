@@ -6,7 +6,14 @@ import {
   Col,
   Row,
   Table,
+  InputGroup,
+  InputGroupAddon,
+  Button,
+  Input,
+  CardFooter
 } from 'reactstrap';
+import Paginations from './Pagination';
+
 
 
 
@@ -18,7 +25,13 @@ class CurrentStock extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.state = {medicines: [], isLoading: true}; 
+    this.state = {medicines: [], isLoading: true,filter:"",
+    currentPage:1,
+    dataPerPage:5,}; 
+  }
+
+  handleChange = event =>{
+    this.setState({filter:event.target.value});
   }
 
   componentDidMount() {
@@ -44,13 +57,26 @@ class CurrentStock extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-    const {medicines, isLoading} = this.state;
+    const {medicines, isLoading,filter,currentPage,dataPerPage} = this.state;
+    const lowercasedFilter = filter.toLowerCase();
+    const filteredData = medicines.filter(item => {
+      return Object.keys(item).some(key =>
+        item[key].toLowerCase().includes(lowercasedFilter)
+        );
+    })
+
+
+    const indexOfLastData=currentPage * dataPerPage;
+    const indexOfFirstData=indexOfLastData - dataPerPage;
+    const currentData=filteredData.slice(indexOfFirstData,indexOfLastData);
+
+    const paginate = pageNumber => this.setState({currentPage:pageNumber});
 
     if (isLoading) {
       return <p>Loading...</p>;
     }
 
-    const groupList = medicines.map(medicine => {
+    const groupList = filteredData.map(medicine => {
       return <tr key={medicine.sr_no}>
         <td style={{whiteSpace: 'nowrap'}}>{medicine.sr_no}</td>
         <td style={{whiteSpace: 'nowrap'}}>{medicine.name}</td>
@@ -62,6 +88,15 @@ class CurrentStock extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
+          <Col lg="5" >
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">
+              <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
+            </InputGroupAddon>
+            <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search a Medicine" value={filter} onChange={this.handleChange}/>
+          </InputGroup> 
+          <br></br>
+          </Col>
             <Card>
               <CardHeader>
                 Medicines
@@ -72,11 +107,11 @@ class CurrentStock extends Component {
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
                   <thead className="thead-light">
                   <tr>
-                    <th className="text-center">SR No</th>
+                    <th>SR No</th>
                     <th>Name</th>
-                    <th className="text-center">Side Effects</th>
+                    <th>Side Effects</th>
                     <th>Description</th>
-                  
+                 
                   </tr>
                   </thead>
                   <tbody>
@@ -84,6 +119,9 @@ class CurrentStock extends Component {
                   </tbody>
                 </Table>
               </CardBody>
+              <CardFooter>
+              <Paginations dataPerPage={dataPerPage} totalData={filteredData.length} paginate={paginate}/>
+              </CardFooter>
             </Card>
           </Col>
         </Row>

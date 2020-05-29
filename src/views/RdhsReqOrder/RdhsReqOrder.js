@@ -1,4 +1,5 @@
-import React, { Component} from 'react';
+
+import React, { Component } from 'react';
 import {
   Card,
   CardBody,
@@ -6,11 +7,11 @@ import {
   Col,
   Row,
   Table,
+  Button
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
-
-
-class DirectHospitals extends Component {
+class CurrentStock extends Component {
   
 
   constructor(props) {
@@ -18,15 +19,15 @@ class DirectHospitals extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.state = {directHospitals: [], isLoading: true}; 
+    this.state = {rdhsrequestorders: [], isLoading: true}; 
   }
 
   componentDidMount() {
     this.setState({isLoading: true});
 
-    fetch('/directHospitals')
+    fetch('/rdhsrequestorders')
       .then(response => response.json())
-      .then(data => this.setState({directHospitals: data, isLoading: false}));
+      .then(data => this.setState({rdhsrequestorders: data, isLoading: false}));
   }
 
   toggle() {
@@ -40,30 +41,36 @@ class DirectHospitals extends Component {
       radioSelected: radioSelected,
     });
   }
-
+ 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-    const {directHospitals, isLoading} = this.state;
+    const {rdhsrequestorders, isLoading} = this.state;
 
     if (isLoading) {
       return <p>Loading...</p>;
     }
+    
 
-    const groupList = directHospitals.map(directHospital => {
-      return <tr key={directHospital.m_store_id}>
-        <td style={{whiteSpace: 'nowrap'}}>{directHospital.location}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{directHospital.total_storage}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{directHospital.avilable_storage}</td>
+    const groupList = rdhsrequestorders.map(rdhsrequestorder=> {
+      return <tr key={rdhsrequestorder.order_id} >
+        <td style={{whiteSpace: 'nowrap'}}>{rdhsrequestorder.order_id}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{rdhsrequestorder.rdhs_reg_no.name}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{rdhsrequestorder.m_store_id.location}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{rdhsrequestorder.date}</td>
+        <td>  <Button block outline color="info"tag={Link} to={"/rdhsreqorderdetail/"+rdhsrequestorder.order_id} >More Info</Button>  </td>
       </tr>
     });
+
+  
+
     return (
       <div className="animated fadeIn">
         <Row>
           <Col>
             <Card>
               <CardHeader>
-                Ministry Ware Houses
+                Direct Hospitals
               </CardHeader>
               <CardBody>
                 
@@ -71,9 +78,11 @@ class DirectHospitals extends Component {
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
                   <thead className="thead-light">
                   <tr>
-                    <th className="text-center">Location</th>
-                    <th>Total Storage</th>
-                    <th>Available Storage</th>
+                    <th>Order ID</th>
+                    <th>Hospital</th>
+                    <th>Warehouse</th>
+                    <th>Date</th>
+                    <th>Actions</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -96,4 +105,4 @@ class DirectHospitals extends Component {
   }
 }
 
-export default DirectHospitals;
+export default CurrentStock;

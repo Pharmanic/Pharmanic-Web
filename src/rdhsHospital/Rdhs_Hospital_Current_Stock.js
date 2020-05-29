@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Container,Input,Button,Label,Form,FormGroup,Table} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
  class Rdhs_Hospital_Current_Stock extends Component {
     constructor(props)
@@ -21,7 +22,7 @@ import {Container,Input,Button,Label,Form,FormGroup,Table} from 'reactstrap';
       this.state.id=localStorage.getItem('reg_no');
       alert(this.state.id+"Hospital id");
       this.state.url='/api/rhstockreg/'+this.state.id;
-      alert(this.state.url);
+     // alert(this.state.url);
 
     }
     
@@ -29,10 +30,7 @@ import {Container,Input,Button,Label,Form,FormGroup,Table} from 'reactstrap';
                 const response= await fetch(this.state.url);
                 const body=await response.json();
                 this.setState({Drugs:body, isLoading:false});
-                alert(this.state.id);
-
-              
-        
+                //alert(this.state.id);
             }
 
       
@@ -60,6 +58,7 @@ import {Container,Input,Button,Label,Form,FormGroup,Table} from 'reactstrap';
 
       return (
       <form>
+        <Link to='/rhexpire'><Button>Sort By Expire Date</Button></Link>
       <Table className="mt-4">
                     <thead>
                         <tr>
@@ -75,9 +74,6 @@ import {Container,Input,Button,Label,Form,FormGroup,Table} from 'reactstrap';
                         {drugRow}
                     </tbody>
                 </Table>
-
-
-
       </form>
 
 

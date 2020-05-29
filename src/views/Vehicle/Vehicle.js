@@ -6,9 +6,13 @@ import {
   Col,
   Row,
   Table,
+  InputGroup,
+  InputGroupAddon,
+  Input,
+  Button,
+  CardFooter
 } from 'reactstrap';
-
-
+import Paginations from './Pagination';
 
 class CurrentStock extends Component {
   
@@ -18,8 +22,12 @@ class CurrentStock extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.state = {ministryvehicles: [], isLoading: true}; 
+    this.state = {ministryvehicles: [], isLoading: true,search:'',
+    currentPage:1,
+    dataPerPage:5,}; 
   }
+
+
 
   componentDidMount() {
     this.setState({isLoading: true});
@@ -27,6 +35,10 @@ class CurrentStock extends Component {
     fetch('/ministryvehicles')
       .then(response => response.json())
       .then(data => this.setState({ministryvehicles: data, isLoading: false}));
+  }
+
+  updateSearch(event){
+    this.setState({search:event.target.value.substr(0,20)});
   }
 
   toggle() {
@@ -44,13 +56,26 @@ class CurrentStock extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-    const {ministryvehicles, isLoading} = this.state;
+    const {ministryvehicles, isLoading,search,currentPage,dataPerPage} = this.state;
+    
+    let filteredData=ministryvehicles.filter(
+      (ministryvehicle)=>{
+        return ministryvehicle.vehicle_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+              //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
+      }
+    );
+    
+    const indexOfLastData=currentPage * dataPerPage;
+    const indexOfFirstData=indexOfLastData - dataPerPage;
+    const currentData=filteredData.slice(indexOfFirstData,indexOfLastData);
+
+    const paginate = pageNumber => this.setState({currentPage:pageNumber});
 
     if (isLoading) {
       return <p>Loading...</p>;
     }
 
-    const groupList = ministryvehicles.map(ministryvehicle => {
+    const groupList = currentData.map(ministryvehicle => {
       return <tr key={ministryvehicle.vehicle_no}>
         <td style={{whiteSpace: 'nowrap'}}>{ministryvehicle.vehicle_no}</td>
         <td style={{whiteSpace: 'nowrap'}}>{ministryvehicle.type}</td>
@@ -61,6 +86,16 @@ class CurrentStock extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
+          <Col lg="5" >
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">
+              <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
+            </InputGroupAddon>
+            <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search by Vehicle Number" value={this.state.search}
+                    onChange={this.updateSearch.bind(this)}/>
+          </InputGroup> 
+          <br></br>
+          </Col>
             <Card>
               <CardHeader>
                 Ministry Vehicles
@@ -71,9 +106,9 @@ class CurrentStock extends Component {
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
                   <thead className="thead-light">
                   <tr>
-                    <th className="text-center">Vehicle Number</th>
+                    <th>Vehicle Number</th>
                     <th>Type</th>
-                    <th className="text-center">Capacity (T)</th>                  
+                    <th>Capacity (T)</th>                  
                   </tr>
                   </thead>
                   <tbody>
@@ -81,6 +116,9 @@ class CurrentStock extends Component {
                   </tbody>
                 </Table>
               </CardBody>
+              <CardFooter>
+              <Paginations dataPerPage={dataPerPage} totalData={filteredData.length} paginate={paginate}/>
+              </CardFooter>
             </Card>
           </Col>
         </Row>   

@@ -6,7 +6,13 @@ import {
   Col,
   Row,
   Table,
+  Input,
+  InputGroupAddon,
+  InputGroup,
+  Button,
+  CardFooter
 } from 'reactstrap';
+import Paginations from './Pagination';
 
 class CurrentStock extends Component {
   
@@ -16,7 +22,13 @@ class CurrentStock extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.state = {ministrydrivers: [], isLoading: true}; 
+    this.state = {ministrydrivers: [], isLoading: true,filter:"",
+    currentPage:1,
+    dataPerPage:5,}; 
+  }
+
+  handleChange = event =>{
+    this.setState({filter:event.target.value});
   }
 
   componentDidMount() {
@@ -42,13 +54,25 @@ class CurrentStock extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-    const {ministrydrivers, isLoading} = this.state;
+    const {ministrydrivers, isLoading,filter,dataPerPage,currentPage} = this.state;
+    const lowercasedFilter = filter.toLowerCase();
+    const filteredData = ministrydrivers.filter(item => {
+      return Object.keys(item).some(key =>
+        item[key].toLowerCase().includes(lowercasedFilter)
+        );
+    })
+    const indexOfLastData=currentPage * dataPerPage;
+    const indexOfFirstData=indexOfLastData - dataPerPage;
+    const currentData=filteredData.slice(indexOfFirstData,indexOfLastData);
+
+    const paginate = pageNumber => this.setState({currentPage:pageNumber});
+
 
     if (isLoading) {
       return <p>Loading...</p>;
     }
 
-    const groupList = ministrydrivers.map(ministrydriver => {
+    const groupList = currentData.map(ministrydriver => {
       return <tr key={ministrydriver.nic}>
         <td style={{whiteSpace: 'nowrap'}}>{ministrydriver.nic}</td>
         <td style={{whiteSpace: 'nowrap'}}>{ministrydriver.name}</td>
@@ -61,6 +85,15 @@ class CurrentStock extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
+          <Col lg="5" >
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">
+              <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
+            </InputGroupAddon>
+            <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search a Driver" value={filter} onChange={this.handleChange}/>
+          </InputGroup> 
+          <br></br>
+          </Col>
             <Card>
               <CardHeader>
                 Ministry Drivers
@@ -71,11 +104,11 @@ class CurrentStock extends Component {
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
                   <thead className="thead-light">
                   <tr>
-                    <th className="text-center">NIC</th>
+                    <th>NIC</th>
                     <th>Name</th>
-                    <th className="text-center">Email</th>
+                    <th>Email</th>
                     <th>Address</th>
-                    <th className="text-center">Telephone</th>
+                    <th>Telephone</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -83,16 +116,13 @@ class CurrentStock extends Component {
                   </tbody>
                 </Table>
               </CardBody>
+              <CardFooter>
+              <Paginations dataPerPage={dataPerPage} totalData={filteredData.length} paginate={paginate}/>
+              </CardFooter>
             </Card>
           </Col>
         </Row>
 
-        
-       
-         
-        
-     
-   
       </div>
     );
   }
