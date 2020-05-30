@@ -10,7 +10,7 @@ class Rdhs_Hospital_Expiration extends Component {
             isLoading:false
          }
          this.state.value=localStorage.getItem('reg_no');
-         alert(this.state.value+'expire');
+        // alert(this.state.value+'expire');
     }
 
     

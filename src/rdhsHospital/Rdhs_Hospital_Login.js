@@ -29,6 +29,7 @@ class Rdhs_Hospital_Login extends Component {
         localStorage.setItem('reg_no',this.state.value);
         alert(localStorage.getItem('reg_no'));
   //push("/rhcstock");
+        window.location.replace('/#/rhcstock');
        
       }
       
