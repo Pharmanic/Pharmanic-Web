@@ -62,7 +62,7 @@ import { Link } from 'react-router-dom';
 
       return (
       <form>
-        <Link to='/rhexpire'><Button>Sort By Expire Date</Button></Link>
+        <Link to='/rhexpire'><Button color="primary">Sort By Expire Date</Button></Link>
       <Table className="mt-4">
                     <thead>
                         <tr>

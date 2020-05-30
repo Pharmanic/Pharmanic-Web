@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Container,Form,FormGroup,Table, Button} from 'reactstrap';
 
+import { Link } from 'react-router-dom';
+
 class Rdhs_Hospital_Expiration extends Component {
     constructor(props) {
         super(props);
@@ -12,6 +14,15 @@ class Rdhs_Hospital_Expiration extends Component {
          this.state.value=localStorage.getItem('reg_no');
         // alert(this.state.value+'expire');
     }
+    async setReturn(batchId,sr_no,name,quantity,expiration){
+        localStorage.setItem('batch_id',batchId);
+        localStorage.setItem('sr_no',sr_no);
+        localStorage.setItem('name',name);
+        localStorage.setItem('quantity',quantity);
+        localStorage.setItem('expire',expiration);
+     //   alert(localStorage.getItem('expire'));
+
+    }
 
     
     async componentDidMount(){
@@ -21,6 +32,7 @@ class Rdhs_Hospital_Expiration extends Component {
         //alert(this.state.id);
     }
 
+  
     render() { 
 
         
@@ -34,8 +46,8 @@ class Rdhs_Hospital_Expiration extends Component {
                <td>{drug.medicine.sr_no}</td>
                <td>{drug.medicine.name}</td>
                <td>{drug.quantity}</td>
-               <td>{drug.expiredate}</td>
-               <td><Button>Add to Return Cart</Button></td>
+               <td><b>{drug.expiredate}</b></td>
+               <td><Button color="primary" onClick={()=>this.setReturn(drug.batchId,drug.sr_no,drug.medicine.name,drug.quantity,drug.expiredate)}>Add to Return Cart</Button></td>
               
                
            </tr>
