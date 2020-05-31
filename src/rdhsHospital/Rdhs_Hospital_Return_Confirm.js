@@ -7,33 +7,88 @@ import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
 import { Link } from 'react-router-dom';
 
 class Rdhs_Hospital_Return_Confirm extends Component {
+
+  emptyItem = {
+    returned_id:'',
+    date:new Date(),
+    quantity:'',
+    state:0,
+    rdhs_hospital_current_stock:{batch_id:localStorage.getItem('batch_id')},
+   // batch_id:localStorage.getItem.toString('batch_id'),
+    track_id:''
+  };
     constructor(props) {
         super(props);
+  
         this.state = { 
             batchId:'',
             sr_no:'',
             name:'',
             qty:'',
-            expiredate:''
+            expiredate:'',
+            disabled:true,
+            value:'',
+            item:this.emptyItem
          }
+         this.state.item['batch_id']=localStorage.getItem('batch_id');
+         this.emptyItem['batch_id']=localStorage.getItem('batch_id');
          this.state.batchId=localStorage.getItem('batch_id');
          this.state.sr_no=localStorage.getItem('sr_no');
          this.state.name=localStorage.getItem('name');
          this.state.qty=localStorage.getItem('quantity');
          this.state.expiredate=localStorage.getItem('expire');
+       //  this.state.item['batch_id']=localStorage.getItem('batch_id');
+         this.handleChange = this.handleChange.bind(this);
+         this.handleSubmit = this.handleSubmit.bind(this);
         
-  //       document.getElementById('available_qty').value="aggs";
-
+       
+   
     }
-    render() { 
-        //document.getElementById('sr_no').value=this.state.sr_no;
+
+    handleChange(event) {
+      const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    let item = {...this.state.item};
+    item[name] = value;
+    let update={
+      date:new Date(),
+      quantity:value,
+      state:0,
+      reg_no:localStorage.getItem('reg_no'),
+      batch_id:localStorage.getItem.toString('batch_id'),
+      track_id:''
+    }
+    
+    this.setState({item:update});
+    }
+
+    async handleSubmit(event) {
+      
+      this.state.item['reg_no'] = this.state.batchId;
+      
+      event.preventDefault();
+      const {item} = this.state;
+  
+      await fetch('/api/rhreturndrugs', {
+        method:'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item),
+      });
+     // this.props.history.push('/exportedstocks');
+    }
+     
+    render() {    
+     // const {item} = this.state.item;
+      this.state.item['batch_id']=localStorage.getItem('batch_id');
+
         return ( 
-            //document.getElementById('sr_no').value=''+this.state.sr_no;
-           // document.getElementById('available_qty').value="aggs"
-            <div className="animated fadeIn">
-                
         
-            <Row>
+            <div className="animated fadeIn">
+         <Row>
               <Col xs="15" md="8">
                 <Card>
                   <CardHeader>
@@ -46,13 +101,8 @@ class Rdhs_Hospital_Return_Confirm extends Component {
                           <Label htmlFor="text-input">Batch ID</Label>
                         </Col>
                         <Col xs="12" md="9">
-                          <Input type="text" id="batch_id" name="batch_id" value={this.state.batchId} disabled="true"/>
+                          <Input type="text" id="batch_id" name="batch_id" value={this.state.batchId}  readonly="true"/>
                         </Col>
-                       
-                          
-                            
-                          
-                        
                       </FormGroup>
                       <FormGroup row>
                         <Col md="3">
@@ -92,7 +142,7 @@ class Rdhs_Hospital_Return_Confirm extends Component {
                           <Label htmlFor="text-input">Enter Return Quantity</Label>
                         </Col>
                         <Col xs="12" md="9">
-                          <Input type="text" id="r_quantity" name="r_quantity" placeholder="Enter Return Quantity" />
+                          <Input type="text" id="quantity" name="quantity" placeholder="Enter Return Quantity" onChange={this.handleChange}/>
                           
                         </Col>
                         
