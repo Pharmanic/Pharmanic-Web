@@ -28,9 +28,10 @@ import { Link, withRouter } from 'react-router-dom';
 class RegisterRDHS extends Component {
 
   emptyItem = {
-    location: '',
-    total_storage: '',
-    available_storage: ''
+    name: '',
+    address: '',
+    email: '',
+    telephone: ''
 
   };
 
@@ -105,31 +106,41 @@ class RegisterRDHS extends Component {
 
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Location</Label>
+                      <Label htmlFor="text-input">Name</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="location" name="location" placeholder="Location" initialValue="" value={item.location || ''}
-                        onChange={this.handleChange} autoComplete="location" />
+                      <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={item.name || ''}
+                        onChange={this.handleChange} autoComplete="name" />
                     </Col>
                   </FormGroup>
 
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Total Storage</Label>
+                      <Label htmlFor="text-input">Address</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="total_storage" name="total_storage" placeholder="Total Storage" initialValue="" value={item.total_storage || ''}
-                        onChange={this.handleChange} autoComplete="total_storage" />
+                      <Input type="text" id="address" name="address" placeholder="Address" initialValue="" value={item.address || ''}
+                        onChange={this.handleChange} autoComplete="address" />
+                    </Col>
+                  </FormGroup>
+
+                   <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">E-Mail</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="email" name="email" placeholder="E-Mail" initialValue="" value={item.email || ''}
+                        onChange={this.handleChange} autoComplete="email" />
                     </Col>
                   </FormGroup>
 
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Avilable Storage</Label>
+                      <Label htmlFor="text-input">Tel No</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="available_storage" name="available_storage" placeholder="Available Storage" initialValue="" value={item.available_storage || ''}
-                        onChange={this.handleChange} autoComplete="available_storage" />
+                      <Input type="text" id="tel_no" name="tel_no" placeholder="Tel No" initialValue="" value={item.tel_no || ''}
+                        onChange={this.handleChange} autoComplete="tel_no" />
                     </Col>
                   </FormGroup>
 
