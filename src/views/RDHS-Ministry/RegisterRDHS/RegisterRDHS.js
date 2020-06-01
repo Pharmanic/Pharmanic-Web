@@ -28,6 +28,7 @@ import { Link, withRouter } from 'react-router-dom';
 class RegisterRDHS extends Component {
 
   emptyItem = {
+    reg_no:'',
     name: '',
     address: '',
     email: '',
@@ -63,7 +64,7 @@ class RegisterRDHS extends Component {
     event.preventDefault();
     const {item} = this.state;
 
-    await fetch('/ministry_store/register', {
+    await fetch('/rdhs/register', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -73,7 +74,7 @@ class RegisterRDHS extends Component {
     })
       .then(res => res.json()) //returns array of data
       ;
-    this.props.history.push('/ministry_stores/ministry_stores_list');
+    this.props.history.push('/rdhs/rdhs_list');
   }
 
   toggle() {
@@ -98,12 +99,22 @@ class RegisterRDHS extends Component {
         <Row>
           <Col xs="12" md="8">
             <Card>
-              <CardHeader>
-                <strong>RDHS Registration</strong>
+              <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
+                <b>RDHS Registration</b>
               </CardHeader>
               <CardBody>
                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="RDHSForm">
 
+
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Register No</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="reg_no" name="reg_no" placeholder="Register No" initialValue="" value={item.reg_no || ''}
+                        onChange={this.handleChange} autoComplete="reg_no" />
+                    </Col>
+                  </FormGroup>
                   <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Name</Label>
@@ -124,7 +135,7 @@ class RegisterRDHS extends Component {
                     </Col>
                   </FormGroup>
 
-                   <FormGroup row>
+                  <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">E-Mail</Label>
                     </Col>
@@ -139,10 +150,12 @@ class RegisterRDHS extends Component {
                       <Label htmlFor="text-input">Tel No</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="tel_no" name="tel_no" placeholder="Tel No" initialValue="" value={item.tel_no || ''}
-                        onChange={this.handleChange} autoComplete="tel_no" />
+                      <Input type="text" id="telephone" name="telephone" placeholder="Tel No" initialValue="" value={item.telephone || ''}
+                        onChange={this.handleChange} autoComplete="telephone" />
                     </Col>
                   </FormGroup>
+
+      
 
 
                   {/*<FormGroup row>

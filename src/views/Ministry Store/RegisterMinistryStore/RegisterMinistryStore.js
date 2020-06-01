@@ -28,6 +28,7 @@ import { Link, withRouter } from 'react-router-dom';
 class RegisterMinistryStore extends Component {
 
   emptyItem = {
+    m_store_is:'',
     name: '',
     email: '',
     tel_no: '',
@@ -73,7 +74,8 @@ class RegisterMinistryStore extends Component {
       },
       body: JSON.stringify(item),
     })
-      .then(res => res.json()) //returns array of data
+      .then(res => console.log(res)) //returns array of data
+      console.log();
       ;
     this.props.history.push('/ministry_stores/ministry_stores_list');
   }
@@ -100,11 +102,21 @@ class RegisterMinistryStore extends Component {
         <Row>
           <Col xs="12" md="8">
             <Card>
-              <CardHeader>
-                <strong>Ministry Store Registration</strong>
+              <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
+                <b>Ministry Ware Houses Registration</b>
               </CardHeader>
               <CardBody>
                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="ministryStoreForm">
+                  
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Ministry store ID</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="m_store_id" name="m_store_id" placeholder="Ministry Store ID" initialValue="" value={item.m_store_id || ''}
+                        onChange={this.handleChange} autoComplete="m_store_id" />
+                    </Col>
+                  </FormGroup>
                   <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Name</Label>
@@ -134,7 +146,7 @@ class RegisterMinistryStore extends Component {
                         onChange={this.handleChange} autoComplete="tel_no" />
                     </Col>
                   </FormGroup>
-                  
+
                   <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Location</Label>

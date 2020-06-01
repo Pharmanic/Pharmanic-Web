@@ -1,7 +1,7 @@
 {
-    "name": "MinistryStore",
+    "name": "MinistryStores",
     "version": "0.0.0",
     "private": true,
-    "main": "./MinistryStore.js"
+    "main": "./MinistryStores.js"
   }
   
