@@ -61,12 +61,12 @@ export default {
       icon: 'icon-home',
       children: [
         {
-          name: 'Register RDHS',
+          name: 'Register RDHSHospital',
           url: '/hospital_by_rdhs/register',
           icon: 'icon-plus',
         },
         {
-          name: 'RDHS List',
+          name: 'RDHS Hospital List',
           url: '/hospital_by_rdhs/hospital_by_rdhs_list',
           icon: 'icon-list',
         },

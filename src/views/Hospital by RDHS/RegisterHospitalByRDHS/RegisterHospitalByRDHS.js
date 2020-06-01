@@ -27,10 +27,12 @@ import {
 import { Link, withRouter } from 'react-router-dom';
 class RegisterHospitalByRDHS extends Component {
 
-  emptyItem = {
-    location: '',
-    total_storage:'',
-    available_storage:''
+   emptyItem = {
+    reg_no:'',
+    name: '',
+    address: '',
+    email: '',
+    telephone: ''
 
   };
 
@@ -62,7 +64,7 @@ class RegisterHospitalByRDHS extends Component {
     event.preventDefault();
     const {item} = this.state;
 
-    await fetch('/ministry_store/register', {
+    await fetch('/hospital_by_rdhs/register', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -72,7 +74,7 @@ class RegisterHospitalByRDHS extends Component {
     })
     .then(res => res.json()) //returns array of data
     ;
-    this.props.history.push('/ministry_stores/ministry_stores_list');
+    this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
   }
 
   toggle() {
@@ -97,64 +99,60 @@ class RegisterHospitalByRDHS extends Component {
         <Row>
           <Col xs="12" md="8">
             <Card>
-              <CardHeader>
-                <strong>Hospital By RDHS Registration</strong>
+              <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
+                <b>RDHS Hospital Registration</b>
               </CardHeader>
               <CardBody>
-                <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="ministryStoreForm">
-                  {/*<FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Ministry Store ID</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input type="text" id="stock_id" name="stock_id" placeholder="Stock ID" value={item.stock_id|| ''}
-                            onChange={this.handleChange} autoComplete="stock_id"/>
-                    </Col>
-                  </FormGroup>*/}
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Location</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input type="text" id="location" name="location" placeholder="Location"  initialValue="" value={item.location || ''}
-                        onChange={this.handleChange} autoComplete="location" />
-                    </Col>
-                  </FormGroup>
-
+                <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="hospital_by_rdhsForm">
                     <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Total Storage</Label>
+                      <Label htmlFor="text-input">Register No</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="total_storage" name="total_storage" placeholder="Total Storage" initialValue="" value={item.total_storage || ''}
-                        onChange={this.handleChange} autoComplete="total_storage" />
+                      <Input type="text" id="reg_no" name="reg_no" placeholder="Register No" initialValue="" value={item.reg_no || ''}
+                        onChange={this.handleChange} autoComplete="reg_no" />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Name</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={item.name || ''}
+                        onChange={this.handleChange} autoComplete="name" />
                     </Col>
                   </FormGroup>
 
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Avilable Storage</Label>
+                      <Label htmlFor="text-input">Address</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="available_storage" name="available_storage" placeholder="Available Storage" initialValue="" value={item.available_storage || ''}
-                        onChange={this.handleChange} autoComplete="available_storage" />
+                      <Input type="text" id="address" name="address" placeholder="Address" initialValue="" value={item.address || ''}
+                        onChange={this.handleChange} autoComplete="address" />
                     </Col>
                   </FormGroup>
 
-                  
-                  {/*<FormGroup row>
+                  <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Order date</Label>
+                      <Label htmlFor="text-input">E-Mail</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="order_date" name="order_date" placeholder="Order Date" value={item.order_date|| ''}
-                            onChange={this.handleChange} autoComplete="order_date"/>
+                      <Input type="text" id="email" name="email" placeholder="E-Mail" initialValue="" value={item.email || ''}
+                        onChange={this.handleChange} autoComplete="email" />
                     </Col>
-                  </FormGroup>*/}
-                  {/*<FormGroup>
-                    <Button color="primary" type="submit">Save</Button>{' '}
-                    <Button color="secondary" tag={Link} to="/directhospitals">Cancel</Button>
-                   </FormGroup>*/}
+                  </FormGroup>
+
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Tel No</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="telephone" name="telephone" placeholder="Tel No" initialValue="" value={item.telephone || ''}
+                        onChange={this.handleChange} autoComplete="telephone" />
+                    </Col>
+                  </FormGroup>
+
 
                   <br />
 
@@ -167,7 +165,7 @@ class RegisterHospitalByRDHS extends Component {
               </CardBody>
               {/*<CardFooter>*/}
               {/*<Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>{' '}
-                  <Button type="reset" size="sm" color="danger" tag={Link} to="/ministry_stores/ministry_stores_list"><i className="fa fa-ban"></i> Reset</Button>*/}
+                  <Button type="reset" size="sm" color="danger" tag={Link} to="/hospital_by_rdhss/hospital_by_rdhss_list"><i className="fa fa-ban"></i> Reset</Button>*/}
               {/*</CardFooter>*/}
             </Card>
           </Col>
