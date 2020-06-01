@@ -23,12 +23,12 @@ class Rdhs_Hospital_Login extends Component {
       evt.preventDefault();
       if(this.state.value !=undefined)
       {
-        alert('Your input value is: ' + this.state.value);
+      //  alert('Your input value is: ' + this.state.value);
         var year=new Date().getDate();
-        alert('year'+year);
+       // alert('year'+year);
         localStorage.setItem('reg_no',this.state.value);
-        alert(localStorage.getItem('reg_no'));
-  //push("/rhcstock");
+      
+        window.location.replace('/#/rhcstock');
        
       }
       

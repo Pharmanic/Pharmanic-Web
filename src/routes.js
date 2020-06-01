@@ -3,6 +3,8 @@ import Rdhs_Hospital_Current_Stock from './rdhsHospital/Rdhs_Hospital_Current_St
 
 import Rdhs_Hospital_Login from './rdhsHospital/Rdhs_Hospital_Login';
 const RdhsHopitalDrugStore= React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Current_Stock'));
+const RdhsHopitalTrack= React.lazy(() => import('./rdhsHospital/Rdhs_Track'));
+const RdhsHopitalReturnConfirm= React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Return_Confirm'));
 const RdhsHospitalExpireDrug = React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Expiration'));
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
@@ -71,7 +73,9 @@ const HospitalByRDHSRegister = React.lazy(() => import('./views/Hospital by RDHS
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
+  { path: '/rdhstrack', name: 'Rdhs_Track', component: RdhsHopitalTrack },
   { path: '/rhcstock', name: 'Rdhs_Hospital_Current_Stock', component: Rdhs_Hospital_Current_Stock },
+  { path: '/rhreturnconfirm', name: 'Rdhs_Hospital_Return_Confirm', component: RdhsHopitalReturnConfirm },
   { path: '/rhexpire', name: 'Rdhs_Hospital_Expiration', component: RdhsHospitalExpireDrug },
   { path: '/rdhoslog', name: 'Rdhs_Hospital_Current_Stock', component: Rdhs_Hospital_Login},
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
