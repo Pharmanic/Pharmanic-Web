@@ -1,6 +1,7 @@
 {
-  "name": "MinistryStores",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./MinistryStores.js"
-}
+    "name": "MinistryStores",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./MinistryStores.js"
+  }
+  
