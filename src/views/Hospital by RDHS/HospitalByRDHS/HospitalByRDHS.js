@@ -121,7 +121,7 @@ class HospitalByRDHSs extends Component {
             </Row>
             <Card style={{ borderRadius: '20px' }}>
               <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                <b>Ministry Ware Houses</b>
+                <b>Hospital By RDHS List</b>
               </CardHeader>
               <CardBody>
                 <br />
