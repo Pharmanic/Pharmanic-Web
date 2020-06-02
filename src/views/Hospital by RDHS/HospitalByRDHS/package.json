@@ -1,7 +1,7 @@
 {
-    "name": "hospitalByRDHSs",
+    "name": "HospitalByRDHS",
     "version": "0.0.0",
     "private": true,
-    "main": "./hospitalByRDHSs.js"
+    "main": "./HospitalByRDHS.js"
   }
   

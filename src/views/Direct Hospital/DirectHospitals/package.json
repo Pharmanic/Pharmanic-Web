@@ -1,7 +1,7 @@
 {
-    "name": "directHospitals",
+    "name": "DirectHospitals",
     "version": "0.0.0",
     "private": true,
-    "main": "./directHospitals.js"
+    "main": "./DirectHospitals.js"
   }
   
