@@ -19,7 +19,7 @@ const divStyle = {
   alignItems: 'right'
 };
 
-class HospitalByRDHSs extends Component {
+class HospitalByRDHS extends Component {
 
 
   constructor(props) {
@@ -166,4 +166,4 @@ class HospitalByRDHSs extends Component {
   }
 }
 
-export default HospitalByRDHSs;
+export default HospitalByRDHS;
