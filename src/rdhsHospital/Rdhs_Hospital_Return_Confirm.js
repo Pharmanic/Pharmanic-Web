@@ -171,7 +171,7 @@ class Rdhs_Hospital_Return_Confirm extends Component {
      
       let batchee = {...this.state.batches};
       console.log('batch1',batchee);
-
+      
       await fetch('/api/rhstock/'+id, {
         method:'PUT',
         headers: {
@@ -193,6 +193,8 @@ class Rdhs_Hospital_Return_Confirm extends Component {
           
           body: JSON.stringify(item),
         });
+        alert("add sucessfully");
+     
       }
     
     render() { 
@@ -202,7 +204,7 @@ class Rdhs_Hospital_Return_Confirm extends Component {
               <Col xs="12" md="6">
                 <Card>
                   <CardHeader>
-                    <strong>Damage Drug</strong> Form
+                    <strong>Add to Return Cart</strong> 
                   </CardHeader>
                   <CardBody>
                     <Form onSubmit={this.handleSubmit} method="POST" encType="multipart/form-data" className="form-horizontal">                      
