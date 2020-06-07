@@ -6,102 +6,201 @@ import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
     Col,} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
+
 class Rdhs_Hospital_Return_Confirm extends Component {
 
-  emptyItem = {
-    returned_id:'',
-    date:new Date(),
-    quantity:'',
-    state:0,
-    rdhs_hospital_current_stock:{batch_id:localStorage.getItem('batch_id')},
-   // batch_id:localStorage.getItem.toString('batch_id'),
-    track_id:''
-  };
+
+ emptyList= {
+  returned_id:'',
+  date:new Date(),
+  quantity:'',
+  state:0,
+  
+  reg_no:[],
+    batchId:[],
+    track_id: {
+        track_id:'',
+        date:'',
+        start_point:'',
+        end_point:'',
+        reg_n0: {
+          reg_no: '',
+          name:'',
+          address:'',
+          email:''
+      },
+        vehicle_no: {
+            vehicle_no: '',
+            type:'',
+            capacity:'',
+            rdhs: {
+                reg_no:'',
+                name:'',
+                address:'',
+                email:'',
+                telephone:''
+            }
+        },
+        nic: {
+            nic:'',
+            name: '',
+            email:'',
+            address:'',
+            telephone:'',
+          
+            rdhs: {
+              reg_no:'',
+              name:'',
+              address:'',
+              email:'',
+              telephone:''
+            }
+        }
+    }
+};
+    emptyItem={
+        returned_id:'',
+        date:new Date(),
+        quantity:'',
+        state:0,
+    
+    };
     constructor(props) {
         super(props);
-  
         this.state = { 
+            item:this.emptyList,
             batchId:'',
-            sr_no:'',
+            srNo:'',
             name:'',
-            qty:'',
-            expiredate:'',
-            disabled:true,
-            value:'',
-            item:this.emptyItem
+            expireDate:'',
+            avaibleQuantity:'',
+            regNO:'',
+            isLoading:true,
+            currentStock:[],
+            batches:[],
+            rdhss:[],
+            track:[]
+            
          }
-         this.state.item['batch_id']=localStorage.getItem('batch_id');
-         this.emptyItem['batch_id']=localStorage.getItem('batch_id');
-         this.state.batchId=localStorage.getItem('batch_id');
-         this.state.sr_no=localStorage.getItem('sr_no');
-         this.state.name=localStorage.getItem('name');
-         this.state.qty=localStorage.getItem('quantity');
-         this.state.expiredate=localStorage.getItem('expire');
-       //  this.state.item['batch_id']=localStorage.getItem('batch_id');
          this.handleChange = this.handleChange.bind(this);
-         this.handleSubmit = this.handleSubmit.bind(this);
-        
-       
-   
+          this.handleSubmit = this.handleSubmit.bind(this);
+         this.state.batchId=localStorage.getItem('batch_id');
+         this.state.srNo=localStorage.getItem('sr_no');
+         this.state.name=localStorage.getItem('name');
+         this.state.expireDate=localStorage.getItem('expire');
+         this.state.avaibleQuantity=localStorage.getItem('quantity');
+         this.state.regNO=localStorage.getItem('reg_no')
+         
     }
+    componentDidMount() {
+      this.setState({isLoading: true});
+      fetch('/api/rhstock')
+        .then(response => response.json())
+        .then(data => this.setState({currentStock: data}));
+      
+        fetch('/hospitalsByRdhs')
+      .then(response => response.json())
+      .then(data => this.setState({rdhss: data}));
+    
+    fetch('/api/alltrack')
+      .then(response => response.json())
+      .then(data => this.setState({track: data, isLoading: false}));
+  
+  
+    }
+  
 
+    setItem(){
+      const batch_id=this.state.batchId;
+    
+        const store=this.state.currentStock;
+        
+        const currentstock = store.find(mcs => mcs.batchId==batch_id);
+        this.state.batches=currentstock;
+        let item = {...this.state.item};
+        item['batchId']=this.state.batches;
+        this.setState({item});
+        console.log('setitem',item);
+      
+    }
     handleChange(event) {
       const target = event.target;
     const value = target.value;
+    console.log('value',value);
     const name = target.name;
-    let item = {...this.state.item};
-    item[name] = value;
-    let update={
-      date:new Date(),
-      quantity:value,
-      state:0,
-      reg_no:localStorage.getItem('reg_no'),
-      batch_id:localStorage.getItem.toString('batch_id'),
-      track_id:''
+    console.log('name',name);
+    let item = {...this.state.item};  
+    if(name=='track_id'){
+      const track=this.state.track;
+      const store=track.find(ms => ms.track_id==target.value);
+      item[name]=store;
+      this.setState({item});
+    }else{
+      item[name] = value;
+      this.setState({item});
+      console.log('item',item);
     }
-    
-    this.setState({item:update});
+
     }
 
     async handleSubmit(event) {
-      
-      this.state.item['reg_no'] = this.state.batchId;
-      
-      event.preventDefault();
-      const {item} = this.state;
-  
-      await fetch('/api/rhreturndrugs', {
-        method:'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(item),
-      });
-     // this.props.history.push('/exportedstocks');
-    }
-     
-    render() {    
-     // const {item} = this.state.item;
-      this.state.item['batch_id']=localStorage.getItem('batch_id');
 
+      const batch_id=this.state.batchId;
+      const reg_no=this.state.regNO;
+      
+    
+        const store=this.state.currentStock;
+        const batch=this.state.batches;
+        const rdh=this.state.rdhss;
+
+        const currentstock = store.find(mcs => mcs.batchId==batch_id);
+        this.state.batches=currentstock;
+
+        const rdhses = rdh.find(mcs => mcs.reg_no==reg_no);
+        this.state.rdhss=rdhses;
+
+        let item = {...this.state.item};
+        item['batchId']=this.state.batches;
+        item['reg_no']=this.state.rdhss;
+        this.setState({item});
+        console.log('setitem',item);
+
+
+
+
+      // this.setItem();
+        event.preventDefault();
+      //  const {item} = this.state;
+      //  console.log('item',item);
+        await fetch('/api/saverhreturndtock', {
+          method:'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          
+          body: JSON.stringify(item),
+        });
+      }
+    
+    render() { 
         return ( 
-        
-            <div className="animated fadeIn">
-         <Row>
-              <Col xs="15" md="8">
+            <div className="animated fadeIn">        
+            <Row>
+              <Col xs="12" md="6">
                 <Card>
                   <CardHeader>
-                    <strong>Enter return Quantity If you want</strong> 
+                    <strong>Damage Drug</strong> Form
                   </CardHeader>
                   <CardBody>
-                    <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal">           
-                      <FormGroup row>
+                    <Form onSubmit={this.handleSubmit} method="POST" encType="multipart/form-data" className="form-horizontal">                      
+                    <FormGroup row>
                         <Col md="3">
-                          <Label htmlFor="text-input">Batch ID</Label>
+                          <Label htmlFor="select">Batch ID</Label>
                         </Col>
                         <Col xs="12" md="9">
-                          <Input type="text" id="batch_id" name="batch_id" value={this.state.batchId}  readonly="true"/>
+                          <Input type="text" name="batch_id" id="batch_id"  value={this.state.batchId}/>                                            
+                          
                         </Col>
                       </FormGroup>
                       <FormGroup row>
@@ -109,7 +208,7 @@ class Rdhs_Hospital_Return_Confirm extends Component {
                           <Label htmlFor="text-input">SR Number</Label>
                         </Col>
                         <Col xs="12" md="9">
-                          <Input type="text" id="sr_no" name="sr_no" value={this.state.sr_no} disabled="true"></Input>
+                          <Input type="text" id="sr_no" name="sr_no"  value={this.state.srNo}/>
                         </Col>
                       </FormGroup>
                       <FormGroup row>
@@ -117,24 +216,25 @@ class Rdhs_Hospital_Return_Confirm extends Component {
                           <Label htmlFor="text-input">Name</Label>
                         </Col>
                         <Col xs="12" md="9">
-                          <Input type="text" id="name" name="name" value={this.state.name} disabled="true"/>
+                          <Input type="text" id="name" name="name"  value={this.state.name}/>
                         </Col>
                       </FormGroup>
-                     
                       <FormGroup row>
                         <Col md="3">
                           <Label htmlFor="text-input">Expire Date</Label>
                         </Col>
                         <Col xs="12" md="9">
-                          <Input type="text" id="expiredate" name="expiredate" value={this.state.expiredate} disabled="true"/>
+                          <Input type="text" id="expire" name="expire"  value={this.state.expireDate}/>
                         </Col>
                       </FormGroup>
+                    
                       <FormGroup row>
-                      <Col md="3">
+                        <Col md="3">
                           <Label htmlFor="text-input">Available Quantity</Label>
                         </Col>
                         <Col xs="12" md="9">
-                          <Input type="text" id="available_qty" name="available_qty" value={this.state.qty} disabled="true"/>
+                          <Input type="text" id="availableqty" name="availableqty"  value={this.state.avaibleQuantity}/>
+ 
                         </Col>
                       </FormGroup>
                       <FormGroup row>
@@ -142,26 +242,29 @@ class Rdhs_Hospital_Return_Confirm extends Component {
                           <Label htmlFor="text-input">Enter Return Quantity</Label>
                         </Col>
                         <Col xs="12" md="9">
-                          <Input type="text" id="quantity" name="quantity" placeholder="Enter Return Quantity" onChange={this.handleChange}/>
-                          
+                          <Input type="text" id="quantity" name="quantity" placeholder="Enter Return Quantity"  onChange={this.handleChange}></Input>
                         </Col>
-                        
+                      </FormGroup> 
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Track ID</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input type="text" id="track_id" name="track_id" placeholder="Track ID"  onChange={this.handleChange}></Input>
+                        </Col>
                       </FormGroup>
                       <FormGroup>
-                        <Button color="success" type="submit">Enter Return Cart</Button>{' '}
-                        <Button color="primary" tag={Link} to="/directhospitals">Cancel</Button>
+                        <Button color="primary" type="submit">Save</Button>{' '}
+                        <Button color="secondary" tag={Link} to="/ministrycurrentstocks">Cancel</Button>
                        </FormGroup>
-                    
                     </Form>
                   </CardBody>
+                  
                 </Card>           
               </Col>
             </Row>
           </div>
-
-         
          );
-        
     }
 }
  
