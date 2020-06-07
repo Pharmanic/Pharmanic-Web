@@ -21,6 +21,7 @@ class Rdhs_Hospital_Expiration extends Component {
         localStorage.setItem('quantity',quantity);
         localStorage.setItem('expire',expiration);
      //   alert(localStorage.getItem('expire'));
+        window.location.replace("/#/rhreturnconfirm");
 
     }
 
