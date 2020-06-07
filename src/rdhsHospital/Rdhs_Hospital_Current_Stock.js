@@ -36,15 +36,9 @@ import { Link } from 'react-router-dom';
                 this.setState({Drugs:body, isLoading:false});
                 //alert(this.state.id);
             }
-
-      
-    
     render()
     {
         const {Drugs,isLoading} =this.state;
-
-        
-        
         let drugRow=Drugs.map(drug=>
            <tr>
                <td>{drug.batchId}</td>
@@ -57,10 +51,7 @@ import { Link } from 'react-router-dom';
            </tr>
             
         )
-
-        
-
-      return (
+  return (
       <form>
         <Link to='/rhexpire'><Button color="primary">Sort By Expire Date</Button></Link>
       <Table className="mt-4">

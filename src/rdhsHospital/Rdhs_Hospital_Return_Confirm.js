@@ -109,20 +109,6 @@ class Rdhs_Hospital_Return_Confirm extends Component {
   
     }
   
-
-    setItem(){
-      const batch_id=this.state.batchId;
-    
-        const store=this.state.currentStock;
-        
-        const currentstock = store.find(mcs => mcs.batchId==batch_id);
-        this.state.batches=currentstock;
-        let item = {...this.state.item};
-        item['batchId']=this.state.batches;
-        this.setState({item});
-        console.log('setitem',item);
-      
-    }
     handleChange(event) {
       const target = event.target;
     const value = target.value;
@@ -156,6 +142,15 @@ class Rdhs_Hospital_Return_Confirm extends Component {
         const currentstock = store.find(mcs => mcs.batchId==batch_id);
         this.state.batches=currentstock;
 
+        const qty=currentstock.quantity;
+        console.log('quantity',qty);
+        const q1=this.state.item.quantity;
+        console.log('quantity2',q1);
+        const q2=qty-q1;
+        console.log('quantity3',q2);
+        this.state.batches.quantity=q2;
+        console.log('quantity3',this.state.batches.quantity);
+
         const rdhses = rdh.find(mcs => mcs.reg_no==reg_no);
         this.state.rdhss=rdhses;
 
@@ -166,12 +161,29 @@ class Rdhs_Hospital_Return_Confirm extends Component {
         console.log('setitem',item);
 
 
-
+      const id=this.state.batches.batchId;
+      console.log("id",id);
 
       // this.setItem();
         event.preventDefault();
       //  const {item} = this.state;
       //  console.log('item',item);
+     
+      let batchee = {...this.state.batches};
+      console.log('batch1',batchee);
+
+      await fetch('/api/rhstock/'+id, {
+        method:'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        
+        body: JSON.stringify(batchee),
+      });
+
+
+
         await fetch('/api/saverhreturndtock', {
           method:'POST',
           headers: {
