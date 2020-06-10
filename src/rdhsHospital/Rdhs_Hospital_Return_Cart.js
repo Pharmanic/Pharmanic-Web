@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container,Form,FormGroup,Table, Button} from 'reactstrap';
+import {Container,Form,FormGroup,Table, Button, Card} from 'reactstrap';
 
 import { Link } from 'react-router-dom';
 class Rdhs_Hospital_Return_Cart extends Component {
@@ -33,22 +33,24 @@ class Rdhs_Hospital_Return_Cart extends Component {
                 <td><b>{returned.quantity}</b></td>
                 <td><b>{returned.batchId.expiredate}</b></td>
                 <td><Button color="primary">Update</Button></td>
-                     <td><Button color="primary">Delete</Button></td>
+                     <td><Button color="danger">Delete</Button></td>
               
             </tr>
              
          )
         return (
+           
 
             <form>
+                <Link to='/rhexpire'><Button color="info">Back</Button></Link>
           
         <Table className="mt-4">
             
-             <thead style={{ backgroundColor: '#33C7FF', color: 'white', borderRadius: '5px' }}>
+             <thead style={{ backgroundColor: '#607D8B', color: 'white', borderRadius: '5px' }}>
                  <tr color='blue'>
                      <th width="15%">Batch Id</th>
                      <th width="15%">SR Number</th>
-                     <th width="20%">Name</th>
+                     <th width="18%">Name</th>
                      <th width="15%">Return Quantity</th>
                      <th width="15%">Expire Date</th>
                    
@@ -63,6 +65,7 @@ class Rdhs_Hospital_Return_Cart extends Component {
              </tbody>
          </Table>
     </form>
+   
 
           );
     }

@@ -24,7 +24,7 @@ import { Link } from 'react-router-dom';
         };
       
       this.state.id=localStorage.getItem('reg_no');
-      alert(this.state.id+"Hospital id");
+   //  alert(this.state.id+"Hospital id");
       this.state.url='/api/rhstockreg/'+this.state.id;
      // alert(this.state.url);
 
@@ -54,9 +54,9 @@ import { Link } from 'react-router-dom';
   return (
       <form>
         <Link to='/rhexpire'><Button color="primary">Sort By Expire Date</Button></Link>
-        
+        <Card>
       <Table className="mt-4">
-                    <thead>
+                    <thead style={{ backgroundColor: '#33C7FF', color: 'white', borderRadius: '5px',font:'1500px'}}>
                         <tr>
                             <th width="10%">Batch Id</th>
                             <th width="10%">Sr_no</th>
@@ -70,6 +70,7 @@ import { Link } from 'react-router-dom';
                         {drugRow}
                     </tbody>
                 </Table>
+                </Card>
       </form>
 
 
