@@ -53,6 +53,15 @@ import { Link } from 'react-router-dom';
         );
 
 
+        let optionList=Drugs.map(drug=>
+          <option>
+             {drug.medicine.name}
+          </option>
+         
+           
+            
+           
+       )
         let drugRow=filteredData.map(drug=>
            <tr>
                <td>{drug.batchId}</td>
@@ -72,9 +81,14 @@ import { Link } from 'react-router-dom';
                   <br></br>
 <div>
 <InputGroup>
-          
-          <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search by Name" value={this.state.search}
-                  onChange={this.updateSearch.bind(this)}/>
+          <Input type="select" id="input1-group2" name="input1-group2" placeholder="Search by Name" value={this.state.search}
+                  onChange={this.updateSearch.bind(this)}>
+
+                    {optionList}
+
+          </Input>
+
+        
                  
         </InputGroup> 
         
