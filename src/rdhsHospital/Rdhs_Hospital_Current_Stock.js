@@ -3,7 +3,7 @@ import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
   CardBody, Row,
   CardFooter,
   CardHeader,
-  Col} from 'reactstrap';
+  Col,InputGroup} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
  class Rdhs_Hospital_Current_Stock extends Component {
@@ -20,7 +20,8 @@ import { Link } from 'react-router-dom';
             Hospital:[],
             hospitalDrug:[],
             id:'',
-            url:''
+            url:'',
+            search:''
         };
       
       this.state.id=localStorage.getItem('reg_no');
@@ -36,10 +37,23 @@ import { Link } from 'react-router-dom';
                 this.setState({Drugs:body, isLoading:false});
                 //alert(this.state.id);
             }
+
+    
+            updateSearch(event){
+              this.setState({search:event.target.value.substr(0,20)});
+            }
     render()
     {
         const {Drugs,isLoading} =this.state;
-        let drugRow=Drugs.map(drug=>
+        let filteredData=Drugs.filter(
+          (drugs)=>{
+            return drugs.medicine.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+                  //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
+          }
+        );
+
+
+        let drugRow=filteredData.map(drug=>
            <tr>
                <td>{drug.batchId}</td>
                <td>{drug.medicine.sr_no}</td>
@@ -54,6 +68,24 @@ import { Link } from 'react-router-dom';
   return (
       <form>
         <Link to='/rhexpire'><Button color="primary">Sort By Expire Date</Button></Link>
+        <br></br>
+                  <br></br>
+<div>
+<InputGroup>
+          
+          <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search by Name" value={this.state.search}
+                  onChange={this.updateSearch.bind(this)}/>
+                 
+        </InputGroup> 
+        
+                  <br></br>
+                 
+        
+
+</div>
+       
+
+          
         <Card>
       <Table className="mt-4">
                     <thead style={{ backgroundColor: '#33C7FF', color: 'white', borderRadius: '5px',font:'1500px'}}>
