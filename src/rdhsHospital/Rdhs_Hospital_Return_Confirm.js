@@ -15,48 +15,10 @@ class Rdhs_Hospital_Return_Confirm extends Component {
   date:new Date(),
   quantity:'',
   state:0,
-  
+ 
   reg_no:[],
     batchId:[],
-    track_id: {
-        track_id:'',
-        date:'',
-        start_point:'',
-        end_point:'',
-        reg_n0: {
-          reg_no: '',
-          name:'',
-          address:'',
-          email:''
-      },
-        vehicle_no: {
-            vehicle_no: '',
-            type:'',
-            capacity:'',
-            rdhs: {
-                reg_no:'',
-                name:'',
-                address:'',
-                email:'',
-                telephone:''
-            }
-        },
-        nic: {
-            nic:'',
-            name: '',
-            email:'',
-            address:'',
-            telephone:'',
-          
-            rdhs: {
-              reg_no:'',
-              name:'',
-              address:'',
-              email:'',
-              telephone:''
-            }
-        }
-    }
+    track_id:''
 };
     emptyItem={
         returned_id:'',
@@ -97,14 +59,16 @@ class Rdhs_Hospital_Return_Confirm extends Component {
       fetch('/api/rhstock')
         .then(response => response.json())
         .then(data => this.setState({currentStock: data}));
-      
-        fetch('/hospitalsByRdhs')
+     
+        fetch('/hospital_by_rdhs/hospital_by_rdhs_list')
       .then(response => response.json())
       .then(data => this.setState({rdhss: data}));
-    
-    fetch('/api/alltrack')
+
+      fetch('/api/alltrack')
       .then(response => response.json())
       .then(data => this.setState({track: data, isLoading: false}));
+    
+  
   
   
     }
@@ -116,16 +80,11 @@ class Rdhs_Hospital_Return_Confirm extends Component {
     const name = target.name;
     console.log('name',name);
     let item = {...this.state.item};  
-    if(name=='track_id'){
-      const track=this.state.track;
-      const store=track.find(ms => ms.track_id==target.value);
-      item[name]=store;
-      this.setState({item});
-    }else{
+   
       item[name] = value;
       this.setState({item});
       console.log('item',item);
-    }
+    
 
     }
 
@@ -184,7 +143,7 @@ class Rdhs_Hospital_Return_Confirm extends Component {
 
 
 
-        await fetch('/api/saverhreturndtock', {
+        await fetch('/api/returndtock', {
           method:'POST',
           headers: {
             'Accept': 'application/json',
@@ -259,14 +218,7 @@ class Rdhs_Hospital_Return_Confirm extends Component {
                           <Input type="text" id="quantity" name="quantity" placeholder="Enter Return Quantity"  onChange={this.handleChange}></Input>
                         </Col>
                       </FormGroup> 
-                      <FormGroup row>
-                        <Col md="3">
-                          <Label htmlFor="text-input">Track ID</Label>
-                        </Col>
-                        <Col xs="12" md="9">
-                          <Input type="text" id="track_id" name="track_id" placeholder="Track ID"  onChange={this.handleChange}></Input>
-                        </Col>
-                      </FormGroup>
+                     
                       <FormGroup>
                         <Button color="primary" type="submit">Save</Button>{' '}
                         <Button color="secondary" tag={Link} to="/ministrycurrentstocks">Cancel</Button>
