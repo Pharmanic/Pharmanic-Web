@@ -58,8 +58,7 @@ class Rdhs_Hospital_Expiration extends Component {
         return ( 
             <form>
                    <FormGroup>
-                       
-                        <Button color="secondary" tag={Link} to="/ministrycurrentstocks">View Return Cart</Button>
+                   <Link to='/returncart'><Button color="primary">View Return Cart</Button></Link>
                        </FormGroup>
       <Table className="mt-4">
                     <thead>

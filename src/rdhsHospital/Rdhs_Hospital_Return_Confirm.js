@@ -221,7 +221,7 @@ class Rdhs_Hospital_Return_Confirm extends Component {
                      
                       <FormGroup>
                         <Button color="primary" type="submit">Save</Button>{' '}
-                        <Button color="secondary" tag={Link} to="/ministrycurrentstocks">Cancel</Button>
+                        <Button color="secondary" tag={Link} to="/rhexpire">Cancel</Button>
                        </FormGroup>
                     </Form>
                   </CardBody>
