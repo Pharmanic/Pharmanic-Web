@@ -6,7 +6,12 @@ import {
   Col,
   Row,
   Table,
+  Button,
+  CardFooter
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import CurrentStockForm from '../CurrentStockForm/CurrentStockForm';
+import Paginations from './Pagination';
 
 
 
@@ -18,7 +23,9 @@ class CurrentStock extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.state = {ministrycurrentstocks: [], isLoading: true}; 
+    this.state = {ministrycurrentstocks: [], isLoading: true,
+      currentPage:1,
+      dataPerPage:5,}; 
   }
 
   componentDidMount() {
@@ -27,6 +34,19 @@ class CurrentStock extends Component {
     fetch('/ministrycurrentstocks')
       .then(response => response.json())
       .then(data => this.setState({ministrycurrentstocks: data, isLoading: false}));
+  }
+
+  async remove(id) {
+    await fetch(`/ministrycurrentstock/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(() => {
+      let updatedList = [...this.state.ministrycurrentstocks].filter(i => i.id !== id);
+      this.setState({ministrycurrentstocks: updatedList});
+    });
   }
 
   toggle() {
@@ -44,39 +64,51 @@ class CurrentStock extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-    const {ministrycurrentstocks, isLoading} = this.state;
+    const {ministrycurrentstocks, isLoading,currentPage,dataPerPage} = this.state;
+    const indexOfLastData=currentPage * dataPerPage;
+    const indexOfFirstData=indexOfLastData - dataPerPage;
+    const currentData=ministrycurrentstocks.slice(indexOfFirstData,indexOfLastData);
+
+    const paginate = pageNumber => this.setState({currentPage:pageNumber});
 
     if (isLoading) {
       return <p>Loading...</p>;
     }
 
-    const groupList = ministrycurrentstocks.map(ministrycurrentstock => {
+    const groupList = currentData.map(ministrycurrentstock => {
       return <tr key={ministrycurrentstock.batch_id}>
         <td style={{whiteSpace: 'nowrap'}}>{ministrycurrentstock.batch_id}</td>
         <td style={{whiteSpace: 'nowrap'}}>{ministrycurrentstock.m_store_id.location}</td>
         <td style={{whiteSpace: 'nowrap'}}>{ministrycurrentstock.sr_no.name}</td>
         <td style={{whiteSpace: 'nowrap'}}>{ministrycurrentstock.expire_date}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{ministrycurrentstock.available_quantity}</td>      
+        <td style={{whiteSpace: 'nowrap'}}>{ministrycurrentstock.available_quantity}</td> 
+        <td>
+        <Button size="sm" color="danger" onClick={() => {if(window.confirm('Are you sure you wish to delete this stock?')) this.remove(ministrycurrentstock.batch_id)}}><i className="fa fa-trash"></i></Button>
+        </td>     
       </tr>
     });
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col>
+        <Col lg="5">
+          <CurrentStockForm/>
+          </Col>
+          <Col lg="7">
             <Card>
               <CardHeader>
-                Current Stock
+              <i className="fa fa-align-justify"></i> Current Stock     
               </CardHeader>
               <CardBody>                
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
                   <thead className="thead-light">
                   <tr>
-                    <th className="text-center">Batch ID</th>
+                    <th>Batch ID</th>
                     <th>Warehouse</th>
-                    <th className="text-center">Name</th>
+                    <th>Name</th>
                     <th>Expire Date</th>
-                    <th className="text-center">Available Quantity</th>
+                    <th>Available Quantity</th>
+                    <th>Actions</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -84,6 +116,9 @@ class CurrentStock extends Component {
                   </tbody>
                 </Table>
               </CardBody>
+              <CardFooter>
+              <Paginations dataPerPage={dataPerPage} totalData={ministrycurrentstocks.length} paginate={paginate}/>
+              </CardFooter>
             </Card>
           </Col>
         </Row>

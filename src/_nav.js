@@ -9,70 +9,8 @@ export default {
         text: 'NEW',
       },
     },
-    {
-      name: 'ImportStock',
-      url: '/importstock',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
-    },
-    {
-      name: 'ImportStockForm',
-      url: '/importstockform',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
-    },
-    {
-      name: 'CurrentStock',
-      url: '/currentstock',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
-    },
-    {
-      name: 'CurrentStockForm',
-      url: '/currentstockForm',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
-    },
-    {
-      name: 'DamageStock',
-      url: '/damagestock',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
-    },
-    {
-      name: 'DamageStockForm',
-      url: '/damagestockForm',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
-    },
-    {
-      name: 'DirectHospitalReqOrder',
-      url: '/ministry/directhospitalreqorder',
-      icon: 'icon-home',
-    },
-    {
-      name: 'DirectHospitalReqOrderDetail',
-      url: '/directhospitalreqorderdetail',
-      icon: 'icon-home',
-    },
+    
+
     {
       title: true,
       name: 'Ministry',
@@ -98,11 +36,6 @@ export default {
       icon: 'icon-home',
     },
     {
-      name: 'DirectHospitalForm',
-      url: '/ministry/directhospitalform',
-      icon: 'icon-home',
-    },
-    {
       name: 'Medicine',
       url: '/ministry/medicine',
       icon: 'icon-drop',
@@ -117,7 +50,54 @@ export default {
       url: '/ministry/driver',
       icon: 'icon-user',
     },
-    
+    {
+      title: true,
+      name: 'Ministry Store',
+      wrapper: {            // optional wrapper object
+        element: '',        // required valid HTML5 element tag
+        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+      },
+      class: ''             // optional class names space delimited list for title item ex: "text-center"
+    },
+    {
+ 
+          name: 'Imported Stocks',
+          url: '/importstock',
+          icon: 'icon-layers',
+
+    },
+    {
+          name: 'Current Stocks',
+          url: '/currentstock',
+          icon: 'icon-layers',
+    },
+    {
+          name: 'Returned Stocks',
+          url: '/damagestock',
+          icon: 'icon-layers',
+        
+        
+      
+    },
+    {
+      title: true,
+      name: 'Order Requests',
+      wrapper: {            // optional wrapper object
+        element: '',        // required valid HTML5 element tag
+        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+      },
+      class: ''             // optional class names space delimited list for title item ex: "text-center"
+    },
+    {
+      name: 'LM Hospital',
+      url: '/ministry/directhospitalreqorder',
+      icon: 'icon-bell',
+    },
+    {
+      name: 'RDHS',
+      url: '/ministry/rdhsreqorder',
+      icon: 'icon-bell',
+    },
     
     {
       title: true,

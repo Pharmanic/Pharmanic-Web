@@ -6,7 +6,13 @@ import {
   Col,
   Row,
   Table,
+  InputGroup,
+  InputGroupAddon,
+  Button,
+  Input,
+  CardFooter
 } from 'reactstrap';
+import Paginations from './Pagination';
 
 
 class CurrentStock extends Component {
@@ -17,7 +23,13 @@ class CurrentStock extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.state = {rdhss: [], isLoading: true}; 
+    this.state = {rdhss: [], isLoading: true,filter:"",
+        currentPage:1,
+        dataPerPage:5,}; 
+  }
+
+  handleChange = event =>{
+    this.setState({filter:event.target.value});
   }
 
   componentDidMount() {
@@ -43,13 +55,25 @@ class CurrentStock extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-    const {rdhss, isLoading} = this.state;
+    const {rdhss, isLoading,filter,dataPerPage,currentPage} = this.state;
+    const lowercasedFilter = filter.toLowerCase();
+    const filteredData = rdhss.filter(item => {
+      return Object.keys(item).some(key =>
+        item[key].toLowerCase().includes(lowercasedFilter)
+        );
+    })
 
     if (isLoading) {
       return <p>Loading...</p>;
     }
 
-    const groupList = rdhss.map(rdhs => {
+    const indexOfLastData=currentPage * dataPerPage;
+    const indexOfFirstData=indexOfLastData - dataPerPage;
+    const currentData=filteredData.slice(indexOfFirstData,indexOfLastData);
+
+    const paginate = pageNumber => this.setState({currentPage:pageNumber});
+
+    const groupList = currentData.map(rdhs => {
       return <tr key={rdhs.reg_no}>
         <td style={{whiteSpace: 'nowrap'}}>{rdhs.reg_no}</td>
         <td style={{whiteSpace: 'nowrap'}}>{rdhs.name}</td>
@@ -62,21 +86,34 @@ class CurrentStock extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-            <Card>
-              <CardHeader>
-                Medicines
+          <Row>
+          <Col md="8">
+          </Col>
+          <Col lg="4" >
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">
+              <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
+            </InputGroupAddon>
+            <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search a RDHS" value={filter} onChange={this.handleChange}/>
+          </InputGroup> 
+          <br></br>
+          </Col>
+          </Row>
+            <Card style={{borderRadius:'20px'}}>
+              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
+                <b>Regional Department Of Health Services (RDHS)</b>
               </CardHeader>
               <CardBody>
                 
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead className="thead-light">
+                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
                   <tr>
-                    <th className="text-center">Reg No</th>
+                    <th>Reg No</th>
                     <th>Name</th>
-                    <th className="text-center">Address</th>
+                    <th>Address</th>
                     <th>Email</th>
-                    <th className="text-center">Telephone</th>
+                    <th>Telephone</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -84,6 +121,14 @@ class CurrentStock extends Component {
                   </tbody>
                 </Table>
               </CardBody>
+              <CardFooter>
+              <Row>
+              <Col md="9"></Col>
+              <Col md="3">
+              <Paginations dataPerPage={dataPerPage} totalData={filteredData.length} paginate={paginate}/>
+              </Col>
+              </Row>
+              </CardFooter>
             </Card>
           </Col>
         </Row>

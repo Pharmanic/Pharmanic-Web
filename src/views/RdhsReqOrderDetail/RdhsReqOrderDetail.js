@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import SupplyToDHModel from '../SupplyToDHModel/SupplyToDHModel';
+import SupplyToRdhsModel from '../SupplyOrderToRdhsModal/SupplyOrderToRdhsModal';
 import {
   Card,
   CardBody,
@@ -18,7 +18,7 @@ import {
   InputGroupButtonDropdown,
   InputGroupText,
   Label,
-  Badge
+  Badge,
 } from 'reactstrap';
 
 import { } from 'reactstrap';
@@ -89,7 +89,7 @@ class DHReqOrderDetail extends Component {
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
     this.state = {
-      dhreqorderdetails: [], 
+      rdhsreqorderdetails: [], 
       isLoading: true,
       ministrytracks:[],
       item:this.emptyItem,
@@ -107,9 +107,9 @@ class DHReqOrderDetail extends Component {
     this.setState({isLoading: true,danger: false,modal: false,});
     this.toggleDanger = this.toggleDanger.bind(this);
     console.log('param',this.props.match);
-    fetch(`/dhreqorderdetails/${this.props.match.params.id}`)
+    fetch(`/rdhsreqorderdetails/${this.props.match.params.id}`)
       .then(response => response.json())
-      .then(data => this.setState({dhreqorderdetails: data, isLoading: false}));
+      .then(data => this.setState({rdhsreqorderdetails: data, isLoading: false}));
 
       fetch('/ministrytracks')
       .then(response => response.json())
@@ -179,8 +179,8 @@ class DHReqOrderDetail extends Component {
   }
 
   render() {
-    const {dhreqorderdetails, isLoading,ministrytracks,item} = this.state;
-    console.log('reqlist',dhreqorderdetails);
+    const {rdhsreqorderdetails, isLoading,ministrytracks,item} = this.state;
+    console.log('reqlist',rdhsreqorderdetails);
     if (isLoading) {
       return <p>Loading...</p>;
     }
@@ -193,20 +193,20 @@ class DHReqOrderDetail extends Component {
             </option>
     });
 
-    const groupList = dhreqorderdetails.map(dhreqorderdetail => {
-      return <tr key={dhreqorderdetail.id}>
-        <td style={{whiteSpace: 'nowrap'}}>{dhreqorderdetail.order_id.order_id}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{dhreqorderdetail.sr_no.name}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{dhreqorderdetail.quantity}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{dhreqorderdetail.order_id.m_store_id.m_store_id}</td>
+    const groupList = rdhsreqorderdetails.map(rdhsreqorderdetail => {
+      return <tr key={rdhsreqorderdetail.id}>
+        <td style={{whiteSpace: 'nowrap'}}>{rdhsreqorderdetail.order_id.order_id}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{rdhsreqorderdetail.sr_no.name}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{rdhsreqorderdetail.quantity}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{rdhsreqorderdetail.order_id.m_store_id.m_store_id}</td>
         <td style={{whiteSpace: 'nowrap'}}>
-              {dhreqorderdetail.can_supply_status===1?
+              {rdhsreqorderdetail.can_supply_status===1?
                 <Badge color="success">Available</Badge>
             :<Badge color="danger">Not Available</Badge>}
         </td>
       <td style={{whiteSpace: 'nowrap'}}>
-      {dhreqorderdetail.can_supply_status===1?    
-      <Button id = {dhreqorderdetail.id} block outline color="info" onClick= {this.toggleModal}>Supply Orders</Button>               
+      {rdhsreqorderdetail.can_supply_status===1?    
+      <Button id = {rdhsreqorderdetail.id} block outline color="info" onClick= {this.toggleModal}>Supply Order</Button>               
             : <Button block outline color="info" disabled>Supply Order</Button>}    
       </td>
       </tr>
@@ -243,7 +243,7 @@ class DHReqOrderDetail extends Component {
             </Card>
           </Col>
         </Row>
-        {shouldShowModal ? <SupplyToDHModel 
+        {shouldShowModal ? <SupplyToRdhsModel 
           orderId = {modalOrderId}
          toggle={this.toggleModal} shouldShowModal = {shouldShowModal}/> : null}
       </div>
