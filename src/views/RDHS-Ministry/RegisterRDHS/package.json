@@ -1,0 +1,7 @@
+{
+  "name": "RegisterRDHS",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./RegisterRDHS.js"
+}
+ 
