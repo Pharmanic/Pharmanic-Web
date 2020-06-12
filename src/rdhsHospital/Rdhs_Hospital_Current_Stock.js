@@ -64,7 +64,7 @@ import { Link } from 'react-router-dom';
        )
         let drugRow=filteredData.map(drug=>
            <tr>
-               <td>{drug.batchId}</td>
+               <td>{drug.batchNo}</td>
                <td>{drug.medicine.sr_no}</td>
                <td>{drug.medicine.name}</td>
                <td>{drug.quantity}</td>

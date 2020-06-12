@@ -14,24 +14,21 @@ class Rdhs_Hospital_Return_Cart extends Component {
     }
 
     async componentDidMount(){
-        console.log('line1');
         const response= await fetch('/api/returnCart/'+this.state.reg_no);
-        console.log('line2');
         const body=await response.json();
-        console.log('line3');
         this.setState({returnCart:body, isLoading:false});
-        console.log('line1',this.state.returnCart);
+       
         
     }
     render() { 
         const {returnCart} =this.state;
         let returnRow=returnCart.map(returned=>
             <tr>
-                <td><b>{returned.batchId.batchId}</b></td>
-                <td><b>{returned.batchId.medicine.sr_no}</b></td>
-                <td><b>{returned.batchId.medicine.name}</b></td>
+                <td><b>{returned.stockId.batchNo}</b></td>
+                <td><b>{returned.stockId.medicine.sr_no}</b></td>
+                <td><b>{returned.stockId.medicine.name}</b></td>
                 <td><b>{returned.quantity}</b></td>
-                <td><b>{returned.batchId.expiredate}</b></td>
+                <td><b>{returned.stockId.expiredate}</b></td>
                 <td><Button color="primary">Update</Button></td>
                      <td><Button color="danger">Delete</Button></td>
               
@@ -42,8 +39,11 @@ class Rdhs_Hospital_Return_Cart extends Component {
            
 
             <form>
+                <FormGroup>
               <Link to='/rhexpire'><Button color="info">Back</Button></Link>
-          
+
+                </FormGroup>
+              <Card>
         <Table className="mt-4">
             
              <thead style={{ backgroundColor: '#607D8B', color: 'white', borderRadius: '5px' }}>
@@ -64,7 +64,10 @@ class Rdhs_Hospital_Return_Cart extends Component {
                 
              </tbody>
          </Table>
+         </Card>
     </form>
+
+    
    
 
           );
