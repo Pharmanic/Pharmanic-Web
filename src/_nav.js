@@ -165,11 +165,7 @@ export default {
       url: '/ministry/directhospitalreqorder',
       icon: 'icon-bell',
     },
-    {
-      name: 'RDHS',
-      url: '/ministry/rdhsreqorder',
-      icon: 'icon-bell',
-    },
+
     {
       title: true,
       name: 'Ministry',

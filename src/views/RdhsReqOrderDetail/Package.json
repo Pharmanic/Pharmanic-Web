@@ -1,6 +1,0 @@
-{
-    "name": "RdhsReqOrderDetail",
-    "version": "0.0.0",
-    "private": true,
-    "main": "./RdhsReqOrderDetail.js"
-  }
