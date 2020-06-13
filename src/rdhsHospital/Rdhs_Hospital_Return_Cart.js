@@ -26,6 +26,21 @@ class Rdhs_Hospital_Return_Cart extends Component {
         localStorage.setItem('returnedId',returned_id);
         window.location.replace("/#/updatercart");
     }
+    async deleteItem(id){
+        await fetch('/api/dltreturnitem/'+id,{
+            method:'DELETE',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+            
+        }).then(()=>{
+            let updateItm=[...this.state.returnCart].filter(i=>i.returnedId !== id);
+            this.setState({returnCart:updateItm});
+        });
+        alert("Deleted....");
+
+    }
     render() { 
         const {returnCart} =this.state;
         let returnRow=returnCart.map(returned=>
@@ -36,7 +51,7 @@ class Rdhs_Hospital_Return_Cart extends Component {
                 <td><b>{returned.quantity}</b></td>
                 <td><b>{returned.rdhs_hospital_current_stock.expiredate}</b></td>
                 <td><Button color="primary" onClick={()=>this.setReturn(returned.returnedId)} >Update</Button></td>
-                     <td><Button color="danger">Delete</Button></td>
+                     <td><Button color="danger" onClick={()=>this.deleteItem(returned.returnedId)}>Delete</Button></td>
               
             </tr>
              
