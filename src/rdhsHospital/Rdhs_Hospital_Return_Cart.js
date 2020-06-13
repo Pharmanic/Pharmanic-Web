@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container,Form,FormGroup,Table, Button, Card} from 'reactstrap';
+import {Container,Form,FormGroup,Table, Button, Card,Row,Col} from 'reactstrap';
 
 
 import { Link } from 'react-router-dom';
@@ -60,9 +60,13 @@ class Rdhs_Hospital_Return_Cart extends Component {
            
 
             <form>
-                <FormGroup>
-              <Link to='/rhexpire'><Button color="info">Back</Button></Link>
-
+                <FormGroup row>
+                <Col md="4">
+              <Link to='/rhexpire'><Button color="info" style={{width:100}}>Back</Button></Link>{' '}{' '}{' '}{' '}
+              </Col>
+              <Col xs="12" md="7">
+              <Link to='/rdhstrack'><Button color="success" style={{width:300,height:50,font:170}}>Return Cart</Button></Link> 
+              </Col>
                 </FormGroup>
               <Card>
         <Table className="mt-4">
