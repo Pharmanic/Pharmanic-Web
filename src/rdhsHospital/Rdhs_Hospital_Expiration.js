@@ -43,6 +43,7 @@ class Rdhs_Hospital_Expiration extends Component {
         
         
         let drugRow=Drug.map(drug=>
+            
            <tr>
                <td>{drug.batchNo}</td>
                <td>{drug.medicine.sr_no}</td>

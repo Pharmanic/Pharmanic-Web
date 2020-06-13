@@ -6,6 +6,7 @@ import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
     Col,} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
+
 class Rdhs_Hospital_Return_Confirm extends Component {
 
 
@@ -75,6 +76,7 @@ class Rdhs_Hospital_Return_Confirm extends Component {
 
       async handleSubmit(event) {
         event.preventDefault();
+        
         const stockId=this.state.stockId;
         const rdh=this.state.rdhss;
         const store=this.state.currentStock;
@@ -150,7 +152,7 @@ class Rdhs_Hospital_Return_Confirm extends Component {
                           <Label htmlFor="select">Batch ID</Label>
                         </Col>
                         <Col xs="12" md="9">
-                          <Input type="text" name="batch_id" id="batch_id"  value={this.state.batchId}/>                                            
+                          <Input type="text" name="batch_id" id="batch_id"  value={this.state.batchId} disabled="true"/>                                            
                           
                         </Col>
                       </FormGroup>
