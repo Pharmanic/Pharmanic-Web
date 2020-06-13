@@ -16,8 +16,8 @@ class Rdhs_Hospital_Return_Confirm extends Component {
         quantity:'',
         state:0,
        
-        reg_no:[],
-        stockId:[],
+        hospital_by_rdhs:[],
+        rdhs_hospital_current_stock:[],
           track_id:''
       };
 
@@ -58,7 +58,7 @@ class Rdhs_Hospital_Return_Confirm extends Component {
           .then(data => this.setState({currentStock: data}));
           console.log('currentstock1',this.state.currentStock);
        
-          fetch('/hospitalsByRdhs')
+          fetch('/hospital_by_rdhs/hospital_by_rdhs_list')
         .then(response => response.json())
         .then(data => this.setState({rdhss: data}));
       }
@@ -112,9 +112,9 @@ class Rdhs_Hospital_Return_Confirm extends Component {
         
 
         let item = {...this.state.item};
-        item['stockId']=this.state.batches;
+        item['rdhs_hospital_current_stock']=this.state.batches;
         console.log('batch',this.state.batches);
-        item['reg_no']=this.state.rdhss;
+        item['hospital_by_rdhs']=this.state.rdhss;
         this.setState({item});
 
 
