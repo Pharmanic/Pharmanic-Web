@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Container,Form,FormGroup,Table, Button, Card} from 'reactstrap';
 
+
 import { Link } from 'react-router-dom';
 class Rdhs_Hospital_Return_Cart extends Component {
     constructor(props) {
@@ -20,16 +21,21 @@ class Rdhs_Hospital_Return_Cart extends Component {
        
         
     }
+
+    setReturn(returned_id){
+        localStorage.setItem('returnedId',returned_id);
+        window.location.replace("/#/updatercart");
+    }
     render() { 
         const {returnCart} =this.state;
         let returnRow=returnCart.map(returned=>
             <tr>
-                <td><b>{returned.stockId.batchNo}</b></td>
-                <td><b>{returned.stockId.medicine.sr_no}</b></td>
-                <td><b>{returned.stockId.medicine.name}</b></td>
+                <td><b>{returned.rdhs_hospital_current_stock.batchNo}</b></td>
+                <td><b>{returned.rdhs_hospital_current_stock.medicine.sr_no}</b></td>
+                <td><b>{returned.rdhs_hospital_current_stock.medicine.name}</b></td>
                 <td><b>{returned.quantity}</b></td>
-                <td><b>{returned.stockId.expiredate}</b></td>
-                <td><Button color="primary">Update</Button></td>
+                <td><b>{returned.rdhs_hospital_current_stock.expiredate}</b></td>
+                <td><Button color="primary" onClick={()=>this.setReturn(returned.returned_id)} >Update</Button></td>
                      <td><Button color="danger">Delete</Button></td>
               
             </tr>
