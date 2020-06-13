@@ -35,7 +35,7 @@ class Rdhs_Hospital_Return_Cart extends Component {
                 <td><b>{returned.rdhs_hospital_current_stock.medicine.name}</b></td>
                 <td><b>{returned.quantity}</b></td>
                 <td><b>{returned.rdhs_hospital_current_stock.expiredate}</b></td>
-                <td><Button color="primary" onClick={()=>this.setReturn(returned.returned_id)} >Update</Button></td>
+                <td><Button color="primary" onClick={()=>this.setReturn(returned.returnedId)} >Update</Button></td>
                      <td><Button color="danger">Delete</Button></td>
               
             </tr>
