@@ -9,7 +9,8 @@ class Rdhs_Hospital_Expiration extends Component {
         this.state = { 
             Drug:[],
             value:'',
-            isLoading:false
+            isLoading:false,
+            search:''
          }
          this.state.value=localStorage.getItem('reg_no');
         // alert(this.state.value+'expire');
@@ -63,6 +64,8 @@ class Rdhs_Hospital_Expiration extends Component {
                    <FormGroup>
                    <Link to='/returncart'><Button color="primary">View Return Cart</Button></Link>
                        </FormGroup>
+
+                  
                        <Card>
       <Table className="mt-4">
                     <thead>

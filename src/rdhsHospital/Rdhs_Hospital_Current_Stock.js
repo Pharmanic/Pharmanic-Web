@@ -47,6 +47,7 @@ import { Link } from 'react-router-dom';
         const {Drugs,isLoading} =this.state;
         let filteredData=Drugs.filter(
           (drugs)=>{
+            
             return drugs.medicine.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
                   //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
           }
@@ -56,6 +57,7 @@ import { Link } from 'react-router-dom';
         let optionList=Drugs.map(drug=>
           <option>
              {drug.medicine.name}
+             
           </option>
          
            
@@ -81,11 +83,11 @@ import { Link } from 'react-router-dom';
                   <br></br>
 <div>
 <InputGroup>
-          <Input type="select" id="input1-group2" name="input1-group2" placeholder="Search by Name" value={this.state.search}
+          <Input type="select" id="input1-group2" name="input1-group2" placeholder="Search by Name" value=""
                   onChange={this.updateSearch.bind(this)}>
 
                     {optionList}
-
+                   
           </Input>
 
         
