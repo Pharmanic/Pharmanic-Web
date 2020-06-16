@@ -60,7 +60,8 @@ class Rdhs_Track extends Component {
             item:this.emptyItem,
             driver:[],
             vehicles:[],
-            rdhs:[]
+            rdhs:[],
+            
          }
        
          this.handleChange = this.handleChange.bind(this);

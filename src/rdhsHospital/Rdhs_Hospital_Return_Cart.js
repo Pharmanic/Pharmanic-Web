@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import {Container,Form,FormGroup,Table, Button, Card,Row,Col} from 'reactstrap';
+import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
+    CardBody, Row,
+    CardFooter,
+    CardHeader,
+    Col,InputGroup} from 'reactstrap';
 
 
 import { Link } from 'react-router-dom';
@@ -9,7 +13,8 @@ class Rdhs_Hospital_Return_Cart extends Component {
         this.state = { 
             returnCart:[],
             reg_no:'',
-            isLoading:false
+            isLoading:false,
+            search:''
          }
          this.state.reg_no=localStorage.getItem('reg_no');
     }
@@ -41,9 +46,30 @@ class Rdhs_Hospital_Return_Cart extends Component {
         alert("Deleted....");
 
     }
+
+    updateSearch(event){
+        this.setState({search:event.target.value.substr(0,20)});
+      }
     render() { 
+
+
+      
         const {returnCart} =this.state;
-        let returnRow=returnCart.map(returned=>
+
+        let filteredData=returnCart.filter(
+            (drugs)=>{
+                return drugs.rdhs_hospital_current_stock.medicine.name.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1;
+            //  return drugs.rdhs_hospital_current_stock.medicine.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+                    //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
+            }
+          );
+        let optionList=returnCart.map(drug=>
+            <option>
+               {drug.rdhs_hospital_current_stock.medicine.name}
+            </option>
+           
+         )
+        let returnRow=filteredData.map(returned=>
             <tr>
                 <td><b>{returned.rdhs_hospital_current_stock.batchNo}</b></td>
                 <td><b>{returned.rdhs_hospital_current_stock.medicine.sr_no}</b></td>
@@ -65,10 +91,23 @@ class Rdhs_Hospital_Return_Cart extends Component {
               <Link to='/rhexpire'><Button color="info" style={{width:100}}>Back</Button></Link>{' '}{' '}{' '}{' '}
               </Col>
               <Col xs="12" md="7">
-              <Link to='/rdhstrack'><Button color="success" style={{width:300,height:50,font:170}}>Return Cart</Button></Link> 
+              <Link to='/rdhstrack'><Button color="success" style={{width:300,height:50,font:170}}>Return All</Button></Link> 
               </Col>
                 </FormGroup>
               <Card>
+
+              <div>
+                       <InputGroup>
+          <Input type="select" id="input1-group2" name="input1-group2" placeholder="Search by Name" value={this.state.search}
+                  onChange={this.updateSearch.bind(this)}>
+                        {optionList}
+
+          </Input>
+
+        
+                 
+        </InputGroup> 
+                       </div>
         <Table className="mt-4">
             
              <thead style={{ backgroundColor: '#607D8B', color: 'white', borderRadius: '5px' }}>
