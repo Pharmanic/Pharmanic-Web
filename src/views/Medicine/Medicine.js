@@ -110,7 +110,11 @@ class CurrentStock extends Component {
                     <th>SR No</th>
                     <th>Name</th>
                     <th>Side Effects</th>
+<<<<<<< HEAD
                     <th>Description</th>
+=======
+                    <th>Description  </th>
+>>>>>>> 747efdbe537cfc6cb342a269a6217b5729a031ad
                  
                   </tr>
                   </thead>

@@ -27,14 +27,12 @@
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-
     "react-app-polyfill": "^1.0.6",
     "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.2.0",
     "react-test-renderer": "^16.13.1",
-
     "reactstrap": "^8.4.1",
     "simple-line-icons": "^2.4.1"
   },

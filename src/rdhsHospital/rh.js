@@ -10,17 +10,23 @@ import { Link } from 'react-router-dom';
 class Rdhs_Hospital_Return_Confirm extends Component {
 
 
-    emptyList= {
+ emptyList= {
+  returned_id:'',
+  date:new Date(),
+  quantity:'',
+  state:0,
+ 
+  reg_no:[],
+  stock_id:[],
+    track_id:''
+};
+    emptyItem={
         returned_id:'',
         date:new Date(),
         quantity:'',
         state:0,
-       
-        hospital_by_rdhs:[],
-        rdhs_hospital_current_stock:[],
-          track_id:''
-      };
-
+    
+    };
     constructor(props) {
         super(props);
         this.state = { 
@@ -33,109 +39,123 @@ class Rdhs_Hospital_Return_Confirm extends Component {
             regNO:'',
             isLoading:true,
             currentStock:[],
-            rdhss:[],
             batches:[],
-            stockId:'',
-            updateStcok:[],
-            qty:''
+            rdhss:[],
+            track:[]
+            
          }
          this.handleChange = this.handleChange.bind(this);
-         this.handleSubmit = this.handleSubmit.bind(this);
-         this.state.stockId=localStorage.getItem('stockId');
-         console.log(this.state.stock_id);
-        this.state.batchId=localStorage.getItem('batchNo');
-        this.state.srNo=localStorage.getItem('sr_no');
-        this.state.name=localStorage.getItem('name');
-        this.state.expireDate=localStorage.getItem('expire');
-        this.state.avaibleQuantity=localStorage.getItem('quantity');
-        this.state.regNO=localStorage.getItem('reg_no');
+          this.handleSubmit = this.handleSubmit.bind(this);
+         this.state.batchId=localStorage.getItem('batchNo');
+         this.state.srNo=localStorage.getItem('sr_no');
+         this.state.name=localStorage.getItem('name');
+         this.state.expireDate=localStorage.getItem('expire');
+         this.state.avaibleQuantity=localStorage.getItem('quantity');
+         this.state.regNO=localStorage.getItem('reg_no')
+         
+    }
+    componentDidMount() {
+      this.setState({isLoading: true});
+      fetch('/api/rhstock')
+        .then(response => response.json())
+        .then(data => this.setState({currentStock: data}));
+     
+        fetch('/hospital_by_rdhs/hospital_by_rdhs_list')
+      .then(response => response.json())
+      .then(data => this.setState({rdhss: data}));
+
+      fetch('/api/alltrack')
+      .then(response => response.json())
+      .then(data => this.setState({track: data, isLoading: false}));
+    
+  
+  
+  
+    }
+  
+    handleChange(event) {
+      const target = event.target;
+    const value = target.value;
+    console.log('value',value);
+    const name = target.name;
+    console.log('name',name);
+    let item = {...this.state.item};  
+   
+      item[name] = value;
+      this.setState({item});
+      console.log('item',item);
+    
+
     }
 
-    componentDidMount() {
-        this.setState({isLoading: true});
-        fetch('/api/rhstock')
-          .then(response => response.json())
-          .then(data => this.setState({currentStock: data}));
-          console.log('currentstock1',this.state.currentStock);
-       
-          fetch('/hospital_by_rdhs/hospital_by_rdhs_list')
-        .then(response => response.json())
-        .then(data => this.setState({rdhss: data}));
-      }
-    handleChange(event) {
-      console.log('currentstock1',this.state.currentStock);
-     const target = event.target;
-      const value = target.value; 
-      const name = target.name;
-      this.state.qty=value;
-      let item = {...this.state.item};  
-        item[name] = value;
-        this.setState({item});
+    async handleSubmit(event) {
+
+      const batch_id=this.state.batchId;
+      const reg_no=this.state.regNO;
       
-      }
-
-      async handleSubmit(event) {
-        event.preventDefault();
-        
-        const stockId=this.state.stockId;
-        const rdh=this.state.rdhss;
+    
         const store=this.state.currentStock;
-        console.log('store',store);
-        const currentstock = store.find(mcs => mcs.stockId==stockId);
-        this.state.batches=currentstock;
-        console.log('current stock',currentstock);
-
-        const id=this.state.batches.stockId;
-        const q1=currentstock.quantity;
-        const q2=this.state.qty;
-       const nqty=q1-q2;
-       this.state.batches.quantity=nqty;
-
+        const batch=this.state.batches;
        
-        let batchee = {...this.state.batches};
-        await fetch('/api/rhstock/'+id, {
-          method:'PUT',
+
+        const currentstock = store.find(mcs => mcs.batchId==batch_id);
+        this.state.batches=currentstock;
+
+        const qty=currentstock.quantity;
+        console.log('quantity',qty);
+        const q1=this.state.item.quantity;
+        console.log('quantity2',q1);
+        const q2=qty-q1;
+        console.log('quantity3',q2);
+        this.state.batches.quantity=q2;
+        console.log('quantity3',this.state.batches.quantity);
+
+        const rdhses = rdh.find(mcs => mcs.reg_no==reg_no);
+        this.state.rdhss=rdhses;
+
+        let item = {...this.state.item};
+        item['batchId']=this.state.batches;
+        item['reg_no']=this.state.rdhss;
+        this.setState({item});
+        console.log('setitem',item);
+
+
+      const id=this.state.batches.batchId;
+      console.log("id",id);
+
+      // this.setItem();
+        event.preventDefault();
+      //  const {item} = this.state;
+      //  console.log('item',item);
+     
+      let batchee = {...this.state.batches};
+      console.log('batch1',batchee);
+      
+      await fetch('/api/rhstock/'+id, {
+        method:'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        
+        body: JSON.stringify(batchee),
+      });
+
+
+
+        await fetch('/api/returndtock', {
+          method:'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
           
-          body: JSON.stringify(batchee),
-        });
-
-      
-        const reg_no=this.state.regNO;
-        const rdhses = rdh.find(mcs => mcs.reg_no==reg_no);
-        this.state.rdhss=rdhses;
-
-
-        
-
-        let item = {...this.state.item};
-        item['rdhs_hospital_current_stock']=this.state.batches;
-        console.log('batch',this.state.batches);
-        item['hospital_by_rdhs']=this.state.rdhss;
-        this.setState({item});
-
-
-
-        await fetch('/api/returndtock', {
-            method:'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            
-            body: JSON.stringify(item),
-          }); 
-
-          window.location.replace("/#/rhexpire");
-
-
+          body: JSON.stringify(item),
+        }); 
+        alert("add sucessfully");
+     
       }
-
-
-
+    
     render() { 
         return ( 
             <div className="animated fadeIn">        
@@ -152,7 +172,7 @@ class Rdhs_Hospital_Return_Confirm extends Component {
                           <Label htmlFor="select">Batch ID</Label>
                         </Col>
                         <Col xs="12" md="9">
-                          <Input type="text" name="batch_id" id="batch_id"  value={this.state.batchId} disabled="true"/>                                            
+                          <Input type="text" name="batch_id" id="batch_id"  value={this.state.batchId}/>                                            
                           
                         </Col>
                       </FormGroup>
