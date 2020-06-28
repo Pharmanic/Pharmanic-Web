@@ -28,6 +28,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
+    "react-autocomplete-input": "^1.0.13",
     "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",
     "react-router-config": "^5.1.1",

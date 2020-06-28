@@ -62,6 +62,8 @@ class Rdhs_Hospital_Expiration extends Component {
             
             <form>
                    <FormGroup>
+                    
+                   <Link to='/rhcstock'><Button color="primary">Back</Button></Link>{' '}{' '}{' '}{' '}
                    <Link to='/returncart'><Button color="primary">View Return Cart</Button></Link>
                        </FormGroup>
 
