@@ -26,6 +26,7 @@ class Rdhs_Hospital_SortBy_Qty extends Component {
         localStorage.setItem('sr_no',sr_no);
         localStorage.setItem('name',name);
         localStorage.setItem('quantity',quantity);
+        window.location.replace("/#/rhorder");
       }
     render() { 
         const {Drug} =this.state;
@@ -57,7 +58,7 @@ class Rdhs_Hospital_SortBy_Qty extends Component {
             <FormGroup>
              
             <Link to='/rhcstock'><Button color="primary">Back</Button></Link>{' '}{' '}{' '}{' '}
-            <Link to='/returncart'><Button color="primary">View Return Cart</Button></Link>
+            <Link to='/rhordercart'><Button color="primary">View  Cart</Button></Link>
                 </FormGroup>
 
           
