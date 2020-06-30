@@ -4,7 +4,9 @@ import Rdhs_Hospital_Order_Form from './rdhsHospital/Rdhs_Hospital_Order_Form';
 import Rdhs_Hospital_SortBy_Qty from './rdhsHospital/Rdhs_Hospital_SortBy_Qty';
 import Rdhs_Hospital_Return_Cart from './rdhsHospital/Rdhs_Hospital_Return_Cart';
 import  Rdhs_Hospital_Update_Return_Cart from './rdhsHospital/Rdhs_Hospital_Update_Return_Cart';
+import Rdhs_Hospital_View_Order_Cart from './rdhsHospital/Rdhs_Hospital_View_Order_Cart';
 import Rdhs_Hospital_Login from './rdhsHospital/Rdhs_Hospital_Login';
+import Rdhs_Hospital_Update_Order_Cart from './rdhsHospital/Rdhs_Hospital_Update_Order_Cart';
 const RdhsHopitalDrugStore= React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Current_Stock'));
 const RdhsHopitalTrack= React.lazy(() => import('./rdhsHospital/Rdhs_Track'));
 const RdhsHopitalReturnConfirm= React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Return_Confirm'));
@@ -81,6 +83,9 @@ const HospitalByRDHSRegister = React.lazy(() => import('./views/Hospital by RDHS
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/rdhstrack', name: 'Rdhs_Track', component: RdhsHopitalTrack },
+  
+  { path: '/rhupdateocart', name: 'Rdhs_Hospital_Update_Order_Cart', component: Rdhs_Hospital_Update_Order_Cart },
+  { path: '/rhordercart', name: 'Rdhs_Hospital_View_Order_Cart', component: Rdhs_Hospital_View_Order_Cart },
   { path: '/rhorder', name: 'Rdhs_Hospital_Order_Form', component: Rdhs_Hospital_Order_Form },
   { path: '/lessqty', name: 'Rdhs_Hospital_SortBy_Qty', component: Rdhs_Hospital_SortBy_Qty },
   { path: '/updatercart', name: 'Rdhs_Hospital_Update_Return_Cart', component: Rdhs_Hospital_Update_Return_Cart },

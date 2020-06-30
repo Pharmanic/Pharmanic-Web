@@ -3,7 +3,7 @@ import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
     CardBody, Row,
     CardFooter,
     CardHeader,
-    Col,InputGroup} from 'reactstrap';
+    Col,InputGroup,InputGroupAddon} from 'reactstrap';
 
 
 import { Link } from 'react-router-dom';
@@ -95,19 +95,26 @@ class Rdhs_Hospital_Return_Cart extends Component {
               </Col>
                 </FormGroup>
               <Card>
-
               <div>
-                       <InputGroup>
-          <Input type="select" id="input1-group2" name="input1-group2" placeholder="Search by Name" value={this.state.search}
-                  onChange={this.updateSearch.bind(this)}>
-                        {optionList}
+                  <CardHeader>
 
-          </Input>
-
+<Row>
+             
+             <Col>
+               <InputGroup>
+                 <InputGroupAddon addonType="prepend">
+                   <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
+                 </InputGroupAddon>
+                 <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search By Name" type="text"
+                   value={this.state.search}
+                   onChange={this.updateSearch.bind(this)} />
+               </InputGroup>
+               <br></br>
+             </Col>
+           </Row>
+           </CardHeader>
         
-                 
-        </InputGroup> 
-                       </div>
+</div>
         <Table className="mt-4">
             
              <thead style={{ backgroundColor: '#607D8B', color: 'white', borderRadius: '5px' }}>
