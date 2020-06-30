@@ -8,6 +8,15 @@ import { Link } from 'react-router-dom';
 
 
 class Rdhs_Hospital_Order_Form extends Component {
+
+  emptyList= {
+    cartId:'',
+   qty:'',
+   state:'',
+    hospital_by_rdhs:[],
+    medicine:[]
+  };
+
   constructor(props) {
     super(props);
     this.state = { 
@@ -15,18 +24,109 @@ class Rdhs_Hospital_Order_Form extends Component {
       medicine:[],
       isLoading:'',
       name:'',
-      availqty:''
+      availqty:'',
+      orqty:'',
+      item:this.emptyList,
+      reg_no:'',
+      hospital:[],
+      cart:[]
      }
+    
      this.state.sr_no=localStorage.getItem('sr_no');
      this.state.name=localStorage.getItem('name');
      this.state.availqty=localStorage.getItem('quantity');
+     this.state.reg_no=localStorage.getItem('reg_no');
+     this.handleChange = this.handleChange.bind(this);
+     this.handleSubmit = this.handleSubmit.bind(this);
   }
   async componentDidMount(){
-    const response= await fetch('/medicines'+this.state.sr_no);
-    const body=await response.json();
-    this.setState({medicine:body, isLoading:true});
-    //alert(this.state.id);
+  
+    this.setState({isLoading: true});
+    fetch('/medicines/'+this.state.sr_no)
+      .then(response => response.json())
+      .then(data => this.setState({medicine: data}));
+      
+      fetch('/rhRequestOrder/getOrderCart')
+        .then(response => response.json())
+        .then(data => this.setState({cart: data}));
+   
+      fetch('/hospitalByRdhs/'+this.state.reg_no)
+    .then(response => response.json())
+    .then(data => this.setState({hospital: data,isLoading:true}));
+
+    console.log(this.state.hospital);
+
+
 }
+handleChange(event) { 
+  event.preventDefault();
+  console.log('reg'+this.state.reg_no);
+  console.log(this.state.hospital);
+
+ const target = event.target;
+  const value = target.value; 
+  const name = target.name;
+  this.state.orqty=value;
+  let item = {...this.state.item};  
+        item[name] = value;
+        item['medicine']=this.state.medicine;
+        item['hospital_by_rdhs']=this.state.hospital;
+        this.setState({item});
+  
+  }
+  async handleSubmit(event) {
+    event.preventDefault();
+    let item = {...this.state.item};
+    const sto=this.state.cart;
+    
+    if(sto.find(mcs => mcs.medicine.sr_no==this.state.sr_no)){
+      console.log('If statement');
+        const currentcart=sto.find(mcs => mcs.medicine.sr_no==this.state.sr_no);
+        console.log('current cart : ',currentcart);
+        const q3=parseInt(currentcart.qty)+parseInt(this.state.orqty); 
+        const cartId=currentcart.cartId;
+        console.log(currentcart);
+        console.log('cart_id',currentcart.cartId);
+        console.log(q3);
+        item['qty'] = q3;
+        item['medicine']=this.state.medicine;
+        item['hospital_by_rdhs']=this.state.hospital;
+        item['cartId']=cartId;
+        this.setState({item});
+        console.log(cartId);
+        await fetch('/rhRequestOrder/updateCart/'+cartId, {
+          method:'PUT',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          
+          body: JSON.stringify(item),
+        });
+
+
+       
+    }else{
+      console.log('else statement');
+      item['medicine']=this.state.medicine;
+    item['hospital_by_rdhs']=this.state.hospital;
+
+    this.setState({item});
+    await fetch('/rhRequestOrder/addToOrderCart', {
+        method:'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        
+        body: JSON.stringify(item),
+      }); 
+    }
+    
+   
+      window.location.replace("/#/rhexpire");
+  }
+
   render() { 
     return (
       <div className="animated fadeIn">        
@@ -71,7 +171,7 @@ class Rdhs_Hospital_Order_Form extends Component {
                     <Label htmlFor="text-input">Enter Return Quantity</Label>
                   </Col>
                   <Col xs="12" md="9">
-                    <Input type="text" id="quantity" name="quantity" placeholder="Enter Order Quantity"  onChange={this.handleChange}></Input>
+                    <Input type="text" id="qty" name="qty" placeholder="Enter Order Quantity"  onChange={this.handleChange}></Input>
                   </Col>
                 </FormGroup> 
                
