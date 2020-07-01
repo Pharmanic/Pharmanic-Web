@@ -9,10 +9,6 @@ export default {
         text: 'NEW',
       },
     },
-<<<<<<< HEAD
-    
-
-=======
     {
       title: true,
       name: 'Ministry',
@@ -164,13 +160,16 @@ export default {
       },
       class: ''             // optional class names space delimited list for title item ex: "text-center"
     },
->>>>>>> 747efdbe537cfc6cb342a269a6217b5729a031ad
     {
       name: 'LM Hospital',
       url: '/ministry/directhospitalreqorder',
       icon: 'icon-bell',
     },
-
+    {
+      name: 'RDHS',
+      url: '/ministry/rdhsreqorder',
+      icon: 'icon-bell',
+    },
     {
       title: true,
       name: 'Ministry',
@@ -197,6 +196,11 @@ export default {
       icon: 'icon-home',
     },
     {
+      name: 'DirectHospitalForm',
+      url: '/ministry/directhospitalform',
+      icon: 'icon-home',
+    },
+    {
       name: 'Medicine',
       url: '/ministry/medicine',
       icon: 'icon-drop',
@@ -211,54 +215,7 @@ export default {
       url: '/ministry/driver',
       icon: 'icon-user',
     },
-    {
-      title: true,
-      name: 'Ministry Store',
-      wrapper: {            // optional wrapper object
-        element: '',        // required valid HTML5 element tag
-        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
-      },
-      class: ''             // optional class names space delimited list for title item ex: "text-center"
-    },
-    {
- 
-          name: 'Imported Stocks',
-          url: '/importstock',
-          icon: 'icon-layers',
-
-    },
-    {
-          name: 'Current Stocks',
-          url: '/currentstock',
-          icon: 'icon-layers',
-    },
-    {
-          name: 'Returned Stocks',
-          url: '/damagestock',
-          icon: 'icon-layers',
-        
-        
-      
-    },
-    {
-      title: true,
-      name: 'Order Requests',
-      wrapper: {            // optional wrapper object
-        element: '',        // required valid HTML5 element tag
-        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
-      },
-      class: ''             // optional class names space delimited list for title item ex: "text-center"
-    },
-    {
-      name: 'LM Hospital',
-      url: '/ministry/directhospitalreqorder',
-      icon: 'icon-bell',
-    },
-    {
-      name: 'RDHS',
-      url: '/ministry/rdhsreqorder',
-      icon: 'icon-bell',
-    },
+    
     
     {
       title: true,

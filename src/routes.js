@@ -1,9 +1,6 @@
 import React from 'react';
 import Rdhs_Hospital_Current_Stock from './rdhsHospital/Rdhs_Hospital_Current_Stock';
 
-
-import Rdhs_Hospital_Return_Cart from './rdhsHospital/Rdhs_Hospital_Return_Cart';
-import  Rdhs_Hospital_Update_Return_Cart from './rdhsHospital/Rdhs_Hospital_Update_Return_Cart';
 import Rdhs_Hospital_Login from './rdhsHospital/Rdhs_Hospital_Login';
 const RdhsHopitalDrugStore= React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Current_Stock'));
 const RdhsHopitalTrack= React.lazy(() => import('./rdhsHospital/Rdhs_Track'));
@@ -48,12 +45,8 @@ const Driver = React.lazy(() => import('./views/Driver'));
 const MinistryStore = React.lazy(() => import('./views/MinistryStore'));
 const Vehicle = React.lazy(() => import('./views/Vehicle'));
 const Rdhs = React.lazy(() => import('./views/Rdhs'));
-<<<<<<< HEAD
 const RdhsReqOrder = React.lazy(() => import('./views/RdhsReqOrder'));
 const RdhsReqOrderDetail = React.lazy(() => import('./views/RdhsReqOrderDetail'));
-=======
-
->>>>>>> 747efdbe537cfc6cb342a269a6217b5729a031ad
 const CoreUIIcons = React.lazy(() => import('./views/Icons/CoreUIIcons'));
 const Flags = React.lazy(() => import('./views/Icons/Flags'));
 const FontAwesome = React.lazy(() => import('./views/Icons/FontAwesome'));
@@ -81,11 +74,8 @@ const HospitalByRDHSRegister = React.lazy(() => import('./views/Hospital by RDHS
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/rdhstrack', name: 'Rdhs_Track', component: RdhsHopitalTrack },
-  
-  { path: '/updatercart', name: 'Rdhs_Hospital_Update_Return_Cart', component: Rdhs_Hospital_Update_Return_Cart },
   { path: '/rhcstock', name: 'Rdhs_Hospital_Current_Stock', component: Rdhs_Hospital_Current_Stock },
   { path: '/rhreturnconfirm', name: 'Rdhs_Hospital_Return_Confirm', component: RdhsHopitalReturnConfirm },
-  { path: '/returncart', name: 'Rdhs_Hospital_Return_Cart', component: Rdhs_Hospital_Return_Cart },
   { path: '/rhexpire', name: 'Rdhs_Hospital_Expiration', component: RdhsHospitalExpireDrug },
   { path: '/rdhoslog', name: 'Rdhs_Hospital_Current_Stock', component: Rdhs_Hospital_Login},
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
@@ -105,12 +95,8 @@ const routes = [
   { path: '/ministry/store', name: 'MinistryStore', component: MinistryStore },
   { path: '/ministry/vehicle', name: 'Vehicle', component: Vehicle },
   { path: '/ministry/rdhs', name: 'Rdhs', component: Rdhs },
-<<<<<<< HEAD
   { path: '/ministry/rdhsreqorder', name: 'RdhsReqOrder', component: RdhsReqOrder},
   { path: '/rdhsreqorderdetail/:id', name: 'RdhsReqOrderDetail', component: RdhsReqOrderDetail },
-=======
-
->>>>>>> 747efdbe537cfc6cb342a269a6217b5729a031ad
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
   { path: '/theme/typography', name: 'Typography', component: Typography },

@@ -3,7 +3,7 @@ import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
   CardBody, Row,
   CardFooter,
   CardHeader,
-  Col,InputGroup} from 'reactstrap';
+  Col} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
  class Rdhs_Hospital_Current_Stock extends Component {
@@ -20,12 +20,11 @@ import { Link } from 'react-router-dom';
             Hospital:[],
             hospitalDrug:[],
             id:'',
-            url:'',
-            search:''
+            url:''
         };
       
       this.state.id=localStorage.getItem('reg_no');
-   //  alert(this.state.id+"Hospital id");
+      alert(this.state.id+"Hospital id");
       this.state.url='/api/rhstockreg/'+this.state.id;
      // alert(this.state.url);
 
@@ -38,35 +37,17 @@ import { Link } from 'react-router-dom';
                 //alert(this.state.id);
             }
 
+      
     
-            updateSearch(event){
-              this.setState({search:event.target.value.substr(0,20)});
-            }
     render()
     {
         const {Drugs,isLoading} =this.state;
-        let filteredData=Drugs.filter(
-          (drugs)=>{
-            
-            return drugs.medicine.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
-                  //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
-          }
-        );
 
-
-        let optionList=Drugs.map(drug=>
-          <option>
-             {drug.medicine.name}
-             
-          </option>
-         
-           
-            
-           
-       )
-        let drugRow=filteredData.map(drug=>
+        
+        
+        let drugRow=Drugs.map(drug=>
            <tr>
-               <td>{drug.batchNo}</td>
+               <td>{drug.batchId}</td>
                <td>{drug.medicine.sr_no}</td>
                <td>{drug.medicine.name}</td>
                <td>{drug.quantity}</td>
@@ -76,35 +57,14 @@ import { Link } from 'react-router-dom';
            </tr>
             
         )
-  return (
+
+        
+
+      return (
       <form>
         <Link to='/rhexpire'><Button color="primary">Sort By Expire Date</Button></Link>
-        <br></br>
-                  <br></br>
-<div>
-<InputGroup>
-          <Input type="select" id="input1-group2" name="input1-group2" placeholder="Search by Name" value=""
-                  onChange={this.updateSearch.bind(this)}>
-
-                    {optionList}
-                   
-          </Input>
-
-        
-                 
-        </InputGroup> 
-        
-                  <br></br>
-                 
-        
-
-</div>
-       
-
-          
-        <Card>
       <Table className="mt-4">
-                    <thead style={{ backgroundColor: '#33C7FF', color: 'white', borderRadius: '5px',font:'1500px'}}>
+                    <thead>
                         <tr>
                             <th width="10%">Batch Id</th>
                             <th width="10%">Sr_no</th>
@@ -118,7 +78,6 @@ import { Link } from 'react-router-dom';
                         {drugRow}
                     </tbody>
                 </Table>
-                </Card>
       </form>
 
 

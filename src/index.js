@@ -4,7 +4,7 @@ import 'react-app-polyfill/stable';
 import './polyfill'
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import Rdhs_Hospital_Current_Stock from './rdhsHospital/Rdhs_Hospital_Current_Stock';
+import Rdhs_Hospital_Current_Stock from './rdhsHospital/Rdhs_Hospital_Current_Stock';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';

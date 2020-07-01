@@ -1,5 +1,5 @@
- import React, { Component } from 'react';
-import {Container,Form,FormGroup,Table, Button, Card} from 'reactstrap';
+import React, { Component } from 'react';
+import {Container,Form,FormGroup,Table, Button} from 'reactstrap';
 
 import { Link } from 'react-router-dom';
 
@@ -9,21 +9,18 @@ class Rdhs_Hospital_Expiration extends Component {
         this.state = { 
             Drug:[],
             value:'',
-            isLoading:false,
-            search:''
+            isLoading:false
          }
          this.state.value=localStorage.getItem('reg_no');
         // alert(this.state.value+'expire');
     }
-    async setReturn(stockId,batchNo,sr_no,name,quantity,expiration){
-        localStorage.setItem('stockId',stockId);
-        localStorage.setItem('batchNo',batchNo);
+    async setReturn(batchId,sr_no,name,quantity,expiration){
+        localStorage.setItem('batch_id',batchId);
         localStorage.setItem('sr_no',sr_no);
         localStorage.setItem('name',name);
         localStorage.setItem('quantity',quantity);
         localStorage.setItem('expire',expiration);
      //   alert(localStorage.getItem('expire'));
-        window.location.replace("/#/rhreturnconfirm");
 
     }
 
@@ -44,14 +41,13 @@ class Rdhs_Hospital_Expiration extends Component {
         
         
         let drugRow=Drug.map(drug=>
-            
            <tr>
-               <td>{drug.batchNo}</td>
+               <td>{drug.batchId}</td>
                <td>{drug.medicine.sr_no}</td>
                <td>{drug.medicine.name}</td>
                <td>{drug.quantity}</td>
                <td><b>{drug.expiredate}</b></td>
-               <td><Button color="primary" onClick={()=>this.setReturn(drug.stockId,drug.batchNo,drug.medicine.sr_no,drug.medicine.name,drug.quantity,drug.expiredate)}>Add to Return Cart</Button></td>
+               <td><Button color="primary" onClick={()=>this.setReturn(drug.batchId,drug.sr_no,drug.medicine.name,drug.quantity,drug.expiredate)}>Add to Return Cart</Button></td>
               
                
            </tr>
@@ -59,14 +55,7 @@ class Rdhs_Hospital_Expiration extends Component {
         )
 
         return ( 
-            
             <form>
-                   <FormGroup>
-                   <Link to='/returncart'><Button color="primary">View Return Cart</Button></Link>
-                       </FormGroup>
-
-                  
-                       <Card>
       <Table className="mt-4">
                     <thead>
                         <tr>
@@ -82,13 +71,8 @@ class Rdhs_Hospital_Expiration extends Component {
                     <tbody>
                         {drugRow}
                     </tbody>
-                
                 </Table>
-
-                </Card>
-
       </form>
-     
          );
     }
 }
