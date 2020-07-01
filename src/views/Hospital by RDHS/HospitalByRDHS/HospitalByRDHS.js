@@ -44,6 +44,21 @@ class HospitalByRDHS extends Component {
       .then(data => this.setState({ hospitalByRDHSs: data, isLoading: false }));
   }
 
+  async remove(id) {
+    await fetch(`/hospitalByRdhs/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(() => {
+      // console.log("deleted");
+      //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
+      window.location.reload(false);
+
+    });
+  }
+
   updateSearch(event) {
     this.setState({ search: event.target.value.substr(0, 20) });
   }
@@ -72,8 +87,8 @@ class HospitalByRDHS extends Component {
           hospitalByRDHS.rdhs.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           hospitalByRDHS.telephone.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           hospitalByRDHS.address.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 
-         ;
+          hospitalByRDHS.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+          ;
         //  hospitalByRDHS.m_store_id.indexOf(this.state.search) !==-1;
       }
     );
@@ -98,6 +113,9 @@ class HospitalByRDHS extends Component {
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.address}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.email}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.telephone}</td>
+        <td>
+          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this RDHS Hospital?')) this.remove(hospitalByRDHS.reg_no) }}><i className="fa fa-trash"></i></Button>
+        </td>
 
       </tr>
     });
@@ -137,6 +155,7 @@ class HospitalByRDHS extends Component {
                       <th>Address</th>
                       <th>E Mail</th>
                       <th>Tel No</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
