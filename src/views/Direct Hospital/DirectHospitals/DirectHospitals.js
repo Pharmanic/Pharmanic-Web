@@ -60,6 +60,21 @@ class DirectHospitals extends Component {
     });
   }
 
+    async remove(id) {
+    await fetch(`/directhospital/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(() => {
+      // console.log("deleted");
+      //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
+      window.location.reload(false);
+
+    });
+  }
+
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
@@ -96,6 +111,9 @@ class DirectHospitals extends Component {
         <td style={{ whiteSpace: 'nowrap' }}>{directHospital.address}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{directHospital.email}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{directHospital.telephone}</td>
+        <td>
+          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this Direct Hospital?')) this.remove(directHospital.reg_no) }}><i className="fa fa-trash"></i></Button>
+        </td>
 
       </tr>
     });
@@ -134,6 +152,7 @@ class DirectHospitals extends Component {
                       <th>Address</th>
                       <th>E Mail</th>
                       <th>Tel No</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
