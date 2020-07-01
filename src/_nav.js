@@ -9,10 +9,6 @@ export default {
         text: 'NEW',
       },
     },
-<<<<<<< HEAD
-    
-
-=======
     {
       title: true,
       name: 'Ministry',
@@ -164,7 +160,6 @@ export default {
       },
       class: ''             // optional class names space delimited list for title item ex: "text-center"
     },
->>>>>>> 747efdbe537cfc6cb342a269a6217b5729a031ad
     {
       name: 'LM Hospital',
       url: '/ministry/directhospitalreqorder',
