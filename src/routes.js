@@ -111,12 +111,12 @@ const routes = [
   { path: '/ministry/store', name: 'MinistryStore', component: MinistryStore },
   { path: '/ministry/vehicle', name: 'Vehicle', component: Vehicle },
   { path: '/ministry/rdhs', name: 'Rdhs', component: Rdhs },
-<<<<<<< HEAD
+// <<<<<<< HEAD
   { path: '/ministry/rdhsreqorder', name: 'RdhsReqOrder', component: RdhsReqOrder},
   { path: '/rdhsreqorderdetail/:id', name: 'RdhsReqOrderDetail', component: RdhsReqOrderDetail },
-=======
+// =======
 
->>>>>>> 747efdbe537cfc6cb342a269a6217b5729a031ad
+// >>>>>>> 747efdbe537cfc6cb342a269a6217b5729a031ad
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
   { path: '/theme/typography', name: 'Typography', component: Typography },
