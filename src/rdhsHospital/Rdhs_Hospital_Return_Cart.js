@@ -77,7 +77,7 @@ class Rdhs_Hospital_Return_Cart extends Component {
                 <td><b>{returned.quantity}</b></td>
                 <td><b>{returned.rdhs_hospital_current_stock.expiredate}</b></td>
                 <td><Button color="primary" onClick={()=>this.setReturn(returned.returnedId)} >Update</Button></td>
-                     <td><Button color="danger" onClick={()=>this.deleteItem(returned.returnedId)}>Remove</Button></td>
+                     <td><Button color="danger" onClick={()=>this.deleteItem(returned.returnedId)}>Delete</Button></td>
               
             </tr>
              
