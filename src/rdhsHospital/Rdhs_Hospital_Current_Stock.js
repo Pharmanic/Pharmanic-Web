@@ -82,16 +82,16 @@ import TextInput from 'react-autocomplete-input';
         <Link to='/lessqty'><Button color="primary">Sort By quantity</Button></Link>
         <br></br>
                   <br></br>
-<div>
+      <div>
 
-<Row>
+          <Row>
              
              <Col>
                <InputGroup>
                  <InputGroupAddon addonType="prepend">
                    <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
                  </InputGroupAddon>
-                 <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search" type="text"
+                 <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search By Name" type="text"
                    value={this.state.search}
                    onChange={this.updateSearch.bind(this)} />
                </InputGroup>
@@ -99,7 +99,7 @@ import TextInput from 'react-autocomplete-input';
              </Col>
            </Row>
         
-</div>
+    </div>
        
 
           
