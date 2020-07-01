@@ -27,12 +27,20 @@ import {
 import { Link, withRouter } from 'react-router-dom';
 class RegisterHospitalByRDHS extends Component {
 
-   emptyItem = {
-    reg_no:'',
+  emptyItem = {
+    reg_no: '',
     name: '',
     address: '',
     email: '',
-    telephone: ''
+    telephone: '',
+    rdhs: {
+      reg_no: '',
+      address: '',
+      email: '',
+      name: '',
+      telephone: ''
+
+    }
 
   };
 
@@ -45,10 +53,27 @@ class RegisterHospitalByRDHS extends Component {
       item: this.emptyItem,
       collapse: true,
       fadeIn: true,
-      timeout: 300
+      timeout: 300,
+      rdhss:[]
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({isLoading: true});
+    fetch('/rdhs_list')
+      .then(response => response.json())
+      .then(data => this.setState({rdhss: data}));
+
+      // fetch('/medicines')
+      // .then(response => response.json())
+      // .then(data => this.setState({medicines: data, isLoading: false}));
+
+      // fetch('/ministrycurrentstocks')
+      // .then(response => response.json())
+      // .then(data => this.setState({ministrycurrentstocks: data, isLoading: false}));
+
   }
 
   handleChange(event) {
@@ -56,8 +81,21 @@ class RegisterHospitalByRDHS extends Component {
     const value = target.value;
     const name = target.name;
     let item = { ...this.state.item };
-    item[name] = value;
-    this.setState({ item });
+    // item[name] = value;
+    // this.setState({ item });
+    if (name == 'rdhs') {
+      const rdhss = this.state.rdhss;
+     // console.log('rdhss', rdhss);
+      const rdhs = rdhss.find(rdhs => rdhs.reg_no == target.value);
+      console.log('rdhsjjj', rdhs.reg_no);
+      item[name] = rdhs;
+      this.setState({ item });
+      console.log('item', item);
+    } else {
+      item[name] = value;
+      this.setState({ item });
+      console.log('item', item);
+    }
   }
 
   async handleSubmit(event) {
@@ -72,8 +110,8 @@ class RegisterHospitalByRDHS extends Component {
       },
       body: JSON.stringify(item),
     })
-    .then(res => res.json()) //returns array of data
-    ;
+      .then(res => res.json()) //returns array of data
+      ;
     this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
   }
 
@@ -83,15 +121,23 @@ class RegisterHospitalByRDHS extends Component {
 
   toggleFade() {
     this.setState((prevState) => { return { fadeIn: !prevState } });
- }
+  }
 
- resetForm = () => { 
-   this.setState({ item: this.emptyItem});
-}
- 
+  resetForm = () => {
+    this.setState({ item: this.emptyItem });
+  }
+
   render() {
-    const {item} = this.state;
+    const {item,rdhss} = this.state;
     const title = <h2>{'Add Group'}</h2>;
+
+    const rdhsList = rdhss.map(rdhs => {
+      return <option
+        key={rdhs.reg_no}
+        value={rdhs.reg_no}>
+        {rdhs.reg_no}
+      </option>
+    });
 
     return (
       <div className="animated fadeIn">
@@ -104,7 +150,7 @@ class RegisterHospitalByRDHS extends Component {
               </CardHeader>
               <CardBody>
                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="hospital_by_rdhsForm">
-                    <FormGroup row>
+                  <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Register No</Label>
                     </Col>
@@ -120,6 +166,19 @@ class RegisterHospitalByRDHS extends Component {
                     <Col xs="12" md="9">
                       <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={item.name || ''}
                         onChange={this.handleChange} autoComplete="name" />
+                    </Col>
+                  </FormGroup>
+
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="select">RDHS</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" name="rdhs" id="rdhs" value={item.rdhs.reg_no || ''} onChange={this.handleChange} >
+                        <option>Select a RDHS</option>
+                        {rdhsList}
+                      </Input>
+
                     </Col>
                   </FormGroup>
 

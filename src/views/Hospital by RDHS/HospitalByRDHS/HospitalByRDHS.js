@@ -69,6 +69,7 @@ class HospitalByRDHS extends Component {
       (hospitalByRDHS) => {
         return hospitalByRDHS.reg_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           hospitalByRDHS.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          hospitalByRDHS.rdhs.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           hospitalByRDHS.telephone.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           hospitalByRDHS.address.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           hospitalByRDHS.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 
@@ -93,6 +94,7 @@ class HospitalByRDHS extends Component {
       return <tr key={hospitalByRDHS.m_store_id}>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.reg_no}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.name}</td>
+        <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.rdhs.name}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.address}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.email}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.telephone}</td>
@@ -131,6 +133,7 @@ class HospitalByRDHS extends Component {
                     <tr>
                       <th>RDHS Hospital Register NO</th>
                       <th>RDHS Hospital Name</th>
+                      <th>Related RDHS</th>
                       <th>Address</th>
                       <th>E Mail</th>
                       <th>Tel No</th>
