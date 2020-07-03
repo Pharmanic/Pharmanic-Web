@@ -60,7 +60,7 @@ class Rdhs_Hospital_Return_Confirm extends Component {
        
           fetch('/hospital_by_rdhs/hospital_by_rdhs_list')
         .then(response => response.json())
-        .then(data => this.setState({rdhss: data}));
+        .then(data => this.setState({rdhss: data})); 
       }
     handleChange(event) {
       console.log('currentstock1',this.state.currentStock);
@@ -75,62 +75,75 @@ class Rdhs_Hospital_Return_Confirm extends Component {
       }
 
       async handleSubmit(event) {
+        
         event.preventDefault();
-        
-        const stockId=this.state.stockId;
-        const rdh=this.state.rdhss;
-        const store=this.state.currentStock;
-        console.log('store',store);
-        const currentstock = store.find(mcs => mcs.stockId==stockId);
-        this.state.batches=currentstock;
-        console.log('current stock',currentstock);
-
-        const id=this.state.batches.stockId;
-        const q1=currentstock.quantity;
-        const q2=this.state.qty;
-       const nqty=q1-q2;
-       this.state.batches.quantity=nqty;
-
-       
-        let batchee = {...this.state.batches};
-        await fetch('/api/rhstock/'+id, {
-          method:'PUT',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          
-          body: JSON.stringify(batchee),
-        });
-
-      
-        const reg_no=this.state.regNO;
-        const rdhses = rdh.find(mcs => mcs.reg_no==reg_no);
-        this.state.rdhss=rdhses;
-
-
-        
-
-        let item = {...this.state.item};
-        item['rdhs_hospital_current_stock']=this.state.batches;
-        console.log('batch',this.state.batches);
-        item['hospital_by_rdhs']=this.state.rdhss;
-        this.setState({item});
-
-
-
-        await fetch('/api/returndtock', {
-            method:'POST',
+        var result = window.confirm("Are you sure return this item?");
+        if(result){
+          const stockId=this.state.stockId;
+          const rdh=this.state.rdhss;
+          const store=this.state.currentStock;
+          console.log('store',store);
+          const currentstock = store.find(mcs => mcs.stockId==stockId);
+          this.state.batches=currentstock;
+          console.log('current stock',currentstock);
+  
+          const id=this.state.batches.stockId;
+          const q1=currentstock.quantity;
+          const q2=this.state.qty;
+         const nqty=parseInt(q1)-parseInt(q2);
+         this.state.batches.quantity=nqty;
+  
+         
+          let batchee = {...this.state.batches};
+          batchee['quantity']=nqty;
+          console.log('put1',batchee);
+          await fetch('/api/rhstock/'+id, {
+            method:'PUT',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
             
-            body: JSON.stringify(item),
-          }); 
+            body: JSON.stringify(batchee),
+          });
+  
+        
+          const reg_no=this.state.regNO;
+          const rdhses = rdh.find(mcs => mcs.reg_no==reg_no);
+          this.state.rdhss=rdhses;
+  
+  
+          
+  
+          let item = {...this.state.item};
+          item['rdhs_hospital_current_stock']=this.state.batches;
+          console.log('batch',this.state.batches);
+          item['hospital_by_rdhs']=this.state.rdhss;
+          this.setState({item});
+  
+  
+  
+          await fetch('/api/returndtock', {
+              method:'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              
+              body: JSON.stringify(item),
+            }); 
 
-          window.location.replace("/#/rhexpire");
+            
+            alert("Item Added Successfully");
+            window.location.replace("/#/rhexpire");
 
+  
+
+        }else{
+          alert("added cancelled");
+        }
+        
+       
 
       }
 

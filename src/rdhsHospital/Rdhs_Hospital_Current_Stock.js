@@ -6,6 +6,8 @@ import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
   Col,InputGroup,InputGroupAddon} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import TextInput from 'react-autocomplete-input';
+
+
  class Rdhs_Hospital_Current_Stock extends Component {
     constructor(props)
     {

@@ -10,6 +10,34 @@ export default {
       },
     },
     {
+      name: 'Hospital By RDHS',
+    ///  url: '/ministry_stores',
+      icon: 'icon-list',
+      children: [
+        {
+          name: 'Current Stock',
+          url: '/rhcstock',
+         // icon: 'icon-list',
+        },
+        {
+          name: 'Return Cart',
+          url: '/returncart',
+         // icon: 'icon-list',
+        },
+        {
+          name: 'Order Cart',
+          url: '/rhordercart',
+         // icon: 'icon-list',
+        },
+        {
+          name: 'Issue Drugs',
+          url: '/rhissue',
+         // icon: 'icon-list',
+        }, 
+
+      ],
+    },
+    {
       title: true,
       name: 'Ministry',
       wrapper: {            // optional wrapper object

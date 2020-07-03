@@ -124,7 +124,7 @@ handleChange(event) {
     }
     
    
-      window.location.replace("/#/rhexpire");
+      window.location.replace("/#/lessqty");
   }
 
   render() { 

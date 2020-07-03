@@ -17,6 +17,8 @@ class Rdhs_Hospital_View_Order_Cart extends Component {
             search:''
          }
          this.state.reg_no=localStorage.getItem('reg_no');
+       //  this.submitOrder = this.submitOrder.bind(this);
+       
     }
     async componentDidMount(){
         const response= await fetch('/rhRequestOrder/viewcart/'+this.state.reg_no);
@@ -34,6 +36,25 @@ class Rdhs_Hospital_View_Order_Cart extends Component {
        window.location.replace("/#/updatercart");
         
     }
+    async deleteItem(id){
+      await fetch('/rhRequestOrder/deleteCartItem/'+id,{
+          method:'DELETE',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+          
+      }).then(()=>{
+          let updateItm=[...this.state.orderCart].filter(i=>i.cartId !== id);
+          this.setState({orderCart:updateItm});
+      });
+      alert("Deleted....");
+
+  }
+   submitOrder(){
+    //let rhds = prompt("Enter RDHS register number");
+   
+  }
     render() { 
         const {orderCart} =this.state;
 
@@ -63,7 +84,7 @@ class Rdhs_Hospital_View_Order_Cart extends Component {
               <Link to='/lessqty'><Button color="info" style={{width:100}}>Back</Button></Link>{' '}{' '}{' '}{' '}
               </Col>
               <Col xs="12" md="7">
-              <Link to='/rdhstrack'><Button color="success" style={{width:300,height:50,font:170}}>Place Order</Button></Link> 
+             <Button color="success" style={{width:300,height:50,font:170}} onClick={this.submitOrder()}>Place Order</Button>
               </Col> 
                 </FormGroup>
                 <div>
