@@ -6,7 +6,7 @@ import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
     Col,} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-class Rdhs_Track extends Component {
+class Rdhs_Hospital_Return_Track extends Component {
 
   emptyItem = {
     track_id: '',
@@ -212,4 +212,4 @@ class Rdhs_Track extends Component {
     }
 }
  
-export default Rdhs_Track;
+export default Rdhs_Hospital_Return_Track;
