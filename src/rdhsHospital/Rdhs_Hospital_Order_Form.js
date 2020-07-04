@@ -76,6 +76,8 @@ handleChange(event) {
   }
   async handleSubmit(event) {
     event.preventDefault();
+    var result = window.confirm("Are you sure you want to order?");
+    if(result){
     let item = {...this.state.item};
     const sto=this.state.cart;
     
@@ -123,8 +125,11 @@ handleChange(event) {
       }); 
     }
     
-   
+   alert('Order cart updated ...');
       window.location.replace("/#/lessqty");
+  }else{
+
+  }
   }
 
   render() { 

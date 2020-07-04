@@ -33,7 +33,7 @@ class Rdhs_Hospital_View_Order_Cart extends Component {
         localStorage.setItem('name',name);
         localStorage.setItem('sr',sr);
         localStorage.setItem('qty',qty);
-       window.location.replace("/#/updatercart");
+       window.location.replace("/#/rhupdateocart");
         
     }
     async deleteItem(id){
