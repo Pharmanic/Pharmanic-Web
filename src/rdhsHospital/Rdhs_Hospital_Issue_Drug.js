@@ -114,13 +114,7 @@ class Rdhs_Hospital_Issue_Drug extends Component {
  }
  async handleSubmit(event){
   event.preventDefault();
-/* if(document.getElementById('qty').value==null){
-     alert('can not added empty value in issued quantity');
-   }else if(document.getElementById('batchNo').value==''){
-    alert('please select batch No');
-   }
-  // console.log('concole qty',document.getElementById('qty').value);
-  else{*/
+
     var regx=/^[1-9]+$/;
     var vall1=document.getElementById('qty').value;
     if(!regx.test(vall1)){
@@ -130,13 +124,8 @@ class Rdhs_Hospital_Issue_Drug extends Component {
     }else{
   var result = window.confirm("Are you sure Issue this items?");
   if(result){
-  
-   // const q1=this.state.availableQty;
-  //  console.log('q1=',q1);
     const store=this.state.Drugs;
   const updateItm = store.find(mcs => mcs.stockId==this.state.stockId);
-  //this.state.batches=currentstock;
-  ///let updateItm={...this.state.stock};
   updateItm['quantity']=this.state.newqty;
   console.log('put',updateItm);
   await fetch('/api/rhstock/'+this.state.stockId, {
