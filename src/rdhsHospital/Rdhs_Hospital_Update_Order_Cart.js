@@ -24,6 +24,8 @@ class Rdhs_Hospital_Update_Order_Cart extends Component {
          this.state.qty=localStorage.getItem('qty');
          this.handleChange = this.handleChange.bind(this);
          this.handleSubmit = this.handleSubmit.bind(this);
+         console.log('name',this.state.name);
+         console.log('sr',this.state.sr);
     }
 
     async componentDidMount(){
@@ -38,19 +40,28 @@ class Rdhs_Hospital_Update_Order_Cart extends Component {
      
    }
   async handleSubmit(event){
-    event.preventDefault();
-    let cart = {...this.state.cart};
-    cart['qty']=this.state.qty;
-    this.setState({cart});
-    await fetch('/rhRequestOrder/updateCart/'+this.state.cartId, {
-      method:'PUT',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      
-      body: JSON.stringify(cart),
-    });
+    var result=window.confirm("Are you sure want to update?");
+    if(result){
+      event.preventDefault();
+      let cart = {...this.state.cart};
+      cart['qty']=this.state.qty;
+      this.setState({cart});
+      await fetch('/rhRequestOrder/updateCart/'+this.state.cartId, {
+        method:'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        
+        body: JSON.stringify(cart),
+      });
+      alert('Updated sucessfully..')
+      window.location.replace("/#/rhordercart");
+
+    }else{
+
+    }
+   
 
    }
     
@@ -105,7 +116,7 @@ class Rdhs_Hospital_Update_Order_Cart extends Component {
                     </FormGroup>
                     <FormGroup>
                         <Button color="danger" type="submit">Update</Button>{' '}
-                        <Button color="primary" tag={Link} to="/returncart">Cancel</Button>
+                        <Button color="primary" tag={Link} to="/rhordercart">Cancel</Button>
                        </FormGroup>
                   </Form>
                 </CardBody>
