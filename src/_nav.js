@@ -119,6 +119,25 @@ export default {
 
       ],
     },
+
+    {
+      name: 'Users',
+      url: '/user',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register User',
+          url: '/user/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'Users',
+          url: '/user/user_list',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
     
     {
       name: 'WareHouse',
