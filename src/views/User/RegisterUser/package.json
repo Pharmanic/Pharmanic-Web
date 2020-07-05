@@ -1,7 +1,0 @@
-{
-  "name": "RegisterUser",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./RegisterUser.js"
-}
- 
