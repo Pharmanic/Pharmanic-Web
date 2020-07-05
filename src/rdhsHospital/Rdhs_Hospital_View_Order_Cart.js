@@ -17,6 +17,8 @@ class Rdhs_Hospital_View_Order_Cart extends Component {
             search:''
          }
          this.state.reg_no=localStorage.getItem('reg_no');
+       //  this.submitOrder = this.submitOrder.bind(this);
+       
     }
     async componentDidMount(){
         const response= await fetch('/rhRequestOrder/viewcart/'+this.state.reg_no);
@@ -31,9 +33,28 @@ class Rdhs_Hospital_View_Order_Cart extends Component {
         localStorage.setItem('name',name);
         localStorage.setItem('sr',sr);
         localStorage.setItem('qty',qty);
-       window.location.replace("/#/updatercart");
+       window.location.replace("/#/rhupdateocart");
         
     }
+    async deleteItem(id){
+      await fetch('/rhRequestOrder/deleteCartItem/'+id,{
+          method:'DELETE',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+          
+      }).then(()=>{
+          let updateItm=[...this.state.orderCart].filter(i=>i.cartId !== id);
+          this.setState({orderCart:updateItm});
+      });
+      alert("Deleted....");
+
+  }
+   submitOrder(){
+    //let rhds = prompt("Enter RDHS register number");
+   
+  }
     render() { 
         const {orderCart} =this.state;
 
@@ -42,6 +63,12 @@ class Rdhs_Hospital_View_Order_Cart extends Component {
                 return order.medicine.name.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1;
                }
           );
+           let optionList=filteredData.map(drug=>
+          <option>
+             {drug.medicine.name}
+             
+          </option>
+           )
 
           let orderRow=filteredData.map(ordered=>
             <tr>
@@ -60,10 +87,10 @@ class Rdhs_Hospital_View_Order_Cart extends Component {
             <form>
                 <FormGroup row>
                 <Col md="4">
-              <Link to='/lessqty'><Button color="info" style={{width:100}}>Back</Button></Link>{' '}{' '}{' '}{' '}
+              <Link to='/lessqty'><Button color="secondary" style={{width:100}}>Back</Button></Link>{' '}{' '}{' '}{' '}
               </Col>
               <Col xs="12" md="7">
-              <Link to='/rdhstrack'><Button color="success" style={{width:300,height:50,font:170}}>Place Order</Button></Link> 
+             <Button color="success" style={{width:300,height:50,font:170}} onClick={this.submitOrder()}>Place Order</Button>
               </Col> 
                 </FormGroup>
                 <div>
@@ -75,9 +102,11 @@ class Rdhs_Hospital_View_Order_Cart extends Component {
        <InputGroupAddon addonType="prepend">
          <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
        </InputGroupAddon>
-       <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search By Name" type="text"
-         value={this.state.search}
-         onChange={this.updateSearch.bind(this)} />
+       <Input type="test" id="batchNo" name="batchNo" list="datalist1"  onChange={this.updateSearch.bind(this)} placeholder="Search by Name"> </Input>
+                               <datalist id="datalist1">
+                                 {optionList}
+
+                                 </datalist>
      </InputGroup>
      <br></br>
    </Col>
