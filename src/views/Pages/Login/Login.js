@@ -49,6 +49,7 @@ class Login extends Component {
   }
 
   handleLogin(e) {
+    
     e.preventDefault();
 
     this.setState({
@@ -61,7 +62,7 @@ class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
-          this.props.history.push("/profile");
+          this.props.history.push("/dashboard");
           window.location.reload();
         },
         error => {
@@ -83,6 +84,7 @@ class Login extends Component {
         loading: false
       });
     }
+    console.log("Login Button Clicked");
   }
 
 
