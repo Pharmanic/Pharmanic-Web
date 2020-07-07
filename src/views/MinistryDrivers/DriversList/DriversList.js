@@ -14,7 +14,13 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 
-class CurrentStock extends Component {
+
+const divStyle = {
+  display: 'flex',
+  alignItems: 'right'
+};
+
+class DriversList extends Component {
   
 
   constructor(props) {
@@ -95,7 +101,7 @@ class CurrentStock extends Component {
           <br></br>
           </Col>
             <Card>
-              <CardHeader>
+              <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
                 Ministry Drivers
               </CardHeader>
               <CardBody>
@@ -128,4 +134,4 @@ class CurrentStock extends Component {
   }
 }
 
-export default CurrentStock;
+export default DriversList;

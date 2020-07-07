@@ -48,12 +48,8 @@ const Driver = React.lazy(() => import('./views/Driver'));
 const MinistryStore = React.lazy(() => import('./views/MinistryStore'));
 const Vehicle = React.lazy(() => import('./views/Vehicle'));
 const Rdhs = React.lazy(() => import('./views/Rdhs'));
-<<<<<<< HEAD
 const RdhsReqOrder = React.lazy(() => import('./views/RdhsReqOrder'));
 const RdhsReqOrderDetail = React.lazy(() => import('./views/RdhsReqOrderDetail'));
-=======
-
->>>>>>> 747efdbe537cfc6cb342a269a6217b5729a031ad
 const CoreUIIcons = React.lazy(() => import('./views/Icons/CoreUIIcons'));
 const Flags = React.lazy(() => import('./views/Icons/Flags'));
 const FontAwesome = React.lazy(() => import('./views/Icons/FontAwesome'));
@@ -71,6 +67,12 @@ const MinistryStoresList = React.lazy(() => import('./views/Ministry Store/Minis
 const MinistryStoreRegister = React.lazy(() => import('./views/Ministry Store/RegisterMinistryStore'));
 const RDHSList = React.lazy(() => import('./views/RDHS-Ministry/RDHSList'));
 const RDHSRegister = React.lazy(() => import('./views/RDHS-Ministry/RegisterRDHS'));
+const DRVRegister = React.lazy(() => import('./views/MinistryDrivers/RegisterDrivers'));
+const ListDrivers = React.lazy(() => import('./views/MinistryDrivers/DriversList'));
+const VEHRegister = React.lazy(() => import('./views/MinistryVehicles/RegisterVehicles'));
+const ListVehicles = React.lazy(() => import('./views/MinistryVehicles/VehiclesList'));
+const ListMedicines = React.lazy(() => import('./views/Medicine/Medicine'));
+const MedRegister = React.lazy(() => import('./views/RegisterMedicine/RegisterMedicine'));
 const DirectHospitalList = React.lazy(() => import('./views/Direct Hospital/DirectHospitals'));
 const DirectHospitalRegister = React.lazy(() => import('./views/Direct Hospital/RegisterDirectHospital'));
 const HospitalByRDHSList = React.lazy(() => import('./views/Hospital by RDHS/HospitalByRDHS'));
@@ -105,12 +107,8 @@ const routes = [
   { path: '/ministry/store', name: 'MinistryStore', component: MinistryStore },
   { path: '/ministry/vehicle', name: 'Vehicle', component: Vehicle },
   { path: '/ministry/rdhs', name: 'Rdhs', component: Rdhs },
-<<<<<<< HEAD
   { path: '/ministry/rdhsreqorder', name: 'RdhsReqOrder', component: RdhsReqOrder},
   { path: '/rdhsreqorderdetail/:id', name: 'RdhsReqOrderDetail', component: RdhsReqOrderDetail },
-=======
-
->>>>>>> 747efdbe537cfc6cb342a269a6217b5729a031ad
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
   { path: '/theme/typography', name: 'Typography', component: Typography },
@@ -159,6 +157,19 @@ const routes = [
   { path: '/rdhs', exact: true, name: 'Ministry Stores', component: RDHSList },
   { path: '/rdhs/rdhs_list', exact: true, name: 'Ministry Stores', component: RDHSList },
   { path: '/rdhs/register', exact: true, name: 'Ministry Store Registration', component: RDHSRegister },
+
+  { path: '/ministry_drivers', exact: true, name: 'Ministry Drivers', component: ListDrivers },
+  { path: '/ministry_drivers/ministry_drivers_list', exact: true, name: 'Ministry Drivers', component: ListDrivers },
+  { path: '/ministry_drivers/register', exact: true, name: 'Ministry Driver Registration', component:  DRVRegister},
+
+  
+  { path: '/ministry_vehicles', exact: true, name: 'Ministry Vehicles', component: ListVehicles },
+  { path: '/ministry_vehicles/ministry_vehicles_list', exact: true, name: 'Ministry Vehiles', component: ListVehicles },
+  { path: '/ministry_vehicles/register', exact: true, name: 'Ministry Vehicles Registration', component:  VEHRegister},
+
+  { path: '/ministry_medicines', exact: true, name: 'Ministry Medicines', component: ListMedicines },
+  { path: '/ministry_medicines/ministry_medicine_list', exact: true, name: 'Ministry Medicines', component: ListMedicines },
+  { path: '/ministry_medicines/register', exact: true, name: 'Ministry Medicines Registration', component:  MedRegister},
 
   { path: '/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
   { path: '/direct_hospitals/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
