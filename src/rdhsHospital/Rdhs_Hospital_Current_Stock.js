@@ -55,7 +55,6 @@ import TextInput from 'react-autocomplete-input';
           }
         );
 
-
         let optionList=filteredData.map(drug=>
           <option>
              {drug.medicine.name}

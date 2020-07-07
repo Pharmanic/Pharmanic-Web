@@ -36,6 +36,7 @@ class Rdhs_Hospital_Return_Track extends Component {
        
          this.handleChange = this.handleChange.bind(this);
          this.handleSubmit = this.handleSubmit.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
          this.state.reg_no=localStorage.getItem('reg_no');
     }
 
@@ -113,7 +114,7 @@ class Rdhs_Hospital_Return_Track extends Component {
 
       }
      
-   
+      
       async handleSubmit(event) {
       
         event.preventDefault();
@@ -156,6 +157,9 @@ class Rdhs_Hospital_Return_Track extends Component {
             body: JSON.stringify(ret),
           });
         })
+        alert('return sucessfully..');
+        window.location.replace("/#/returncart");
+
 
         
       }

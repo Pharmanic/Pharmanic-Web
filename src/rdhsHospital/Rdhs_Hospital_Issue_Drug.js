@@ -155,6 +155,10 @@ class Rdhs_Hospital_Issue_Drug extends Component {
     body: JSON.stringify(this.state.item),
   });
   alert("Added sucessfully");
+  document.getElementById('batchNo').value="";
+  document.getElementById('sr_no').value="";
+  document.getElementById('name').value="";
+  document.getElementById('qty').value="";
   }
   else{
     alert("Can't added..");
