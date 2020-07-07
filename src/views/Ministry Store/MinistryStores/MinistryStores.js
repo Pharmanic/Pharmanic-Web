@@ -13,6 +13,7 @@ import {
   CardFooter
 } from 'reactstrap';
 import Paginations from './Pagination';
+import { Link } from 'react-router-dom';
 
 const divStyle = {
   display: 'flex',
@@ -134,7 +135,7 @@ class MinistryStores extends Component {
         <td>
           <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this Ministry Store ?')) this.remove(ministrystore.m_store_id) }}><i className="fa fa-trash"></i></Button>
 
-          {/*<Button size="sm" color="success" tag={Link} to={"/ministry_store/"+rdhs.reg_no}><i className="icon-eye"></i></Button>*/}
+          <Button size="sm" color="success" tag={Link} to={"/ministry_store_detail/"+ministrystore.m_store_id}><i className="icon-eye"></i></Button>
         </td>
 
       </tr>
