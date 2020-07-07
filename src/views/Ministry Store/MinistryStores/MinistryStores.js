@@ -86,7 +86,7 @@ class MinistryStores extends Component {
           ministrystore.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.m_store_id.toString().toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.tel_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          ministrystore.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          // ministrystore.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.total_storage.toString().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.available_storage.toString().indexOf(this.state.search.toLowerCase()) !== -1
