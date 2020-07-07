@@ -70,8 +70,8 @@ class RDHSs extends Component {
     });
   }
 
-  onViewButtonClick(rdhsSelected){
-    console.log("Selected"+rdhsSelected.address);
+  onViewButtonClick(rdhsSelected) {
+    console.log("Selected" + rdhsSelected.address);
   }
 
   onRadioBtnClick(radioSelected) {
@@ -116,13 +116,13 @@ class RDHSs extends Component {
         <td style={{ whiteSpace: 'nowrap' }}>{rdhs.address}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{rdhs.email}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{rdhs.telephone}</td>
-         {/*<td>  <Button block outline color="info" tag={Link} to={"/rdhsdetail/"+rdhs.reg_no}>More Info</Button>  </td>*/}
+        {/*<td>  <Button block outline color="info" tag={Link} to={"/rdhsdetail/"+rdhs.reg_no}>More Info</Button>  </td>*/}
 
 
         <td>
           <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this RDHS ?')) this.remove(rdhs.reg_no) }}><i className="fa fa-trash"></i></Button>
-        
-          <Button size="sm" color="success" tag={Link} to={"/rdhs_detail/"+rdhs.reg_no}><i className="icon-eye"></i></Button>
+
+          <Button size="sm" color="success" tag={Link} to={"/rdhs_detail/" + rdhs.reg_no}><i className="icon-eye"></i></Button>
         </td>
 
       </tr>
@@ -163,7 +163,7 @@ class RDHSs extends Component {
                       <th>E Mail</th>
                       <th>Tel No</th>
                       <th></th>
-                      
+
                     </tr>
                   </thead>
                   <tbody>
