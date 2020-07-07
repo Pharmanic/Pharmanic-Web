@@ -23,18 +23,6 @@ const Paginations = ({dataPerPage,totalData,paginate}) => {
     )
 }
 
-<<<<<<< HEAD
-=======
-// <<<<<<< HEAD
-// =======
->>>>>>> 0daca2a878b7d71c53d110aa86b605f40edc562b
 
-
-
-
-<<<<<<< HEAD
 export default Paginations
-=======
-// >>>>>>> 747efdbe537cfc6cb342a269a6217b5729a031ad
-export default Paginations
->>>>>>> 0daca2a878b7d71c53d110aa86b605f40edc562b
+
