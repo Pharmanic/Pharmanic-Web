@@ -173,7 +173,7 @@ handleChange(event) {
                 </FormGroup>
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="text-input">Enter Return Quantity</Label>
+                    <Label htmlFor="text-input">Enter Order Quantity</Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Input type="text" id="qty" name="qty" placeholder="Enter Order Quantity"  onChange={this.handleChange}></Input>
