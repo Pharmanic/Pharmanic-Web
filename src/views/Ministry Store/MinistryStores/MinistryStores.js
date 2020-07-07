@@ -69,6 +69,21 @@ class MinistryStores extends Component {
     });
   }
 
+  async remove(id) {
+    await fetch(`/ministry_store/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(() => {
+      // console.log("deleted");
+      //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
+      window.location.reload(false);
+
+    });
+  }
+
   onRadioBtnClick(radioSelected) {
     this.setState({
       radioSelected: radioSelected,
@@ -117,7 +132,9 @@ class MinistryStores extends Component {
         <td style={{ whiteSpace: 'nowrap' }}>{ministrystore.total_storage}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{ministrystore.available_storage}</td>
         <td>
-          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this Ministry Store?')) this.remove(ministrystore.m_store_id) }}><i className="fa fa-trash"></i></Button>
+          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this Ministry Store ?')) this.remove(ministrystore.m_store_id) }}><i className="fa fa-trash"></i></Button>
+
+          {/*<Button size="sm" color="success" tag={Link} to={"/ministry_store/"+rdhs.reg_no}><i className="icon-eye"></i></Button>*/}
         </td>
 
       </tr>

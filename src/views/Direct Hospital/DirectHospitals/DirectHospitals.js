@@ -111,8 +111,10 @@ class DirectHospitals extends Component {
         <td style={{ whiteSpace: 'nowrap' }}>{directHospital.address}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{directHospital.email}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{directHospital.telephone}</td>
-        <td>
-          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this Direct Hospital?')) this.remove(directHospital.reg_no) }}><i className="fa fa-trash"></i></Button>
+         <td>
+          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this Direct Hopital?')) this.remove(directHospital.reg_no) }}><i className="fa fa-trash"></i></Button>
+
+          {/*<Button size="sm" color="success" tag={Link} to={"/ministry_store/"+rdhs.reg_no}><i className="icon-eye"></i></Button>*/}
         </td>
 
       </tr>
