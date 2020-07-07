@@ -13,6 +13,7 @@ import {
   CardFooter
 } from 'reactstrap';
 import Paginations from './Pagination';
+import { Link } from 'react-router-dom';
 
 const divStyle = {
   display: 'flex',
@@ -115,7 +116,10 @@ class HospitalByRDHS extends Component {
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.telephone}</td>
         <td>
           <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this RDHS Hospital?')) this.remove(hospitalByRDHS.reg_no) }}><i className="fa fa-trash"></i></Button>
+          <Button size="sm" color="success" tag={Link} to={"/hospital_by_rdhs/" + hospitalByRDHS.reg_no}><i className="icon-eye"></i></Button>
+
         </td>
+
 
       </tr>
     });
@@ -149,7 +153,7 @@ class HospitalByRDHS extends Component {
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table" style={{ borderRadius: '20px !important' }}>
                   <thead style={{ backgroundColor: '#244EAD', color: 'white', borderRadius: '20px !important' }}>
                     <tr>
-                      <th>RDHS Hospital Register NO</th>
+                      <th>Register No</th>
                       <th>RDHS Hospital Name</th>
                       <th>Related RDHS</th>
                       <th>Address</th>
