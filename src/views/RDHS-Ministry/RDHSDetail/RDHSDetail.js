@@ -35,53 +35,32 @@ class RDHSDetail extends Component {
     // }
 
     emptyItem = {
-        request_id: {
-            id: '',
-            order_id: {
-                order_id: '',
-                hospital_reg_no: {
-                    reg_no: '',
-                    name: '',
-                    address: '',
-                    email: '',
-                    telephone: '',
-                    doctor_incharge: ''
-                },
-                m_store_id: {
-                    m_store_id: '',
-                    location: ''
-                },
-                date: '',
-                state: ''
-            },
-            sr_no: {
-                sr_no: '',
-                name: '',
-                side_effect: '',
-                description: ''
-            },
-            quantity: '',
-            can_supply_status: ''
-        },
-        track_id: {
-            track_id: '',
-            vehicle_id: {
-                vehicle_no: '',
-                type: '',
-                capacity: ''
-            },
-            driver_id: {
-                nic: '',
-                name: '',
-                email: '',
-                address: '',
-                telephone: ''
-            },
-            starting_point: '',
-            destination: '',
-            date: '',
-            enableEdit: false
-        }
+        reg_no: '',
+        name: '',
+        address: '',
+        email: '',
+        telephone: ''
+        //enableEdit: false,
+
+        // track_id: {
+        //     track_id: '',
+        //     vehicle_id: {
+        //         vehicle_no: '',
+        //         type: '',
+        //         capacity: ''
+        //     },
+        //     driver_id: {
+        //         nic: '',
+        //         name: '',
+        //         email: '',
+        //         address: '',
+        //         telephone: ''
+        //     },
+        //     starting_point: '',
+        //     destination: '',
+        //     date: '',
+
+        // }
 
 
     };
@@ -97,7 +76,7 @@ class RDHSDetail extends Component {
             // shouldShowModal: false,
             modalOrderId: -1
         };
-        // this.handleChange = this.handleChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         // this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -112,11 +91,22 @@ class RDHSDetail extends Component {
         fetch(`/rdhss/${this.props.match.params.id}`)
             .then(response => response.json())
             .then(data => this.setState({ rdhs_details: data, isLoading: false }));
-        console.log("Here");
+        // this.loadData();
 
         // fetch('/ministrytracks')
         //   .then(response => response.json())
         //   .then(data => this.setState({ ministrytracks: data, isLoading: false }));
+    }
+
+    handleChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        // let item = { ...this.state.item };
+        // item[name] = value;
+        // this.setState({ item });
+        this.state.rdhs_details.name = value;
+        //this.setState((rdhs_details));
     }
 
     // enableEdit(event) {
@@ -138,6 +128,15 @@ class RDHSDetail extends Component {
     //   });
     //   this.props.history.push('/ministrydamagestocks');
     // }
+    loadData(){
+          this.setState({
+            reg_no:  this.state.rdhs_details.reg_no,
+            address: this.state.rdhs_details.address,
+            name: this.state.rdhs_details.name,
+            email:  this.state.rdhs_details.email,
+            telephone:  this.state.rdhs_details.telephone,
+        });
+    }
 
     toggle() {
         this.setState({
@@ -153,9 +152,12 @@ class RDHSDetail extends Component {
 
     enableEditing() {
         console.log(!this.state.enableEdit);
-        this.reg_no.Enabled = !this.state.enableEdit;
+        // this.reg_no.Enabled = !this.state.enableEdit;
         // this.name.=false;
-        
+
+    }
+    resetForm = () => {
+        this.setState({ item: this.emptyItem });
     }
 
 
@@ -174,6 +176,7 @@ class RDHSDetail extends Component {
 
     render() {
         const {rdhs_details, isLoading, item} = this.state;
+
         // this.state.enableEdit=false;
         console.log('reqlist', rdhs_details);
         if (isLoading) {
@@ -244,7 +247,7 @@ class RDHSDetail extends Component {
                                         </Col>
                                         <Col xs="12" md="9">
                                             <Input type="text" id="reg_no" name="reg_no" placeholder="Register No" initialValue="" value={rdhs_details.reg_no || ''}
-                                                onChange={this.handleChange} autoComplete="reg_no" disabled="disabled" />
+                                                onChange={this.handleChange} autoComplete="reg_no" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
                                     <FormGroup row>
@@ -253,7 +256,7 @@ class RDHSDetail extends Component {
                                         </Col>
                                         <Col xs="12" md="9">
                                             <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={rdhs_details.name || ''}
-                                                onChange={this.handleChange} autoComplete="name" disabled="disabled" />
+                                                onChange={this.handleChange} autoComplete="name" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
 
@@ -263,7 +266,7 @@ class RDHSDetail extends Component {
                                         </Col>
                                         <Col xs="12" md="9">
                                             <Input type="text" id="address" name="address" placeholder="Address" initialValue="" value={rdhs_details.address || ''}
-                                                onChange={this.handleChange} autoComplete="address" disabled="disabled" />
+                                                onChange={this.handleChange} autoComplete="address" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
 
@@ -273,7 +276,7 @@ class RDHSDetail extends Component {
                                         </Col>
                                         <Col xs="12" md="9">
                                             <Input type="text" id="email" name="email" placeholder="E-Mail" initialValue="" value={rdhs_details.email || ''}
-                                                onChange={this.handleChange} autoComplete="email" disabled="disabled" />
+                                                onChange={this.handleChange} autoComplete="email" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
 
@@ -283,7 +286,7 @@ class RDHSDetail extends Component {
                                         </Col>
                                         <Col xs="12" md="9">
                                             <Input type="text" id="telephone" name="telephone" placeholder="Tel No" initialValue="" value={rdhs_details.telephone || ''}
-                                                onChange={this.handleChange} autoComplete="telephone" disabled="disabled" />
+                                                onChange={this.handleChange} autoComplete="telephone" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
 
@@ -307,8 +310,8 @@ class RDHSDetail extends Component {
                                     <br />
 
                                     <FormGroup>
-                                        <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>{' '}
-                                        <Button type="reset" size="sm" color="danger" onClick={this.resetForm}><i className="fa fa-ban"></i> Reset</Button>
+                                        <Button type="submit" size="sm" color="primary" disabled={!this.state.enableEdit}><i className="fa fa-dot-circle-o"></i> Update</Button>{' '}
+                                        <Button type="reset" size="sm" color="danger" disabled={!this.state.enableEdit} onClick={this.resetForm}><i className="fa fa-ban"></i> Reset</Button>
                                     </FormGroup>
 
                                 </Form>
