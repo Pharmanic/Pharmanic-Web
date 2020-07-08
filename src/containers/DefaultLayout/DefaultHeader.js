@@ -84,8 +84,8 @@ class DefaultHeader extends Component {
           </NavItem>
           </DropdownToggle>
           <DropdownMenu right>
-          < Link to="#"> <DropdownItem > Drug Stock</DropdownItem></ Link>
-          < Link to="#"> <DropdownItem>Order Request</DropdownItem></ Link>
+          < Link to="/direct_hospital_current_stock"> <DropdownItem > Drug Stock</DropdownItem></ Link>
+          < Link to="/direct_hospital_request_orders"> <DropdownItem>Order Request</DropdownItem></ Link>
               </DropdownMenu>
           </UncontrolledDropdown>
 

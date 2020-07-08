@@ -9,11 +9,11 @@ import Rdhs_Hospital_Login from './rdhsHospital/Rdhs_Hospital_Login';
 
 import Rdhs_Hospital_Issue_Drug from './rdhsHospital/Rdhs_Hospital_Issue_Drug';
 import Rdhs_Hospital_Update_Order_Cart from './rdhsHospital/Rdhs_Hospital_Update_Order_Cart';
-
-const RdhsHopitalDrugStore = React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Current_Stock'));
-const RdhsHopitalTrack = React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Return_Track'));
-const RdhsHopitalReturnConfirm = React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Return_Confirm'));
-
+import { exact } from 'prop-types';
+import DirectHospitalRequestOrderForm from './views/DirectHospitalRequestOrderForm/DirectHospitalRequestOrderForm';
+const RdhsHopitalDrugStore= React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Current_Stock'));
+// const RdhsHopitalTrack= React.lazy(() => import('./rdhsHospital/Rdhs_Track'));
+const RdhsHopitalReturnConfirm= React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Return_Confirm'));
 const RdhsHospitalExpireDrug = React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Expiration'));
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
@@ -98,7 +98,7 @@ const routes = [
   
   // { path: '/rdhstrack', name: 'Rdhs_Track', component: RdhsHopitalTrack },
 
-  { path: '/rdhstrack', name: 'Rdhs_Hospital_Return_Track', component: RdhsHopitalTrack },
+  // { path: '/rdhstrack', name: 'Rdhs_Hospital_Return_Track', component: RdhsHopitalTrack },
   { path: '/rhissue', name: 'Rdhs_Hospital_Issue_Drug', component: Rdhs_Hospital_Issue_Drug },
 
   { path: '/rhupdateocart', name: 'Rdhs_Hospital_Update_Order_Cart', component: Rdhs_Hospital_Update_Order_Cart },
@@ -179,6 +179,8 @@ const routes = [
   { path: '/users', exact: true, name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
   { path: '/direct_hospital_current_stock', exact: true, name: 'Direct Hospital Current Stock', component: DirectHospitalCurrentStock },
+  { path: '/direct_hospital_request_orders', exact: true, name: 'Direct Hospital Request Orders', component: DirectHospitalReqOrder},
+  { path: '/direct_hospital_request_order_form', exact: true, name: 'Direct Hospital Request Order Form', component: DirectHospitalRequestOrderForm},
 
   //ministry 
   { path: '/ministry_stores', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
