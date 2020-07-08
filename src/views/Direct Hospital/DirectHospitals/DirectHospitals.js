@@ -63,7 +63,7 @@ class DirectHospitals extends Component {
   }
 
     async remove(id) {
-    await fetch(`/directhospitals/${id}`, {
+    await fetch(`/directhospital/${id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
