@@ -9,19 +9,45 @@ import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
 import { Link } from 'react-router-dom';
 import Rdhs_Hospital_Update_Order_Cart from './Rdhs_Hospital_Update_Order_Cart';
 class Rdhs_Hospital_View_Order_Cart extends Component {
+  orderList= {
+    orderId:'',
+    date:new Date(),
+    hospital_by_rdhs:[]
+    };
+
+    orderDetailList={
+      odId:'',
+      qty:'',
+      state:'',
+      medicine:[],
+      rdhs_hospital_request_order:[]
+    }
+
+
+
     constructor(props) {
         super(props);
         this.state = { 
             reg_no:'',
             orderCart:[],
-            search:''
+            search:'',
+            hospital:[],
+            orderItem:this.orderList
          }
          this.state.reg_no=localStorage.getItem('reg_no');
+         this.handleSubmit = this.handleSubmit.bind(this); 
+       
     }
     async componentDidMount(){
-        const response= await fetch('/rhRequestOrder/viewcart/'+this.state.reg_no);
-        const body=await response.json();
-        this.setState({orderCart:body, isLoading:false});
+        
+        fetch('/rhRequestOrder/viewcart/'+this.state.reg_no)
+        .then(response => response.json())
+        .then(data => this.setState({orderCart : data}));
+
+        fetch('/hospitalByRdhs/'+this.state.reg_no)
+        .then(response => response.json())
+        .then(data => this.setState({hospital : data}));
+
     }
     updateSearch(event){
         this.setState({search:event.target.value.substr(0,20)});
@@ -31,17 +57,66 @@ class Rdhs_Hospital_View_Order_Cart extends Component {
         localStorage.setItem('name',name);
         localStorage.setItem('sr',sr);
         localStorage.setItem('qty',qty);
-       window.location.replace("/#/updatercart");
+       window.location.replace("/#/rhupdateocart");
         
     }
+    async handleSubmit(event){
+      event.preventDefault();
+      console.log('This is submit');
+      let orderItem={...this.state.orderItem};
+      orderItem['hospital_by_rdhs']=this.state.hospital;
+
+ 
+  this.setState({orderItem});
+  console.log('item',orderItem);
+
+  await fetch('/rhRequestOrder/addOrder',{
+    method:'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    
+    body: JSON.stringify(orderItem),
+  });
+  const response= await fetch('/rhRequestOrder/nxtid');
+  const body=await response.json();
+  const id=body;
+  console.log('id',id);
+
+
+
+    }
+    async deleteItem(id){
+      await fetch('/rhRequestOrder/deleteCartItem/'+id,{
+          method:'DELETE',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+          
+      }).then(()=>{
+          let updateItm=[...this.state.orderCart].filter(i=>i.cartId !== id);
+          this.setState({orderCart:updateItm});
+      });
+      alert("Deleted....");
+
+  }
+ 
     render() { 
-        const {orderCart} =this.state;
+        const {orderCart} =this.state; 
 
         let filteredData=orderCart.filter(
             (order)=>{
                 return order.medicine.name.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1;
                }
           );
+           let optionList=filteredData.map(drug=>
+          <option>
+             {drug.medicine.name}
+             
+          </option>
+           )
 
           let orderRow=filteredData.map(ordered=>
             <tr>
@@ -57,13 +132,13 @@ class Rdhs_Hospital_View_Order_Cart extends Component {
              
          )
         return ( 
-            <form>
+          <Form onSubmit={this.handleSubmit} method="POST"  encType="multipart/form-data" className="form-horizontal">  
                 <FormGroup row>
                 <Col md="4">
-              <Link to='/lessqty'><Button color="info" style={{width:100}}>Back</Button></Link>{' '}{' '}{' '}{' '}
+              <Link to='/lessqty'><Button color="secondary" style={{width:100}}>Back</Button></Link>{' '}{' '}{' '}{' '}
               </Col>
               <Col xs="12" md="7">
-              <Link to='/rdhstrack'><Button color="success" style={{width:300,height:50,font:170}}>Place Order</Button></Link> 
+             <Button color="success"  type="submit" style={{width:300,height:50,font:170}}>Place Order</Button>
               </Col> 
                 </FormGroup>
                 <div>
@@ -75,9 +150,11 @@ class Rdhs_Hospital_View_Order_Cart extends Component {
        <InputGroupAddon addonType="prepend">
          <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
        </InputGroupAddon>
-       <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search By Name" type="text"
-         value={this.state.search}
-         onChange={this.updateSearch.bind(this)} />
+       <Input type="test" id="batchNo" name="batchNo" list="datalist1"  onChange={this.updateSearch.bind(this)} placeholder="Search by Name"> </Input>
+                               <datalist id="datalist1">
+                                 {optionList}
+
+                                 </datalist>
      </InputGroup>
      <br></br>
    </Col>
@@ -108,7 +185,7 @@ class Rdhs_Hospital_View_Order_Cart extends Component {
              </tbody>
          </Table>
          </Card>
-    </form>
+    </Form>
 
          );
     }

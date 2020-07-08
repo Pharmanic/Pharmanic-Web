@@ -6,6 +6,8 @@ import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
   Col,InputGroup,InputGroupAddon} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import TextInput from 'react-autocomplete-input';
+
+
  class Rdhs_Hospital_Current_Stock extends Component {
     constructor(props)
     {
@@ -53,15 +55,13 @@ import TextInput from 'react-autocomplete-input';
           }
         );
 
-
-        let optionList=Drugs.map(drug=>
+        let optionList=filteredData.map(drug=>
           <option>
              {drug.medicine.name}
              
           </option>
          
-           
-            
+      
            
        )
         let drugRow=filteredData.map(drug=>
@@ -77,12 +77,13 @@ import TextInput from 'react-autocomplete-input';
             
         )
   return (
+    <div className="animated fadeIn">
       <form>
         <Link to='/rhexpire'><Button color="primary">Sort By Expire Date</Button></Link>{' '}{' '}{' '}{' '}{' '}{' '}
         <Link to='/lessqty'><Button color="primary">Sort By quantity</Button></Link>
         <br></br>
                   <br></br>
-      <div>
+    
 
           <Row>
              
@@ -91,18 +92,15 @@ import TextInput from 'react-autocomplete-input';
                  <InputGroupAddon addonType="prepend">
                    <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
                  </InputGroupAddon>
-                 <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search By Name" type="text"
-                   value={this.state.search}
-                   onChange={this.updateSearch.bind(this)} />
+                 <Input type="test" id="batchNo" name="batchNo" list="datalist1"  onChange={this.updateSearch.bind(this)} placeholder="Search by Name"> </Input>
+                               <datalist id="datalist1">
+                                 {optionList}
+
+                                 </datalist>
                </InputGroup>
                <br></br>
              </Col>
            </Row>
-        
-    </div>
-       
-
-          
         <Card>
       <Table className="mt-4">
                     <thead style={{ backgroundColor: '#33C7FF', color: 'white', borderRadius: '5px',font:'1500px'}}>
@@ -122,7 +120,7 @@ import TextInput from 'react-autocomplete-input';
                 </Card>
       </form>
 
-
+      </div>
 
       )
     }

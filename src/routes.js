@@ -3,14 +3,16 @@ import Rdhs_Hospital_Current_Stock from './rdhsHospital/Rdhs_Hospital_Current_St
 import Rdhs_Hospital_Order_Form from './rdhsHospital/Rdhs_Hospital_Order_Form';
 import Rdhs_Hospital_SortBy_Qty from './rdhsHospital/Rdhs_Hospital_SortBy_Qty';
 import Rdhs_Hospital_Return_Cart from './rdhsHospital/Rdhs_Hospital_Return_Cart';
-import  Rdhs_Hospital_Update_Return_Cart from './rdhsHospital/Rdhs_Hospital_Update_Return_Cart';
+import Rdhs_Hospital_Update_Return_Cart from './rdhsHospital/Rdhs_Hospital_Update_Return_Cart';
 import Rdhs_Hospital_View_Order_Cart from './rdhsHospital/Rdhs_Hospital_View_Order_Cart';
 import Rdhs_Hospital_Login from './rdhsHospital/Rdhs_Hospital_Login';
+
+import Rdhs_Hospital_Issue_Drug from './rdhsHospital/Rdhs_Hospital_Issue_Drug';
 import Rdhs_Hospital_Update_Order_Cart from './rdhsHospital/Rdhs_Hospital_Update_Order_Cart';
 import { exact } from 'prop-types';
 import DirectHospitalRequestOrderForm from './views/DirectHospitalRequestOrderForm/DirectHospitalRequestOrderForm';
 const RdhsHopitalDrugStore= React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Current_Stock'));
-const RdhsHopitalTrack= React.lazy(() => import('./rdhsHospital/Rdhs_Track'));
+// const RdhsHopitalTrack= React.lazy(() => import('./rdhsHospital/Rdhs_Track'));
 const RdhsHopitalReturnConfirm= React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Return_Confirm'));
 const RdhsHospitalExpireDrug = React.lazy(() => import('./rdhsHospital/Rdhs_Hospital_Expiration'));
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
@@ -53,12 +55,13 @@ const Driver = React.lazy(() => import('./views/Driver'));
 const MinistryStore = React.lazy(() => import('./views/MinistryStore'));
 const Vehicle = React.lazy(() => import('./views/Vehicle'));
 const Rdhs = React.lazy(() => import('./views/Rdhs'));
-//<<<<<<< HEAD
+
 const RdhsReqOrder = React.lazy(() => import('./views/RdhsReqOrder'));
 const RdhsReqOrderDetail = React.lazy(() => import('./views/RdhsReqOrderDetail'));
-//=======
 
-//>>>>>>> 747efdbe537cfc6cb342a269a6217b5729a031ad
+// const RdhsReqOrder = React.lazy(() => import('./views/RdhsReqOrder'));
+// const RdhsReqOrderDetail = React.lazy(() => import('./views/RdhsReqOrderDetail'));
+
 const CoreUIIcons = React.lazy(() => import('./views/Icons/CoreUIIcons'));
 const Flags = React.lazy(() => import('./views/Icons/Flags'));
 const FontAwesome = React.lazy(() => import('./views/Icons/FontAwesome'));
@@ -76,17 +79,28 @@ const MinistryStoresList = React.lazy(() => import('./views/Ministry Store/Minis
 const MinistryStoreRegister = React.lazy(() => import('./views/Ministry Store/RegisterMinistryStore'));
 const RDHSList = React.lazy(() => import('./views/RDHS-Ministry/RDHSList'));
 const RDHSRegister = React.lazy(() => import('./views/RDHS-Ministry/RegisterRDHS'));
+const RDHSDetail = React.lazy(() => import('./views/RDHS-Ministry/RDHSDetail'));
 const DirectHospitalList = React.lazy(() => import('./views/Direct Hospital/DirectHospitals'));
 const DirectHospitalRegister = React.lazy(() => import('./views/Direct Hospital/RegisterDirectHospital'));
-const HospitalByRDHSList = React.lazy(() => import('./views/Hospital by RDHS/HospitalByRDHS'));
+const DirectHospitalDetail = React.lazy(() => import('./views/Direct Hospital/DirectHospitalDetail'));
 const HospitalByRDHSRegister = React.lazy(() => import('./views/Hospital by RDHS/RegisterHospitalByRDHS'));
+const HospitalByRDHSList = React.lazy(() => import('./views/Hospital by RDHS/HospitalByRDHS'));
+const HospitalByRDHSDetail = React.lazy(() => import('./views/Hospital by RDHS/HospitalByRDHSDetail'));
+const UserRegister = React.lazy(() => import('./views/User/RegisterUser'));
+const UserList = React.lazy(() => import('./views/User/UserList'));
+const MinistryStoreDetail = React.lazy(() => import('./views/Ministry Store/MinistryStoreDetail'));
+
 
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  { path: '/rdhstrack', name: 'Rdhs_Track', component: RdhsHopitalTrack },
   
+  // { path: '/rdhstrack', name: 'Rdhs_Track', component: RdhsHopitalTrack },
+
+  // { path: '/rdhstrack', name: 'Rdhs_Hospital_Return_Track', component: RdhsHopitalTrack },
+  { path: '/rhissue', name: 'Rdhs_Hospital_Issue_Drug', component: Rdhs_Hospital_Issue_Drug },
+
   { path: '/rhupdateocart', name: 'Rdhs_Hospital_Update_Order_Cart', component: Rdhs_Hospital_Update_Order_Cart },
   { path: '/rhordercart', name: 'Rdhs_Hospital_View_Order_Cart', component: Rdhs_Hospital_View_Order_Cart },
   { path: '/rhorder', name: 'Rdhs_Hospital_Order_Form', component: Rdhs_Hospital_Order_Form },
@@ -96,7 +110,7 @@ const routes = [
   { path: '/rhreturnconfirm', name: 'Rdhs_Hospital_Return_Confirm', component: RdhsHopitalReturnConfirm },
   { path: '/returncart', name: 'Rdhs_Hospital_Return_Cart', component: Rdhs_Hospital_Return_Cart },
   { path: '/rhexpire', name: 'Rdhs_Hospital_Expiration', component: RdhsHospitalExpireDrug },
-  { path: '/rdhoslog', name: 'Rdhs_Hospital_Current_Stock', component: Rdhs_Hospital_Login},
+  { path: '/rdhoslog', name: 'Rdhs_Hospital_Current_Stock', component: Rdhs_Hospital_Login },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/importstock', name: 'ImportStock', component: ImportStock },
   { path: '/importstockform', name: 'ImportStockForm', component: ImportStockForm },
@@ -108,18 +122,23 @@ const routes = [
   { path: '/ministry/directhospitalform', name: 'DirectHospitalForm', component: DirectHospitalForm },
   { path: '/ministry/directhospitalreqorder', name: 'DirectHospitalReqOrder', component: DirectHospitalReqOrder },
   { path: '/dhreqorderdetail/:id', name: 'DHReqOrderDetail', component: DHReqOrderDetail },
-  { path: '/supplytodhmodel/:id', name: 'SupplyToDHModel', component: SupplyToDHModel},
+  { path: '/supplytodhmodel/:id', name: 'SupplyToDHModel', component: SupplyToDHModel },
   { path: '/ministry/medicine', name: 'Medicine', component: Medicine },
   { path: '/ministry/driver', name: 'Driver', component: Driver },
   { path: '/ministry/store', name: 'MinistryStore', component: MinistryStore },
   { path: '/ministry/vehicle', name: 'Vehicle', component: Vehicle },
   { path: '/ministry/rdhs', name: 'Rdhs', component: Rdhs },
+
+  { path: '/ministry/rdhsreqorder', name: 'RdhsReqOrder', component: RdhsReqOrder },
+  { path: '/rdhsreqorderdetail/:id', name: 'RdhsReqOrderDetail', component: RdhsReqOrderDetail },
+
 // <<<<<<< HEAD
   { path: '/ministry/rdhsreqorder', name: 'RdhsReqOrder', component: RdhsReqOrder},
   { path: '/rdhsreqorderdetail/:id', name: 'RdhsReqOrderDetail', component: RdhsReqOrderDetail },
 // =======
 
 // >>>>>>> 747efdbe537cfc6cb342a269a6217b5729a031ad
+
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
   { path: '/theme/typography', name: 'Typography', component: Typography },
@@ -167,19 +186,30 @@ const routes = [
   { path: '/ministry_stores', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
   { path: '/ministry_stores/ministry_stores_list', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
   { path: '/ministry_stores/register', exact: true, name: 'Ministry Store Registration', component: MinistryStoreRegister },
+  { path: '/ministry_store_detail/:id', name: 'Ministry Store Detail', component: MinistryStoreDetail },
 
-  { path: '/rdhs', exact: true, name: 'Ministry Stores', component: RDHSList },
-  { path: '/rdhs/rdhs_list', exact: true, name: 'Ministry Stores', component: RDHSList },
-  { path: '/rdhs/register', exact: true, name: 'Ministry Store Registration', component: RDHSRegister },
+
+  { path: '/rdhs', exact: true, name: 'RDHS', component: RDHSList },
+  { path: '/rdhs/rdhs_list', exact: true, name: 'RDHS List', component: RDHSList },
+  { path: '/rdhs/register', exact: true, name: 'RDHS Registration', component: RDHSRegister },
+  { path: '/rdhs_detail/:id', name: 'RDHS Detail', component: RDHSDetail },
+
 
   { path: '/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
   { path: '/direct_hospitals/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
   { path: '/direct_hospitals/register', exact: true, name: 'Direct Hospital Registration', component: DirectHospitalRegister },
-  // { path: '/direct_hospitals'}
+  { path: '/direct_hospital_detail/:id', name: 'Direct Hospital Detail', component: DirectHospitalDetail },
 
   { path: '/hospital_by_rdhs', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },
   { path: '/hospital_by_rdhs/hospital_by_rdhs_list', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },
   { path: '/hospital_by_rdhs/register', exact: true, name: 'Hospital By RDHS Registration', component: HospitalByRDHSRegister },
+  { path: '/hospital_by_rdhs/:id', name: 'Hospital By RDHS Detail', component: HospitalByRDHSDetail },
+
+
+  { path: '/user', exact: true, name: 'Users', component: UserList },
+  { path: '/user/user_list', exact: true, name: 'User', component: UserList },
+  { path: '/user/register', exact: true, name: 'User Registration', component: UserRegister },
+
 
 ];
 

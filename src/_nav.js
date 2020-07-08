@@ -10,6 +10,34 @@ export default {
       },
     },
     {
+      name: 'Hospital By RDHS',
+    ///  url: '/ministry_stores',
+      icon: 'icon-list',
+      children: [
+        {
+          name: 'Current Stock',
+          url: '/rhcstock',
+         // icon: 'icon-list',
+        },
+        {
+          name: 'Return Cart',
+          url: '/returncart',
+         // icon: 'icon-list',
+        },
+        {
+          name: 'Order Cart',
+          url: '/rhordercart',
+         // icon: 'icon-list',
+        },
+        {
+          name: 'Issue Drugs',
+          url: '/rhissue',
+         // icon: 'icon-list',
+        }, 
+
+      ],
+    },
+    {
       title: true,
       name: 'Ministry',
       wrapper: {            // optional wrapper object
@@ -89,6 +117,53 @@ export default {
           icon: 'icon-list',
         },
 
+      ],
+    },
+
+    {
+      name: 'Users',
+      url: '/user',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register User',
+          url: '/user/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'Users',
+          url: '/user/user_list',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
+
+    {
+      name: 'Pages',
+      url: '/pages',
+      icon: 'icon-star',
+      children: [
+        {
+          name: 'Login',
+          url: '/login',
+          icon: 'icon-star',
+        },
+        {
+          name: 'Register',
+          url: '/register',
+          icon: 'icon-star',
+        },
+        {
+          name: 'Error 404',
+          url: '/404',
+          icon: 'icon-star',
+        },
+        {
+          name: 'Error 500',
+          url: '/500',
+          icon: 'icon-star',
+        },
       ],
     },
     

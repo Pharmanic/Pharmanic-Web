@@ -76,6 +76,8 @@ handleChange(event) {
   }
   async handleSubmit(event) {
     event.preventDefault();
+    var result = window.confirm("Are you sure you want to order?");
+    if(result){
     let item = {...this.state.item};
     const sto=this.state.cart;
     
@@ -123,8 +125,11 @@ handleChange(event) {
       }); 
     }
     
-   
-      window.location.replace("/#/rhexpire");
+   alert('Order cart updated ...');
+      window.location.replace("/#/lessqty");
+  }else{
+
+  }
   }
 
   render() { 
@@ -168,7 +173,7 @@ handleChange(event) {
                 </FormGroup>
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="text-input">Enter Return Quantity</Label>
+                    <Label htmlFor="text-input">Enter Order Quantity</Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Input type="text" id="qty" name="qty" placeholder="Enter Order Quantity"  onChange={this.handleChange}></Input>
