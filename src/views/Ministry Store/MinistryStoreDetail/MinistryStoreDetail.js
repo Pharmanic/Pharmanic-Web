@@ -76,6 +76,7 @@ class MinistryStoreDetail extends Component {
             isLoading: true,
             // ministrytracks: [],
             item: this.emptyItem,
+            old_item: this.emptyItem,
             // shouldShowModal: false,
             modalOrderId: -1
         };
@@ -93,7 +94,7 @@ class MinistryStoreDetail extends Component {
         console.log('param', this.props.match);
         fetch(`/ministry_stores/${this.props.match.params.id}`)
             .then(response => response.json())
-            .then(data => this.setState({ ministry_store_details: data, isLoading: false }));
+            .then(data => this.setState({ item: data, isLoading: false, old_item: data, isLoading: false }));
         // this.loadData();
 
         // fetch('/ministrytracks')
@@ -101,15 +102,16 @@ class MinistryStoreDetail extends Component {
         //   .then(data => this.setState({ ministrytracks: data, isLoading: false }));
     }
 
-    handleChange(event) {
+  handleChange(event) {
+        console.log("OnChange");
+        console.log("Old item"+this.state.old_item.reg_no);
         const target = event.target;
         const value = target.value;
         const name = target.name;
-        // let item = { ...this.state.item };
-        // item[name] = value;
-        // this.setState({ item });
-        this.state.ministry_store_details.name = value;
-        //this.setState((ministry_store_details));
+        let item = { ...this.state.item };
+        item[name] = value;
+        this.setState({ item });
+        
     }
 
     // enableEdit(event) {
@@ -131,15 +133,7 @@ class MinistryStoreDetail extends Component {
     //   });
     //   this.props.history.push('/ministrydamagestocks');
     // }
-    loadData() {
-        this.setState({
-            reg_no: this.state.ministry_store_details.reg_no,
-            address: this.state.ministry_store_details.address,
-            name: this.state.ministry_store_details.name,
-            email: this.state.ministry_store_details.email,
-            telephone: this.state.ministry_store_details.telephone,
-        });
-    }
+  
 
     toggle() {
         this.setState({
@@ -160,7 +154,7 @@ class MinistryStoreDetail extends Component {
 
     }
     resetForm = () => {
-        this.setState({ item: this.emptyItem });
+        this.setState({ item: this.state.old_item });
     }
 
 
@@ -224,7 +218,7 @@ class MinistryStoreDetail extends Component {
                     <Col xs="12" md="8">
                         <Card>
                             <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                                <b>ministry_store - {ministry_store_details.name}</b>
+                                <b>ministry_store - {item.name}</b>
                             </CardHeader>
                             <CardBody>
                                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="ministry_storeForm">
@@ -249,7 +243,7 @@ class MinistryStoreDetail extends Component {
                                             <Label htmlFor="text-input">Ministry Store ID</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="m_store_id" name="m_store_id" placeholder="Ministry Store ID" initialValue="" value={ministry_store_details.m_store_id || ''}
+                                            <Input type="text" id="m_store_id" name="m_store_id" placeholder="Ministry Store ID" initialValue="" value={item.m_store_id || ''}
                                                 onChange={this.handleChange} autoComplete="reg_no" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -258,7 +252,7 @@ class MinistryStoreDetail extends Component {
                                             <Label htmlFor="text-input">Name</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={ministry_store_details.name || ''}
+                                            <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={item.name || ''}
                                                 onChange={this.handleChange} autoComplete="name" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -267,7 +261,7 @@ class MinistryStoreDetail extends Component {
                                             <Label htmlFor="text-input">E-Mail</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="email" name="email" placeholder="E-Mail" initialValue="" value={ministry_store_details.email || ''}
+                                            <Input type="text" id="email" name="email" placeholder="E-Mail" initialValue="" value={item.email || ''}
                                                 onChange={this.handleChange} autoComplete="email" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -277,7 +271,7 @@ class MinistryStoreDetail extends Component {
                                             <Label htmlFor="text-input">Tel No</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="tel_no" name="tel_no" placeholder="Tel No" initialValue="" value={ministry_store_details.tel_no || ''}
+                                            <Input type="text" id="tel_no" name="tel_no" placeholder="Tel No" initialValue="" value={item.tel_no || ''}
                                                 onChange={this.handleChange} autoComplete="tel_no" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -287,7 +281,7 @@ class MinistryStoreDetail extends Component {
                                             <Label htmlFor="text-input">Location</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="location" name="location" placeholder="Location" initialValue="" value={ministry_store_details.location || ''}
+                                            <Input type="text" id="location" name="location" placeholder="Location" initialValue="" value={item.location || ''}
                                                 onChange={this.handleChange} autoComplete="location" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -299,7 +293,7 @@ class MinistryStoreDetail extends Component {
                                             <Label htmlFor="text-input">Total Storage</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="total_storage" name="total_storage" placeholder="Total Storage" initialValue="" value={ministry_store_details.total_storage || ''}
+                                            <Input type="text" id="total_storage" name="total_storage" placeholder="Total Storage" initialValue="" value={item.total_storage || ''}
                                                 onChange={this.handleChange} autoComplete="total_storage" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -308,7 +302,7 @@ class MinistryStoreDetail extends Component {
                                             <Label htmlFor="text-input">Available Storage</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="available_storage" name="available_storage" placeholder="Available Storage" initialValue="" value={ministry_store_details.available_storage || ''}
+                                            <Input type="text" id="available_storage" name="available_storage" placeholder="Available Storage" initialValue="" value={item.available_storage || ''}
                                                 onChange={this.handleChange} autoComplete="available_storage" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>

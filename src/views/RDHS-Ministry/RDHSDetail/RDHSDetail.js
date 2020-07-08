@@ -73,6 +73,7 @@ class RDHSDetail extends Component {
             isLoading: true,
             // ministrytracks: [],
             item: this.emptyItem,
+            empty_item: this.emptyItem,
             // shouldShowModal: false,
             modalOrderId: -1
         };
@@ -90,7 +91,7 @@ class RDHSDetail extends Component {
         console.log('param', this.props.match);
         fetch(`/rdhss/${this.props.match.params.id}`)
             .then(response => response.json())
-            .then(data => this.setState({ rdhs_details: data, isLoading: false }));
+            .then(data => this.setState({ item: data, isLoading: false, old_item: data, isLoading: false }));
         // this.loadData();
 
         // fetch('/ministrytracks')
@@ -99,14 +100,14 @@ class RDHSDetail extends Component {
     }
 
     handleChange(event) {
+        console.log("OnChange");
+        console.log("Old item" + this.state.old_item.reg_no);
         const target = event.target;
         const value = target.value;
         const name = target.name;
-        // let item = { ...this.state.item };
-        // item[name] = value;
-        // this.setState({ item });
-        this.state.rdhs_details.name = value;
-        //this.setState((rdhs_details));
+        let item = { ...this.state.item };
+        item[name] = value;
+        this.setState({ item });
     }
 
     // enableEdit(event) {
@@ -128,15 +129,7 @@ class RDHSDetail extends Component {
     //   });
     //   this.props.history.push('/ministrydamagestocks');
     // }
-    loadData(){
-          this.setState({
-            reg_no:  this.state.rdhs_details.reg_no,
-            address: this.state.rdhs_details.address,
-            name: this.state.rdhs_details.name,
-            email:  this.state.rdhs_details.email,
-            telephone:  this.state.rdhs_details.telephone,
-        });
-    }
+
 
     toggle() {
         this.setState({
@@ -157,7 +150,7 @@ class RDHSDetail extends Component {
 
     }
     resetForm = () => {
-        this.setState({ item: this.emptyItem });
+        this.setState({ item: this.state.old_item });
     }
 
 
@@ -221,7 +214,7 @@ class RDHSDetail extends Component {
                     <Col xs="12" md="8">
                         <Card>
                             <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                                <b>RDHS - {rdhs_details.name}</b>
+                                <b>RDHS - {item.name}</b>
                             </CardHeader>
                             <CardBody>
                                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="RDHSForm">
@@ -246,7 +239,7 @@ class RDHSDetail extends Component {
                                             <Label htmlFor="text-input">Register No</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="reg_no" name="reg_no" placeholder="Register No" initialValue="" value={rdhs_details.reg_no || ''}
+                                            <Input type="text" id="reg_no" name="reg_no" placeholder="Register No" initialValue="" value={item.reg_no || ''}
                                                 onChange={this.handleChange} autoComplete="reg_no" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -255,7 +248,7 @@ class RDHSDetail extends Component {
                                             <Label htmlFor="text-input">Name</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={rdhs_details.name || ''}
+                                            <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={item.name || ''}
                                                 onChange={this.handleChange} autoComplete="name" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -265,7 +258,7 @@ class RDHSDetail extends Component {
                                             <Label htmlFor="text-input">Address</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="address" name="address" placeholder="Address" initialValue="" value={rdhs_details.address || ''}
+                                            <Input type="text" id="address" name="address" placeholder="Address" initialValue="" value={item.address || ''}
                                                 onChange={this.handleChange} autoComplete="address" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -275,7 +268,7 @@ class RDHSDetail extends Component {
                                             <Label htmlFor="text-input">E-Mail</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="email" name="email" placeholder="E-Mail" initialValue="" value={rdhs_details.email || ''}
+                                            <Input type="text" id="email" name="email" placeholder="E-Mail" initialValue="" value={item.email || ''}
                                                 onChange={this.handleChange} autoComplete="email" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -285,7 +278,7 @@ class RDHSDetail extends Component {
                                             <Label htmlFor="text-input">Tel No</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="telephone" name="telephone" placeholder="Tel No" initialValue="" value={rdhs_details.telephone || ''}
+                                            <Input type="text" id="telephone" name="telephone" placeholder="Tel No" initialValue="" value={item.telephone || ''}
                                                 onChange={this.handleChange} autoComplete="telephone" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
