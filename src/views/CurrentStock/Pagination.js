@@ -24,6 +24,7 @@ const Paginations = ({dataPerPage,totalData,paginate}) => {
 }
 
 
+export default Paginations
 
 
 

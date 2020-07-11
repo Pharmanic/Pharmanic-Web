@@ -105,14 +105,10 @@ class CurrentStock extends Component {
               </CardBody>
             </Card>
           </Col>
-        </Row>
-
-        
-       
-         
-        
-     
-   
+        </Row>   
+        <Link to="/direct_hospital_request_order_form">
+          <Button className="btn-primary btn-pill" >New Order</Button>
+        </Link>
       </div>
     );
   }

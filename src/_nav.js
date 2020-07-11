@@ -9,17 +9,33 @@ export default {
         text: 'NEW',
       },
     },
-    
+    {
+      name: 'Hospital By RDHS',
+    ///  url: '/ministry_stores',
+      icon: 'icon-list',
+      children: [
+        {
+          name: 'Current Stock',
+          url: '/rhcstock',
+         // icon: 'icon-list',
+        },
+        {
+          name: 'Return Cart',
+          url: '/returncart',
+         // icon: 'icon-list',
+        },
+        {
+          name: 'Order Cart',
+          url: '/rhordercart',
+         // icon: 'icon-list',
+        },
+        {
+          name: 'Issue Drugs',
+          url: '/rhissue',
+         // icon: 'icon-list',
+        }, 
 
-    {
-      name: 'LM Hospital',
-      url: '/ministry/directhospitalreqorder',
-      icon: 'icon-bell',
-    },
-    {
-      name: 'Notifications',
-      url: '/notification',
-      icon: 'icon-bell',
+      ],
     },
     {
       title: true,
@@ -29,6 +45,130 @@ export default {
         attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
       },
       class: ''             // optional class names space delimited list for title item ex: "text-center"
+    },
+
+     {
+      name: 'Ministry Stores',
+      url: '/ministry_stores',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register Ministry Store',
+          url: '/ministry_stores/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'Ministry Stores',
+          url: '/ministry_stores/ministry_stores_list',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
+    {
+      name: 'RDHS',
+      url: '/rdhs',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register RDHS',
+          url: '/rdhs/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'RDHS List',
+          url: '/rdhs/rdhs_list',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
+    {
+      name: 'Hospital by RDHS',
+      url: '/hospital_by_rdhs',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register RDHSHospital',
+          url: '/hospital_by_rdhs/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'RDHS Hospital List',
+          url: '/hospital_by_rdhs/hospital_by_rdhs_list',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
+    {
+      name: 'Direct Hospital',
+      url: '/direct_hospitals',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register Direct Hospitals',
+          url: '/direct_hospitals/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'Direct Hospitals',
+          url: '/direct_hospitals/direct_hospitals',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
+
+    {
+      name: 'Users',
+      url: '/user',
+      icon: 'icon-home',
+      children: [
+        {
+          name: 'Register User',
+          url: '/user/register',
+          icon: 'icon-plus',
+        },
+        {
+          name: 'Users',
+          url: '/user/user_list',
+          icon: 'icon-list',
+        },
+
+      ],
+    },
+    {
+      name: 'Notifications',
+      url: '/notification',
+      icon: 'icon-bell',
+    },
+    {
+      name: 'Pages',
+      url: '/pages',
+      icon: 'icon-star',
+      children: [
+        {
+          name: 'Login',
+          url: '/login',
+          icon: 'icon-star',
+        },
+        {
+          name: 'Register',
+          url: '/register',
+          icon: 'icon-star',
+        },
+        {
+          name: 'Error 404',
+          url: '/404',
+          icon: 'icon-star',
+        },
+        {
+          name: 'Error 500',
+          url: '/500',
+          icon: 'icon-star',
+        },
+      ],
     },
     
     {
@@ -86,10 +226,8 @@ export default {
           name: 'Returned Stocks',
           url: '/damagestock',
           icon: 'icon-layers',
-        
-        
-      
     },
+    
     {
       title: true,
       name: 'Order Requests',

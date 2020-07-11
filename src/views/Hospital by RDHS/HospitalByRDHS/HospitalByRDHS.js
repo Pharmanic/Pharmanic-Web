@@ -13,6 +13,7 @@ import {
   CardFooter
 } from 'reactstrap';
 import Paginations from './Pagination';
+import { Link } from 'react-router-dom';
 
 const divStyle = {
   display: 'flex',
@@ -44,6 +45,21 @@ class HospitalByRDHS extends Component {
       .then(data => this.setState({ hospitalByRDHSs: data, isLoading: false }));
   }
 
+  async remove(id) {
+    await fetch(`/hospitalByRdhs/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(() => {
+      // console.log("deleted");
+      //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
+      window.location.reload(false);
+
+    });
+  }
+
   updateSearch(event) {
     this.setState({ search: event.target.value.substr(0, 20) });
   }
@@ -69,10 +85,11 @@ class HospitalByRDHS extends Component {
       (hospitalByRDHS) => {
         return hospitalByRDHS.reg_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           hospitalByRDHS.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          hospitalByRDHS.rdhs.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           hospitalByRDHS.telephone.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           hospitalByRDHS.address.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 
-         ;
+          hospitalByRDHS.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+          ;
         //  hospitalByRDHS.m_store_id.indexOf(this.state.search) !==-1;
       }
     );
@@ -93,9 +110,16 @@ class HospitalByRDHS extends Component {
       return <tr key={hospitalByRDHS.m_store_id}>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.reg_no}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.name}</td>
+        <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.rdhs.name}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.address}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.email}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.telephone}</td>
+        <td>
+          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this RDHS Hospital?')) this.remove(hospitalByRDHS.reg_no) }}><i className="fa fa-trash"></i></Button>
+          <Button size="sm" color="success" tag={Link} to={"/hospital_by_rdhs/" + hospitalByRDHS.reg_no}><i className="icon-eye"></i></Button>
+
+        </td>
+
 
       </tr>
     });
@@ -129,11 +153,13 @@ class HospitalByRDHS extends Component {
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table" style={{ borderRadius: '20px !important' }}>
                   <thead style={{ backgroundColor: '#244EAD', color: 'white', borderRadius: '20px !important' }}>
                     <tr>
-                      <th>RDHS Hospital Register NO</th>
+                      <th>Register No</th>
                       <th>RDHS Hospital Name</th>
+                      <th>Related RDHS</th>
                       <th>Address</th>
                       <th>E Mail</th>
                       <th>Tel No</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>

@@ -13,6 +13,7 @@ import {
   CardFooter
 } from 'reactstrap';
 import Paginations from './Pagination';
+import { Link } from 'react-router-dom';
 
 const divStyle = {
   display: 'flex',
@@ -54,6 +55,25 @@ class RDHSs extends Component {
     });
   }
 
+  async remove(id) {
+    await fetch(`/rdhs/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(() => {
+      // console.log("deleted");
+      //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
+      window.location.reload(false);
+
+    });
+  }
+
+  onViewButtonClick(rdhsSelected) {
+    console.log("Selected" + rdhsSelected.address);
+  }
+
   onRadioBtnClick(radioSelected) {
     this.setState({
       radioSelected: radioSelected,
@@ -71,7 +91,7 @@ class RDHSs extends Component {
           rdhs.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           rdhs.address.toString().toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           rdhs.telephone.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          rdhs.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 
+          rdhs.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
           ;
         //  rdhs.m_store_id.indexOf(this.state.search) !==-1;
       }
@@ -96,6 +116,14 @@ class RDHSs extends Component {
         <td style={{ whiteSpace: 'nowrap' }}>{rdhs.address}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{rdhs.email}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{rdhs.telephone}</td>
+        {/*<td>  <Button block outline color="info" tag={Link} to={"/rdhsdetail/"+rdhs.reg_no}>More Info</Button>  </td>*/}
+
+
+        <td>
+          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this RDHS ?')) this.remove(rdhs.reg_no) }}><i className="fa fa-trash"></i></Button>
+
+          <Button size="sm" color="success" tag={Link} to={"/rdhs_detail/" + rdhs.reg_no}><i className="icon-eye"></i></Button>
+        </td>
 
       </tr>
     });
@@ -134,6 +162,8 @@ class RDHSs extends Component {
                       <th>Address</th>
                       <th>E Mail</th>
                       <th>Tel No</th>
+                      <th></th>
+
                     </tr>
                   </thead>
                   <tbody>

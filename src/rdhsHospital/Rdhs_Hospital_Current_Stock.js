@@ -3,8 +3,10 @@ import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
   CardBody, Row,
   CardFooter,
   CardHeader,
-  Col,InputGroup} from 'reactstrap';
+  Col,InputGroup,InputGroupAddon} from 'reactstrap';
 import { Link } from 'react-router-dom';
+import TextInput from 'react-autocomplete-input';
+
 
  class Rdhs_Hospital_Current_Stock extends Component {
     constructor(props)
@@ -47,24 +49,24 @@ import { Link } from 'react-router-dom';
         const {Drugs,isLoading} =this.state;
         let filteredData=Drugs.filter(
           (drugs)=>{
+            
             return drugs.medicine.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
                   //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
           }
         );
 
-
-        let optionList=Drugs.map(drug=>
+        let optionList=filteredData.map(drug=>
           <option>
              {drug.medicine.name}
+             
           </option>
          
-           
-            
+      
            
        )
         let drugRow=filteredData.map(drug=>
            <tr>
-               <td>{drug.batchId}</td>
+               <td>{drug.batchNo}</td>
                <td>{drug.medicine.sr_no}</td>
                <td>{drug.medicine.name}</td>
                <td>{drug.quantity}</td>
@@ -75,31 +77,30 @@ import { Link } from 'react-router-dom';
             
         )
   return (
+    <div className="animated fadeIn">
       <form>
-        <Link to='/rhexpire'><Button color="primary">Sort By Expire Date</Button></Link>
+        <Link to='/rhexpire'><Button color="primary">Sort By Expire Date</Button></Link>{' '}{' '}{' '}{' '}{' '}{' '}
+        <Link to='/lessqty'><Button color="primary">Sort By quantity</Button></Link>
         <br></br>
                   <br></br>
-<div>
-<InputGroup>
-          <Input type="select" id="input1-group2" name="input1-group2" placeholder="Search by Name" value={this.state.search}
-                  onChange={this.updateSearch.bind(this)}>
+    
 
-                    {optionList}
+          <Row>
+             
+             <Col>
+               <InputGroup>
+                 <InputGroupAddon addonType="prepend">
+                   <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
+                 </InputGroupAddon>
+                 <Input type="test" id="batchNo" name="batchNo" list="datalist1"  onChange={this.updateSearch.bind(this)} placeholder="Search by Name"> </Input>
+                               <datalist id="datalist1">
+                                 {optionList}
 
-          </Input>
-
-        
-                 
-        </InputGroup> 
-        
-                  <br></br>
-                 
-        
-
-</div>
-       
-
-          
+                                 </datalist>
+               </InputGroup>
+               <br></br>
+             </Col>
+           </Row>
         <Card>
       <Table className="mt-4">
                     <thead style={{ backgroundColor: '#33C7FF', color: 'white', borderRadius: '5px',font:'1500px'}}>
@@ -119,7 +120,7 @@ import { Link } from 'react-router-dom';
                 </Card>
       </form>
 
-
+      </div>
 
       )
     }

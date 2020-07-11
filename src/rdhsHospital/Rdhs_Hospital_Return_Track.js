@@ -6,7 +6,7 @@ import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
     Col,} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-class Rdhs_Track extends Component {
+class Rdhs_Hospital_Return_Track extends Component {
 
   emptyItem = {
     track_id: '',
@@ -14,40 +14,9 @@ class Rdhs_Track extends Component {
       
       start_point:'',
       end_point:'',
-      reg_no:{
-        reg_no:'',
-        name:'',
-        address:'',
-        email:'',
-        telephone:''
-      },
-      vehicle_no:{
-        vehicle_no:'',
-        type:'',
-        capacity:'',
-        rdhs:{
-          reg_no:'',
-          name:'',
-          address:'',
-          email:'',
-          telephone:''
-        }
-
-      },
-      nic:{
-        nic:'',
-        name:'',
-        email:'',
-        address:'',
-        telephone:'',
-        rdhs:{
-          reg_no:'',
-          name:'',
-          address:'',
-          email:'',
-          telephone:''
-        }
-      }
+      reg_no:[],
+      vehicle_no:[],
+      nic:[]
     };
     constructor(props) {
         super(props);
@@ -60,11 +29,15 @@ class Rdhs_Track extends Component {
             item:this.emptyItem,
             driver:[],
             vehicles:[],
-            rdhs:[]
+            rdhs:[],
+            returnCart:[],
+            reg_no:''
          }
        
          this.handleChange = this.handleChange.bind(this);
          this.handleSubmit = this.handleSubmit.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
+         this.state.reg_no=localStorage.getItem('reg_no');
     }
 
   
@@ -74,7 +47,7 @@ class Rdhs_Track extends Component {
       const response= await fetch('/api/idgenerate');
       const body=await response.json();
       this.setState({id:(body+1), isLoading:false});
-      alert(this.state.id);
+      //alert(this.state.id);
 
 
       fetch('api/alldriver')
@@ -85,9 +58,14 @@ class Rdhs_Track extends Component {
         .then(response => response.json())
         .then(data => this.setState({vehicles: data}));
       
-      fetch('/rdhss')
+      fetch('/rdhs_list')
         .then(response => response.json())
-        .then(data => this.setState({rdhs: data, isLoading: false}));
+        .then(data => this.setState({rdhs: data}));
+
+       fetch('/api/returnCart/'+this.state.reg_no)
+        .then(response => response.json())
+        .then(data => this.setState({returnCart: data,isLoading:false}));
+       
   }
     handleChange(event) {
       const target = event.target;
@@ -98,8 +76,25 @@ class Rdhs_Track extends Component {
 
       if(name=='nic'){
         const driver=this.state.driver;
-        const store=driver.find(ms => ms.nic==target.value);
-        item[name]=store;
+        console.log('drivr nic',driver);
+       
+
+        var regx=/^[1-9]{9}[vV]$|^[0-9]{12}$/;
+        var vall1=document.getElementById('nic').value;
+ 
+        if(regx.test(vall1)){
+         document.getElementById('nic').style.borderColor = "";
+         const store=driver.find(ms => ms.nic==target.value);
+         console.log('drivr collection',store);
+         item[name]=store;
+         this.setState({item});
+         console.log('drivr item', item[name]);
+        }else{
+         document.getElementById('nic').style.borderColor = "red";
+        }
+ 
+
+
       }else if(name=='reg_no'){
         const rdds=this.state.rdhs;
         const exportedstock=rdds.find(es => es.reg_no==target.value);
@@ -114,18 +109,22 @@ class Rdhs_Track extends Component {
       }else{
         item[name] = value;
         this.setState({item});
-       // console.log('item',item);
       }
 
 
       }
-   
+     
+      
       async handleSubmit(event) {
       
         event.preventDefault();
-        const{item}=this.state;
-     
-    
+       // const{item}=this.state;
+        let item = {...this.state.item};
+        item['start_point']=localStorage.getItem('reg_no');
+      
+       
+       // item['rdhs_hospital_current_stock']=this.state.batches;
+        console.log('final item',item);
         await fetch('/api/saveTrack', {
           method:'POST',
           headers: {
@@ -134,7 +133,37 @@ class Rdhs_Track extends Component {
           },
           body: JSON.stringify(item),
         });
+      
+        const {returnCart} =this.state;
+       // returnCart.forEach(returning);
+
+      /*  function returning(item){
+          console.log(item);
+         // const id={item[rdhs_hospital_current_stock.batchNo];
+         // console.log('id :'+id);
+        }*/
+        let list=returnCart.map(ret=>{
+          const id=ret.rdhs_hospital_current_stock.stockId;
+          ret.track_id=this.state.id;
+          console.log(ret);
+
+           fetch('/api/updatereturn/'+id, {
+            method:'PUT',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            
+            body: JSON.stringify(ret),
+          });
+        })
+        alert('return sucessfully..');
+        window.location.replace("/#/returncart");
+
+
+        
       }
+      
     render() { 
         return ( 
             <div className="animated fadeIn">
@@ -173,7 +202,7 @@ class Rdhs_Track extends Component {
                       </FormGroup>
                       <FormGroup row>
                         <Col md="3">
-                          <Label htmlFor="text-input">SR Number</Label>
+                          <Label htmlFor="text-input">Vehicle Number</Label>
                         </Col>
                         <Col xs="12" md="9">
                           <Input type="text" id="vehicle_no" name="vehicle_no" placeholder="Enter Vehicle Number" onChange={this.handleChange}></Input>
@@ -196,4 +225,4 @@ class Rdhs_Track extends Component {
     }
 }
  
-export default Rdhs_Track;
+export default Rdhs_Hospital_Return_Track;
