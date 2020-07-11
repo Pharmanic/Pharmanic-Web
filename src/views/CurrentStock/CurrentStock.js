@@ -94,14 +94,14 @@ class CurrentStock extends Component {
           <CurrentStockForm/>
           </Col>
           <Col lg="7">
-            <Card>
-              <CardHeader>
+            <Card style={{borderRadius:'20px'}}>
+              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
               <i className="fa fa-align-justify"></i> Current Stock     
               </CardHeader>
               <CardBody>                
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead className="thead-light">
+                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
                   <tr>
                     <th>Batch ID</th>
                     <th>Warehouse</th>
@@ -117,7 +117,12 @@ class CurrentStock extends Component {
                 </Table>
               </CardBody>
               <CardFooter>
+              <Row>
+              <Col md="7"></Col>
+              <Col md="5">
               <Paginations dataPerPage={dataPerPage} totalData={ministrycurrentstocks.length} paginate={paginate}/>
+              </Col>
+              </Row>
               </CardFooter>
             </Card>
           </Col>

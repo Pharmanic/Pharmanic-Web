@@ -86,7 +86,10 @@ class CurrentStock extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-          <Col lg="5" >
+          <Row>
+          <Col md="8">
+          </Col>
+          <Col lg="4" >
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
@@ -96,15 +99,16 @@ class CurrentStock extends Component {
           </InputGroup> 
           <br></br>
           </Col>
-            <Card>
-              <CardHeader>
+          </Row>
+            <Card  style={{borderRadius:'20px'}}>
+              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
                 Ministry Vehicles
               </CardHeader>
               <CardBody>
                 
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead className="thead-light">
+                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
                   <tr>
                     <th>Vehicle Number</th>
                     <th>Type</th>
@@ -117,7 +121,12 @@ class CurrentStock extends Component {
                 </Table>
               </CardBody>
               <CardFooter>
+              <Row>
+              <Col md="9"></Col>
+              <Col md="3">
               <Paginations dataPerPage={dataPerPage} totalData={filteredData.length} paginate={paginate}/>
+              </Col>
+              </Row>
               </CardFooter>
             </Card>
           </Col>

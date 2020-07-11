@@ -151,6 +151,9 @@ class CurrentStockForm extends Component {
       },
       body: JSON.stringify(item),
     });
+    this.setState({
+      item:this.emptyItem
+    });
     //this.props.history.push('/ministrydamagestocks');
   }
 
@@ -178,8 +181,8 @@ class CurrentStockForm extends Component {
       <div className="animated fadeIn">        
         <Row>
           <Col>
-            <Card>
-              <CardHeader>
+            <Card style={{borderRadius:'20px'}}>
+              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
                 <strong>Damage Drug</strong> Form
               </CardHeader>
               <CardBody>

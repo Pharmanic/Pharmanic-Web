@@ -132,6 +132,7 @@ class SupplyToDHModel extends Component {
     console.log('value',value);
     const name = target.name;
     console.log('name',name);
+    console.log('fguwef');
     let item = {...this.state.item};
      if(name=='track_id'){
       const ministrytracks=this.state.ministrytracks;
@@ -214,13 +215,13 @@ class SupplyToDHModel extends Component {
           <ModalBody>
             <Card>
               <CardHeader>
-                <strong>Damage Drug</strong> Form
+                <strong>Accept Request Form</strong> Form
               </CardHeader>
               <CardBody>
                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal">                      
                 <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="select">Batch ID</Label>
+                      <Label htmlFor="select">Diliver Track</Label>
                     </Col>
                     <Col xs="12" md="9">
                       <Input type="select" name="track_id" id="track_id"  value={item.track_id.track_id|| ''} onChange={this.handleChange} >
@@ -235,6 +236,7 @@ class SupplyToDHModel extends Component {
                     </Col>
                     <Col xs="12" md="9">
                       <Input type="select" name="request_id" id="request_id"  value={item.request_id.id|| ''} onChange={this.handleChange} >
+                      <option>Select Request ID</option>
                             <option value={dhreqorderdetails.id}> {dhreqorderdetails.id}</option>
                                                                         
                       </Input>           
@@ -246,10 +248,7 @@ class SupplyToDHModel extends Component {
                    </FormGroup>
                 </Form>
               </CardBody>
-              <CardFooter>
-                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
-              </CardFooter>
+              
             </Card> 
             </ModalBody>
             </Modal>          

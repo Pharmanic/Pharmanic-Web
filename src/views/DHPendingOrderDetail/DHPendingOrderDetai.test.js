@@ -227,9 +227,9 @@ class DHReqOrderDetail extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-            <Card style={{borderRadius:'20px'}}>
-              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
-                Order Details from Direct Hospitals
+            <Card>
+              <CardHeader>
+                Damage Stock
               </CardHeader>
               <Row>
                 <Col md="10">
@@ -241,7 +241,7 @@ class DHReqOrderDetail extends Component {
               <CardBody>                
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
+                  <thead className="thead-light">
                   <tr>
                     <th>Order ID</th>
                     <th>Medicine</th>
