@@ -41,7 +41,7 @@ class DirectHospitalDetail extends Component {
         email: '',
         telephone: '',
         doctor_incharge: ''
-   
+
     };
     constructor(props) {
         super(props);
@@ -52,6 +52,7 @@ class DirectHospitalDetail extends Component {
             isLoading: true,
             // ministrytracks: [],
             item: this.emptyItem,
+            old_item: this.emptyItem,
             // shouldShowModal: false,
             modalOrderId: -1
         };
@@ -69,8 +70,10 @@ class DirectHospitalDetail extends Component {
         console.log('param', this.props.match);
         fetch(`/directhospitals/${this.props.match.params.id}`)
             .then(response => response.json())
-            .then(data => this.setState({ direct_hospital_details: data, isLoading: false }));
-        // this.loadData();
+            .then(data => this.setState({ item: data, isLoading: false ,old_item: data, isLoading: false}));
+        // this.loadToOldItem();
+        //console.log("Came here"+this.state.item.name);
+        // this.setState({ old_item: this.item });
 
         // fetch('/ministrytracks')
         //   .then(response => response.json())
@@ -78,15 +81,17 @@ class DirectHospitalDetail extends Component {
     }
 
     handleChange(event) {
+        console.log("OnChange");
+        console.log("Old item"+this.state.old_item.reg_no);
         const target = event.target;
         const value = target.value;
         const name = target.name;
-        // let item = { ...this.state.item };
-        // item[name] = value;
-        // this.setState({ item });
-        this.state.direct_hospital_details.name = value;
-        //this.setState((direct_hospital_details));
+        let item = { ...this.state.item };
+        item[name] = value;
+        this.setState({ item });
+        
     }
+ 
 
     // enableEdit(event) {
 
@@ -107,16 +112,7 @@ class DirectHospitalDetail extends Component {
     //   });
     //   this.props.history.push('/ministrydamagestocks');
     // }
-    loadData(){
-          this.setState({
-            reg_no:  this.state.direct_hospital_details.reg_no,
-            address: this.state.direct_hospital_details.address,
-            name: this.state.direct_hospital_details.name,
-            email:  this.state.direct_hospital_details.email,
-            telephone:  this.state.direct_hospital_details.telephone,
-            doctor_incharge:  this.state.direct_hospital_details.doctor_incharge,
-        });
-    }
+    
 
     toggle() {
         this.setState({
@@ -137,7 +133,7 @@ class DirectHospitalDetail extends Component {
 
     }
     resetForm = () => {
-        this.setState({ item: this.emptyItem });
+        this.setState({ item: this.state.old_item });
     }
 
 
@@ -155,10 +151,10 @@ class DirectHospitalDetail extends Component {
     // }
 
     render() {
-        const {direct_hospital_details, isLoading, item} = this.state;
+        const {isLoading, item} = this.state;
 
         // this.state.enableEdit=false;
-        console.log('reqlist', direct_hospital_details);
+        console.log('reqlist', item);
         if (isLoading) {
             return <p>Loading...</p>;
         }
@@ -201,7 +197,7 @@ class DirectHospitalDetail extends Component {
                     <Col xs="12" md="8">
                         <Card>
                             <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                                <b>Direct Hospital - {direct_hospital_details.name}</b>
+                                <b>Direct Hospital - {item.name}</b>
                             </CardHeader>
                             <CardBody>
                                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="Direct HospitalForm">
@@ -226,7 +222,7 @@ class DirectHospitalDetail extends Component {
                                             <Label htmlFor="text-input">Register No</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="reg_no" name="reg_no" placeholder="Register No" initialValue="" value={direct_hospital_details.reg_no || ''}
+                                            <Input type="text" id="reg_no" name="reg_no" placeholder="Register No" initialValue="" value={item.reg_no || ''}
                                                 onChange={this.handleChange} autoComplete="reg_no" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -235,7 +231,7 @@ class DirectHospitalDetail extends Component {
                                             <Label htmlFor="text-input">Name</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={direct_hospital_details.name || ''}
+                                            <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={item.name || ''}
                                                 onChange={this.handleChange} autoComplete="name" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -245,7 +241,7 @@ class DirectHospitalDetail extends Component {
                                             <Label htmlFor="text-input">Address</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="address" name="address" placeholder="Address" initialValue="" value={direct_hospital_details.address || ''}
+                                            <Input type="text" id="address" name="address" placeholder="Address" initialValue="" value={item.address || ''}
                                                 onChange={this.handleChange} autoComplete="address" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -255,7 +251,7 @@ class DirectHospitalDetail extends Component {
                                             <Label htmlFor="text-input">E-Mail</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="email" name="email" placeholder="E-Mail" initialValue="" value={direct_hospital_details.email || ''}
+                                            <Input type="text" id="email" name="email" placeholder="E-Mail" initialValue="" value={item.email || ''}
                                                 onChange={this.handleChange} autoComplete="email" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -265,17 +261,17 @@ class DirectHospitalDetail extends Component {
                                             <Label htmlFor="text-input">Tel No</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="telephone" name="telephone" placeholder="Tel No" initialValue="" value={direct_hospital_details.telephone || ''}
+                                            <Input type="text" id="telephone" name="telephone" placeholder="Tel No" initialValue="" value={item.telephone || ''}
                                                 onChange={this.handleChange} autoComplete="telephone" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
 
-                                     <FormGroup row>
+                                    <FormGroup row>
                                         <Col md="3">
                                             <Label htmlFor="text-input">Doctor Incharge</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="doctor_incharge" name="doctor_incharge" placeholder="Doctor In-Charge" initialValue="" value={direct_hospital_details.doctor_incharge || ''}
+                                            <Input type="text" id="doctor_incharge" name="doctor_incharge" placeholder="Doctor In-Charge" initialValue="" value={item.doctor_incharge || ''}
                                                 onChange={this.handleChange} autoComplete="telephone" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>

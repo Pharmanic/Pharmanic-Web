@@ -76,14 +76,14 @@ class CurrentStock extends Component {
           <ImportStockForm/>
           </Col>
           <Col lg="7">
-            <Card>
-              <CardHeader>
+            <Card style={{borderRadius:'20px'}}>
+              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
               <i className="fa fa-align-justify"></i>  Imported Stocks    
               </CardHeader>
               <CardBody>                
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead className="thead-light">
+                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
                   <tr>
                     <th>Stock ID</th>
                     <th>Import Date</th>
@@ -96,7 +96,12 @@ class CurrentStock extends Component {
                 </Table>
               </CardBody>
               <CardFooter>
+              <Row>
+              <Col md="7"></Col>
+              <Col md="5">
               <Paginations dataPerPage={dataPerPage} totalData={exportedstocks.length} paginate={paginate}/>
+              </Col>
+              </Row>
               </CardFooter>
             </Card>
           </Col>
