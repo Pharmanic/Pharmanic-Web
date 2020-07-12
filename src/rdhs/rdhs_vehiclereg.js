@@ -1,0 +1,166 @@
+import React, { Component } from 'react';
+import {
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Col,
+  Collapse,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Fade,
+  Form,
+  FormGroup,
+  FormText,
+  FormFeedback,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButtonDropdown,
+  InputGroupText,
+  Label,
+  Row,
+} from 'reactstrap';
+import { Link, withRouter } from 'react-router-dom';
+
+
+class rdhs_vehiclereg extends Component {
+
+  emptyItem = {
+    brand:'',
+    no: '',
+    type: '',
+    capacity:'',
+    
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.toggleFade = this.toggleFade.bind(this);
+    this.state = {
+      item: this.emptyItem,
+      collapse: true,
+      fadeIn: true,
+      timeout: 300
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    let item = { ...this.state.item };
+    item[name] = value;
+    this.setState({ item });
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault();
+    const {item} = this.state;
+
+    await fetch('/ministryvehicles', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(item),
+    })
+      .then(res => console.log(res)) //returns array of data
+      console.log();
+      ;
+    this.props.history.push('/ministry_stores/ministry_stores_list');
+  }
+
+  toggle() {
+    this.setState({ collapse: !this.state.collapse });
+  }
+
+  toggleFade() {
+    this.setState((prevState) => { return { fadeIn: !prevState } });
+  }
+
+  resetForm = () => {
+    this.setState({ item: this.emptyItem });
+  }
+
+  render() {
+    const {item} = this.state;
+    const title = <h2>{'Add Group'}</h2>;
+
+    return (
+      <div className="animated fadeIn">
+
+        <Row>
+          <Col xs="12" md="8">
+            <Card>
+              <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
+                <b>RDHS Vehicle Registration</b>
+              </CardHeader>
+              <CardBody>
+                <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="ministryStoreForm">
+                  
+                  
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input"> Brand</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="brand" name="brand" placeholder="Brand" initialValue="" value={item.brand || ''}
+                        onChange={this.handleChange} autoComplete="brand" />
+                    </Col>
+                  </FormGroup>
+
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Number</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="no" name="no" placeholder="Number" initialValue="" value={item.no|| ''}
+                        onChange={this.handleChange} autoComplete="no" />
+                    </Col>
+                  </FormGroup>
+
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Type</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="type" name="type" placeholder="Type" initialValue="" value={item.type|| ''}
+                        onChange={this.handleChange} autoComplete="type" />
+                    </Col>
+                  </FormGroup>
+
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Capacity</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="capacity" name="capacity" placeholder="capacity" initialValue="" value={item.capacity || ''}
+                        onChange={this.handleChange} autoComplete="capacity" />
+                    </Col>
+                  </FormGroup>
+
+                  <FormGroup>
+                  <Link to='/rdhs/rdhs_vehiclereg'> <Button type="submit" size="sm" color="success"><i className="fa fa-dot-circle-o"></i> Submit</Button></Link>{' '}
+                    <Button type="reset" size="sm" color="danger" onClick={this.resetForm}><i className="fa fa-ban"></i> Reset</Button>
+                  </FormGroup>
+
+                </Form>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    );
+  }
+}
+
+export default rdhs_vehiclereg;
