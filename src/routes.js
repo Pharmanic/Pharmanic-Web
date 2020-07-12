@@ -90,11 +90,21 @@ const UserRegister = React.lazy(() => import('./views/User/RegisterUser'));
 const UserList = React.lazy(() => import('./views/User/UserList'));
 const MinistryStoreDetail = React.lazy(() => import('./views/Ministry Store/MinistryStoreDetail'));
 
-
+//DirectHospital
+const LM_Hospital_Current_Stock = React.lazy(() => import('./views/LMHospital/LM_Hospital_Current_Stock'));
+const LM_Hospital_View_Order_Cart = React.lazy(() => import('./views/LMHospital/LM_Hospital_View_Order_Cart'));
+const LM_Hospital_SortBy_Qty = React.lazy(() => import('./views/LMHospital/LM_Hospital_SortBy_Qty'));
+const LM_Hospital_SortBy_Expiration = React.lazy(() => import('./views/LMHospital/LM_Hospital_Expiration'));
+const LM_Hospital_Update_Order_Cart = React.lazy(() => import('./views/LMHospital/LM_Hospital_Update_Order_Cart'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
+  { path: '/dhstock', name: 'LM_Hospital_Current_Stock', component: LM_Hospital_Current_Stock },
+  { path: '/dhordercart', name: 'LM_Hospital_View_Order_Cart', component: LM_Hospital_View_Order_Cart },
+  { path: '/sortbyqty', name: 'LM_Hospital_SortBy_Qty', component: LM_Hospital_SortBy_Qty },
+  { path: '/sortbyexp', name: 'LM_Hospital_SortBy_Expiration', component: LM_Hospital_SortBy_Expiration },
+  { path: '/updateordercart', name: 'LM_Hospital_Update_Order_Cart', component: LM_Hospital_Update_Order_Cart },
   
   // { path: '/rdhstrack', name: 'Rdhs_Track', component: RdhsHopitalTrack },
 
