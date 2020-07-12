@@ -38,6 +38,7 @@ const ButtonGroups = React.lazy(() => import('./views/Buttons/ButtonGroups'));
 const Buttons = React.lazy(() => import('./views/Buttons/Buttons'));
 const Charts = React.lazy(() => import('./views/Charts'));
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
+const Notification = React.lazy(() => import('./views/Notification'));
 const ImportStock = React.lazy(() => import('./views/ImportStock'));
 const ImportStockForm = React.lazy(() => import('./views/ImportStockForm'));
 const CurrentStock = React.lazy(() => import('./views/CurrentStock'));
@@ -49,19 +50,15 @@ const DirectHospitalCurrentStock = React.lazy(() => import('./views/DirectHospit
 const DirectHospitalForm = React.lazy(() => import('./views/DirectHospitalForm'));
 const DirectHospitalReqOrder = React.lazy(() => import('./views/DirectHospitalReqOrder'));
 const DHReqOrderDetail = React.lazy(() => import('./views/DHReqOrderDetail'));
+const DHPendingOrder = React.lazy(() => import('./views/DHPendingOrder'));
 const SupplyToDHModel = React.lazy(() => import('./views/SupplyToDHModel'));
 const Medicine = React.lazy(() => import('./views/Medicine'));
 const Driver = React.lazy(() => import('./views/Driver'));
 const MinistryStore = React.lazy(() => import('./views/MinistryStore'));
 const Vehicle = React.lazy(() => import('./views/Vehicle'));
 const Rdhs = React.lazy(() => import('./views/Rdhs'));
-
 const RdhsReqOrder = React.lazy(() => import('./views/RdhsReqOrder'));
 const RdhsReqOrderDetail = React.lazy(() => import('./views/RdhsReqOrderDetail'));
-
-// const RdhsReqOrder = React.lazy(() => import('./views/RdhsReqOrder'));
-// const RdhsReqOrderDetail = React.lazy(() => import('./views/RdhsReqOrderDetail'));
-
 const CoreUIIcons = React.lazy(() => import('./views/Icons/CoreUIIcons'));
 const Flags = React.lazy(() => import('./views/Icons/Flags'));
 const FontAwesome = React.lazy(() => import('./views/Icons/FontAwesome'));
@@ -112,6 +109,7 @@ const routes = [
   { path: '/rhexpire', name: 'Rdhs_Hospital_Expiration', component: RdhsHospitalExpireDrug },
   { path: '/rdhoslog', name: 'Rdhs_Hospital_Current_Stock', component: Rdhs_Hospital_Login },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+  { path: '/notification', name: 'Notification', component: Notification },
   { path: '/importstock', name: 'ImportStock', component: ImportStock },
   { path: '/importstockform', name: 'ImportStockForm', component: ImportStockForm },
   { path: '/currentstock', name: 'CurrentStock', component: CurrentStock },
@@ -121,6 +119,7 @@ const routes = [
   { path: '/ministry/directhospital', name: 'DirectHospital', component: DirectHospital },
   { path: '/ministry/directhospitalform', name: 'DirectHospitalForm', component: DirectHospitalForm },
   { path: '/ministry/directhospitalreqorder', name: 'DirectHospitalReqOrder', component: DirectHospitalReqOrder },
+  { path: '/ministry/dhpendingorder', name: 'DHPendingOrder', component: DHPendingOrder },
   { path: '/dhreqorderdetail/:id', name: 'DHReqOrderDetail', component: DHReqOrderDetail },
   { path: '/supplytodhmodel/:id', name: 'SupplyToDHModel', component: SupplyToDHModel },
   { path: '/ministry/medicine', name: 'Medicine', component: Medicine },
@@ -128,17 +127,8 @@ const routes = [
   { path: '/ministry/store', name: 'MinistryStore', component: MinistryStore },
   { path: '/ministry/vehicle', name: 'Vehicle', component: Vehicle },
   { path: '/ministry/rdhs', name: 'Rdhs', component: Rdhs },
-
   { path: '/ministry/rdhsreqorder', name: 'RdhsReqOrder', component: RdhsReqOrder },
   { path: '/rdhsreqorderdetail/:id', name: 'RdhsReqOrderDetail', component: RdhsReqOrderDetail },
-
-// <<<<<<< HEAD
-  { path: '/ministry/rdhsreqorder', name: 'RdhsReqOrder', component: RdhsReqOrder},
-  { path: '/rdhsreqorderdetail/:id', name: 'RdhsReqOrderDetail', component: RdhsReqOrderDetail },
-// =======
-
-// >>>>>>> 747efdbe537cfc6cb342a269a6217b5729a031ad
-
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
   { path: '/theme/typography', name: 'Typography', component: Typography },
