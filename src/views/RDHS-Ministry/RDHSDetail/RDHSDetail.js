@@ -78,7 +78,7 @@ class RDHSDetail extends Component {
             modalOrderId: -1
         };
         this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -153,6 +153,24 @@ class RDHSDetail extends Component {
         this.setState({ item: this.state.old_item });
     }
 
+    async handleSubmit(event) {
+        event.preventDefault();
+        const {item} = this.state.item;
+        console.log("Before update"+this.state.item);
+
+        await fetch('/rdhs', {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(item),
+        })
+            .then(res => res.json()) //returns array of data
+            ;
+        this.props.history.push('/rdhs/rdhs_list');
+    }
+
 
     // onRadioBtnClick(radioSelected) {
     //   this.setState({
@@ -217,7 +235,7 @@ class RDHSDetail extends Component {
                                 <b>RDHS - {item.name}</b>
                             </CardHeader>
                             <CardBody>
-                                <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="RDHSForm">
+                                <Form onSubmit={this.handleSubmit} method="put" encType="multipart/form-data" className="form-horizontal" id="RDHSForm">
 
 
 
