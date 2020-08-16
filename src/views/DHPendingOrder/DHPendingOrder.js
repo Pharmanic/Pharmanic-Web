@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-class CurrentStock extends Component {
+class DHPendingOrder extends Component {
   
 
   constructor(props) {
@@ -19,19 +19,25 @@ class CurrentStock extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.state = {rdhsrequestorders: [], isLoading: true}; 
+    this.state = {directhospitalrequestorders: [], isLoading: true}; 
   }
 
   componentDidMount() {
     this.setState({isLoading: true});
 
-    fetch('/rdhsrequestordersnotcomplete')
+    fetch('/dhrequestordersnotcoplete')
       .then(response => response.json())
-      .then(data => this.setState({rdhsrequestorders: data, isLoading: false}));
+      .then(data => this.setState({directhospitalrequestorders: data, isLoading: false}));
+  }
+
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen,
+    });
   }
 
   async close(id) {
-    await fetch(`/closeorderrdhs/${id}`, {
+    await fetch(`/closeorder/${id}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -39,12 +45,6 @@ class CurrentStock extends Component {
       }
     }).then(() => {
      
-    });
-  }
-
-  toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen,
     });
   }
 
@@ -57,21 +57,21 @@ class CurrentStock extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-    const {rdhsrequestorders, isLoading} = this.state;
+    const {directhospitalrequestorders, isLoading} = this.state;
 
     if (isLoading) {
       return <p>Loading...</p>;
     }
     
 
-    const groupList = rdhsrequestorders.map(rdhsrequestorder=> {
-      return <tr key={rdhsrequestorder.order_id} >
-        <td style={{whiteSpace: 'nowrap'}}>{rdhsrequestorder.order_id}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{rdhsrequestorder.rdhs_reg_no.name}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{rdhsrequestorder.m_store_id.location}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{rdhsrequestorder.date}</td>
-        <td>  <Button block outline color="info"tag={Link} to={"/rdhsreqorderdetail/"+rdhsrequestorder.order_id} >More Info</Button>  </td>
-        {/* <td><Button size="sm" color="danger" onClick={() => {if(window.confirm('Are you sure you wish to close this order?You cant reverse this task')) this.close(rdhsrequestorder.order_id)}}>Close Order</Button></td> */}
+    const groupList = directhospitalrequestorders.map(directhospitalrequestorder => {
+      return <tr key={directhospitalrequestorder.order_id} >
+        <td style={{whiteSpace: 'nowrap'}}>{directhospitalrequestorder.order_id}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{directhospitalrequestorder.hospital_reg_no.name}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{directhospitalrequestorder.m_store_id.location}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{directhospitalrequestorder.date}</td>
+        <td>  <Button block outline color="info" tag={Link} to={"/dhreqorderdetail/"+directhospitalrequestorder.order_id}>More Info</Button>  </td>
+        <td><Button size="sm" color="danger" onClick={() => {if(window.confirm('Are you sure you wish to close this order?You cant reverse this task')) this.close(directhospitalrequestorder.order_id)}}>Close Order</Button></td>
       </tr>
     });
 
@@ -81,15 +81,15 @@ class CurrentStock extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-            <Card style={{borderRadius:'20px'}}>
-              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
-                RDHS Request Orders
+            <Card>
+              <CardHeader>
+                Direct Hospitals
               </CardHeader>
               <CardBody>
                 
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
+                  <thead className="thead-light">
                   <tr>
                     <th>Order ID</th>
                     <th>Hospital</th>
@@ -118,4 +118,4 @@ class CurrentStock extends Component {
   }
 }
 
-export default CurrentStock;
+export default DHPendingOrder;
