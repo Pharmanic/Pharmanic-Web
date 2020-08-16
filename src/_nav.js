@@ -36,6 +36,25 @@ export default {
         }, 
 
       ],
+      
+    },
+    {
+      name: 'LM Hospitals',
+    ///  url: '/ministry_stores',
+      icon: 'icon-list',
+      children: [
+        {
+          name: 'Current Stock',
+          url: '/dhstock',
+         // icon: 'icon-list',
+        },
+        {
+          name: 'Order Cart',
+          url: '/dhordercart',
+         // icon: 'icon-list',
+        },
+      ],
+      
     },
     {
       title: true,
