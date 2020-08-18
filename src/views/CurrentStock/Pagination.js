@@ -26,6 +26,9 @@ const Paginations = ({dataPerPage,totalData,paginate}) => {
 
 export default Paginations
 
+<<<<<<< HEAD
 
 
 // export default Paginations
+=======
+>>>>>>> parent of d1cd900... Merge branch 'Anupama' of https://github.com/Pharmanic/Pharmanic-Web into Anupama

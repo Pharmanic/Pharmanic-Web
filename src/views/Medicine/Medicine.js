@@ -88,33 +88,30 @@ class CurrentStock extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-          <Row>
-          <Col md="8">
-          </Col>
-          <Col lg="4" >
+          <Col lg="5" >
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
             </InputGroupAddon>
             <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search a Medicine" value={filter} onChange={this.handleChange}/>
-          </InputGroup>
+          </InputGroup> 
           <br></br>
           </Col>
-          </Row>
-          
-            <Card style={{borderRadius:'20px'}}>
-              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
+            <Card>
+              <CardHeader>
                 Medicines
               </CardHeader>
               <CardBody>
                 
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
+                  <thead className="thead-light">
                   <tr>
                     <th>SR No</th>
                     <th>Name</th>
                     <th>Side Effects</th>
+                    <th>Description</th>
+                    <th>Description</th>
                     <th>Description  </th>
                  
                   </tr>
@@ -125,12 +122,7 @@ class CurrentStock extends Component {
                 </Table>
               </CardBody>
               <CardFooter>
-              <Row>
-              <Col md="9"></Col>
-              <Col md="3">
               <Paginations dataPerPage={dataPerPage} totalData={filteredData.length} paginate={paginate}/>
-              </Col>
-              </Row>
               </CardFooter>
             </Card>
           </Col>
