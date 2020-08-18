@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Nav, NavItem, NavLink, Progress, TabContent, TabPane, ListGroup, ListGroupItem,Col } from 'reactstrap';
+import { Nav, NavItem, NavLink, Progress, TabContent, TabPane, ListGroup, ListGroupItem } from 'reactstrap';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { AppSwitch } from '@coreui/react'
@@ -18,25 +18,7 @@ class DefaultAside extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       activeTab: '1',
-      ministrynearestexpiringlist: [], isLoading: true,dhrequestordersnotcoplete:[],rdhsrequestordersnotcomplete:[]
     };
-  }
-
-  componentDidMount() {
-    this.setState({isLoading: true});
-
-    fetch('/ministrynearestexpiringlist')
-      .then(response => response.json())
-      .then(data => this.setState({ministrynearestexpiringlist: data, isLoading: false}));
-
-    fetch('/dhrequestordersnotcoplete')
-      .then(response => response.json())
-      .then(data => this.setState({dhrequestordersnotcoplete: data, isLoading: false}));
-
-      fetch('/rdhsrequestordersnotcomplete')
-      .then(response => response.json())
-      .then(data => this.setState({rdhsrequestordersnotcomplete: data, isLoading: false}));
-
   }
 
   toggle(tab) {
@@ -51,38 +33,6 @@ class DefaultAside extends Component {
 
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
-    const {ministrynearestexpiringlist,isLoading,dhrequestordersnotcoplete,rdhsrequestordersnotcomplete} = this.state;
-
-    const groupList = ministrynearestexpiringlist.map(ministrynearestexpiring => {
-      return<ListGroupItem action tag="a" href="#" className="list-group-item-accent-danger list-group-item-divider" key={ministrynearestexpiring.batch_id}>
-      <div>{ministrynearestexpiring.batch_id}</div>
-        <div>{ministrynearestexpiring.sr_no.name}</div>
-        <div>You have a medicine expiring at your nearest </div>
-        <small className="text-muted mr-3">
-                  <i className="icon-calendar"></i>&nbsp; {ministrynearestexpiring.expire_date}
-        </small>
-        <small className="text-muted">
-                  <i className="icon-location-pin"></i> {ministrynearestexpiring.m_store_id.location}
-        </small>
-        
-    </ListGroupItem>
-    });
-
-    const groupList2 = dhrequestordersnotcoplete.map(dhrequestorder => {
-      return<ListGroupItem action tag="a" href="#" className="list-group-item-accent-danger list-group-item-divider" key={dhrequestorder.order_id}>
-      <div>You have a reuest from{dhrequestorder.hospital_reg_no.reg_no}</div>
-        <div>Ministry store:-{dhrequestorder.m_store_id.m_store_id}</div>
-        
-    </ListGroupItem>
-    });
-
-    const groupList3 = rdhsrequestordersnotcomplete.map(rdhsrequestorders => {
-      return<ListGroupItem action tag="a" href="#" className="list-group-item-accent-danger list-group-item-divider" key={rdhsrequestorders.order_id}>
-      <div>You have a reuest from{rdhsrequestorders.rdhs_reg_no.reg_no}</div>
-        <div>Ministry store:-{rdhsrequestorders.m_store_id.m_store_id}</div>
-        
-    </ListGroupItem>
-    });
 
     return (
       <React.Fragment>
@@ -92,8 +42,7 @@ class DefaultAside extends Component {
                      onClick={() => {
                        this.toggle('1');
                      }}>
-              
-              <i className="icon-pin"></i>
+              <i className="icon-list"></i>
             </NavLink>
           </NavItem>
           <NavItem>
@@ -101,7 +50,7 @@ class DefaultAside extends Component {
                      onClick={() => {
                        this.toggle('2');
                      }}>
-              <i className="icon-bell"></i>
+              <i className="icon-speech"></i>
             </NavLink>
           </NavItem>
           <NavItem>
@@ -116,21 +65,174 @@ class DefaultAside extends Component {
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
             <ListGroup className="list-group-accent" tag={'div'}>
-  
-              {groupList}
-              
-             
-              
-              
-          
+              <ListGroupItem className="list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Today</ListGroupItem>
+              <ListGroupItem action tag="a" href="#" className="list-group-item-accent-warning list-group-item-divider">
+                <div className="avatar float-right">
+                  <img className="img-avatar" src="assets/img/avatars/7.jpg" alt="admin@bootstrapmaster.com"></img>
+                </div>
+                <div>Meeting with <strong>Lucas</strong> </div>
+                <small className="text-muted mr-3">
+                  <i className="icon-calendar"></i>&nbsp; 1 - 3pm
+                </small>
+                <small className="text-muted">
+                  <i className="icon-location-pin"></i> Palo Alto, CA
+                </small>
+              </ListGroupItem>
+              <ListGroupItem action tag="a" href="#" className="list-group-item-accent-info list-group-item-divider">
+                <div className="avatar float-right">
+                  <img className="img-avatar" src="assets/img/avatars/4.jpg" alt="admin@bootstrapmaster.com"></img>
+                </div>
+                <div>Skype with <strong>Megan</strong></div>
+                <small className="text-muted mr-3">
+                  <i className="icon-calendar"></i>&nbsp; 4 - 5pm
+                </small>
+                <small className="text-muted">
+                  <i className="icon-social-skype"></i> On-line
+                </small>
+              </ListGroupItem>
+              <ListGroupItem className="list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Tomorrow</ListGroupItem>
+              <ListGroupItem action tag="a" href="#" className="list-group-item-accent-danger list-group-item-divider">
+                <div>New UI Project - <strong>deadline</strong></div>
+                <small className="text-muted mr-3"><i className="icon-calendar"></i>&nbsp; 10 - 11pm</small>
+                <small className="text-muted"><i className="icon-home"></i>&nbsp; creativeLabs HQ</small>
+                <div className="avatars-stack mt-2">
+                  <div className="avatar avatar-xs">
+                    <img src={'assets/img/avatars/2.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  </div>
+                  <div className="avatar avatar-xs">
+                    <img src={'assets/img/avatars/3.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  </div>
+                  <div className="avatar avatar-xs">
+                    <img src={'assets/img/avatars/4.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  </div>
+                  <div className="avatar avatar-xs">
+                    <img src={'assets/img/avatars/5.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  </div>
+                  <div className="avatar avatar-xs">
+                    <img src={'assets/img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  </div>
+                </div>
+              </ListGroupItem>
+              <ListGroupItem action tag="a" href="#" className="list-group-item-accent-success list-group-item-divider">
+                <div><strong>#10 Startups.Garden</strong> Meetup</div>
+                <small className="text-muted mr-3"><i className="icon-calendar"></i>&nbsp; 1 - 3pm</small>
+                <small className="text-muted"><i className="icon-location-pin"></i>&nbsp; Palo Alto, CA</small>
+              </ListGroupItem>
+              <ListGroupItem action tag="a" href="#" className="list-group-item-accent-primary list-group-item-divider">
+                <div><strong>Team meeting</strong></div>
+                <small className="text-muted mr-3"><i className="icon-calendar"></i>&nbsp; 4 - 6pm</small>
+                <small className="text-muted"><i className="icon-home"></i>&nbsp; creativeLabs HQ</small>
+                <div className="avatars-stack mt-2">
+                  <div className="avatar avatar-xs">
+                    <img src={'assets/img/avatars/2.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  </div>
+                  <div className="avatar avatar-xs">
+                    <img src={'assets/img/avatars/3.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  </div>
+                  <div className="avatar avatar-xs">
+                    <img src={'assets/img/avatars/4.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  </div>
+                  <div className="avatar avatar-xs">
+                    <img src={'assets/img/avatars/5.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  </div>
+                  <div className="avatar avatar-xs">
+                    <img src={'assets/img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  </div>
+                  <div className="avatar avatar-xs">
+                    <img src={'assets/img/avatars/7.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  </div>
+                  <div className="avatar avatar-xs">
+                    <img src={'assets/img/avatars/8.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  </div>
+                </div>
+              </ListGroupItem>
             </ListGroup>
           </TabPane>
           <TabPane tabId="2" className="p-3">
-            
+            <div className="message">
+              <div className="py-3 pb-5 mr-3 float-left">
+                <div className="avatar">
+                  <img src={'assets/img/avatars/7.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  <span className="avatar-status badge-success"></span>
+                </div>
+              </div>
+              <div>
+                <small className="text-muted">Lukasz Holeczek</small>
+                <small className="text-muted float-right mt-1">1:52 PM</small>
+              </div>
+              <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+              <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt...
+              </small>
+            </div>
             <hr />
-            {groupList2}
-            {groupList3}
-            
+            <div className="message">
+              <div className="py-3 pb-5 mr-3 float-left">
+                <div className="avatar">
+                  <img src={'assets/img/avatars/7.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  <span className="avatar-status badge-success"></span>
+                </div>
+              </div>
+              <div>
+                <small className="text-muted">Lukasz Holeczek</small>
+                <small className="text-muted float-right mt-1">1:52 PM</small>
+              </div>
+              <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+              <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt...
+              </small>
+            </div>
+            <hr />
+            <div className="message">
+              <div className="py-3 pb-5 mr-3 float-left">
+                <div className="avatar">
+                  <img src={'assets/img/avatars/7.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  <span className="avatar-status badge-success"></span>
+                </div>
+              </div>
+              <div>
+                <small className="text-muted">Lukasz Holeczek</small>
+                <small className="text-muted float-right mt-1">1:52 PM</small>
+              </div>
+              <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+              <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt...
+              </small>
+            </div>
+            <hr />
+            <div className="message">
+              <div className="py-3 pb-5 mr-3 float-left">
+                <div className="avatar">
+                  <img src={'assets/img/avatars/7.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  <span className="avatar-status badge-success"></span>
+                </div>
+              </div>
+              <div>
+                <small className="text-muted">Lukasz Holeczek</small>
+                <small className="text-muted float-right mt-1">1:52 PM</small>
+              </div>
+              <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+              <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt...
+              </small>
+            </div>
+            <hr />
+            <div className="message">
+              <div className="py-3 pb-5 mr-3 float-left">
+                <div className="avatar">
+                  <img src={'assets/img/avatars/7.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                  <span className="avatar-status badge-success"></span>
+                </div>
+              </div>
+              <div>
+                <small className="text-muted">Lukasz Holeczek</small>
+                <small className="text-muted float-right mt-1">1:52 PM</small>
+              </div>
+              <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+              <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt...
+              </small>
+            </div>
           </TabPane>
           <TabPane tabId="3" className="p-3">
             <h6>Rdhs Hospital</h6>

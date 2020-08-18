@@ -72,10 +72,7 @@ class ImportStockForm extends Component {
       },
       body: JSON.stringify(item),
     });
-    this.setState({
-      item:this.emptyItem
-    });
- //   this.props.history.push('/exportedstocks');
+    this.props.history.push('/exportedstocks');
   }
 
   toggle() {
@@ -95,8 +92,8 @@ class ImportStockForm extends Component {
         
         <Row>
           <Col>
-            <Card style={{borderRadius:'20px'}}>
-              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
+            <Card>
+              <CardHeader>
                 Add an Import Stock
               </CardHeader>
               <CardBody>

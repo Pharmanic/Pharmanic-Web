@@ -215,8 +215,8 @@ class CurrentStockForm extends Component {
       <div className="animated fadeIn">        
         <Row>
           <Col>
-            <Card style={{borderRadius:'20px'}}>
-              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
+            <Card>
+              <CardHeader>
                 <strong>Current Stock</strong> Form
               </CardHeader>
               <CardBody>

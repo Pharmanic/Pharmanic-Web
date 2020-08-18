@@ -38,8 +38,8 @@ class HospitalByRDHSDetail extends Component {
         reg_no: '',
         name: '',
         address: '',
-        email: '',
         telephone: '',
+        email: '',
         doctor_incharge: ''
 
     };
@@ -56,7 +56,7 @@ class HospitalByRDHSDetail extends Component {
             modalOrderId: -1
         };
         this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -69,7 +69,7 @@ class HospitalByRDHSDetail extends Component {
         console.log('param', this.props.match);
         fetch(`/hospitalByRdhs/${this.props.match.params.id}`)
             .then(response => response.json())
-            .then(data => this.setState({ item: data, isLoading: false,old_item: data, isLoading: false }));
+            .then(data => this.setState({ item: data, isLoading: false, old_item: data, isLoading: false }));
         // this.loadData();
 
         // fetch('/ministrytracks')
@@ -140,8 +140,25 @@ class HospitalByRDHSDetail extends Component {
         this.setState({ item: this.state.old_item });
     }
 
-    formFieldsChanged(){
-        
+    formFieldsChanged(event) {
+
+    }
+    async handleSubmit(event) {
+        event.preventDefault();
+        const {item} = this.state.item;
+        console.log(item);
+
+        await fetch('/hospitalByRdhs', {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(item),
+        })
+            .then(res => res.json()) //returns array of data
+            ;
+        this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
     }
 
 
@@ -205,10 +222,10 @@ class HospitalByRDHSDetail extends Component {
                     <Col xs="12" md="8">
                         <Card>
                             <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                                <b>RDHS Hospital - {item.name}</b>
+                                <b>RDHS Hospital - {this.state.old_item.name}</b>
                             </CardHeader>
                             <CardBody>
-                                <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="RDHS HospitalForm">
+                                <Form onSubmit={this.handleSubmit} method="put" encType="multipart/form-data" className="form-horizontal" id="RDHS HospitalForm">
 
 
 
@@ -279,7 +296,7 @@ class HospitalByRDHSDetail extends Component {
                                             <Label htmlFor="text-input">Doctor Incharge</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="doctor_incharge" name="doctor_incharge" placeholder="Tel No" initialValue="" value={item.telephone || ''}
+                                            <Input type="text" id="doctor_incharge" name="doctor_incharge" placeholder="Tel No" initialValue="" value={item.doctor_incharge || ''}
                                                 onChange={this.handleChange} autoComplete="telephone" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
