@@ -14,6 +14,7 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
+import UserService from "../../../assets/services/user.service";
 
 const divStyle = {
   display: 'flex',
