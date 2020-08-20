@@ -14,6 +14,7 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
+import authHeader from '../../../assets/services//auth-header';
 
 
 const divStyle = {
@@ -41,10 +42,28 @@ class DirectHospitals extends Component {
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch('/direct_hospital/direct_hospital_list')
+    // fetch('/direct_hospital/direct_hospital_list')
+    //   .then(response => response.json())
+    //   .then(data => this.setState({ directHospitals: data, isLoading: false }));
+
+      fetch('/direct_hospital/direct_hospital_list', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
       .then(response => response.json())
-      .then(data => this.setState({ directHospitals: data, isLoading: false }));
+      .then(data =>{
+        console.log(data);
+       this.setState({ directHospitals: data, isLoading: false })
+      //  console.log("2nd"+data.get(0));
+    });
   }
+  
 
   updateSearch(event) {
     this.setState({ search: event.target.value.substr(0, 20) });

@@ -23,7 +23,6 @@ const divStyle = {
 
 class MinistryStores extends Component {
 
-
   constructor(props) {
     super(props);
 
@@ -40,11 +39,86 @@ class MinistryStores extends Component {
   //const [state, setstate] = useState(initialState);
   componentDidMount() {
     this.setState({ isLoading: true });
-
-    fetch('/ministrystores')
+    
+  fetch('/ministrystores', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
       .then(response => response.json())
-      .then(data => this.setState({ ministrystores: data, isLoading: false }));
-  }
+      .then(data =>{
+        console.log(data);
+       this.setState({ ministrystores: data, isLoading: false })
+       console.log(this.state.ministrystores);
+    });
+      
+  
+ // fetch('/ministrystores')
+    //   .then(response => response.json())
+    //   .then(data => this.setState({ ministrystores: data, isLoading: false }));
+  
+
+
+// fetch('/ministrystores', {
+//         // method: 'GET',
+//         // withCredentials: true,
+//         // credentials: 'include',
+//           headers: {
+//                 // 'Accept': 'application/json',
+//                 'Authorization': 'Bearer ' + authHeader(),
+//                 // 'Content-Type': 'application/json'
+//             }
+// }).then(response => response.json())
+//   .then(
+//       data => {
+//         console.log(data);
+//         // this.state.ministrystores=data;
+//         this.setState({
+//           ministrystores: data,
+//           isLoading:false,
+//         });
+//         console.log(data);
+//         // console.log(this.state.ministrystores);
+//       },
+//       error => {
+//         this.setState({
+//           content:
+//             (error.response && error.response.data) ||
+//             error.message ||
+//             error.toString()
+//         });
+//       }
+//     );
+
+
+    // )
+    // .catch(error => this.setState({
+    //     isLoading: false,
+    //     message: 'Something bad happened ' + error
+    // }));
+
+  // .then(response => response.json())
+  //     .then(data => this.setState({ ministrystores: data, isLoading: false }));
+
+// fetch('/ministrystores', {
+//             method: 'GET',
+//             headers: {
+//                 'Accept': 'application/json',
+//                 'Authorization': 'Bearer ' + authHeader()
+//                 // 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({
+//                 signature: generateKey(token),
+//                 eToken: token
+//             })
+//         })
+
+}
 
   updateSearch(event) {
     this.setState({ search: event.target.value.substr(0, 20) });
@@ -103,7 +177,6 @@ class MinistryStores extends Component {
           ministrystore.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.m_store_id.toString().toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.tel_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          // ministrystore.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.total_storage.toString().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.available_storage.toString().indexOf(this.state.search.toLowerCase()) !== -1
@@ -111,6 +184,7 @@ class MinistryStores extends Component {
         //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
       }
     );
+    // let filteredData=ministrystores;
 
     if (isLoading) {
       return <p>Loading...</p>;

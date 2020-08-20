@@ -46,24 +46,44 @@ class RDHSs extends Component {
     this.setState({ isLoading: true });
 
 
-   axios.get(API_URL + '/rdhs_list', { headers: authHeader() }).then(
-      response => {
-        this.setState({
-          rdhs: response.data,
-          isLoading:false
-        });
-        console.log(this.state.rdhs);
-      },
-      error => {
-        this.setState({
-          content:
-            (error.response && error.response.data) ||
-            error.message ||
-            error.toString()
-        });
-      }
-    );
+  //  axios.get(API_URL + '/rdhs_list', { headers: authHeader() }).then(
+  //     response => {
+  //       this.setState({
+  //         rdhs: response.data,
+  //         isLoading:false
+  //       });
+  //       console.log(this.state.rdhs);
+  //     },
+  //     error => {
+  //       this.setState({
+  //         content:
+  //           (error.response && error.response.data) ||
+  //           error.message ||
+  //           error.toString()
+  //       });
+  //     }
+  //   );
+
+fetch('/rdhs_list', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
+      .then(response => response.json())
+      .then(data =>{
+        console.log(data);
+       this.setState({ rdhs: data, isLoading: false })
+      //  console.log("2nd"+data.get(0));
+    });
+
   }
+
+  
 
   updateSearch(event) {
     this.setState({ search: event.target.value.substr(0, 20) });

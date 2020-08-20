@@ -28,7 +28,7 @@ import { Link, withRouter } from 'react-router-dom';
 class RegisterMinistryStore extends Component {
 
   emptyItem = {
-    m_store_is:'',
+    m_store_id:'',
     name: '',
     email: '',
     tel_no: '',

@@ -14,6 +14,7 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
+import authHeader from '../../../assets/services//auth-header';
 
 const divStyle = {
   display: 'flex',
@@ -40,10 +41,30 @@ class HospitalByRDHS extends Component {
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch('/hospital_by_rdhs/hospital_by_rdhs_list')
+    // fetch('/hospital_by_rdhs/hospital_by_rdhs_list')
+    //   .then(response => response.json())
+    //   .then(data => this.setState({ hospitalByRDHSs: data, isLoading: false }));
+
+fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
       .then(response => response.json())
-      .then(data => this.setState({ hospitalByRDHSs: data, isLoading: false }));
-  }
+      .then(data =>{
+        console.log(data);
+       this.setState({ hospitalByRDHSs: data, isLoading: false })
+      //  console.log("2nd"+data.get(0));
+    });
+
+
+ }
+  
 
   async remove(id) {
     await fetch(`/hospitalByRdhs/${id}`, {
