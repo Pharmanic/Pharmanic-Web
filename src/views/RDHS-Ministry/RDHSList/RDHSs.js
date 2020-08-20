@@ -14,7 +14,10 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
-import UserService from "../../../assets/services/user.service";
+import authHeader from '../../../assets/services//auth-header';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:8080';
 
 const divStyle = {
   display: 'flex',
@@ -30,6 +33,7 @@ class RDHSs extends Component {
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
     this.state = {
+      content: "",
       rdhs: [],
       isLoading: true,
       currentPage: 1,
@@ -41,9 +45,24 @@ class RDHSs extends Component {
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch('/rdhs_list')
-      .then(response => response.json())
-      .then(data => this.setState({ rdhs: data, isLoading: false }));
+
+   axios.get(API_URL + '/rdhs_list', { headers: authHeader() }).then(
+      response => {
+        this.setState({
+          rdhs: response.data,
+          isLoading:false
+        });
+        console.log(this.state.rdhs);
+      },
+      error => {
+        this.setState({
+          content:
+            (error.response && error.response.data) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
   }
 
   updateSearch(event) {
@@ -57,18 +76,24 @@ class RDHSs extends Component {
   }
 
   async remove(id) {
-    await fetch(`/rdhs/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).then(() => {
-      // console.log("deleted");
-      //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
-      window.location.reload(false);
+    // await fetch(`/rdhs/${id}`, {
+    //   method: 'DELETE',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    //   }
+    // }).then(() => {
+    //   // console.log("deleted");
+    //   //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
+    //   window.location.reload(false);
 
-    });
+    // });
+     await axios.delete(API_URL + `/rdhs/${id}`, { headers: authHeader() })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+        window.location.reload(false);
+      })
   }
 
   onViewButtonClick(rdhsSelected) {
