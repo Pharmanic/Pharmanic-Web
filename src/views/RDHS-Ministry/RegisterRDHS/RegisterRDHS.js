@@ -25,12 +25,7 @@ import {
   Row,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-import authHeader from '../../../assets/services//auth-header';
-import axios from 'axios';
-
-const API_URL = 'http://localhost:8080';
 class RegisterRDHS extends Component {
-
 
   emptyItem = {
     reg_no:'',
@@ -69,25 +64,16 @@ class RegisterRDHS extends Component {
     event.preventDefault();
     const {item} = this.state;
 
-    // await fetch('/rdhs/register', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(item),
-    // })
-    //   .then(res => res.json()) //returns array of data
-    //   ;
- 
-console.log(item.reg_no);
-  
-     await axios.post(API_URL + '/rdhs/register',item,{headers: authHeader() })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
-
+    await fetch('/rdhs/register', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(item),
+    })
+      .then(res => res.json()) //returns array of data
+      ;
     this.props.history.push('/rdhs/rdhs_list');
   }
 
