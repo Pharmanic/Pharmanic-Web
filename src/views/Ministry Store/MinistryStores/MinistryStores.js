@@ -14,7 +14,7 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
-import authHeader from '../../../assets/services//auth-header';
+import authHeader from '../../../assets/services/auth-header_res';
 
 const divStyle = {
   display: 'flex',
@@ -54,7 +54,7 @@ class MinistryStores extends Component {
       .then(data =>{
         console.log(data);
        this.setState({ ministrystores: data, isLoading: false })
-       console.log(this.state.ministrystores);
+       console.log("Stores"+this.state.ministrystores);
     });
       
   
@@ -170,21 +170,25 @@ class MinistryStores extends Component {
 
   render() {
     const {ministrystores, isLoading, dataPerPage, currentPage, search} = this.state;
+    console.log(ministrystores);
 
-    let filteredData = ministrystores.filter(
-      (ministrystore) => {
-        return ministrystore.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          ministrystore.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          ministrystore.m_store_id.toString().toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          ministrystore.tel_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          ministrystore.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          ministrystore.total_storage.toString().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          ministrystore.available_storage.toString().indexOf(this.state.search.toLowerCase()) !== -1
-          ;
-        //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
-      }
-    );
-    // let filteredData=ministrystores;
+
+//********************** Some error in filtering
+
+    // let filteredData = ministrystores.filter(
+    //   (ministrystore) => {
+    //     return  ministrystore.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+    //       ministrystore.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+    //       ministrystore.m_store_id.toString().toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+    //       ministrystore.tel_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+    //       ministrystore.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+    //       ministrystore.total_storage.toString().indexOf(this.state.search.toLowerCase()) !== -1 ||
+    //       ministrystore.available_storage.toString().indexOf(this.state.search.toLowerCase()) !== -1
+    //       ;
+    //     //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
+    //   }
+    // );
+    let filteredData=ministrystores;
 
     if (isLoading) {
       return <p>Loading...</p>;

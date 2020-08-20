@@ -14,7 +14,7 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
-import authHeader from '../../../assets/services//auth-header';
+import authHeader from '../../../assets/services/auth-header_res';
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8080';

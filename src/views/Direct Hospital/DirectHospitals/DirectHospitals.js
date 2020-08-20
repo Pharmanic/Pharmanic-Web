@@ -14,7 +14,7 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
-import authHeader from '../../../assets/services//auth-header';
+import authHeader from '../../../assets/services/auth-header_res';
 
 
 const divStyle = {
