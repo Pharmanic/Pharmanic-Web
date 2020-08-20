@@ -23,8 +23,9 @@ import {
 
 import { } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-import authHeader from '../../../assets/services//auth-header';
+// import authHeader from '../../../assets/services//auth-header';
 import axios from 'axios';
+import authHeader from '../../../assets/services/auth-header_res';
 
 const API_URL = 'http://localhost:8080';
 
@@ -92,26 +93,31 @@ class RDHSDetail extends Component {
         this.setState({ isLoading: true, danger: false, modal: false, });
         this.toggleDanger = this.toggleDanger.bind(this);
         console.log('param', this.props.match);
-        // fetch(`/rdhss/${this.props.match.params.id}`)
-        //     .then(response => response.json())
-        //     .then(data => this.setState({ item: data, isLoading: false, old_item: data, isLoading: false }));
-  axios.get(API_URL + `/rdhss/${this.props.match.params.id}`, { headers: authHeader() }).then(
-      response => {
-        this.setState({
-          item: response.data,
-          isLoading: false, old_item: response.data, isLoading: false 
-        });
-        console.log(this.state.rdhs);
-      },
-      error => {
-        this.setState({
-          content:
-            (error.response && error.response.data) ||
-            error.message ||
-            error.toString()
-        });
+        fetch(`/rdhss/${this.props.match.params.id}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + authHeader(),
       }
-    );
+    })
+            .then(response => response.json())
+            .then(data => this.setState({ item: data, isLoading: false, old_item: data, isLoading: false }));
+//   axios.get(API_URL + `/rdhss/${this.props.match.params.id}`, { headers: authHeader() }).then(
+//       response => {
+//         this.setState({
+//           item: response.data,
+//           isLoading: false, old_item: response.data, isLoading: false 
+//         });
+//         console.log(this.state.rdhs);
+//       },
+//       error => {
+//         this.setState({
+//           content:
+//             (error.response && error.response.data) ||
+//             error.message ||
+//             error.toString()
+//         });
+//       }
+//     );
 
         
 
