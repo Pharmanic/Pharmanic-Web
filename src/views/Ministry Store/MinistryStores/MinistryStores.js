@@ -149,8 +149,7 @@ class MinistryStores extends Component {
     await fetch(`/ministry_store/${id}`, {
       method: 'DELETE',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+       'Authorization': 'Bearer ' + authHeader(),
       }
     }).then(() => {
       // console.log("deleted");

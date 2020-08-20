@@ -96,24 +96,23 @@ fetch('/rdhs_list', {
   }
 
   async remove(id) {
-    // await fetch(`/rdhs/${id}`, {
-    //   method: 'DELETE',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   }
-    // }).then(() => {
-    //   // console.log("deleted");
-    //   //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
-    //   window.location.reload(false);
+    await fetch(`/rdhs/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': 'Bearer ' + authHeader(),
+      }
+    }).then(() => {
+      // console.log("deleted");
+      //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
+      window.location.reload(false);
 
-    // });
-     await axios.delete(API_URL + `/rdhs/${id}`, { headers: authHeader() })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-        window.location.reload(false);
-      })
+    });
+    //  await axios.delete(API_URL + `/rdhs/${id}`, { headers: authHeader() })
+    //   .then(res => {
+    //     console.log(res);
+    //     console.log(res.data);
+    //     window.location.reload(false);
+    //   })
   }
 
   onViewButtonClick(rdhsSelected) {

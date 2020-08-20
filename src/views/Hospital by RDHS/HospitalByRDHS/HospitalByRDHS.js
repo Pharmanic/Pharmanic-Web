@@ -70,8 +70,7 @@ fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
     await fetch(`/hospitalByRdhs/${id}`, {
       method: 'DELETE',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Authorization': 'Bearer ' + authHeader(),
       }
     }).then(() => {
       // console.log("deleted");
