@@ -4,7 +4,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
-import AuthService from "../../../assets/services/user.service";
+import AuthService from '../../../assets/services/auth.service';
 
 const required = value => {
   if (!value) {
@@ -46,7 +46,7 @@ const vpassword = value => {
   }
 };
 
-export default class RegisterUser extends Component {
+export default class Register extends Component {
   constructor(props) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
@@ -58,7 +58,6 @@ export default class RegisterUser extends Component {
       username: "",
       email: "",
       password: "",
-      role:"ROLE_USER",
       successful: false,
       message: ""
     };
@@ -68,7 +67,6 @@ export default class RegisterUser extends Component {
     this.setState({
       username: e.target.value
     });
-      
   }
 
   onChangeEmail(e) {
@@ -88,18 +86,18 @@ export default class RegisterUser extends Component {
 
     this.setState({
       message: "",
-      successful: false,
-      role:"ROLE_USER",
+      successful: false
     });
 
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
+      console.log("Here");
+      AuthService.print();
       AuthService.register(
         this.state.username,
         this.state.email,
-        this.state.password,
-        this.state.role,
+        this.state.password
       ).then(
         response => {
           this.setState({

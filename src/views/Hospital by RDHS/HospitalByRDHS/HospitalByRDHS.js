@@ -46,9 +46,7 @@ class HospitalByRDHS extends Component {
     //   .then(data => this.setState({ hospitalByRDHSs: data, isLoading: false }));
 
 fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
-        // method: 'GET',
-        // withCredentials: true,
-        // credentials: 'include',
+        
           headers: {
                 // 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + authHeader(),
