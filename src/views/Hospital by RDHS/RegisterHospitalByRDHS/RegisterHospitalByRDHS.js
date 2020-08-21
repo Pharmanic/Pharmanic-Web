@@ -25,6 +25,8 @@ import {
   Row,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
+import authHeader from '../../../assets/services/auth-header_res';
+
 class RegisterHospitalByRDHS extends Component {
 
   emptyItem = {
@@ -106,7 +108,9 @@ class RegisterHospitalByRDHS extends Component {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+
       },
       body: JSON.stringify(item),
     })
