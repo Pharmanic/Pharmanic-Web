@@ -34,16 +34,16 @@ class DefaultHeader extends Component {
           
      
           <NavItem className="px-3">
-            <NavLink to="/dashboard" className="nav-link" >Dashboard</NavLink>
+            <NavLink to="/dashboard" className="nav-link" >flower</NavLink>
           </NavItem>
           <NavItem className="px-3">
-            <Link to="/users" className="nav-link">Users</Link>
+            <Link to="/users" className="nav-link">flowers</Link>
           </NavItem>
 
           <UncontrolledDropdown nav direction="down">
           <DropdownToggle nav>
           <NavItem className="px-3">
-          <NavLink to="#" className="nav-link">Ministry</NavLink>
+          <NavLink to="#" className="nav-link">flowers</NavLink>
           </NavItem>
           </DropdownToggle>
           <DropdownMenu right>

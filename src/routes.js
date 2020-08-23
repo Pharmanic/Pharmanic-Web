@@ -96,7 +96,7 @@ const MinistryStoreDetail = React.lazy(() => import('./views/Ministry Store/Mini
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  { path: '/2', exact: true, name: 'Home2', component: Dashboard2 },
+  { path: '/2', exact: true, name: 'Home2'},
   
   // { path: '/rdhstrack', name: 'Rdhs_Track', component: RdhsHopitalTrack },
   // { path: '/rdhstrack', name: 'Rdhs_Hospital_Return_Track', component: RdhsHopitalTrack },
