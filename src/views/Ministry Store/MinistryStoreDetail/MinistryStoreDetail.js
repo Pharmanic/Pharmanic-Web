@@ -225,7 +225,7 @@ class MinistryStoreDetail extends Component {
                     <Col xs="12" md="8">
                         <Card>
                             <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                                <b>ministry_store - {item.name}</b>
+                                <b>Ministry Store - {item.name}</b>
                             </CardHeader>
                             <CardBody>
                                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="ministry_storeForm">

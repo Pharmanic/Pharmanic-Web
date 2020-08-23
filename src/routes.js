@@ -38,6 +38,7 @@ const ButtonGroups = React.lazy(() => import('./views/Buttons/ButtonGroups'));
 const Buttons = React.lazy(() => import('./views/Buttons/Buttons'));
 const Charts = React.lazy(() => import('./views/Charts'));
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
+const Dashboard2 = React.lazy(() => import('./views/Dashboard2'));
 const ImportStock = React.lazy(() => import('./views/ImportStock'));
 const ImportStockForm = React.lazy(() => import('./views/ImportStockForm'));
 const CurrentStock = React.lazy(() => import('./views/CurrentStock'));
@@ -95,12 +96,11 @@ const MinistryStoreDetail = React.lazy(() => import('./views/Ministry Store/Mini
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
+  { path: '/2', exact: true, name: 'Home2', component: Dashboard2 },
   
   // { path: '/rdhstrack', name: 'Rdhs_Track', component: RdhsHopitalTrack },
-
   // { path: '/rdhstrack', name: 'Rdhs_Hospital_Return_Track', component: RdhsHopitalTrack },
   { path: '/rhissue', name: 'Rdhs_Hospital_Issue_Drug', component: Rdhs_Hospital_Issue_Drug },
-
   { path: '/rhupdateocart', name: 'Rdhs_Hospital_Update_Order_Cart', component: Rdhs_Hospital_Update_Order_Cart },
   { path: '/rhordercart', name: 'Rdhs_Hospital_View_Order_Cart', component: Rdhs_Hospital_View_Order_Cart },
   { path: '/rhorder', name: 'Rdhs_Hospital_Order_Form', component: Rdhs_Hospital_Order_Form },
@@ -112,6 +112,7 @@ const routes = [
   { path: '/rhexpire', name: 'Rdhs_Hospital_Expiration', component: RdhsHospitalExpireDrug },
   { path: '/rdhoslog', name: 'Rdhs_Hospital_Current_Stock', component: Rdhs_Hospital_Login },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+  { path: '/dashboard2', name: 'Dashboard2', component: Dashboard2 },
   { path: '/importstock', name: 'ImportStock', component: ImportStock },
   { path: '/importstockform', name: 'ImportStockForm', component: ImportStockForm },
   { path: '/currentstock', name: 'CurrentStock', component: CurrentStock },
@@ -209,6 +210,8 @@ const routes = [
   { path: '/user', exact: true, name: 'Users', component: UserList },
   { path: '/user/user_list', exact: true, name: 'User', component: UserList },
   { path: '/user/register', exact: true, name: 'User Registration', component: UserRegister },
+
+  
 
 
 ];
