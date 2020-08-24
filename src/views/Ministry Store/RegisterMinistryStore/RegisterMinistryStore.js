@@ -39,7 +39,7 @@ class RegisterMinistryStore extends Component {
     available_storage: ''
 
   };
-  user_type:'ministry';
+  user_type:'';
 
   constructor(props) {
     super(props);
@@ -50,7 +50,8 @@ class RegisterMinistryStore extends Component {
       item: this.emptyItem,
       collapse: true,
       fadeIn: true,
-      timeout: 300
+      timeout: 300,
+      user_type:'ministry'
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -82,12 +83,14 @@ class RegisterMinistryStore extends Component {
       .then(res => console.log(res)) //returns array of data
       console.log();
       ;
-      if(this.state.user_type='ministry'){
-            this.props.history.push('/ministry/ministry_stores/ministry_stores_list'); // should remove "/ministry" and add a variable
-      }else{
-            this.props.history.push('/ministry_stores/ministry_stores_list'); // should remove "/ministry" and add a variable
+      this.props.history.push('/'+this.state.user_type+'/ministry_stores/ministry_stores_list'); // should remove "/ministry" and add a variable
 
-      } // navigation according to the user type
+      // if(this.state.user_type='ministry'){
+      //       this.props.history.push('/ministry/ministry_stores/ministry_stores_list'); // should remove "/ministry" and add a variable
+      // }else{
+      //       this.props.history.push('/ministry_stores/ministry_stores_list'); // should remove "/ministry" and add a variable
+
+      // } // navigation according to the user type
       //
       ///
       //
