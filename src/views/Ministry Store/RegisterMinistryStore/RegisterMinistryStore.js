@@ -39,6 +39,7 @@ class RegisterMinistryStore extends Component {
     available_storage: ''
 
   };
+  user_type:'ministry';
 
   constructor(props) {
     super(props);
@@ -81,7 +82,16 @@ class RegisterMinistryStore extends Component {
       .then(res => console.log(res)) //returns array of data
       console.log();
       ;
-    this.props.history.push('/ministry_stores/ministry_stores_list');
+      if(this.state.user_type='ministry'){
+            this.props.history.push('/ministry/ministry_stores/ministry_stores_list'); // should remove "/ministry" and add a variable
+      }else{
+            this.props.history.push('/ministry_stores/ministry_stores_list'); // should remove "/ministry" and add a variable
+
+      } // navigation according to the user type
+      //
+      ///
+      //
+      //
   }
 
   toggle() {

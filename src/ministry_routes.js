@@ -185,16 +185,16 @@ const routes = [
   { path: '/direct_hospital_request_order_form', exact: true, name: 'Direct Hospital Request Order Form', component: DirectHospitalRequestOrderForm},
 
   //ministry 
-  { path: '/ministry_stores', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
-  { path: '/ministry_stores/ministry_stores_list', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
-  { path: '/ministry_stores/register', exact: true, name: 'Ministry Store Registration', component: MinistryStoreRegister },
-  { path: '/ministry_store_detail/:id', name: 'Ministry Store Detail', component: MinistryStoreDetail },
+  { path: '/ministry/ministry_stores', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
+  { path: '/ministry/ministry_stores/ministry_stores_list', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
+  { path: '/ministry/ministry_stores/register', exact: true, name: 'Ministry Store Registration', component: MinistryStoreRegister },
+  { path: '/ministry/ministry_store_detail/:id', name: 'Ministry Store Detail', component: MinistryStoreDetail },
 
 
-  { path: '/rdhs', exact: true, name: 'RDHS', component: RDHSList },
-  { path: '/rdhs/rdhs_list', exact: true, name: 'RDHS List', component: RDHSList },
-  { path: '/rdhs/register', exact: true, name: 'RDHS Registration', component: RDHSRegister },
-  { path: '/rdhs_detail/:id', name: 'RDHS Detail', component: RDHSDetail },
+  { path: '/ministry/rdhss', exact: true, name: 'RDHS', component: RDHSList },
+  { path: '/ministry/rdhss/rdhs_list', exact: true, name: 'RDHS List', component: RDHSList },
+  { path: '/ministry/rdhss/register', exact: true, name: 'RDHS Registration', component: RDHSRegister },
+  { path: '/ministry/rdhs_detail/:id', name: 'RDHS Detail', component: RDHSDetail },
 
 
   { path: '/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },

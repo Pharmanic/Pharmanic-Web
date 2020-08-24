@@ -40,6 +40,7 @@ class RegisterRDHS extends Component {
     telephone: ''
 
   };
+  user_type:'ministry';
 
   constructor(props) {
     super(props);
@@ -50,7 +51,8 @@ class RegisterRDHS extends Component {
       item: this.emptyItem,
       collapse: true,
       fadeIn: true,
-      timeout: 300
+      timeout: 300,
+    
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -90,7 +92,7 @@ class RegisterRDHS extends Component {
 //         console.log(res.data);
 //       })
 
-    this.props.history.push('/rdhs/rdhs_list');
+    this.props.history.push('ministry/rdhss/rdhs_list');
   }
 
   toggle() {

@@ -16,9 +16,9 @@ import {
   AppSidebarNav2 as AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config
-import navigation from '../../_nav';
+import navigation from '../../ministry_nav';
 // routes config
-import routes from '../../routes';
+import routes from '../../ministry_routes';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
@@ -68,7 +68,7 @@ class DefaultLayout2 extends Component {
                         )} />
                     ) : (null);
                   })}
-                  <Redirect from="/2" to="/dashboard2" />
+                  {/*<Redirect from="/2" to="/dashboard2" />*/}
                 </Switch>
               </Suspense>
             </Container>
