@@ -23,7 +23,7 @@ const divStyle = {
 
 class HospitalByRDHS extends Component {
 
-
+user_type:'';
   constructor(props) {
     super(props);
 
@@ -34,7 +34,8 @@ class HospitalByRDHS extends Component {
       isLoading: true,
       currentPage: 1,
       dataPerPage: 5,
-      search: ''
+      search: '',
+      user_type:'ministry',
     };
   }
   //const [state, setstate] = useState(initialState);
@@ -134,7 +135,7 @@ fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.telephone}</td>
         <td>
           <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this RDHS Hospital?')) this.remove(hospitalByRDHS.reg_no) }}><i className="fa fa-trash"></i></Button>
-          <Button size="sm" color="success" tag={Link} to={"/hospital_by_rdhs/" + hospitalByRDHS.reg_no}><i className="icon-eye"></i></Button>
+          <Button size="sm" color="success" tag={Link} to={"/"+this.state.user_type+"/hospital_by_rdhs/" + hospitalByRDHS.reg_no}><i className="icon-eye"></i></Button>
 
         </td>
 

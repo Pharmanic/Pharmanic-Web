@@ -38,9 +38,17 @@ class HospitalByRDHSDetail extends Component {
         reg_no: '',
         name: '',
         address: '',
-        telephone: '',
+           telephone: '',
         email: '',
-        doctor_incharge: ''
+        doctor_incharge: '',
+         rdhs: {
+      reg_no: '',
+      address: '',
+      email: '',
+      name: '',
+      telephone: ''
+
+    }
 
     };
     constructor(props) {
@@ -262,6 +270,16 @@ class HospitalByRDHSDetail extends Component {
                                         </Col>
                                         <Col xs="12" md="9">
                                             <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={item.name || ''}
+                                                onChange={this.handleChange} autoComplete="name" disabled={!this.state.enableEdit} />
+                                        </Col>
+                                    </FormGroup>
+
+                                       <FormGroup row>
+                                        <Col md="3">
+                                            <Label htmlFor="text-input">Related RDHS</Label>
+                                        </Col>
+                                        <Col xs="12" md="9">
+                                            <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={item.rdhs.name || ''}
                                                 onChange={this.handleChange} autoComplete="name" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>

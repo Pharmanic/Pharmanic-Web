@@ -85,17 +85,17 @@ export default {
     },
     {
       name: 'Hospital by RDHS',
-      url: '/hospital_by_rdhs',
+      url: '/ministry/hospital_by_rdhs',
       icon: 'icon-home',
       children: [
         {
           name: 'Register RDHSHospital',
-          url: '/hospital_by_rdhs/register',
+          url: '/ministry/hospital_by_rdhs/register',
           icon: 'icon-plus',
         },
         {
           name: 'RDHS Hospital List',
-          url: '/hospital_by_rdhs/hospital_by_rdhs_list',
+          url: '/ministry/hospital_by_rdhs/hospital_by_rdhs_list',
           icon: 'icon-list',
         },
 
