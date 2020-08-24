@@ -191,9 +191,9 @@ const routes = [
   { path: '/ministry_store_detail/:id', name: 'Ministry Store Detail', component: MinistryStoreDetail },
 
 
-  { path: '/rdhs', exact: true, name: 'RDHS', component: RDHSList },
-  { path: '/rdhs/rdhs_list', exact: true, name: 'RDHS List', component: RDHSList },
-  { path: '/rdhs/register', exact: true, name: 'RDHS Registration', component: RDHSRegister },
+  { path: '/rdhss', exact: true, name: 'RDHS', component: RDHSList },
+  { path: '/rdhss/rdhs_list', exact: true, name: 'RDHS List', component: RDHSList },
+  { path: '/rdhss/register', exact: true, name: 'RDHS Registration', component: RDHSRegister },
   { path: '/rdhs_detail/:id', name: 'RDHS Detail', component: RDHSDetail },
 
 
