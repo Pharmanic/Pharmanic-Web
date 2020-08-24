@@ -103,11 +103,11 @@ fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
     let filteredData = hospitalByRDHSs.filter(
       (hospitalByRDHS) => {
         return hospitalByRDHS.reg_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(hospitalByRDHS.name).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||          
           hospitalByRDHS.rdhs.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.telephone.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.address.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+          String(hospitalByRDHS.telephone).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(hospitalByRDHS.address).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(hospitalByRDHS.email).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
           ;
         //  hospitalByRDHS.m_store_id.indexOf(this.state.search) !==-1;
       }

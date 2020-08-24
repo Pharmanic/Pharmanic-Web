@@ -103,10 +103,10 @@ class DirectHospitals extends Component {
     let filteredData = directHospitals.filter(
       (directHospital) => {
         return directHospital.reg_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          directHospital.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          directHospital.telephone.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          directHospital.address.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          directHospital.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 
+          String(directHospital.name).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(directHospital.telephone).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(directHospital.address).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(directHospital.email).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 
          ;
         //  directHospital.m_store_id.indexOf(this.state.search) !==-1;
       }

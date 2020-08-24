@@ -178,20 +178,20 @@ class MinistryStores extends Component {
 
 //********************** Some error in filtering
 
-    // let filteredData = ministrystores.filter(
-    //   (ministrystore) => {
-    //     return  ministrystore.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-    //       ministrystore.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-    //       ministrystore.m_store_id.toString().toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-    //       ministrystore.tel_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-    //       ministrystore.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-    //       ministrystore.total_storage.toString().indexOf(this.state.search.toLowerCase()) !== -1 ||
-    //       ministrystore.available_storage.toString().indexOf(this.state.search.toLowerCase()) !== -1
-    //       ;
-    //     //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
-    //   }
-    // );
-    let filteredData=ministrystores;
+    let filteredData = ministrystores.filter(
+      (ministrystore) => {
+        return  ministrystore.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          ministrystore.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          ministrystore.m_store_id.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          ministrystore.tel_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          ministrystore.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(ministrystore.total_storage).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1  ||
+          String(ministrystore.available_storage).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+          ;
+        //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
+      }
+    );
+    // let filteredData=ministrystores;
 
     if (isLoading) {
       return <p>Loading...</p>;

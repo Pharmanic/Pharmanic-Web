@@ -197,10 +197,10 @@ const routes = [
   { path: '/ministry/rdhs_detail/:id', name: 'RDHS Detail', component: RDHSDetail },
 
 
-  { path: '/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
-  { path: '/direct_hospitals/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
-  { path: '/direct_hospitals/register', exact: true, name: 'Direct Hospital Registration', component: DirectHospitalRegister },
-  { path: '/direct_hospital_detail/:id', name: 'Direct Hospital Detail', component: DirectHospitalDetail },
+  { path: '/ministry/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
+  { path: '/ministry/direct_hospitals/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
+  { path: '/ministry/direct_hospitals/register', exact: true, name: 'Direct Hospital Registration', component: DirectHospitalRegister },
+  { path: '/ministry/direct_hospital_detail/:id', name: 'Direct Hospital Detail', component: DirectHospitalDetail },
 
   { path: '/ministry/hospital_by_rdhs', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },
   { path: '/ministry/hospital_by_rdhs/hospital_by_rdhs_list', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },

@@ -103,17 +103,17 @@ export default {
     },
     {
       name: 'Direct Hospital',
-      url: '/direct_hospitals',
+      url: '/ministry/direct_hospitals',
       icon: 'icon-home',
       children: [
         {
           name: 'Register Direct Hospitals',
-          url: '/direct_hospitals/register',
+          url: '/ministry/direct_hospitals/register',
           icon: 'icon-plus',
         },
         {
           name: 'Direct Hospitals',
-          url: '/direct_hospitals/direct_hospitals',
+          url: '/ministry/direct_hospitals/direct_hospitals',
           icon: 'icon-list',
         },
 
