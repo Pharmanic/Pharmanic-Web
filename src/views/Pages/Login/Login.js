@@ -54,7 +54,8 @@ class Login extends Component {
 
     this.setState({
       message: "",
-      loading: true
+      loading: true,
+      user_type:AuthService.getCurrentUser().roles
     });
 
     this.form.validateAll();
@@ -62,6 +63,7 @@ class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
+          console.log(this.state.user_type);
           this.props.history.push("/dashboard");
           window.location.reload();
         },

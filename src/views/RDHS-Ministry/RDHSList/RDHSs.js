@@ -16,6 +16,8 @@ import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
 import authHeader from '../../../assets/services/auth-header_res';
 import axios from 'axios';
+import AuthService from '../../../assets/services/auth.service';
+
 
 const API_URL = 'http://localhost:8080';
 
@@ -38,7 +40,8 @@ class RDHSs extends Component {
       isLoading: true,
       currentPage: 1,
       dataPerPage: 5,
-      search: ''
+      search: '',
+      user_type:AuthService.getCurrentUser().roles
     };
   }
   //const [state, setstate] = useState(initialState);
@@ -167,7 +170,7 @@ fetch('/rdhs_list', {
         <td>
           <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this RDHS ?')) this.remove(rdhs.reg_no) }}><i className="fa fa-trash"></i></Button>
 
-          <Button size="sm" color="success" tag={Link} to={"/rdhs_detail/" + rdhs.reg_no}><i className="icon-eye"></i></Button>
+          <Button size="sm" color="success" tag={Link} to={"/"+this.state.user_type+"/rdhs_detail/" + rdhs.reg_no}><i className="icon-eye"></i></Button>
         </td>
 
       </tr>

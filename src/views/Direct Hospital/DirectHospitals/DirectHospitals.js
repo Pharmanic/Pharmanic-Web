@@ -15,6 +15,8 @@ import {
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
 import authHeader from '../../../assets/services/auth-header_res';
+import AuthService from '../../../assets/services/auth.service';
+
 
 
 const divStyle = {
@@ -35,7 +37,11 @@ class DirectHospitals extends Component {
       isLoading: true,
       currentPage: 1,
       dataPerPage: 5,
-      search: ''
+      search: '',
+      user_type:AuthService.getCurrentUser().roles
+
+      
+      
     };
   }
   //const [state, setstate] = useState(initialState);
@@ -133,7 +139,7 @@ class DirectHospitals extends Component {
         <td style={{ whiteSpace: 'nowrap' }}>{directHospital.telephone}</td>
          <td>
           <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this Direct Hopital?')) this.remove(directHospital.reg_no) }}><i className="fa fa-trash"></i></Button>
-          <Button size="sm" color="success" tag={Link} to={"/direct_hospital_detail/" + directHospital.reg_no}><i className="icon-eye"></i></Button>
+          <Button size="sm" color="success" tag={Link} to={"/"+this.state.user_type+"/direct_hospital_detail/" + directHospital.reg_no}><i className="icon-eye"></i></Button>
 
           {/*<Button size="sm" color="success" tag={Link} to={"/ministry_store/"+direct_hospital.reg_no}><i className="icon-eye"></i></Button>*/}
         </td>

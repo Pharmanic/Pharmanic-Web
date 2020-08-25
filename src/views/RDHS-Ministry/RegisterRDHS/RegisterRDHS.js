@@ -92,7 +92,7 @@ class RegisterRDHS extends Component {
 //         console.log(res.data);
 //       })
     if(this.state.user_type='ministry'){
-       this.props.history.push('/ministry/rdhss/rdhs_list');
+       this.props.history.push('/'+this.state.user_type+'/rdhss/rdhs_list');
       }else{
              this.props.history.push('/rdhss/rdhs_list');
       }

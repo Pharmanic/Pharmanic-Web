@@ -15,6 +15,8 @@ import {
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
 import authHeader from '../../../assets/services/auth-header_res';
+import AuthService from '../../../assets/services/auth.service';
+
 
 const divStyle = {
   display: 'flex',
@@ -35,7 +37,7 @@ user_type:'';
       currentPage: 1,
       dataPerPage: 5,
       search: '',
-      user_type:'ministry',
+      user_type:AuthService.getCurrentUser().roles
     };
   }
   //const [state, setstate] = useState(initialState);
