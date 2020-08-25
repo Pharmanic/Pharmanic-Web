@@ -3,8 +3,11 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import {Col,Row} from 'reactstrap';
 
 import AuthService from '../../../assets/services/auth.service';
+import authHeader from '../../../assets/services/auth-header_res';
+
 
 const required = value => {
   if (!value) {
@@ -53,15 +56,35 @@ export default class Register extends Component {
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangeRole = this.onChangeRole.bind(this);
 
     this.state = {
       username: "",
       email: "",
       password: "",
       successful: false,
-      message: ""
+      message: "",
+      roles:[],
+      role:""
     };
   }
+
+//    componentDidMount() {
+//     this.setState({isLoading: true});
+//     fetch('/role_list', {
+//         // method: 'GET',
+//         // withCredentials: true,
+//         // credentials: 'include',
+//           headers: {
+//                 // 'Accept': 'application/json',
+//                 'Authorization': 'Bearer ' + authHeader(),
+//                 // 'Content-Type': 'application/json'
+//             }
+// })
+//       .then(response => response.json())
+//       .then(data => this.setState({roles: data}));
+
+//   }
 
   onChangeUsername(e) {
     this.setState({
@@ -81,6 +104,13 @@ export default class Register extends Component {
     });
   }
 
+  onChangeRole(e) {
+    // console.log(this.state.roles[0].name+"myRolew");
+    this.setState({
+      role: e.target.value
+    });
+  }
+
   handleRegister(e) {
     e.preventDefault();
 
@@ -97,7 +127,8 @@ export default class Register extends Component {
       AuthService.register(
         this.state.username,
         this.state.email,
-        this.state.password
+        this.state.password,
+        ['jjjjj']
       ).then(
         response => {
           this.setState({
@@ -124,13 +155,16 @@ export default class Register extends Component {
 
   render() {
     return (
-      <div className="col-md-12">
+      <div className="animated fadeIn">
+      {/*<div className="col-md-12">*/}
+        <row>
+           <Col xs="12" md="8">
         <div className="card card-container">
-          <img
+          {/*<img
             src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
             alt="profile-img"
             className="profile-img-card"
-          />
+          />*/}
 
           <Form
             onSubmit={this.handleRegister}
@@ -176,6 +210,36 @@ export default class Register extends Component {
                   />
                 </div>
 
+                  <div className="form-group">
+                  <label htmlFor="role">Role</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="role"
+                    value={this.state.role}
+                    onChange={this.onChangeRole}   
+                    validations={[required, vpassword]}
+                  />
+
+                  {/*<Input type="select" className="form-control"  name="role" id="role" value={this.state.role || ''} onChange={this.onChangeRole} >
+                        <option>Select a RDHS</option>
+                        {this.state.roles}
+                      {/*</Input>*/}
+                </div>
+
+                {/*<FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="select">RDHS</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" name="rdhs" id="rdhs" value={item.rdhs.reg_no || ''} onChange={this.handleChange} >
+                        <option>Select a RDHS</option>
+                        {rdhsList}
+                      </Input>
+
+                    </Col>
+                  </FormGroup>*/}
+
                 <div className="form-group">
                   <button className="btn btn-primary btn-block">Sign Up</button>
                 </div>
@@ -204,7 +268,8 @@ export default class Register extends Component {
             />
           </Form>
         </div>
-      </div>
+      {/*</div>*/}
+     </Col> </row></div>
     );
   }
 }
