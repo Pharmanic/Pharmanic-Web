@@ -14,6 +14,10 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
+import authHeader from '../../../assets/services/auth-header_res';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:8080';
 
 const divStyle = {
   display: 'flex',
@@ -29,6 +33,7 @@ class RDHSs extends Component {
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
     this.state = {
+      content: "",
       rdhs: [],
       isLoading: true,
       currentPage: 1,
@@ -40,10 +45,45 @@ class RDHSs extends Component {
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch('/rdhs_list')
+
+  //  axios.get(API_URL + '/rdhs_list', { headers: authHeader() }).then(
+  //     response => {
+  //       this.setState({
+  //         rdhs: response.data,
+  //         isLoading:false
+  //       });
+  //       console.log(this.state.rdhs);
+  //     },
+  //     error => {
+  //       this.setState({
+  //         content:
+  //           (error.response && error.response.data) ||
+  //           error.message ||
+  //           error.toString()
+  //       });
+  //     }
+  //   );
+
+fetch('/rdhs_list', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
       .then(response => response.json())
-      .then(data => this.setState({ rdhs: data, isLoading: false }));
+      .then(data =>{
+        console.log(data);
+       this.setState({ rdhs: data, isLoading: false })
+      //  console.log("2nd"+data.get(0));
+    });
+
   }
+
+  
 
   updateSearch(event) {
     this.setState({ search: event.target.value.substr(0, 20) });
@@ -59,8 +99,7 @@ class RDHSs extends Component {
     await fetch(`/rdhs/${id}`, {
       method: 'DELETE',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Authorization': 'Bearer ' + authHeader(),
       }
     }).then(() => {
       // console.log("deleted");
@@ -68,6 +107,12 @@ class RDHSs extends Component {
       window.location.reload(false);
 
     });
+    //  await axios.delete(API_URL + `/rdhs/${id}`, { headers: authHeader() })
+    //   .then(res => {
+    //     console.log(res);
+    //     console.log(res.data);
+    //     window.location.reload(false);
+    //   })
   }
 
   onViewButtonClick(rdhsSelected) {

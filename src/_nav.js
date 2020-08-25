@@ -67,17 +67,17 @@ export default {
     },
     {
       name: 'RDHS',
-      url: '/rdhs',
+      url: '/rdhss',
       icon: 'icon-home',
       children: [
         {
           name: 'Register RDHS',
-          url: '/rdhs/register',
+          url: '/rdhss/register',
           icon: 'icon-plus',
         },
         {
           name: 'RDHS List',
-          url: '/rdhs/rdhs_list',
+          url: '/rdhss/rdhs_list',
           icon: 'icon-list',
         },
 

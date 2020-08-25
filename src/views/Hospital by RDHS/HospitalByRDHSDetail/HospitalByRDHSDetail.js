@@ -22,7 +22,7 @@ import {
 } from 'reactstrap';
 
 import { } from 'reactstrap';
-
+import authHeader from '../../../assets/services/auth-header_res';
 import { Link, withRouter } from 'react-router-dom';
 
 
@@ -38,9 +38,17 @@ class HospitalByRDHSDetail extends Component {
         reg_no: '',
         name: '',
         address: '',
-        telephone: '',
+           telephone: '',
         email: '',
-        doctor_incharge: ''
+        doctor_incharge: '',
+         rdhs: {
+      reg_no: '',
+      address: '',
+      email: '',
+      name: '',
+      telephone: ''
+
+    }
 
     };
     constructor(props) {
@@ -67,7 +75,12 @@ class HospitalByRDHSDetail extends Component {
         this.setState({ isLoading: true, danger: false, modal: false, });
         this.toggleDanger = this.toggleDanger.bind(this);
         console.log('param', this.props.match);
-        fetch(`/hospitalByRdhs/${this.props.match.params.id}`)
+        fetch(`/hospitalByRdhs/${this.props.match.params.id}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + authHeader(),
+      }
+    })
             .then(response => response.json())
             .then(data => this.setState({ item: data, isLoading: false, old_item: data, isLoading: false }));
         // this.loadData();
@@ -257,6 +270,16 @@ class HospitalByRDHSDetail extends Component {
                                         </Col>
                                         <Col xs="12" md="9">
                                             <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={item.name || ''}
+                                                onChange={this.handleChange} autoComplete="name" disabled={!this.state.enableEdit} />
+                                        </Col>
+                                    </FormGroup>
+
+                                       <FormGroup row>
+                                        <Col md="3">
+                                            <Label htmlFor="text-input">Related RDHS</Label>
+                                        </Col>
+                                        <Col xs="12" md="9">
+                                            <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={item.rdhs.name || ''}
                                                 onChange={this.handleChange} autoComplete="name" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>

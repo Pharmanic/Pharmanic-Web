@@ -30,20 +30,20 @@ class DefaultHeader extends Component {
 
         
 
-    <Nav className="d-md-down-none" navbar bg="dark" variant="light">
+    {/*<Nav className="d-md-down-none" navbar bg="dark" variant="light">
           
      
           <NavItem className="px-3">
-            <NavLink to="/dashboard" className="nav-link" >Dash</NavLink>
+            <NavLink to="/dashboard" className="nav-link" >flower</NavLink>
           </NavItem>
           <NavItem className="px-3">
-            <Link to="/users" className="nav-link">Users</Link>
+            <Link to="/users" className="nav-link">flowers</Link>
           </NavItem>
 
           <UncontrolledDropdown nav direction="down">
           <DropdownToggle nav>
           <NavItem className="px-3">
-          <NavLink to="#" className="nav-link">Ministry</NavLink>
+          <NavLink to="#" className="nav-link">flowers</NavLink>
           </NavItem>
           </DropdownToggle>
           <DropdownMenu right>
@@ -91,7 +91,7 @@ class DefaultHeader extends Component {
 
 
 
-        </Nav>
+        </Nav>*/}
         <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">
             <NavLink to="#" className="nav-link"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>

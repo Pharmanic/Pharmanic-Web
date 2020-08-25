@@ -14,6 +14,7 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
+import authHeader from '../../../assets/services/auth-header_res';
 
 
 const divStyle = {
@@ -41,10 +42,28 @@ class DirectHospitals extends Component {
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch('/direct_hospital/direct_hospital_list')
+    // fetch('/direct_hospital/direct_hospital_list')
+    //   .then(response => response.json())
+    //   .then(data => this.setState({ directHospitals: data, isLoading: false }));
+
+      fetch('/direct_hospital/direct_hospital_list', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
       .then(response => response.json())
-      .then(data => this.setState({ directHospitals: data, isLoading: false }));
+      .then(data =>{
+        console.log(data);
+       this.setState({ directHospitals: data, isLoading: false })
+      //  console.log("2nd"+data.get(0));
+    });
   }
+  
 
   updateSearch(event) {
     this.setState({ search: event.target.value.substr(0, 20) });
@@ -66,8 +85,7 @@ class DirectHospitals extends Component {
     await fetch(`/directhospital/${id}`, {
       method: 'DELETE',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Authorization': 'Bearer ' + authHeader(),
       }
     }).then(() => {
       // console.log("deleted");
@@ -85,10 +103,10 @@ class DirectHospitals extends Component {
     let filteredData = directHospitals.filter(
       (directHospital) => {
         return directHospital.reg_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          directHospital.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          directHospital.telephone.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          directHospital.address.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          directHospital.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 
+          String(directHospital.name).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(directHospital.telephone).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(directHospital.address).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(directHospital.email).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 
          ;
         //  directHospital.m_store_id.indexOf(this.state.search) !==-1;
       }

@@ -14,14 +14,16 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
+import authHeader from '../../../assets/services/auth-header_res';
 
 const divStyle = {
   display: 'flex',
   alignItems: 'right'
 };
 
-class MinistryStores extends Component {
 
+class MinistryStores extends Component {
+  user_type:'';
 
   constructor(props) {
     super(props);
@@ -33,17 +35,93 @@ class MinistryStores extends Component {
       isLoading: true,
       currentPage: 1,
       dataPerPage: 5,
-      search: ''
+      search: '',
+      user_type:'ministry'
     };
   }
   //const [state, setstate] = useState(initialState);
   componentDidMount() {
     this.setState({ isLoading: true });
-
-    fetch('/ministrystores')
+    
+  fetch('/ministrystores', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
       .then(response => response.json())
-      .then(data => this.setState({ ministrystores: data, isLoading: false }));
-  }
+      .then(data =>{
+        console.log(data);
+       this.setState({ ministrystores: data, isLoading: false })
+       console.log("Stores"+this.state.ministrystores);
+    });
+      
+  
+ // fetch('/ministrystores')
+    //   .then(response => response.json())
+    //   .then(data => this.setState({ ministrystores: data, isLoading: false }));
+  
+
+
+// fetch('/ministrystores', {
+//         // method: 'GET',
+//         // withCredentials: true,
+//         // credentials: 'include',
+//           headers: {
+//                 // 'Accept': 'application/json',
+//                 'Authorization': 'Bearer ' + authHeader(),
+//                 // 'Content-Type': 'application/json'
+//             }
+// }).then(response => response.json())
+//   .then(
+//       data => {
+//         console.log(data);
+//         // this.state.ministrystores=data;
+//         this.setState({
+//           ministrystores: data,
+//           isLoading:false,
+//         });
+//         console.log(data);
+//         // console.log(this.state.ministrystores);
+//       },
+//       error => {
+//         this.setState({
+//           content:
+//             (error.response && error.response.data) ||
+//             error.message ||
+//             error.toString()
+//         });
+//       }
+//     );
+
+
+    // )
+    // .catch(error => this.setState({
+    //     isLoading: false,
+    //     message: 'Something bad happened ' + error
+    // }));
+
+  // .then(response => response.json())
+  //     .then(data => this.setState({ ministrystores: data, isLoading: false }));
+
+// fetch('/ministrystores', {
+//             method: 'GET',
+//             headers: {
+//                 'Accept': 'application/json',
+//                 'Authorization': 'Bearer ' + authHeader()
+//                 // 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({
+//                 signature: generateKey(token),
+//                 eToken: token
+//             })
+//         })
+
+}
 
   updateSearch(event) {
     this.setState({ search: event.target.value.substr(0, 20) });
@@ -59,8 +137,9 @@ class MinistryStores extends Component {
     await fetch(`/ministry_store/${id}`, {
       method: 'DELETE',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        // 'Accept': 'application/json',
+        // 'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
       }
     }).then(() => {
       // console.log("deleted");
@@ -70,20 +149,19 @@ class MinistryStores extends Component {
     });
   }
 
-  async remove(id) {
-    await fetch(`/ministry_store/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).then(() => {
-      // console.log("deleted");
-      //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
-      window.location.reload(false);
+  // async remove(id) {
+  //   await fetch(`/ministry_store/${id}`, {
+  //     method: 'DELETE',
+  //     headers: {
+  //      'Authorization': 'Bearer ' + authHeader(),
+  //     }
+  //   }).then(() => {
+  //     // console.log("deleted");
+  //     //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
+  //     window.location.reload(false);
 
-    });
-  }
+  //   });
+  // }
 
   onRadioBtnClick(radioSelected) {
     this.setState({
@@ -95,21 +173,25 @@ class MinistryStores extends Component {
 
   render() {
     const {ministrystores, isLoading, dataPerPage, currentPage, search} = this.state;
+    console.log(ministrystores);
+
+
+//********************** Some error in filtering
 
     let filteredData = ministrystores.filter(
       (ministrystore) => {
-        return ministrystore.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+        return  ministrystore.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          ministrystore.m_store_id.toString().toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          ministrystore.m_store_id.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.tel_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          // ministrystore.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          ministrystore.total_storage.toString().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          ministrystore.available_storage.toString().indexOf(this.state.search.toLowerCase()) !== -1
+          String(ministrystore.total_storage).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1  ||
+          String(ministrystore.available_storage).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
           ;
         //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
       }
     );
+    // let filteredData=ministrystores;
 
     if (isLoading) {
       return <p>Loading...</p>;
@@ -135,7 +217,7 @@ class MinistryStores extends Component {
         <td>
           <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this Ministry Store ?')) this.remove(ministrystore.m_store_id) }}><i className="fa fa-trash"></i></Button>
 
-          <Button size="sm" color="success" tag={Link} to={"/ministry_store_detail/"+ministrystore.m_store_id}><i className="icon-eye"></i></Button>
+          <Button size="sm" color="success" tag={Link} to={"/"+this.state.user_type+"/ministry_store_detail/"+ministrystore.m_store_id}><i className="icon-eye"></i></Button>
         </td>
 
       </tr>

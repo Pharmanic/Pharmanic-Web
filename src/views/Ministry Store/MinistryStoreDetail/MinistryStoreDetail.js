@@ -24,6 +24,8 @@ import {
 import { } from 'reactstrap';
 
 import { Link, withRouter } from 'react-router-dom';
+import authHeader from '../../../assets/services/auth-header_res';
+
 
 
 class MinistryStoreDetail extends Component {
@@ -92,7 +94,12 @@ class MinistryStoreDetail extends Component {
         this.setState({ isLoading: true, danger: false, modal: false, });
         this.toggleDanger = this.toggleDanger.bind(this);
         console.log('param', this.props.match);
-        fetch(`/ministry_stores/${this.props.match.params.id}`)
+        fetch(`/ministry_stores/${this.props.match.params.id}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + authHeader(),
+      }
+    })
             .then(response => response.json())
             .then(data => this.setState({ item: data, isLoading: false, old_item: data, isLoading: false }));
         // this.loadData();
@@ -218,7 +225,7 @@ class MinistryStoreDetail extends Component {
                     <Col xs="12" md="8">
                         <Card>
                             <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                                <b>ministry_store - {item.name}</b>
+                                <b>Ministry Store - {item.name}</b>
                             </CardHeader>
                             <CardBody>
                                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="ministry_storeForm">

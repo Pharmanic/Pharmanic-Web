@@ -25,7 +25,12 @@ import {
   Row,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
+import authHeader from '../../../assets/services/auth-header_res';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:8080';
 class RegisterRDHS extends Component {
+
 
   emptyItem = {
     reg_no:'',
@@ -35,6 +40,7 @@ class RegisterRDHS extends Component {
     telephone: ''
 
   };
+  user_type:'ministry'
 
   constructor(props) {
     super(props);
@@ -45,7 +51,8 @@ class RegisterRDHS extends Component {
       item: this.emptyItem,
       collapse: true,
       fadeIn: true,
-      timeout: 300
+      timeout: 300,
+    
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -68,13 +75,29 @@ class RegisterRDHS extends Component {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+
       },
       body: JSON.stringify(item),
     })
       .then(res => res.json()) //returns array of data
       ;
-    this.props.history.push('/rdhs/rdhs_list');
+ 
+// console.log(item.reg_no);
+  
+//      await axios.post(API_URL + '/rdhs/register',item,{headers: authHeader() })
+//       .then(res => {
+//         console.log(res);
+//         console.log(res.data);
+//       })
+    if(this.state.user_type='ministry'){
+       this.props.history.push('/ministry/rdhss/rdhs_list');
+      }else{
+             this.props.history.push('/rdhss/rdhs_list');
+      }
+
+    // }
   }
 
   toggle() {
