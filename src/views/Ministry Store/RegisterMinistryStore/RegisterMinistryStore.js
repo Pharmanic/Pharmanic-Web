@@ -26,6 +26,8 @@ import {
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
 import authHeader from '../../../assets/services/auth-header_res';
+import AuthService from '../../../assets/services/auth.service';
+
 
 class RegisterMinistryStore extends Component {
 
@@ -51,7 +53,7 @@ class RegisterMinistryStore extends Component {
       collapse: true,
       fadeIn: true,
       timeout: 300,
-      user_type:'ministry'
+      user_type:AuthService.getCurrentUser().roles
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

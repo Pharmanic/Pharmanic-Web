@@ -15,6 +15,8 @@ import {
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
 import authHeader from '../../../assets/services/auth-header_res';
+import AuthService from '../../../assets/services/auth.service';
+
 
 const divStyle = {
   display: 'flex',
@@ -36,12 +38,14 @@ class MinistryStores extends Component {
       currentPage: 1,
       dataPerPage: 5,
       search: '',
-      user_type:'ministry'
+      user_type:AuthService.getCurrentUser().roles
+      // console.log(AuthService.getCurrentUser().roles);
     };
   }
   //const [state, setstate] = useState(initialState);
   componentDidMount() {
     this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
     
   fetch('/ministrystores', {
         // method: 'GET',
@@ -57,7 +61,7 @@ class MinistryStores extends Component {
       .then(data =>{
         console.log(data);
        this.setState({ ministrystores: data, isLoading: false })
-       console.log("Stores"+this.state.ministrystores);
+       console.log("Stores"+this.state.user_type);
     });
       
   

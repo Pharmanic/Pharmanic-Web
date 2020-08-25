@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
+import Input_ from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
-import {Col,Row} from 'reactstrap';
+import {Col,Row,Input } from 'reactstrap';
 
 import AuthService from '../../../assets/services/auth.service';
 import authHeader from '../../../assets/services/auth-header_res';
@@ -64,7 +64,7 @@ export default class Register extends Component {
       password: "",
       successful: false,
       message: "",
-      roles:[],
+      // roles: "MINISTRY_ADMIN","RDHS_USER",
       role:""
     };
   }
@@ -82,7 +82,11 @@ export default class Register extends Component {
 //             }
 // })
 //       .then(response => response.json())
-//       .then(data => this.setState({roles: data}));
+//       .then(data => {
+//         console.log(data);
+//         // this.state.roles=data;
+//         this.setState({rdhs: data})});
+//       console.log(this.state.rdhs);
 
 //   }
 
@@ -128,7 +132,7 @@ export default class Register extends Component {
         this.state.username,
         this.state.email,
         this.state.password,
-        ['jjjjj']
+       [this.state.role]
       ).then(
         response => {
           this.setState({
@@ -150,6 +154,8 @@ export default class Register extends Component {
           });
         }
       );
+      // console.log(AuthService.getCurrentUser().roles);
+
     }
   }
 
@@ -176,7 +182,7 @@ export default class Register extends Component {
               <div>
                 <div className="form-group">
                   <label htmlFor="username">Username</label>
-                  <Input
+                  <Input_
                     type="text"
                     className="form-control"
                     name="username"
@@ -188,7 +194,7 @@ export default class Register extends Component {
 
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
-                  <Input
+                  <Input_
                     type="text"
                     className="form-control"
                     name="email"
@@ -200,7 +206,7 @@ export default class Register extends Component {
 
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
-                  <Input
+                  <Input_
                     type="password"
                     className="form-control"
                     name="password"
@@ -212,19 +218,23 @@ export default class Register extends Component {
 
                   <div className="form-group">
                   <label htmlFor="role">Role</label>
-                  <Input
+                  {/*<Input_
                     type="text"
                     className="form-control"
                     name="role"
                     value={this.state.role}
                     onChange={this.onChangeRole}   
                     validations={[required, vpassword]}
-                  />
+                  />*/} 
 
-                  {/*<Input type="select" className="form-control"  name="role" id="role" value={this.state.role || ''} onChange={this.onChangeRole} >
-                        <option>Select a RDHS</option>
-                        {this.state.roles}
-                      {/*</Input>*/}
+
+                  <Input type="select" className="form-control"  name="role" id="role" value={this.state.role || ''} onChange={this.onChangeRole} >
+                        <option>MINISTRY_USER</option>
+                        <option>ROLE_USER</option>
+                        <option>MINISTRY_ADMIN</option>
+                         <option>ministry</option>
+                        
+                      </Input>
                 </div>
 
                 {/*<FormGroup row>

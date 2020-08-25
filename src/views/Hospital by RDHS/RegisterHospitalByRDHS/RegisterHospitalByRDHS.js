@@ -26,6 +26,8 @@ import {
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
 import authHeader from '../../../assets/services/auth-header_res';
+import AuthService from '../../../assets/services/auth.service';
+
 
 class RegisterHospitalByRDHS extends Component {
 
@@ -58,7 +60,7 @@ class RegisterHospitalByRDHS extends Component {
       fadeIn: true,
       timeout: 300,
       rdhss:[],
-      user_type:'ministry',
+      user_type:AuthService.getCurrentUser().roles
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
