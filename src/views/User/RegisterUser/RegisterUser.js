@@ -57,6 +57,7 @@ export default class Register extends Component {
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangeRole = this.onChangeRole.bind(this);
+     this.onChangeBranch = this.onChangeBranch.bind(this);
 
     this.state = {
       username: "",
@@ -64,13 +65,19 @@ export default class Register extends Component {
       password: "",
       successful: false,
       message: "",
-      // roles: "MINISTRY_ADMIN","RDHS_USER",
-      role:""
+      roles:[],
+      rdhsHospitals:[],
+      rdhss:[],
+      directHospitals:[],
+      ministryStores:[],
+      role:"",
+      branch:"",
+      // isRdhsUSer:false
     };
   }
 
-//    componentDidMount() {
-//     this.setState({isLoading: true});
+   componentDidMount() {
+    this.setState({isLoading: true});
 //     fetch('/role_list', {
 //         // method: 'GET',
 //         // withCredentials: true,
@@ -86,9 +93,66 @@ export default class Register extends Component {
 //         console.log(data);
 //         // this.state.roles=data;
 //         this.setState({rdhs: data})});
-//       console.log(this.state.rdhs);
+//       console.log(this.state.rdhs);   //to load user roles 
 
-//   }
+//get Role list
+    fetch('/role_list', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
+      .then(response => response.json())
+      .then(data => this.setState({roles: data}));
+
+  //get RDHS list
+    fetch('/rdhs_list', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
+      .then(response => response.json())
+      .then(data => this.setState({rdhss: data}));
+
+   //get RDHS Hospital list
+    fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
+      .then(response => response.json())
+      .then(data => this.setState({rdhsHospitals: data}));
+
+      //get ministry stores list
+    fetch('/ministrystores', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
+      .then(response => response.json())
+      .then(data => this.setState({ministryStores: data}));
+
+
+  }
 
   onChangeUsername(e) {
     this.setState({
@@ -108,11 +172,38 @@ export default class Register extends Component {
     });
   }
 
+  onChangeBranch(e) {
+    this.setState({
+      branch: e.target.value
+    });
+  }
+
   onChangeRole(e) {
-    // console.log(this.state.roles[0].name+"myRolew");
+    
     this.setState({
       role: e.target.value
     });
+
+     if (e.target.value == 'rdhs_user') {
+       this.setState({
+       isRdhs: true
+    });
+     }else{
+       this.setState({
+       isRdhs: false
+    });
+     }
+
+if (e.target.value == 'ministry') {
+       this.setState({
+       isMinistry: true
+    });
+     }else{
+       this.setState({
+       isMinistry: false
+    });
+     }
+
   }
 
   handleRegister(e) {
@@ -132,7 +223,8 @@ export default class Register extends Component {
         this.state.username,
         this.state.email,
         this.state.password,
-       [this.state.role]
+       [this.state.role],
+       this.state.branch
       ).then(
         response => {
           this.setState({
@@ -160,6 +252,42 @@ export default class Register extends Component {
   }
 
   render() {
+     
+    const {roles,rdhss,rdhsHospitals,ministryStores,rdhs} = this.state;
+    
+    const rolesList = roles.map(role => {
+      return <option
+        key={role.id}
+        value={role.name}>
+        {role.name}
+      </option>
+    });
+
+    const rdhsList = rdhss.map(rdhs => {
+      return <option
+        key={rdhs.reg_no}
+        value={rdhs.name}>
+        {rdhs.name}
+      </option>
+    });
+
+     const rdhsHospitalList = rdhsHospitals.map(rdhHospitals => {
+      return <option
+        key={rdhHospitals.reg_no}
+        value={rdhHospitals.name}>
+        {rdhHospitals.name}
+      </option>
+    });
+
+
+   const ministryStoreList = ministryStores.map(ministryStore => {
+      return <option
+        key={ministryStore.reg_no}
+        value={ministryStore.name}>
+        {ministryStore.name}
+      </option>
+    });
+
     return (
       <div className="animated fadeIn">
       {/*<div className="col-md-12">*/}
@@ -218,37 +346,35 @@ export default class Register extends Component {
 
                   <div className="form-group">
                   <label htmlFor="role">Role</label>
-                  {/*<Input_
-                    type="text"
-                    className="form-control"
-                    name="role"
-                    value={this.state.role}
-                    onChange={this.onChangeRole}   
-                    validations={[required, vpassword]}
-                  />*/} 
-
-
-                  <Input type="select" className="form-control"  name="role" id="role" value={this.state.role || ''} onChange={this.onChangeRole} >
-                        <option>MINISTRY_USER</option>
-                        <option>ROLE_USER</option>
-                        <option>MINISTRY_ADMIN</option>
-                         <option>ministry</option>
-                        
+             
+                       <Input type="select" name="rdhs" id="rdhs" value={this.state.role || ''} onChange={this.onChangeRole} >
+                        <option>Select Role</option>
+                        {rolesList}
                       </Input>
                 </div>
 
-                {/*<FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="select">RDHS</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input type="select" name="rdhs" id="rdhs" value={item.rdhs.reg_no || ''} onChange={this.handleChange} >
-                        <option>Select a RDHS</option>
+                  {this.state.isRdhs && (
+                 <div className="form-group"  >
+                  <label htmlFor="role">Rdhs</label>
+             
+                       <Input type="select" name="branch" id="rdhs" value={this.state.branch || ''} onChange={this.onChangeBranch} >
+                        <option>Select Rdhs</option>
                         {rdhsList}
                       </Input>
+                </div>
+                  ) }
+                  {/*{this.state.isMinistry && (
+                 <div className="form-group"  >
+                  <label htmlFor="role">Ministry</label>
+             
+                      <Input type="select" name="branch" id="rdhs" value={this.state.branch || ''} onChange={this.onChangeBranch} >
+                        <option>Select Rdhs</option>
+                        {rdhsList}
+                      </Input>
+                </div>
+                  ) }*/}
 
-                    </Col>
-                  </FormGroup>*/}
+                
 
                 <div className="form-group">
                   <button className="btn btn-primary btn-block">Sign Up</button>
