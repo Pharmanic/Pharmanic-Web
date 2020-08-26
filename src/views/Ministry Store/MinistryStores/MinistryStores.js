@@ -38,9 +38,10 @@ class MinistryStores extends Component {
       currentPage: 1,
       dataPerPage: 5,
       search: '',
-      user_type:AuthService.getCurrentUser().roles
-      // console.log(AuthService.getCurrentUser().roles);
+      user_type:AuthService.getCurrentUser().roles,
+      
     };
+    console.log(AuthService.getCurrentUser());
   }
   //const [state, setstate] = useState(initialState);
   componentDidMount() {

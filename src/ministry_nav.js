@@ -9,34 +9,34 @@ export default {
         // text: 'NEW',
       },
     },
-    {
-      name: 'Hospital By RDHS',
-    ///  url: '/ministry_stores',
-      icon: 'icon-list',
-      children: [
-        {
-          name: 'Current Stock',
-          url: '/rhcstock',
-         // icon: 'icon-list',
-        },
-        {
-          name: 'Return Cart',
-          url: '/returncart',
-         // icon: 'icon-list',
-        },
-        {
-          name: 'Order Cart',
-          url: '/rhordercart',
-         // icon: 'icon-list',
-        },
-        {
-          name: 'Issue Drugs',
-          url: '/rhissue',
-         // icon: 'icon-list',
-        }, 
+    // {
+    //   name: 'Hospital By RDHS',
+    // ///  url: '/ministry_stores',
+    //   icon: 'icon-list',
+    //   children: [
+    //     {
+    //       name: 'Current Stock',
+    //       url: '/rhcstock',
+    //      // icon: 'icon-list',
+    //     },
+    //     {
+    //       name: 'Return Cart',
+    //       url: '/returncart',
+    //      // icon: 'icon-list',
+    //     },
+    //     {
+    //       name: 'Order Cart',
+    //       url: '/rhordercart',
+    //      // icon: 'icon-list',
+    //     },
+    //     {
+    //       name: 'Issue Drugs',
+    //       url: '/rhissue',
+    //      // icon: 'icon-list',
+    //     }, 
 
-      ],
-    },
+    //   ],
+    // },
     {
       title: true,
       name: 'Ministry',
@@ -167,82 +167,82 @@ export default {
       ],
     },
     
-    {
-      name: 'WareHouse',
-      url: '/ministry/store',
-      icon: 'icon-home',
-    },
-    {
-      name: 'Rdhs',
-      url: '/ministry/rdhs',
-      icon: 'icon-home',
-    },
-    {
-      name: 'DirectHospital',
-      url: '/ministry/directhospital',
-      icon: 'icon-home',
-    },
-    {
-      name: 'Medicine',
-      url: '/ministry/medicine',
-      icon: 'icon-drop',
-    },
-    {
-      name: 'Vehicle',
-      url: '/ministry/vehicle',
-      icon: 'icon-speedometer',
-    },
-    {
-      name: 'Driver',
-      url: '/ministry/driver',
-      icon: 'icon-user',
-    },
-    {
-      title: true,
-      name: 'Ministry Store',
-      wrapper: {            // optional wrapper object
-        element: '',        // required valid HTML5 element tag
-        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
-      },
-      class: ''             // optional class names space delimited list for title item ex: "text-center"
-    },
-    {
+    // {
+    //   name: 'WareHouse',
+    //   url: '/ministry/store',
+    //   icon: 'icon-home',
+    // },
+    // {
+    //   name: 'Rdhs',
+    //   url: '/ministry/rdhs',
+    //   icon: 'icon-home',
+    // },
+    // {
+    //   name: 'DirectHospital',
+    //   url: '/ministry/directhospital',
+    //   icon: 'icon-home',
+    // },
+    // {
+    //   name: 'Medicine',
+    //   url: '/ministry/medicine',
+    //   icon: 'icon-drop',
+    // },
+    // {
+    //   name: 'Vehicle',
+    //   url: '/ministry/vehicle',
+    //   icon: 'icon-speedometer',
+    // },
+    // {
+    //   name: 'Driver',
+    //   url: '/ministry/driver',
+    //   icon: 'icon-user',
+    // },
+    // {
+    //   title: true,
+    //   name: 'Ministry Store',
+    //   wrapper: {            // optional wrapper object
+    //     element: '',        // required valid HTML5 element tag
+    //     attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+    //   },
+    //   class: ''             // optional class names space delimited list for title item ex: "text-center"
+    // },
+    // {
  
-          name: 'Imported Stocks',
-          url: '/importstock',
-          icon: 'icon-layers',
+    //       name: 'Imported Stocks',
+    //       url: '/importstock',
+    //       icon: 'icon-layers',
 
-    },
-    {
-          name: 'Current Stocks',
-          url: '/currentstock',
-          icon: 'icon-layers',
-    },
-    {
-          name: 'Returned Stocks',
-          url: '/damagestock',
-          icon: 'icon-layers',
-    },
+    // },
+    // {
+    //       name: 'Current Stocks',
+    //       url: '/currentstock',
+    //       icon: 'icon-layers',
+    // },
+    // {
+    //       name: 'Returned Stocks',
+    //       url: '/damagestock',
+    //       icon: 'icon-layers',
+    // },
     
-    {
-      title: true,
-      name: 'Order Requests',
-      wrapper: {            // optional wrapper object
-        element: '',        // required valid HTML5 element tag
-        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
-      },
-      class: ''             // optional class names space delimited list for title item ex: "text-center"
-    },
-    {
-      name: 'LM Hospital',
-      url: '/ministry/directhospitalreqorder',
-      icon: 'icon-bell',
-    },
-    {
-      name: 'RDHS',
-      url: '/ministry/rdhsreqorder',
-      icon: 'icon-bell',
-    },
+    // {
+    //   title: true,
+    //   name: 'Order Requests',
+    //   wrapper: {            // optional wrapper object
+    //     element: '',        // required valid HTML5 element tag
+    //     attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+    //   },
+    //   class: ''             // optional class names space delimited list for title item ex: "text-center"
+    // },
+    // {
+    //   name: 'LM Hospital',
+    //   url: '/ministry/directhospitalreqorder',
+    //   icon: 'icon-bell',
+    // },
+    // {
+    //   name: 'RDHS',
+    //   url: '/ministry/rdhsreqorder',
+    //   icon: 'icon-bell',
+    // },
     
     // {
     //   title: true,
