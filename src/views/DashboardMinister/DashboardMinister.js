@@ -452,7 +452,7 @@ const mainChartOpts = {
   },
 };
 
-class Dashboard2 extends Component {
+class DashboardMinister extends Component {
   constructor(props) {
     super(props);
 
@@ -1126,4 +1126,4 @@ class Dashboard2 extends Component {
   }
 }
 
-export default Dashboard2;
+export default DashboardMinister;

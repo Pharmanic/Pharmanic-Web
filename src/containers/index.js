@@ -1,5 +1,7 @@
 import DefaultLayout from './DefaultLayout';
-import DefaultLayout2 from './DefaultLayout2';
+import MinistryAdminLayout from './MinistryAdminLayout';
+import MinisterLayout from './MinisterLayout';
+import MinistryStockKeeperLayout from './MinistryStockKeeperLayout';
 
 
-export { DefaultLayout , DefaultLayout2 };
+export { DefaultLayout , MinistryAdminLayout , MinisterLayout , MinistryStockKeeperLayout};

@@ -30,7 +30,8 @@ class Login extends Component {
       username: "",
       password: "",
       loading: false,
-      message: ""
+      message: "",
+      
     };
   }
 
@@ -55,7 +56,7 @@ class Login extends Component {
     this.setState({
       message: "",
       loading: true,
-      user_type:AuthService.getCurrentUser().roles
+      // user_type:AuthService.getCurrentUser().roles
     });
 
     this.form.validateAll();
@@ -63,9 +64,21 @@ class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
-          console.log(this.state.user_type);
-          this.props.history.push("/dashboard");
-          window.location.reload();
+          this.setState({
+                user_type:AuthService.getCurrentUser().roles
+          });
+          console.log("USERRRRRR"+this.state.user_type);
+          if(this.state.user_type=='ministry_admin'){
+             this.props.history.push("/ministry_admin");
+          }else if(this.state.user_type=='minister'){
+             this.props.history.push("/minister");
+          }else if(this.state.user_type=='ministry_stock_keeper'){
+             this.props.history.push("/ministry_stock_keeper");
+          }else{
+             this.props.history.push("/ministry");
+          }
+          // window.location.reload();
+          
         },
         error => {
           const resMessage =
