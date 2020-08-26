@@ -16,7 +16,7 @@ import {
   AppSidebarNav2 as AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config
-import navigation from '../../ministry_nav';
+import navigation from '../../minister_nav';
 // routes config
 import routes from '../../ministry_routes';
 

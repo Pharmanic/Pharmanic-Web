@@ -70,6 +70,8 @@ class Login extends Component {
           console.log("USERRRRRR"+this.state.user_type);
           if(this.state.user_type=='ministry_admin'){
              this.props.history.push("/ministry_admin");
+          }else if(this.state.user_type=='minister'){
+             this.props.history.push("/minister");
           }else{
              this.props.history.push("/ministry");
           }

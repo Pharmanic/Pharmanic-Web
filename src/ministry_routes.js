@@ -39,6 +39,7 @@ const Buttons = React.lazy(() => import('./views/Buttons/Buttons'));
 const Charts = React.lazy(() => import('./views/Charts'));
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
 const Dashboard2 = React.lazy(() => import('./views/Dashboard2'));
+const Dashboard3 = React.lazy(() => import('./views/Dashboard3'));
 const ImportStock = React.lazy(() => import('./views/ImportStock'));
 const ImportStockForm = React.lazy(() => import('./views/ImportStockForm'));
 const CurrentStock = React.lazy(() => import('./views/CurrentStock'));
@@ -97,6 +98,7 @@ const MinistryStoreDetail = React.lazy(() => import('./views/Ministry Store/Mini
 const routes = [
   { path: '/', exact: true, name: 'Home'},
   { path: '/ministry_admin', exact: true, name: 'Home2', component: Dashboard2},
+  { path: '/minister', exact: true, name: 'Home3', component: Dashboard3},
   //  { path: '/3', exact: true, name: 'Home3', component: Dashboard},// Same layouts different components
   
   // { path: '/rdhstrack', name: 'Rdhs_Track', component: RdhsHopitalTrack },
@@ -213,6 +215,36 @@ const routes = [
   { path: '/ministry_admin/user/register', exact: true, name: 'User Registration', component: UserRegister },
 
   
+
+
+  //minister  
+
+  { path: '/minister/ministry_stores', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
+  { path: '/minister/ministry_stores/ministry_stores_list', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
+  // { path: '/minister/ministry_stores/register', exact: true, name: 'Ministry Store Registration', component: MinistryStoreRegister },
+  { path: '/minister/ministry_store_detail/:id', name: 'Ministry Store Detail', component: MinistryStoreDetail },
+
+
+  { path: '/minister/rdhss', exact: true, name: 'RDHS', component: RDHSList },
+  { path: '/minister/rdhss/rdhs_list', exact: true, name: 'RDHS List', component: RDHSList },
+  // { path: '/minister/rdhss/register', exact: true, name: 'RDHS Registration', component: RDHSRegister },
+  { path: '/minister/rdhs_detail/:id', name: 'RDHS Detail', component: RDHSDetail },
+
+
+  { path: '/minister/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
+  { path: '/minister/direct_hospitals/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
+  // { path: '/minister/direct_hospitals/register', exact: true, name: 'Direct Hospital Registration', component: DirectHospitalRegister },
+  { path: '/minister/direct_hospital_detail/:id', name: 'Direct Hospital Detail', component: DirectHospitalDetail },
+
+  { path: '/minister/hospital_by_rdhs', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },
+  { path: '/minister/hospital_by_rdhs/hospital_by_rdhs_list', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },
+  // { path: '/minister/hospital_by_rdhs/register', exact: true, name: 'Hospital By RDHS Registration', component: HospitalByRDHSRegister },
+  { path: '/minister/hospital_by_rdhs/:id', name: 'Hospital By RDHS Detail', component: HospitalByRDHSDetail },
+
+  { path: '/minister/user', exact: true, name: 'Users', component: UserList },
+  { path: '/minister/user/user_list', exact: true, name: 'User', component: UserList },
+  
+
 
 
 ];

@@ -8,6 +8,8 @@ const loading = () => <div className="animated fadeIn pt-3 text-center">Loading.
 // Containers
 const DefaultLayout = React.lazy(() => import('./containers/DefaultLayout'));
 const DefaultLayout2 = React.lazy(() => import('./containers/DefaultLayout2'));
+const DefaultLayout3 = React.lazy(() => import('./containers/DefaultLayout3'));
+
 
 // Pages
 const Login = React.lazy(() => import('./views/Pages/Login'));
@@ -27,7 +29,9 @@ class App extends Component {
               <Route exact path="/404" name="Page 404" render={props => <Page404 {...props}/>} />
               <Route exact path="/500" name="Page 500" render={props => <Page500 {...props}/>} />
               <Route path="/ministry_admin" name="Home2" render={props => <DefaultLayout2 {...props}/>} />
-                            <Route path="/ministry" name="Home2" render={props => <DefaultLayout2 {...props}/>} />
+              <Route path="/minister" name="Home3" render={props => <DefaultLayout3 {...props}/>} />
+
+              {/*<Route path="/ministry" name="Home2" render={props => <DefaultLayout3 {...props}/>} />*/}
 
               {/*<Route path="/ministry_stock_keeper" name="Home2" render={props => <DefaultLayout3 {...props}/>} />*/}
               {/*<Route exact path="/ministry_stores" name="Home2" render={props => <DefaultLayout2 {...props}/>} />*/}
