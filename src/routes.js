@@ -96,7 +96,9 @@ const MinistryStoreDetail = React.lazy(() => import('./views/Ministry Store/Mini
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home'},
-  { path: '/ministry', exact: true, name: 'Home2', component: Dashboard2},
+  { path: '/ministry_admin', exact: true, name: 'Home2', component: Dashboard2},
+    { path: '/ministry', exact: true, name: 'Home2', component: Dashboard2},
+
   //  { path: '/3', exact: true, name: 'Home3', component: Dashboard},// Same layouts different components
   
   // { path: '/rdhstrack', name: 'Rdhs_Track', component: RdhsHopitalTrack },

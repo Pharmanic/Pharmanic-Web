@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: 'Dashboard',
-      url: '/ministry',
+      url: '/ministry_admin',
       icon: 'icon-speedometer',
       badge: {
         variant: 'info',
@@ -37,29 +37,29 @@ export default {
 
     //   ],
     // },
-    {
-      title: true,
-      name: 'Ministry',
-      wrapper: {            // optional wrapper object
-        element: '',        // required valid HTML5 element tag
-        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
-      },
-      class: ''             // optional class names space delimited list for title item ex: "text-center"
-    },
+    // {
+    //   title: true,
+    //   name: 'Ministry',
+    //   wrapper: {            // optional wrapper object
+    //     element: '',        // required valid HTML5 element tag
+    //     attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+    //   },
+    //   class: ''             // optional class names space delimited list for title item ex: "text-center"
+    // },
 
      {
       name: 'Ministry Stores',
-      url: '/ministry/ministry_stores',
+      url: '/ministry_admin/ministry_stores',
       icon: 'icon-home',
       children: [
         {
           name: 'Register Ministry Store',
-          url: '/ministry/ministry_stores/register',
+          url: '/ministry_admin/ministry_stores/register',
           icon: 'icon-plus',
         },
         {
           name: 'Ministry Stores',
-          url: '/ministry/ministry_stores/ministry_stores_list',
+          url: '/ministry_admin/ministry_stores/ministry_stores_list',
           icon: 'icon-list',
         },
 
@@ -67,17 +67,17 @@ export default {
     },
     {
       name: 'RDHS',
-      url: '/ministry/rdhss',
+      url: '/ministry_admin/rdhss',
       icon: 'icon-home',
       children: [
         {
           name: 'Register RDHS',
-          url: '/ministry/rdhss/register',
+          url: '/ministry_admin/rdhss/register',
           icon: 'icon-plus',
         },
         {
           name: 'RDHS List',
-          url: '/ministry/rdhss/rdhs_list',
+          url: '/ministry_admin/rdhss/rdhs_list',
           icon: 'icon-list',
         },
 
@@ -85,17 +85,17 @@ export default {
     },
     {
       name: 'Hospital by RDHS',
-      url: '/ministry/hospital_by_rdhs',
+      url: '/ministry_admin/hospital_by_rdhs',
       icon: 'icon-home',
       children: [
         {
           name: 'Register RDHSHospital',
-          url: '/ministry/hospital_by_rdhs/register',
+          url: '/ministry_admin/hospital_by_rdhs/register',
           icon: 'icon-plus',
         },
         {
           name: 'RDHS Hospital List',
-          url: '/ministry/hospital_by_rdhs/hospital_by_rdhs_list',
+          url: '/ministry_admin/hospital_by_rdhs/hospital_by_rdhs_list',
           icon: 'icon-list',
         },
 
@@ -103,17 +103,17 @@ export default {
     },
     {
       name: 'Direct Hospital',
-      url: '/ministry/direct_hospitals',
+      url: '/ministry_admin/direct_hospitals',
       icon: 'icon-home',
       children: [
         {
           name: 'Register Direct Hospitals',
-          url: '/ministry/direct_hospitals/register',
+          url: '/ministry_admin/direct_hospitals/register',
           icon: 'icon-plus',
         },
         {
           name: 'Direct Hospitals',
-          url: '/ministry/direct_hospitals/direct_hospitals',
+          url: '/ministry_admin/direct_hospitals/direct_hospitals',
           icon: 'icon-list',
         },
 
@@ -122,50 +122,50 @@ export default {
 
     {
       name: 'Users',
-      url: '/user',
+      url: '/ministry_admin/user',
       icon: 'icon-home',
       children: [
         {
           name: 'Register User',
-          url: '/user/register',
+          url: '/ministry_admin/user/register',
           icon: 'icon-plus',
         },
         {
           name: 'Users',
-          url: '/user/user_list',
+          url: '/ministry_admin/user/user_list',
           icon: 'icon-list',
         },
 
       ],
     },
 
-    {
-      name: 'Pages',
-      url: '/pages',
-      icon: 'icon-star',
-      children: [
-        {
-          name: 'Login',
-          url: '/login',
-          icon: 'icon-star',
-        },
-        {
-          name: 'Register',
-          url: '/register',
-          icon: 'icon-star',
-        },
-        {
-          name: 'Error 404',
-          url: '/404',
-          icon: 'icon-star',
-        },
-        {
-          name: 'Error 500',
-          url: '/500',
-          icon: 'icon-star',
-        },
-      ],
-    },
+    // {
+    //   name: 'Pages',
+    //   url: '/pages',
+    //   icon: 'icon-star',
+    //   children: [
+    //     {
+    //       name: 'Login',
+    //       url: '/login',
+    //       icon: 'icon-star',
+    //     },
+    //     {
+    //       name: 'Register',
+    //       url: '/register',
+    //       icon: 'icon-star',
+    //     },
+    //     {
+    //       name: 'Error 404',
+    //       url: '/404',
+    //       icon: 'icon-star',
+    //     },
+    //     {
+    //       name: 'Error 500',
+    //       url: '/500',
+    //       icon: 'icon-star',
+    //     },
+    //   ],
+    // },
     
     // {
     //   name: 'WareHouse',
