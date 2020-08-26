@@ -1,6 +1,6 @@
 import DefaultLayout from './DefaultLayout';
-import DefaultLayout2 from './DefaultLayout2';
-import DefaultLayout3 from './DefaultLayout3';
+import MinistryAdminLayout from './MinistryAdminLayout';
+import MinisterLayout from './MinisterLayout';
 
 
-export { DefaultLayout , DefaultLayout2 , DefaultLayout3};
+export { DefaultLayout , MinistryAdminLayout , MinisterLayout};
