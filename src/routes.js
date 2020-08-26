@@ -38,8 +38,9 @@ const ButtonGroups = React.lazy(() => import('./views/Buttons/ButtonGroups'));
 const Buttons = React.lazy(() => import('./views/Buttons/Buttons'));
 const Charts = React.lazy(() => import('./views/Charts'));
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
-const Dashboard2 = React.lazy(() => import('./views/Dashboard2'));
-const Dashboard3 = React.lazy(() => import('./views/Dashboard3'));
+const DashboardMinistryAdmin = React.lazy(() => import('./views/DashboardMinistryAdmin'));
+const DashboardMinister = React.lazy(() => import('./views/DashboardMinister'));
+const DashboardMinistryStockKeeper = React.lazy(() => import('./views/DashboardMinistryStockKeeper'));
 const ImportStock = React.lazy(() => import('./views/ImportStock'));
 const ImportStockForm = React.lazy(() => import('./views/ImportStockForm'));
 const CurrentStock = React.lazy(() => import('./views/CurrentStock'));
@@ -97,8 +98,9 @@ const MinistryStoreDetail = React.lazy(() => import('./views/Ministry Store/Mini
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home'},
-  { path: '/ministry_admin', exact: true, name: 'Home2', component: Dashboard2},
-  { path: '/minister', exact: true, name: 'Home3', component: Dashboard3},
+  // { path: '/ministry_admin', exact: true, name: 'Ministry Admin', component: DashboardMinistryAdmin},
+  // { path: '/minister', exact: true, name: 'Minister', component: DashboardMinister},
+  // { path: '/ministry_stock_keeper', exact: true, name: 'Ministry Stock Keeper', component: DashboardMinistryStockKeeper},
 
   //  { path: '/3', exact: true, name: 'Home3', component: Dashboard},// Same layouts different components
   
@@ -116,8 +118,9 @@ const routes = [
   { path: '/rhexpire', name: 'Rdhs_Hospital_Expiration', component: RdhsHospitalExpireDrug },
   { path: '/rdhoslog', name: 'Rdhs_Hospital_Current_Stock', component: Rdhs_Hospital_Login },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  { path: '/dashboard2', name: 'Dashboard2', component: Dashboard2 },
-   { path: '/dashboard3', name: 'Dashboard3', component: Dashboard3 },
+  { path: '/DashboardMinistryAdmin', name: 'DashboardMinistryAdmin', component: DashboardMinistryAdmin },
+   { path: '/DashboardMinister', name: 'DashboardMinister', component: DashboardMinister },
+   { path: '/DashboardMinistryStockKeeper', name: 'DashboardMinistryStockKeeper', component: DashboardMinistryStockKeeper },
   { path: '/importstock', name: 'ImportStock', component: ImportStock },
   { path: '/importstockform', name: 'ImportStockForm', component: ImportStockForm },
   { path: '/currentstock', name: 'CurrentStock', component: CurrentStock },

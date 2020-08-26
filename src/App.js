@@ -9,6 +9,7 @@ const loading = () => <div className="animated fadeIn pt-3 text-center">Loading.
 const DefaultLayout = React.lazy(() => import('./containers/DefaultLayout'));
 const MinistryAdminLayout = React.lazy(() => import('./containers/MinistryAdminLayout'));
 const MinisterLayout = React.lazy(() => import('./containers/MinisterLayout'));
+const MinistryStockKeeperLayout = React.lazy(() => import('./containers/MinistryStockKeeperLayout'));
 
 
 // Pages
@@ -28,8 +29,9 @@ class App extends Component {
               <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>} />
               <Route exact path="/404" name="Page 404" render={props => <Page404 {...props}/>} />
               <Route exact path="/500" name="Page 500" render={props => <Page500 {...props}/>} />
-              <Route path="/ministry_admin" name="Home2" render={props => <MinistryAdminLayout {...props}/>} />
-              <Route path="/minister" name="Home3" render={props => <MinisterLayout {...props}/>} />
+              <Route path="/ministry_admin" name="Ministry Admin" render={props => <MinistryAdminLayout {...props}/>} />
+              <Route path="/minister" name="Minister" render={props => <MinisterLayout {...props}/>} />
+              <Route path="/ministry_stock_keeper" name="Ministry Stock Keeper" render={props => <MinistryStockKeeperLayout {...props}/>} />
 
               {/*<Route path="/ministry" name="Home2" render={props => <MinisterLayout {...props}/>} />*/}
 

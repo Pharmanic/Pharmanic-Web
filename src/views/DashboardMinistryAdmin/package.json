@@ -1,0 +1,6 @@
+{
+  "name": "DashboardMinistryAdmin",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./DashboardMinistryAdmin.js"
+}
