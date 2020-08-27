@@ -8,9 +8,11 @@ import RDHSAdminLayout from './RDHSAdminLayout';
 import RDHSDirectorLayout from './RDHSDirectorLayout';
 import RDHSStockKeeperLayout from './RDHSStockKeeperLayout';
 import DirectHospitalAdminLayout from './DirectHospitalAdminLayout';
+import DirectHospitalDoctorInChargeLayout from './DirectHospitalDoctorInChargeLayout';
 
 
 
 
 
-export { DefaultLayout , MinistryAdminLayout , MinisterLayout , MinistryStockKeeperLayout, MinistryStoreAdminLayout, MinistryStoreStockKeeperLayout, RDHSAdminLayout , RDHSDirectorLayout , RDHSStockKeeperLayout, DirectHospitalAdminLayout};
+
+export { DefaultLayout , MinistryAdminLayout , MinisterLayout , MinistryStockKeeperLayout, MinistryStoreAdminLayout, MinistryStoreStockKeeperLayout, RDHSAdminLayout , RDHSDirectorLayout , RDHSStockKeeperLayout, DirectHospitalAdminLayout, DirectHospitalDoctorInChargeLayout};

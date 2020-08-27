@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: 'Dashboard',
-      url: '/direct_hospital_admin',
+      url: '/direct_hospital_doctor_incharge',
       icon: 'icon-speedometer',
       badge: {
         variant: 'info',
@@ -12,22 +12,22 @@ export default {
 
      {
           name: 'Ministry Stores',
-          url: '/direct_hospital_admin/ministry_stores/ministry_stores_list',
+          url: '/direct_hospital_doctor_incharge/ministry_stores/ministry_stores_list',
           icon: 'icon-list',
         },
           {
-          name: 'direct_hospital List',
-          url: '/direct_hospital_admin/rdhss/rdhs_list',
+          name: 'RDHS List',
+          url: '/direct_hospital_doctor_incharge/rdhss/rdhs_list',
           icon: 'icon-list',
         },
         {
           name: 'RDHS Hospital List',
-          url: '/direct_hospital_admin/hospital_by_rdhs/hospital_by_rdhs_list',
+          url: '/direct_hospital_doctor_incharge/hospital_by_rdhs/hospital_by_rdhs_list',
           icon: 'icon-list',
         },
          {
           name: 'Direct Hospitals',
-          url: '/direct_hospital_admin/direct_hospitals/direct_hospitals',
+          url: '/direct_hospital_doctor_incharge/direct_hospitals/direct_hospitals',
           icon: 'icon-list',
         },
 

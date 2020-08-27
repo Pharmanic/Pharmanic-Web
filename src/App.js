@@ -16,9 +16,7 @@ const RDHSAdminLayout = React.lazy(() => import('./containers/RDHSAdminLayout'))
 const RDHSDirectorLayout = React.lazy(() => import('./containers/RDHSDirectorLayout'));
 const RDHSStockKeeperLayout = React.lazy(() => import('./containers/RDHSStockKeeperLayout'));
 const DirectHospitalAdminLayout = React.lazy(() => import('./containers/DirectHospitalAdminLayout'));
-
-
-
+const DirectHospitalDoctorInChargeLayout = React.lazy(() => import('./containers/DirectHospitalDoctorInChargeLayout'));
 
 
 // Pages
@@ -47,6 +45,7 @@ class App extends Component {
               <Route path="/rdhs_director" name="RDHS Director" render={props => <RDHSDirectorLayout {...props}/>} />
               <Route path="/rdhs_stock_keeper" name="RDHS Director" render={props => <RDHSStockKeeperLayout {...props}/>} />
               <Route path="/direct_hospital_admin" name="Direct Hospital Admin" render={props => <DirectHospitalAdminLayout {...props}/>} />
+              <Route path="/direct_hospital_doctor_incharge" name="Direct Hospital Doctor Incharge" render={props => <DirectHospitalDoctorInChargeLayout {...props}/>} />
 
 
               {/*<Route path="/ministry" name="Home2" render={props => <MinisterLayout {...props}/>} />*/}
