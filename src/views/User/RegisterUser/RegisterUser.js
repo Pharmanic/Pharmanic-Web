@@ -151,6 +151,20 @@ export default class Register extends Component {
       .then(response => response.json())
       .then(data => this.setState({ministryStores: data}));
 
+        //get direct hospital list
+    fetch('/direct_hospital/direct_hospital_list', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
+      .then(response => response.json())
+      .then(data => this.setState({directHospitals: data}));
+
 
   }
 
@@ -244,6 +258,16 @@ export default class Register extends Component {
     });
      }
 
+     if (e.target.value == 'direct_hospital_admin') {
+       this.setState({
+       isDirectHospital: true
+    });
+     }else{
+       this.setState({
+       isDirectHospital: false
+    });
+     }
+
 if (e.target.value == 'ministry') {
        this.setState({
        isMinistry: true
@@ -303,7 +327,7 @@ if (e.target.value == 'ministry') {
 
   render() {
      
-    const {roles,rdhss,rdhsHospitals,ministryStores,rdhs} = this.state;
+    const {roles,rdhss,rdhsHospitals,ministryStores,rdhs,directHospitals} = this.state;
     
     const rolesList = roles.map(role => {
       return <option
@@ -321,11 +345,19 @@ if (e.target.value == 'ministry') {
       </option>
     });
 
-     const rdhsHospitalList = rdhsHospitals.map(rdhHospitals => {
+     const rdhsHospitalList = rdhsHospitals.map(rdhsHospital => {
       return <option
-        key={rdhHospitals.reg_no}
-        value={rdhHospitals.name}>
-        {rdhHospitals.name}
+        key={rdhsHospital.reg_no}
+        value={rdhsHospital.name}>
+        {rdhsHospital.name}
+      </option>
+    });
+
+     const directHospitalList = directHospitals.map(directHospital => {
+      return <option
+        key={directHospital.reg_no}
+        value={directHospital.name}>
+        {directHospital.name}
       </option>
     });
 
@@ -424,6 +456,18 @@ if (e.target.value == 'ministry') {
                       </Input>
                 </div>
                   ) }
+
+               {this.state.isDirectHospital && (
+                 <div className="form-group"  >
+                  <label htmlFor="role">Direct Hospital</label>
+             
+                       <Input type="select" name="branch" id="rdhs" value={this.state.branch || ''} onChange={this.onChangeBranch} >
+                        <option>Select Direct Hospital</option>
+                        {directHospitalList}
+                      </Input>
+                </div>
+                  ) }    
+
                   {/*{this.state.isMinistry && (
                  <div className="form-group"  >
                   <label htmlFor="role">Ministry</label>
