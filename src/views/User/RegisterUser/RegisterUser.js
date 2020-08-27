@@ -224,6 +224,26 @@ export default class Register extends Component {
     });
      }
 
+       if (e.target.value == 'rdhs_director') {
+       this.setState({
+       isRDHS: true
+    });
+     }else{
+       this.setState({
+       isRDHS: false
+    });
+     }
+
+       if (e.target.value == 'rdhs_stock_keeper') {
+       this.setState({
+       isRDHS: true
+    });
+     }else{
+       this.setState({
+       isRDHS: false
+    });
+     }
+
 if (e.target.value == 'ministry') {
        this.setState({
        isMinistry: true

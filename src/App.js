@@ -14,6 +14,8 @@ const MinistryStoreAdminLayout = React.lazy(() => import('./containers/MinistryS
 const MinistryStoreStockKeeperLayout = React.lazy(() => import('./containers/MinistryStoreStockKeeperLayout'));
 const RDHSAdminLayout = React.lazy(() => import('./containers/RDHSAdminLayout'));
 const RDHSDirectorLayout = React.lazy(() => import('./containers/RDHSDirectorLayout'));
+const RDHSStockKeeperLayout = React.lazy(() => import('./containers/RDHSStockKeeperLayout'));
+
 
 
 
@@ -41,6 +43,7 @@ class App extends Component {
               <Route path="/ministry_store_stock_keeper" name="Ministry Store Stock Keeper" render={props => <MinistryStoreStockKeeperLayout {...props}/>} />
               <Route path="/rdhs_admin" name="RDHS Admin" render={props => <RDHSAdminLayout {...props}/>} />
               <Route path="/rdhs_director" name="RDHS Director" render={props => <RDHSDirectorLayout {...props}/>} />
+              <Route path="/rdhs_stock_keeper" name="RDHS Director" render={props => <RDHSStockKeeperLayout {...props}/>} />
 
 
               {/*<Route path="/ministry" name="Home2" render={props => <MinisterLayout {...props}/>} />*/}
