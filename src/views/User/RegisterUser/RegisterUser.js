@@ -204,6 +204,16 @@ export default class Register extends Component {
     });
      }
 
+     if (e.target.value == 'ministry_store_stock_keeper') {
+       this.setState({
+       isMinistryStore: true
+    });
+     }else{
+       this.setState({
+       isMinistryStore: false
+    });
+     }
+
 if (e.target.value == 'ministry') {
        this.setState({
        isMinistry: true

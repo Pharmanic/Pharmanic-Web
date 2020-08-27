@@ -11,7 +11,7 @@ const MinistryAdminLayout = React.lazy(() => import('./containers/MinistryAdminL
 const MinisterLayout = React.lazy(() => import('./containers/MinisterLayout'));
 const MinistryStockKeeperLayout = React.lazy(() => import('./containers/MinistryStockKeeperLayout'));
 const MinistryStoreAdminLayout = React.lazy(() => import('./containers/MinistryStoreAdminLayout'));
-
+const MinistryStoreStockKeeperLayout = React.lazy(() => import('./containers/MinistryStoreStockKeeperLayout'));
 
 
 // Pages
@@ -35,6 +35,7 @@ class App extends Component {
               <Route path="/minister" name="Minister" render={props => <MinisterLayout {...props}/>} />
               <Route path="/ministry_stock_keeper" name="Ministry Stock Keeper" render={props => <MinistryStockKeeperLayout {...props}/>} />
               <Route path="/ministry_store_admin" name="Ministry Store Admin" render={props => <MinistryStoreAdminLayout {...props}/>} />
+              <Route path="/ministry_store_stock_keeper" name="Ministry Store Stock Keeper" render={props => <MinistryStoreStockKeeperLayout {...props}/>} />
 
 
               {/*<Route path="/ministry" name="Home2" render={props => <MinisterLayout {...props}/>} />*/}

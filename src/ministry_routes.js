@@ -1,4 +1,5 @@
 import React from 'react';
+import { exact } from 'prop-types';
 
 
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
@@ -103,7 +104,7 @@ const routes = [
 
 
 
-  //
+  
 
   
 
