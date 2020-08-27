@@ -41,6 +41,7 @@ const Dashboard = React.lazy(() => import('./views/Dashboard'));
 const DashboardMinistryAdmin = React.lazy(() => import('./views/DashboardMinistryAdmin'));
 const DashboardMinister = React.lazy(() => import('./views/DashboardMinister'));
 const DashboardMinistryStockKeeper = React.lazy(() => import('./views/DashboardMinistryStockKeeper'));
+const DashboardMinistryStoreAdmin = React.lazy(() => import('./views/DashboardMinistryStoreAdmin'));
 const ImportStock = React.lazy(() => import('./views/ImportStock'));
 const ImportStockForm = React.lazy(() => import('./views/ImportStockForm'));
 const CurrentStock = React.lazy(() => import('./views/CurrentStock'));
@@ -98,9 +99,10 @@ const MinistryStoreDetail = React.lazy(() => import('./views/Ministry Store/Mini
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home'},
-  // { path: '/ministry_admin', exact: true, name: 'Ministry Admin', component: DashboardMinistryAdmin},
-  // { path: '/minister', exact: true, name: 'Minister', component: DashboardMinister},
-  // { path: '/ministry_stock_keeper', exact: true, name: 'Ministry Stock Keeper', component: DashboardMinistryStockKeeper},
+  { path: '/ministry_admin', exact: true, name: 'Ministry Admin', component: DashboardMinistryAdmin},
+  { path: '/minister', exact: true, name: 'Minister', component: DashboardMinister},
+  { path: '/ministry_stock_keeper', exact: true, name: 'Ministry Stock Keeper', component: DashboardMinistryStockKeeper},
+  { path: '/ministry_store_admin', exact: true, name: 'Ministry Store Admin', component: DashboardMinistryStoreAdmin},
 
   //  { path: '/3', exact: true, name: 'Home3', component: Dashboard},// Same layouts different components
   
@@ -121,6 +123,7 @@ const routes = [
   { path: '/DashboardMinistryAdmin', name: 'DashboardMinistryAdmin', component: DashboardMinistryAdmin },
    { path: '/DashboardMinister', name: 'DashboardMinister', component: DashboardMinister },
    { path: '/DashboardMinistryStockKeeper', name: 'DashboardMinistryStockKeeper', component: DashboardMinistryStockKeeper },
+   { path: '/DashboardMinistryStoreAdmin', name: 'DashboardMinistryStoreAdmin', component: DashboardMinistryStoreAdmin },
   { path: '/importstock', name: 'ImportStock', component: ImportStock },
   { path: '/importstockform', name: 'ImportStockForm', component: ImportStockForm },
   { path: '/currentstock', name: 'CurrentStock', component: CurrentStock },

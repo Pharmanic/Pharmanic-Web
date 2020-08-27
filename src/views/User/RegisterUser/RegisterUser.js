@@ -194,6 +194,26 @@ export default class Register extends Component {
     });
      }
 
+      if (e.target.value == 'ministry_store_admin') {
+       this.setState({
+       isMinistryStore: true
+    });
+     }else{
+       this.setState({
+       isMinistryStore: false
+    });
+     }
+
+     if (e.target.value == 'ministry_store_stock_keeper') {
+       this.setState({
+       isMinistryStore: true
+    });
+     }else{
+       this.setState({
+       isMinistryStore: false
+    });
+     }
+
 if (e.target.value == 'ministry') {
        this.setState({
        isMinistry: true
@@ -352,6 +372,17 @@ if (e.target.value == 'ministry') {
                         {rolesList}
                       </Input>
                 </div>
+
+                 {this.state.isMinistryStore && (
+                 <div className="form-group"  >
+                  <label htmlFor="role">Ministry Store</label>
+             
+                       <Input type="select" name="branch" id="rdhs" value={this.state.branch || ''} onChange={this.onChangeBranch} >
+                        <option>Select Ministry Store</option>
+                        {ministryStoreList}
+                      </Input>
+                </div>
+                  ) }
 
                   {this.state.isRdhs && (
                  <div className="form-group"  >
