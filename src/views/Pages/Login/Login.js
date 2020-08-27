@@ -78,6 +78,8 @@ class Login extends Component {
              this.props.history.push("/ministry_store_admin");
           }else if(this.state.user_type=='ministry_store_stock_keeper'){
              this.props.history.push("/ministry_store_stock_keeper");
+          }else if(this.state.user_type=='rdhs_admin'){
+             this.props.history.push("/rdhs_admin");
           }else{
              this.props.history.push("/ministry");
           }

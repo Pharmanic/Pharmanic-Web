@@ -1,0 +1,6 @@
+{
+  "name": "RDHSAdminLayout",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./RDHSAdminLayout.js"
+}

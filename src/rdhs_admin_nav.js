@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: 'Dashboard',
-      url: '/ministry_store_stock_keeper',
+      url: '/rdhs_admin',
       icon: 'icon-speedometer',
       badge: {
         variant: 'info',
@@ -10,26 +10,53 @@ export default {
       },
     },
 
-      {
+     {
           name: 'Ministry Stores',
-          url: '/ministry_store_stock_keeper/ministry_stores/ministry_stores_list',
+          url: '/rdhs_admin/ministry_stores/ministry_stores_list',
+          icon: 'icon-list',
+        },
+          {
+          name: 'RDHS List',
+          url: '/rdhs_admin/rdhss/rdhs_list',
+          icon: 'icon-list',
+        },
+        {
+          name: 'RDHS Hospital List',
+          url: '/rdhs_admin/hospital_by_rdhs/hospital_by_rdhs_list',
           icon: 'icon-list',
         },
          {
-          name: 'RDHS List',
-          url: '/ministry_store_stock_keeper/rdhss/rdhs_list',
-          icon: 'icon-list',
-        },
-          {
-          name: 'RDHS Hospital List',
-          url: '/ministry_store_stock_keeper/hospital_by_rdhs/hospital_by_rdhs_list',
-          icon: 'icon-list',
-        },
-          {
           name: 'Direct Hospitals',
-          url: '/ministry_store_stock_keeper/direct_hospitals/direct_hospitals',
+          url: '/rdhs_admin/direct_hospitals/direct_hospitals',
           icon: 'icon-list',
         },
+
+    // {
+    //       name: 'Ministry Stores',
+    //       url: '/minister/ministry_stores/ministry_stores_list',
+    //       icon: 'icon-list',
+    //     },
+    //       {
+    //       name: 'RDHS List',
+    //       url: '/minister/rdhss/rdhs_list',
+    //       icon: 'icon-list',
+    //     },
+    //     {
+    //       name: 'RDHS Hospital List',
+    //       url: '/minister/hospital_by_rdhs/hospital_by_rdhs_list',
+    //       icon: 'icon-list',
+    //     },
+    //      {
+    //       name: 'Direct Hospitals',
+    //       url: '/minister/direct_hospitals/direct_hospitals',
+    //       icon: 'icon-list',
+    //     },
+
+    //    {
+    //       name: 'Users',
+    //       url: '/minister/user/user_list',
+    //       icon: 'icon-list',
+    //     },
     // {
     //   name: 'Hospital By RDHS',
     // ///  url: '/ministry_stores',
@@ -70,17 +97,17 @@ export default {
 
     //  {
     //   name: 'Ministry Stores',
-    //   url: '/ministry_admin/ministry_stores',
+    //   url: '/minister/ministry_stores',
     //   icon: 'icon-home',
     //   children: [
     //     {
     //       name: 'Register Ministry Store',
-    //       url: '/ministry_admin/ministry_stores/register',
+    //       url: '/minister/ministry_stores/register',
     //       icon: 'icon-plus',
     //     },
     //     {
     //       name: 'Ministry Stores',
-    //       url: '/ministry_admin/ministry_stores/ministry_stores_list',
+    //       url: '/minister/ministry_stores/ministry_stores_list',
     //       icon: 'icon-list',
     //     },
 
@@ -88,17 +115,17 @@ export default {
     // },
     // {
     //   name: 'RDHS',
-    //   url: '/ministry_admin/rdhss',
+    //   url: '/minister/rdhss',
     //   icon: 'icon-home',
     //   children: [
     //     {
     //       name: 'Register RDHS',
-    //       url: '/ministry_admin/rdhss/register',
+    //       url: '/minister/rdhss/register',
     //       icon: 'icon-plus',
     //     },
     //     {
     //       name: 'RDHS List',
-    //       url: '/ministry_admin/rdhss/rdhs_list',
+    //       url: '/minister/rdhss/rdhs_list',
     //       icon: 'icon-list',
     //     },
 
@@ -106,17 +133,17 @@ export default {
     // },
     // {
     //   name: 'Hospital by RDHS',
-    //   url: '/ministry_admin/hospital_by_rdhs',
+    //   url: '/minister/hospital_by_rdhs',
     //   icon: 'icon-home',
     //   children: [
     //     {
     //       name: 'Register RDHSHospital',
-    //       url: '/ministry_admin/hospital_by_rdhs/register',
+    //       url: '/minister/hospital_by_rdhs/register',
     //       icon: 'icon-plus',
     //     },
     //     {
     //       name: 'RDHS Hospital List',
-    //       url: '/ministry_admin/hospital_by_rdhs/hospital_by_rdhs_list',
+    //       url: '/minister/hospital_by_rdhs/hospital_by_rdhs_list',
     //       icon: 'icon-list',
     //     },
 
@@ -124,17 +151,17 @@ export default {
     // },
     // {
     //   name: 'Direct Hospital',
-    //   url: '/ministry_admin/direct_hospitals',
+    //   url: '/minister/direct_hospitals',
     //   icon: 'icon-home',
     //   children: [
     //     {
     //       name: 'Register Direct Hospitals',
-    //       url: '/ministry_admin/direct_hospitals/register',
+    //       url: '/minister/direct_hospitals/register',
     //       icon: 'icon-plus',
     //     },
     //     {
     //       name: 'Direct Hospitals',
-    //       url: '/ministry_admin/direct_hospitals/direct_hospitals',
+    //       url: '/minister/direct_hospitals/direct_hospitals',
     //       icon: 'icon-list',
     //     },
 
@@ -143,17 +170,17 @@ export default {
 
     // {
     //   name: 'Users',
-    //   url: '/ministry_admin/user',
+    //   url: '/minister/user',
     //   icon: 'icon-home',
     //   children: [
     //     {
     //       name: 'Register User',
-    //       url: '/ministry_admin/user/register',
+    //       url: '/minister/user/register',
     //       icon: 'icon-plus',
     //     },
     //     {
     //       name: 'Users',
-    //       url: '/ministry_admin/user/user_list',
+    //       url: '/minister/user/user_list',
     //       icon: 'icon-list',
     //     },
 
