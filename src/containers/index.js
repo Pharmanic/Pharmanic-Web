@@ -5,6 +5,8 @@ import MinistryStockKeeperLayout from './MinistryStockKeeperLayout';
 import MinistryStoreAdminLayout from './MinistryStoreAdminLayout';
 import MinistryStoreStockKeeperLayout from './MinistryStoreStockKeeperLayout';
 import RDHSAdminLayout from './RDHSAdminLayout';
+import RDHSDirectorLayout from './RDHSDirectorLayout';
 
 
-export { DefaultLayout , MinistryAdminLayout , MinisterLayout , MinistryStockKeeperLayout, MinistryStoreAdminLayout, MinistryStoreStockKeeperLayout, RDHSAdminLayout};
+
+export { DefaultLayout , MinistryAdminLayout , MinisterLayout , MinistryStockKeeperLayout, MinistryStoreAdminLayout, MinistryStoreStockKeeperLayout, RDHSAdminLayout , RDHSDirectorLayout};
