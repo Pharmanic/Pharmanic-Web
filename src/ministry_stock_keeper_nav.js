@@ -10,9 +10,31 @@ export default {
       },
     },
 
+ {
+          name: 'Ministry Stores',
+          url: '/ministry_stock_keeper/ministry_stores/ministry_stores_list',
+          icon: 'icon-list',
+        },
+         {
+          name: 'RDHS List',
+          url: '/ministry_stock_keeper/rdhss/rdhs_list',
+          icon: 'icon-list',
+        },
+          {
+          name: 'RDHS Hospital List',
+          url: '/ministry_stock_keeper/hospital_by_rdhs/hospital_by_rdhs_list',
+          icon: 'icon-list',
+        },
+          {
+          name: 'Direct Hospitals',
+          url: '/ministry_stock_keeper/direct_hospitals/direct_hospitals',
+          icon: 'icon-list',
+        },
+
+
     // {
     //       name: 'Ministry Stores',
-    //       url: '/minister/ministry_stores/ministry_stores_list',
+    //       url: '/ministry_stock_keeper/ministry_stores/ministry_stores_list',
     //       icon: 'icon-list',
     //     },
     //       {

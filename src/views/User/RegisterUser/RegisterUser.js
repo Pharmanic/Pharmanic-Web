@@ -184,15 +184,15 @@ export default class Register extends Component {
       role: e.target.value
     });
 
-     if (e.target.value == 'rdhs_user') {
-       this.setState({
-       isRdhs: true
-    });
-     }else{
-       this.setState({
-       isRdhs: false
-    });
-     }
+    //  if (e.target.value == 'rdhs_user') {
+    //    this.setState({
+    //    isRdhs: true
+    // });
+    //  }else{
+    //    this.setState({
+    //    isRdhs: false
+    // });
+    //  }
 
       if (e.target.value == 'ministry_store_admin') {
        this.setState({
@@ -211,6 +211,36 @@ export default class Register extends Component {
      }else{
        this.setState({
        isMinistryStore: false
+    });
+     }
+
+     if (e.target.value == 'rdhs_admin') {
+       this.setState({
+       isRDHS: true
+    });
+     }else{
+       this.setState({
+       isRDHS: false
+    });
+     }
+
+       if (e.target.value == 'rdhs_director') {
+       this.setState({
+       isRDHS: true
+    });
+     }else{
+       this.setState({
+       isRDHS: false
+    });
+     }
+
+       if (e.target.value == 'rdhs_stock_keeper') {
+       this.setState({
+       isRDHS: true
+    });
+     }else{
+       this.setState({
+       isRDHS: false
     });
      }
 
@@ -384,7 +414,7 @@ if (e.target.value == 'ministry') {
                 </div>
                   ) }
 
-                  {this.state.isRdhs && (
+                  {this.state.isRDHS && (
                  <div className="form-group"  >
                   <label htmlFor="role">Rdhs</label>
              

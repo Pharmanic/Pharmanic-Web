@@ -94,6 +94,29 @@ const routes = [
 
   //ministry stock keeper
 
+  { path: '/ministry_stock_keeper/ministry_stores', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
+  { path: '/ministry_stock_keeper/ministry_stores/ministry_stores_list', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
+  // { path: '/minister/ministry_stores/register', exact: true, name: 'Ministry Store Registration', component: MinistryStoreRegister },
+  { path: '/ministry_stock_keeper/ministry_store_detail/:id', name: 'Ministry Store Detail', component: MinistryStoreDetail },
+
+
+  { path: '/ministry_stock_keeper/rdhss', exact: true, name: 'RDHS', component: RDHSList },
+  { path: '/ministry_stock_keeper/rdhss/rdhs_list', exact: true, name: 'RDHS List', component: RDHSList },
+  // { path: '/minister/rdhss/register', exact: true, name: 'RDHS Registration', component: RDHSRegister },
+  { path: '/ministry_stock_keeper/rdhs_detail/:id', name: 'RDHS Detail', component: RDHSDetail },
+
+
+  { path: '/ministry_stock_keeper/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
+  { path: '/ministry_stock_keeper/direct_hospitals/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
+  // { path: '/minister/direct_hospitals/register', exact: true, name: 'Direct Hospital Registration', component: DirectHospitalRegister },
+  { path: '/ministry_stock_keeper/direct_hospital_detail/:id', name: 'Direct Hospital Detail', component: DirectHospitalDetail },
+
+  { path: '/ministry_stock_keeper/hospital_by_rdhs', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },
+  { path: '/ministry_stock_keeper/hospital_by_rdhs/hospital_by_rdhs_list', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },
+  // { path: '/minister/hospital_by_rdhs/register', exact: true, name: 'Hospital By RDHS Registration', component: HospitalByRDHSRegister },
+  { path: '/ministry_stock_keeper/hospital_by_rdhs/:id', name: 'Hospital By RDHS Detail', component: HospitalByRDHSDetail },
+
+
 
 
 

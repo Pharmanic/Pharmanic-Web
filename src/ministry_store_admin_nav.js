@@ -15,6 +15,21 @@ export default {
           url: '/ministry_store_admin/ministry_stores/ministry_stores_list',
           icon: 'icon-list',
         },
+            {
+          name: 'RDHS List',
+          url: '/ministry_store_admin/rdhss/rdhs_list',
+          icon: 'icon-list',
+        },
+          {
+          name: 'RDHS Hospital List',
+          url: '/ministry_store_admin/hospital_by_rdhs/hospital_by_rdhs_list',
+          icon: 'icon-list',
+        },
+          {
+          name: 'Direct Hospitals',
+          url: '/ministry_store_admin/direct_hospitals/direct_hospitals',
+          icon: 'icon-list',
+        },
     // {
     //   name: 'Hospital By RDHS',
     // ///  url: '/ministry_stores',
