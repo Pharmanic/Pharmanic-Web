@@ -1,0 +1,6 @@
+{
+  "name": "DashboardDirectHospitalAdmin",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./DashboardDirectHospitalAdmin.js"
+}
