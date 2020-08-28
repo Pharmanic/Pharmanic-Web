@@ -12,7 +12,8 @@ import DirectHospitalDoctorInChargeLayout from './DirectHospitalDoctorInChargeLa
 import DirectHospitalStockKeeperLayout from './DirectHospitalStockKeeperLayout';
 import HospiyalByRDHSAdminLayout from './HospiyalByRDHSAdminLayout';
 import HospiyalByRDHSDoctorInchargeLayout from './HospiyalByRDHSDoctorInchargeLayout';
+import HospiyalByRDHSDoctorInchargeLayout from './HospiyalByRDHSDoctorInchargeLayout';
 
 
 
-export { DefaultLayout , MinistryAdminLayout , MinisterLayout , MinistryStockKeeperLayout, MinistryStoreAdminLayout, MinistryStoreStockKeeperLayout, RDHSAdminLayout , RDHSDirectorLayout , RDHSStockKeeperLayout, DirectHospitalAdminLayout, DirectHospitalDoctorInChargeLayout, DirectHospitalStockKeeperLayout , HospiyalByRDHSAdminLayout , HospiyalByRDHSDoctorInchargeLayout };
+export { DefaultLayout , MinistryAdminLayout , MinisterLayout , MinistryStockKeeperLayout, MinistryStoreAdminLayout, MinistryStoreStockKeeperLayout, RDHSAdminLayout , RDHSDirectorLayout , RDHSStockKeeperLayout, DirectHospitalAdminLayout, DirectHospitalDoctorInChargeLayout, DirectHospitalStockKeeperLayout , HospiyalByRDHSAdminLayout , HospiyalByRDHSDoctorInchargeLayout , HospiyalByRDHSDoctorInchargeLayout };

@@ -5,7 +5,7 @@ import { exact } from 'prop-types';
 // const Dashboard = React.lazy(() => import('./views/Dashboard'));
 const DashboardHospitalByRDHSAdmin = React.lazy(() => import('./views/DashboardHospitalByRDHSAdmin'));
 const DashboardHospitalByRDHSDoctorIncharge = React.lazy(() => import('./views/DashboardHospitalByRDHSDoctorIncharge'));
-// const DashboardHospitalByRDHSStockKeeper = React.lazy(() => import('./views/DashboardHospitalByRDHSDoctorInCharge'));
+const DashboardHospitalByRDHSStockKeeper = React.lazy(() => import('./views/DashboardHospitalByRDHSStockKeeper'));
 
 
 
@@ -30,7 +30,7 @@ const routes = [
   // { path: '/', exact: true, name: 'Home'},
   { path: '/hospital_by_rdhs_admin', exact: true, name: 'Hospital By RDHS Admin Dashboard', component: DashboardHospitalByRDHSAdmin},
   { path: '/hospital_by_rdhs_doctor_incharge', exact: true, name: 'Hospital By RDHS Doctor Incharge Dashboard', component:DashboardHospitalByRDHSDoctorIncharge },
-  // { path: '/direct_hospital_stock_keeper', exact: true, name: 'Hospital By RDHS Stock Keeper Dashboard', component: DashboardDirectHospitalStockKeeper},
+  { path: '/hospital_by_rdhs_stock_keeper', exact: true, name: 'Hospital By RDHS Stock Keeper Dashboard', component: DashboardHospitalByRDHSStockKeeper},
 
   //hospital by rdhs admin
 
@@ -90,29 +90,29 @@ const routes = [
 
 
 
-  //direct hospital stock keeper
+  //hospital stock keeper
 
-  { path: '/direct_hospital_stock_keeper/ministry_stores', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
-  { path: '/direct_hospital_stock_keeper/ministry_stores/ministry_stores_list', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
+  { path: '/hospital_by_rdhs_stock_keeper/ministry_stores', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
+  { path: '/hospital_by_rdhs_stock_keeper/ministry_stores/ministry_stores_list', exact: true, name: 'Ministry Stores', component: MinistryStoresList },
   // { path: '/minister/ministry_stores/register', exact: true, name: 'Ministry Store Registration', component: MinistryStoreRegister },
-  { path: '/direct_hospital_stock_keeper/ministry_store_detail/:id', name: 'Ministry Store Detail', component: MinistryStoreDetail },
+  { path: '/hospital_by_rdhs_stock_keeper/ministry_store_detail/:id', name: 'Ministry Store Detail', component: MinistryStoreDetail },
 
 
-  { path: '/direct_hospital_stock_keeper/rdhss', exact: true, name: 'RDHS', component: RDHSList },
-  { path: '/direct_hospital_stock_keeper/rdhss/rdhs_list', exact: true, name: 'RDHS List', component: RDHSList },
+  { path: '/hospital_by_rdhs_stock_keeper/rdhss', exact: true, name: 'RDHS', component: RDHSList },
+  { path: '/hospital_by_rdhs_stock_keeper/rdhss/rdhs_list', exact: true, name: 'RDHS List', component: RDHSList },
   // { path: '/minister/rdhss/register', exact: true, name: 'RDHS Registration', component: RDHSRegister },
-  { path: '/direct_hospital_stock_keeper/rdhs_detail/:id', name: 'RDHS Detail', component: RDHSDetail },
+  { path: '/hospital_by_rdhs_stock_keeper/rdhs_detail/:id', name: 'RDHS Detail', component: RDHSDetail },
 
 
-  { path: '/direct_hospital_stock_keeper/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
-  { path: '/direct_hospital_stock_keeper/direct_hospitals/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
+  { path: '/hospital_by_rdhs_stock_keeper/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
+  { path: '/hospital_by_rdhs_stock_keeper/direct_hospitals/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
   // { path: '/minister/direct_hospitals/register', exact: true, name: 'Direct Hospital Registration', component: DirectHospitalRegister },
-  { path: '/direct_hospital_stock_keeper/direct_hospital_detail/:id', name: 'Direct Hospital Detail', component: DirectHospitalDetail },
+  { path: '/hospital_by_rdhs_stock_keeper/direct_hospital_detail/:id', name: 'Direct Hospital Detail', component: DirectHospitalDetail },
 
-  { path: '/direct_hospital_stock_keeper/hospital_by_rdhs', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },
-  { path: '/direct_hospital_stock_keeper/hospital_by_rdhs/hospital_by_rdhs_list', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },
+  { path: '/hospital_by_rdhs_stock_keeper/hospital_by_rdhs', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },
+  { path: '/hospital_by_rdhs_stock_keeper/hospital_by_rdhs/hospital_by_rdhs_list', exact: true, name: 'Hospitals By RDHS', component: HospitalByRDHSList },
   // { path: '/minister/hospital_by_rdhs/register', exact: true, name: 'Hospital By RDHS Registration', component: HospitalByRDHSRegister },
-  { path: '/direct_hospital_stock_keeper/hospital_by_rdhs/:id', name: 'Hospital By RDHS Detail', component: HospitalByRDHSDetail },
+  { path: '/hospital_by_rdhs_stock_keeper/hospital_by_rdhs/:id', name: 'Hospital By RDHS Detail', component: HospitalByRDHSDetail },
 
 
 
