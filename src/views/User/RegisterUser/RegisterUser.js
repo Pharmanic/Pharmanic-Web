@@ -278,6 +278,16 @@ export default class Register extends Component {
     });
      }
 
+       if (e.target.value == 'direct_hospital_stock_keeper') {
+       this.setState({
+       isDirectHospital: true
+    });
+     }else{
+       this.setState({
+       isDirectHospital: false
+    });
+     }
+
 if (e.target.value == 'ministry') {
        this.setState({
        isMinistry: true
