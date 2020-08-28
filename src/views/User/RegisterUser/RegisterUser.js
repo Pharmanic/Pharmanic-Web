@@ -288,6 +288,36 @@ export default class Register extends Component {
     });
      }
 
+      if (e.target.value == 'hospital_by_rdhs_admin') {
+       this.setState({
+       isHospitalByRDHS: true
+    });
+     }else{
+       this.setState({
+       isHospitalByRDHS: false
+    });
+     }
+
+       if (e.target.value == 'hospital_by_rdhs_doctor_incharge') {
+       this.setState({
+       isHospitalByRDHS: true
+    });
+     }else{
+       this.setState({
+       isHospitalByRDHS: false
+    });
+     }
+
+     if (e.target.value == 'hospital_by_rdhs_stock_keeper') {
+       this.setState({
+       isHospitalByRDHS: true
+    });
+     }else{
+       this.setState({
+       isHospitalByRDHS: false
+    });
+     }
+
 if (e.target.value == 'ministry') {
        this.setState({
        isMinistry: true
@@ -473,6 +503,17 @@ if (e.target.value == 'ministry') {
                        <Input type="select" name="branch" id="rdhs" value={this.state.branch || ''} onChange={this.onChangeBranch} >
                         <option>Select Rdhs</option>
                         {rdhsList}
+                      </Input>
+                </div>
+                  ) }
+
+                     {this.state.isHospitalByRDHS && (
+                 <div className="form-group"  >
+                  <label htmlFor="role">Hospital by RDHS</label>
+             
+                       <Input type="select" name="branch" id="rdhs" value={this.state.branch || ''} onChange={this.onChangeBranch} >
+                        <option>Select Rdhs Hospital</option>
+                        {rdhsHospitalList}
                       </Input>
                 </div>
                   ) }

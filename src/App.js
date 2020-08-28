@@ -18,6 +18,9 @@ const RDHSStockKeeperLayout = React.lazy(() => import('./containers/RDHSStockKee
 const DirectHospitalAdminLayout = React.lazy(() => import('./containers/DirectHospitalAdminLayout'));
 const DirectHospitalDoctorInChargeLayout = React.lazy(() => import('./containers/DirectHospitalDoctorInChargeLayout'));
 const DirectHospitalStockKeeperLayout = React.lazy(() => import('./containers/DirectHospitalStockKeeperLayout'));
+const HospitalByRDHSAdminLayout = React.lazy(() => import('./containers/HospitalByRDHSAdminLayout'));
+const HospitalByRDHSDoctorInchargeLayout = React.lazy(() => import('./containers/HospitalByRDHSDoctorInchargeLayout'));
+const HospitalByRDHSStockKeeperLayout = React.lazy(() => import('./containers/HospitalByRDHSStockKeeperLayout'));
 
 
 // Pages
@@ -48,6 +51,9 @@ class App extends Component {
               <Route path="/direct_hospital_admin" name="Direct Hospital Admin" render={props => <DirectHospitalAdminLayout {...props}/>} />
               <Route path="/direct_hospital_doctor_incharge" name="Direct Hospital Doctor Incharge" render={props => <DirectHospitalDoctorInChargeLayout {...props}/>} />
               <Route path="/direct_hospital_stock_keeper" name="Direct Hospital Stock Keeper" render={props => <DirectHospitalStockKeeperLayout {...props}/>} />
+              <Route path="/hospital_by_rdhs_admin" name="Hospital By RDHS Admin" render={props => <HospitalByRDHSAdminLayout {...props}/>} />
+              <Route path="/hospital_by_rdhs_doctor_incharge" name="Hospital By RDHS Doctor Incharge" render={props => <HospitalByRDHSDoctorInchargeLayout {...props}/>} />
+              <Route path="/hospital_by_rdhs_stock_keeper" name="Hospital By RDHS Stock Keeper" render={props => <HospitalByRDHSStockKeeperLayout {...props}/>} />
 
 
               {/*<Route path="/ministry" name="Home2" render={props => <MinisterLayout {...props}/>} />*/}

@@ -1,0 +1,6 @@
+{
+  "name": "DashboardHospitalByRDHSAdmin",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./DashboardHospitalByRDHSAdmin.js"
+}

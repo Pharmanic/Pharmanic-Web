@@ -90,6 +90,12 @@ class Login extends Component {
              this.props.history.push("/direct_hospital_doctor_incharge");
           }else if(this.state.user_type=='direct_hospital_stock_keeper'){
              this.props.history.push("/direct_hospital_stock_keeper");
+          }else if(this.state.user_type=='hospital_by_rdhs_admin'){
+             this.props.history.push("/hospital_by_rdhs_admin");
+          }else if(this.state.user_type=='hospital_by_rdhs_doctor_incharge'){
+             this.props.history.push("/hospital_by_rdhs_doctor_incharge");
+          }else if(this.state.user_type=='hospital_by_rdhs_stock_keeper'){
+             this.props.history.push("/hospital_by_rdhs_stock_keeper");
           }else{
              this.props.history.push("/ministry");
           }
