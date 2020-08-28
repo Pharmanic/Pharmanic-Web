@@ -298,6 +298,16 @@ export default class Register extends Component {
     });
      }
 
+       if (e.target.value == 'hospital_by_rdhs_doctor_incharge') {
+       this.setState({
+       isHospitalByRDHS: true
+    });
+     }else{
+       this.setState({
+       isHospitalByRDHS: false
+    });
+     }
+
 if (e.target.value == 'ministry') {
        this.setState({
        isMinistry: true
