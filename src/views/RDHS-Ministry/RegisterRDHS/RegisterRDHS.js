@@ -27,6 +27,8 @@ import {
 import { Link, withRouter } from 'react-router-dom';
 import authHeader from '../../../assets/services/auth-header_res';
 import axios from 'axios';
+import AuthService from '../../../assets/services/auth.service';
+
 
 const API_URL = 'http://localhost:8080';
 class RegisterRDHS extends Component {
@@ -52,6 +54,7 @@ class RegisterRDHS extends Component {
       collapse: true,
       fadeIn: true,
       timeout: 300,
+      user_type:AuthService.getCurrentUser().roles
     
     };
     this.handleChange = this.handleChange.bind(this);
@@ -84,18 +87,12 @@ class RegisterRDHS extends Component {
       .then(res => res.json()) //returns array of data
       ;
  
-// console.log(item.reg_no);
-  
-//      await axios.post(API_URL + '/rdhs/register',item,{headers: authHeader() })
-//       .then(res => {
-//         console.log(res);
-//         console.log(res.data);
-//       })
-    if(this.state.user_type='ministry'){
+
+    // if(this.state.user_type='ministry'){
        this.props.history.push('/'+this.state.user_type+'/rdhss/rdhs_list');
-      }else{
-             this.props.history.push('/rdhss/rdhs_list');
-      }
+      // }else{
+      //        this.props.history.push('/rdhss/rdhs_list');
+      // }
 
     // }
   }

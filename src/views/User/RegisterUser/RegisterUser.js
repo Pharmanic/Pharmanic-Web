@@ -72,28 +72,14 @@ export default class Register extends Component {
       ministryStores:[],
       role:"",
       branch:"",
+      // isMinistryStore:false,
       // isRdhsUSer:false
     };
   }
 
    componentDidMount() {
     this.setState({isLoading: true});
-//     fetch('/role_list', {
-//         // method: 'GET',
-//         // withCredentials: true,
-//         // credentials: 'include',
-//           headers: {
-//                 // 'Accept': 'application/json',
-//                 'Authorization': 'Bearer ' + authHeader(),
-//                 // 'Content-Type': 'application/json'
-//             }
-// })
-//       .then(response => response.json())
-//       .then(data => {
-//         console.log(data);
-//         // this.state.roles=data;
-//         this.setState({rdhs: data})});
-//       console.log(this.state.rdhs);   //to load user roles 
+
 
 //get Role list
     fetch('/role_list', {
@@ -209,16 +195,12 @@ export default class Register extends Component {
     //  }
 
       if (e.target.value == 'ministry_store_admin') {
+        console.log("Min Store admin");
        this.setState({
        isMinistryStore: true
     });
-     }else{
-       this.setState({
-       isMinistryStore: false
-    });
-     }
-
-     if (e.target.value == 'ministry_store_stock_keeper') {
+     }else if (e.target.value == 'ministry_store_stock_keeper') {
+       console.log("Min Store stock keeper");
        this.setState({
        isMinistryStore: true
     });
@@ -229,26 +211,14 @@ export default class Register extends Component {
      }
 
      if (e.target.value == 'rdhs_admin') {
+             this.setState({
+       isRDHS: true
+    });
+     }else if (e.target.value == 'rdhs_director') {            
        this.setState({
        isRDHS: true
     });
-     }else{
-       this.setState({
-       isRDHS: false
-    });
-     }
-
-       if (e.target.value == 'rdhs_director') {
-       this.setState({
-       isRDHS: true
-    });
-     }else{
-       this.setState({
-       isRDHS: false
-    });
-     }
-
-       if (e.target.value == 'rdhs_stock_keeper') {
+     }else if (e.target.value == 'rdhs_stock_keeper') {
        this.setState({
        isRDHS: true
     });
@@ -262,23 +232,11 @@ export default class Register extends Component {
        this.setState({
        isDirectHospital: true
     });
-     }else{
-       this.setState({
-       isDirectHospital: false
-    });
-     }
-
-       if (e.target.value == 'direct_hospital_doctor_incharge') {
+     }else if (e.target.value == 'direct_hospital_doctor_incharge') {
        this.setState({
        isDirectHospital: true
     });
-     }else{
-       this.setState({
-       isDirectHospital: false
-    });
-     }
-
-       if (e.target.value == 'direct_hospital_stock_keeper') {
+     }else  if (e.target.value == 'direct_hospital_stock_keeper') {
        this.setState({
        isDirectHospital: true
     });
@@ -289,6 +247,14 @@ export default class Register extends Component {
      }
 
       if (e.target.value == 'hospital_by_rdhs_admin') {
+             this.setState({
+       isHospitalByRDHS: true
+    });
+     }else if (e.target.value == 'hospital_by_rdhs_doctor_incharge') {
+             this.setState({
+       isHospitalByRDHS: true
+    });
+     }else if (e.target.value == 'hospital_by_rdhs_stock_keeper') {
        this.setState({
        isHospitalByRDHS: true
     });
@@ -297,36 +263,17 @@ export default class Register extends Component {
        isHospitalByRDHS: false
     });
      }
+    //  console.log(this.state.isHospitalByRDHS+"hos");
 
-       if (e.target.value == 'hospital_by_rdhs_doctor_incharge') {
-       this.setState({
-       isHospitalByRDHS: true
-    });
-     }else{
-       this.setState({
-       isHospitalByRDHS: false
-    });
-     }
-
-     if (e.target.value == 'hospital_by_rdhs_stock_keeper') {
-       this.setState({
-       isHospitalByRDHS: true
-    });
-     }else{
-       this.setState({
-       isHospitalByRDHS: false
-    });
-     }
-
-if (e.target.value == 'ministry') {
-       this.setState({
-       isMinistry: true
-    });
-     }else{
-       this.setState({
-       isMinistry: false
-    });
-     }
+// if (e.target.value == 'ministry') {
+//        this.setState({
+//        isMinistry: true
+//     });
+//      }else{
+//        this.setState({
+//        isMinistry: false
+//     });
+//      }
 
   }
 
@@ -484,6 +431,7 @@ if (e.target.value == 'ministry') {
                         {rolesList}
                       </Input>
                 </div>
+              
 
                  {this.state.isMinistryStore && (
                  <div className="form-group"  >
