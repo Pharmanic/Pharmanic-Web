@@ -50,8 +50,11 @@ const DirectHospitalCurrentStock = React.lazy(() => import('./views/DirectHospit
 const DirectHospitalForm = React.lazy(() => import('./views/DirectHospitalForm'));
 const DirectHospitalReqOrder = React.lazy(() => import('./views/DirectHospitalReqOrder'));
 const DHReqOrderDetail = React.lazy(() => import('./views/DHReqOrderDetail'));
+const PendingDHOrders = React.lazy(() => import('./views/PendingDHOrders'));
+const PendingRdhsOrders = React.lazy(() => import('./views/PendingRdhsOrders'));
 const DHPendingOrder = React.lazy(() => import('./views/DHPendingOrder'));
 const SupplyToDHModel = React.lazy(() => import('./views/SupplyToDHModel'));
+const SupplyOrdersToDH = React.lazy(() => import('./views/SupplyOrdersToDH'));
 const Medicine = React.lazy(() => import('./views/Medicine'));
 const Driver = React.lazy(() => import('./views/Driver'));
 const MinistryStore = React.lazy(() => import('./views/MinistryStore'));
@@ -121,7 +124,10 @@ const routes = [
   { path: '/ministry/directhospitalreqorder', name: 'DirectHospitalReqOrder', component: DirectHospitalReqOrder },
   { path: '/ministry/dhpendingorder', name: 'DHPendingOrder', component: DHPendingOrder },
   { path: '/dhreqorderdetail/:id', name: 'DHReqOrderDetail', component: DHReqOrderDetail },
+  { path: '/ministry/pendingdhorders', name: 'PendingDHOrders', component: PendingDHOrders},
+  { path: '/ministry/pendingrdhsorders', name: 'PendingRdhsOrders', component: PendingRdhsOrders},
   { path: '/supplytodhmodel/:id', name: 'SupplyToDHModel', component: SupplyToDHModel },
+  { path: '/ministry/supplyorderstodh', name: 'Medicine', component: SupplyOrdersToDH },
   { path: '/ministry/medicine', name: 'Medicine', component: Medicine },
   { path: '/ministry/driver', name: 'Driver', component: Driver },
   { path: '/ministry/store', name: 'MinistryStore', component: MinistryStore },

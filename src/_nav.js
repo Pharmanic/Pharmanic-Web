@@ -247,6 +247,44 @@ export default {
       url: '/ministry/rdhsreqorder',
       icon: 'icon-bell',
     },
+    {
+      title: true,
+      name: 'Supply Orders',
+      wrapper: {            // optional wrapper object
+        element: '',        // required valid HTML5 element tag
+        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+      },
+      class: ''             // optional class names space delimited list for title item ex: "text-center"
+    },
+    {
+      name: 'DH Hospital',
+      url: '/ministry/supplyorderstodh',
+      icon: 'icon-bell',
+    },
+    {
+      name: 'RDHS',
+      url: '/ministry/rdhsreqorder',
+      icon: 'icon-bell',
+    },
+    {
+      title: true,
+      name: 'Pending Orders',
+      wrapper: {            // optional wrapper object
+        element: '',        // required valid HTML5 element tag
+        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+      },
+      class: ''             // optional class names space delimited list for title item ex: "text-center"
+    },
+    {
+      name: 'DH Hospital',
+      url: '/ministry/pendingdhorders',
+      icon: 'icon-bell',
+    },
+    {
+      name: 'RDHS',
+      url: '/ministry/pendingrdhsorders',
+      icon: 'icon-bell',
+    },
     // {
     //   title: true,
     //   name: 'Pending Orders',

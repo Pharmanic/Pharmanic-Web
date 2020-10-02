@@ -25,7 +25,7 @@ class CurrentStock extends Component {
   componentDidMount() {
     this.setState({isLoading: true});
 
-    fetch('/dhrequestordersnotcoplete')
+    fetch('/rdhspendingorders')
       .then(response => response.json())
       .then(data => this.setState({directhospitalrequestorders: data, isLoading: false}));
   }
@@ -67,7 +67,7 @@ class CurrentStock extends Component {
     const groupList = directhospitalrequestorders.map(directhospitalrequestorder => {
       return <tr key={directhospitalrequestorder.order_id} >
         <td style={{whiteSpace: 'nowrap'}}>{directhospitalrequestorder.order_id}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{directhospitalrequestorder.hospital_reg_no.name}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{directhospitalrequestorder.rdhs_reg_no.reg_no}</td>
         <td style={{whiteSpace: 'nowrap'}}>{directhospitalrequestorder.m_store_id.location}</td>
         <td style={{whiteSpace: 'nowrap'}}>{directhospitalrequestorder.date}</td>
         <td>  <Button block outline color="info" tag={Link} to={"/dhreqorderdetail/"+directhospitalrequestorder.order_id}>More Info</Button>  </td>
@@ -92,7 +92,7 @@ class CurrentStock extends Component {
                   <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
                   <tr>
                     <th>Order ID</th>
-                    <th>Hospital</th>
+                    <th>Rdhs</th>
                     <th>Warehouse</th>
                     <th>Date</th>
                     <th>Actions</th>

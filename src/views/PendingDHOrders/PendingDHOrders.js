@@ -25,7 +25,7 @@ class CurrentStock extends Component {
   componentDidMount() {
     this.setState({isLoading: true});
 
-    fetch('/dhrequestordersnotcoplete')
+    fetch('/directhospitalpendingorders')
       .then(response => response.json())
       .then(data => this.setState({directhospitalrequestorders: data, isLoading: false}));
   }

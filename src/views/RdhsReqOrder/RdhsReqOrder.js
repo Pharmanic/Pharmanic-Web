@@ -71,7 +71,7 @@ class CurrentStock extends Component {
         <td style={{whiteSpace: 'nowrap'}}>{rdhsrequestorder.m_store_id.location}</td>
         <td style={{whiteSpace: 'nowrap'}}>{rdhsrequestorder.date}</td>
         <td>  <Button block outline color="info"tag={Link} to={"/rdhsreqorderdetail/"+rdhsrequestorder.order_id} >More Info</Button>  </td>
-        {/* <td><Button size="sm" color="danger" onClick={() => {if(window.confirm('Are you sure you wish to close this order?You cant reverse this task')) this.close(rdhsrequestorder.order_id)}}>Close Order</Button></td> */}
+        <td><Button size="sm" color="danger" onClick={() => {if(window.confirm('Are you sure you wish to close this order?You cant reverse this task')) this.close(rdhsrequestorder.order_id)}}>Close Order</Button></td>
       </tr>
     });
 
