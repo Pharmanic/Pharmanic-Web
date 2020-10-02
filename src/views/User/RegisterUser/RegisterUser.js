@@ -81,75 +81,75 @@ export default class Register extends Component {
     this.setState({isLoading: true});
 
 
-//get Role list
-    fetch('/role_list', {
-        // method: 'GET',
-        // withCredentials: true,
-        // credentials: 'include',
-          headers: {
-                // 'Accept': 'application/json',
-                'Authorization': 'Bearer ' + authHeader(),
-                // 'Content-Type': 'application/json'
-            }
-})
-      .then(response => response.json())
-      .then(data => this.setState({roles: data}));
+// //get Role list
+//     fetch('/role_list', {
+//         // method: 'GET',
+//         // withCredentials: true,
+//         // credentials: 'include',
+//           headers: {
+//                 // 'Accept': 'application/json',
+//                 'Authorization': 'Bearer ' + authHeader(),
+//                 // 'Content-Type': 'application/json'
+//             }
+// })
+//       .then(response => response.json())
+//       .then(data => this.setState({roles: data}));
 
-  //get RDHS list
-    fetch('/rdhs_list', {
-        // method: 'GET',
-        // withCredentials: true,
-        // credentials: 'include',
-          headers: {
-                // 'Accept': 'application/json',
-                'Authorization': 'Bearer ' + authHeader(),
-                // 'Content-Type': 'application/json'
-            }
-})
-      .then(response => response.json())
-      .then(data => this.setState({rdhss: data}));
+//   //get RDHS list
+//     fetch('/rdhs_list', {
+//         // method: 'GET',
+//         // withCredentials: true,
+//         // credentials: 'include',
+//           headers: {
+//                 // 'Accept': 'application/json',
+//                 'Authorization': 'Bearer ' + authHeader(),
+//                 // 'Content-Type': 'application/json'
+//             }
+// })
+//       .then(response => response.json())
+//       .then(data => this.setState({rdhss: data}));
 
-   //get RDHS Hospital list
-    fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
-        // method: 'GET',
-        // withCredentials: true,
-        // credentials: 'include',
-          headers: {
-                // 'Accept': 'application/json',
-                'Authorization': 'Bearer ' + authHeader(),
-                // 'Content-Type': 'application/json'
-            }
-})
-      .then(response => response.json())
-      .then(data => this.setState({rdhsHospitals: data}));
+//    //get RDHS Hospital list
+//     fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
+//         // method: 'GET',
+//         // withCredentials: true,
+//         // credentials: 'include',
+//           headers: {
+//                 // 'Accept': 'application/json',
+//                 'Authorization': 'Bearer ' + authHeader(),
+//                 // 'Content-Type': 'application/json'
+//             }
+// })
+//       .then(response => response.json())
+//       .then(data => this.setState({rdhsHospitals: data}));
 
-      //get ministry stores list
-    fetch('/ministrystores', {
-        // method: 'GET',
-        // withCredentials: true,
-        // credentials: 'include',
-          headers: {
-                // 'Accept': 'application/json',
-                'Authorization': 'Bearer ' + authHeader(),
-                // 'Content-Type': 'application/json'
-            }
-})
-      .then(response => response.json())
-      .then(data => this.setState({ministryStores: data}));
+//       //get ministry stores list
+//     fetch('/ministrystores', {
+//         // method: 'GET',
+//         // withCredentials: true,
+//         // credentials: 'include',
+//           headers: {
+//                 // 'Accept': 'application/json',
+//                 'Authorization': 'Bearer ' + authHeader(),
+//                 // 'Content-Type': 'application/json'
+//             }
+// })
+//       .then(response => response.json())
+//       .then(data => this.setState({ministryStores: data}));
 
-        //get direct hospital list
-    fetch('/direct_hospital/direct_hospital_list', {
-        // method: 'GET',
-        // withCredentials: true,
-        // credentials: 'include',
-          headers: {
-                // 'Accept': 'application/json',
-                'Authorization': 'Bearer ' + authHeader(),
-                // 'Content-Type': 'application/json'
-            }
-})
-      .then(response => response.json())
-      .then(data => this.setState({directHospitals: data}));
+//         //get direct hospital list
+//     fetch('/direct_hospital/direct_hospital_list', {
+//         // method: 'GET',
+//         // withCredentials: true,
+//         // credentials: 'include',
+//           headers: {
+//                 // 'Accept': 'application/json',
+//                 'Authorization': 'Bearer ' + authHeader(),
+//                 // 'Content-Type': 'application/json'
+//             }
+// })
+//       .then(response => response.json())
+//       .then(data => this.setState({directHospitals: data}));
 
 
   }

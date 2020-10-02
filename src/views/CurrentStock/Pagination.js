@@ -26,7 +26,3 @@ const Paginations = ({dataPerPage,totalData,paginate}) => {
 
 export default Paginations
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 843a47126f40b10f291f710017e1c7620007dd05
