@@ -14,6 +14,9 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
+import authHeader from '../../../assets/services/auth-header_res';
+import AuthService from '../../../assets/services/auth.service';
+
 
 const divStyle = {
   display: 'flex',
@@ -22,7 +25,7 @@ const divStyle = {
 
 class HospitalByRDHS extends Component {
 
-
+user_type:'';
   constructor(props) {
     super(props);
 
@@ -33,24 +36,42 @@ class HospitalByRDHS extends Component {
       isLoading: true,
       currentPage: 1,
       dataPerPage: 5,
-      search: ''
+      search: '',
+      user_type:AuthService.getCurrentUser().roles
     };
   }
   //const [state, setstate] = useState(initialState);
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch('/hospital_by_rdhs/hospital_by_rdhs_list')
+    // fetch('/hospital_by_rdhs/hospital_by_rdhs_list')
+    //   .then(response => response.json())
+    //   .then(data => this.setState({ hospitalByRDHSs: data, isLoading: false }));
+
+fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
+        
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
       .then(response => response.json())
-      .then(data => this.setState({ hospitalByRDHSs: data, isLoading: false }));
-  }
+      .then(data =>{
+        console.log(data);
+       this.setState({ hospitalByRDHSs: data, isLoading: false })
+      //  console.log("2nd"+data.get(0));
+    });
+
+
+ }
+  
 
   async remove(id) {
     await fetch(`/hospitalByRdhs/${id}`, {
       method: 'DELETE',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Authorization': 'Bearer ' + authHeader(),
       }
     }).then(() => {
       // console.log("deleted");
@@ -84,11 +105,11 @@ class HospitalByRDHS extends Component {
     let filteredData = hospitalByRDHSs.filter(
       (hospitalByRDHS) => {
         return hospitalByRDHS.reg_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(hospitalByRDHS.name).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||          
           hospitalByRDHS.rdhs.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.telephone.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.address.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+          String(hospitalByRDHS.telephone).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(hospitalByRDHS.address).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(hospitalByRDHS.email).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
           ;
         //  hospitalByRDHS.m_store_id.indexOf(this.state.search) !==-1;
       }
@@ -116,7 +137,7 @@ class HospitalByRDHS extends Component {
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.telephone}</td>
         <td>
           <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this RDHS Hospital?')) this.remove(hospitalByRDHS.reg_no) }}><i className="fa fa-trash"></i></Button>
-          <Button size="sm" color="success" tag={Link} to={"/hospital_by_rdhs/" + hospitalByRDHS.reg_no}><i className="icon-eye"></i></Button>
+          <Button size="sm" color="success" tag={Link} to={"/"+this.state.user_type+"/hospital_by_rdhs/" + hospitalByRDHS.reg_no}><i className="icon-eye"></i></Button>
 
         </td>
 

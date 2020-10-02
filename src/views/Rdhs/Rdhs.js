@@ -35,7 +35,7 @@ class CurrentStock extends Component {
   componentDidMount() {
     this.setState({isLoading: true});
 
-    fetch('/rdhs_list')
+    fetch('/rdhss')
       .then(response => response.json())
       .then(data => this.setState({rdhss: data, isLoading: false}));
   }

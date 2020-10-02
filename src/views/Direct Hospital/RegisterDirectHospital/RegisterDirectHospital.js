@@ -25,6 +25,10 @@ import {
   Row,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
+import authHeader from '../../../assets/services/auth-header_res';
+import AuthService from '../../../assets/services/auth.service';
+
+
 class RegisterdirectHospital extends Component {
 
    emptyItem = {
@@ -45,7 +49,9 @@ class RegisterdirectHospital extends Component {
       item: this.emptyItem,
       collapse: true,
       fadeIn: true,
-      timeout: 300
+      timeout: 300,
+      user_type:AuthService.getCurrentUser().roles
+
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -68,13 +74,15 @@ class RegisterdirectHospital extends Component {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+
       },
       body: JSON.stringify(item),
     })
     .then(res => res.json()) //returns array of data
     ;
-    this.props.history.push('/direct_hospitals/direct_hospitals'); 
+    this.props.history.push('/'+this.state.user_type+'/direct_hospitals/direct_hospitals'); 
   }
 
   toggle() {

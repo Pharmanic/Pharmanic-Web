@@ -22,8 +22,12 @@ import {
 } from 'reactstrap';
 
 import { } from 'reactstrap';
-
 import { Link, withRouter } from 'react-router-dom';
+// import authHeader from '../../../assets/services//auth-header';
+import axios from 'axios';
+import authHeader from '../../../assets/services/auth-header_res';
+
+const API_URL = 'http://localhost:8080';
 
 
 class RDHSDetail extends Component {
@@ -78,7 +82,7 @@ class RDHSDetail extends Component {
             modalOrderId: -1
         };
         this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -89,15 +93,35 @@ class RDHSDetail extends Component {
         this.setState({ isLoading: true, danger: false, modal: false, });
         this.toggleDanger = this.toggleDanger.bind(this);
         console.log('param', this.props.match);
-        fetch(`/rdhss/${this.props.match.params.id}`)
+        fetch(`/rdhss/${this.props.match.params.id}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + authHeader(),
+      }
+    })
             .then(response => response.json())
             .then(data => this.setState({ item: data, isLoading: false, old_item: data, isLoading: false }));
-        // this.loadData();
+//   axios.get(API_URL + `/rdhss/${this.props.match.params.id}`, { headers: authHeader() }).then(
+//       response => {
+//         this.setState({
+//           item: response.data,
+//           isLoading: false, old_item: response.data, isLoading: false 
+//         });
+//         console.log(this.state.rdhs);
+//       },
+//       error => {
+//         this.setState({
+//           content:
+//             (error.response && error.response.data) ||
+//             error.message ||
+//             error.toString()
+//         });
+//       }
+//     );
 
-        // fetch('/ministrytracks')
-        //   .then(response => response.json())
-        //   .then(data => this.setState({ ministrytracks: data, isLoading: false }));
-    }
+        
+
+}
 
     handleChange(event) {
         console.log("OnChange");
@@ -151,6 +175,24 @@ class RDHSDetail extends Component {
     }
     resetForm = () => {
         this.setState({ item: this.state.old_item });
+    }
+
+    async handleSubmit(event) {
+        event.preventDefault();
+        const {item} = this.state.item;
+        console.log("Before update"+this.state.item);
+
+        await fetch('/rdhs', {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(item),
+        })
+            .then(res => res.json()) //returns array of data
+            ;
+        this.props.history.push('/rdhs/rdhs_list');
     }
 
 
@@ -217,7 +259,7 @@ class RDHSDetail extends Component {
                                 <b>RDHS - {item.name}</b>
                             </CardHeader>
                             <CardBody>
-                                <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="RDHSForm">
+                                <Form onSubmit={this.handleSubmit} method="put" encType="multipart/form-data" className="form-horizontal" id="RDHSForm">
 
 
 

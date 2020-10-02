@@ -1,0 +1,3 @@
+import HospiyalByRDHSDoctorInchargeLayout from './HospiyalByRDHSDoctorInchargeLayout';
+
+export default HospiyalByRDHSDoctorInchargeLayout;

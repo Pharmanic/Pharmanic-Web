@@ -90,14 +90,14 @@ class CurrentStock extends Component {
           <DamageStockForm/>
           </Col>
           <Col lg="7">
-            <Card style={{borderRadius:'20px'}}>
-              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
+            <Card>
+              <CardHeader>
               <i className="fa fa-align-justify"></i> Damage Stock
               </CardHeader>
               <CardBody>                
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
+                  <thead className="thead-light">
                   <tr>
                     <th>Batch id</th>
                     <th>Date</th>
@@ -112,13 +112,7 @@ class CurrentStock extends Component {
                 </Table>
               </CardBody>
               <CardFooter>
-              <Row>
-              <Col md="7"></Col>
-              <Col md="5">
               <Paginations dataPerPage={dataPerPage} totalData={ministrydamagestocks.length} paginate={paginate}/>
-
-              </Col>
-              </Row>
               </CardFooter>
             </Card>
           </Col>

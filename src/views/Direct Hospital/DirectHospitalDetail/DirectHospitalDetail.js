@@ -22,7 +22,7 @@ import {
 } from 'reactstrap';
 
 import { } from 'reactstrap';
-
+import authHeader from '../../../assets/services/auth-header_res';
 import { Link, withRouter } from 'react-router-dom';
 
 
@@ -68,7 +68,12 @@ class DirectHospitalDetail extends Component {
         this.setState({ isLoading: true, danger: false, modal: false, });
         this.toggleDanger = this.toggleDanger.bind(this);
         console.log('param', this.props.match);
-        fetch(`/directhospitals/${this.props.match.params.id}`)
+        fetch(`/directhospitals/${this.props.match.params.id}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + authHeader(),
+      }
+    })
             .then(response => response.json())
             .then(data => this.setState({ item: data, isLoading: false ,old_item: data, isLoading: false}));
         // this.loadToOldItem();

@@ -1,0 +1,6 @@
+{
+  "name": "MinisterLayout",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./MinisterLayout.js"
+}

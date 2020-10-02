@@ -25,7 +25,7 @@ class CurrentStock extends Component {
   componentDidMount() {
     this.setState({isLoading: true});
 
-    fetch('/dhrequestordersnotcoplete')
+    fetch('/directhospitalrequestorders')
       .then(response => response.json())
       .then(data => this.setState({directhospitalrequestorders: data, isLoading: false}));
   }
@@ -33,18 +33,6 @@ class CurrentStock extends Component {
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
-    });
-  }
-
-  async close(id) {
-    await fetch(`/closeorder/${id}`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).then(() => {
-     
     });
   }
 
@@ -71,7 +59,10 @@ class CurrentStock extends Component {
         <td style={{whiteSpace: 'nowrap'}}>{directhospitalrequestorder.m_store_id.location}</td>
         <td style={{whiteSpace: 'nowrap'}}>{directhospitalrequestorder.date}</td>
         <td>  <Button block outline color="info" tag={Link} to={"/dhreqorderdetail/"+directhospitalrequestorder.order_id}>More Info</Button>  </td>
+<<<<<<< HEAD
         <td><Button size="sm" color="danger" onClick={() => {if(window.confirm('Are you sure you wish to close this order?You cant reverse this task')) this.close(directhospitalrequestorder.order_id)}}>Close Order</Button></td>
+=======
+>>>>>>> 843a47126f40b10f291f710017e1c7620007dd05
       </tr>
     });
 
@@ -81,15 +72,15 @@ class CurrentStock extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-            <Card style={{borderRadius:'20px'}}>
-              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
-                Direct Hospital Request Orders
+            <Card>
+              <CardHeader>
+                Direct Hospitals Drug Request Orders
               </CardHeader>
               <CardBody>
                 
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
+                  <thead className="thead-light">
                   <tr>
                     <th>Order ID</th>
                     <th>Hospital</th>

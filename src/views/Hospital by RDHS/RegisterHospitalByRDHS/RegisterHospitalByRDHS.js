@@ -25,6 +25,10 @@ import {
   Row,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
+import authHeader from '../../../assets/services/auth-header_res';
+import AuthService from '../../../assets/services/auth.service';
+
+
 class RegisterHospitalByRDHS extends Component {
 
   emptyItem = {
@@ -43,6 +47,7 @@ class RegisterHospitalByRDHS extends Component {
     }
 
   };
+  user_type:'';
 
   constructor(props) {
     super(props);
@@ -54,7 +59,8 @@ class RegisterHospitalByRDHS extends Component {
       collapse: true,
       fadeIn: true,
       timeout: 300,
-      rdhss:[]
+      rdhss:[],
+      user_type:AuthService.getCurrentUser().roles
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -62,17 +68,18 @@ class RegisterHospitalByRDHS extends Component {
 
   componentDidMount() {
     this.setState({isLoading: true});
-    fetch('/rdhs_list')
+    fetch('/rdhs_list', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
       .then(response => response.json())
       .then(data => this.setState({rdhss: data}));
-
-      // fetch('/medicines')
-      // .then(response => response.json())
-      // .then(data => this.setState({medicines: data, isLoading: false}));
-
-      // fetch('/ministrycurrentstocks')
-      // .then(response => response.json())
-      // .then(data => this.setState({ministrycurrentstocks: data, isLoading: false}));
 
   }
 
@@ -106,13 +113,15 @@ class RegisterHospitalByRDHS extends Component {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+
       },
       body: JSON.stringify(item),
     })
       .then(res => res.json()) //returns array of data
       ;
-    this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
+    this.props.history.push('/'+this.state.user_type+'/hospital_by_rdhs/hospital_by_rdhs_list');
   }
 
   toggle() {
