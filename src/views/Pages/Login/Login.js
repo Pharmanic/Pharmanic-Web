@@ -7,6 +7,7 @@ import CheckButton from "react-validation/build/button";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import Popup from 'react-popup';
+import authHeader from '../../../assets/services/auth-header_res';
 
 const required = value => {
   if (!value) {
@@ -20,6 +21,14 @@ const required = value => {
 
 class Login extends Component {
 
+   rdhs = {
+        reg_no: '',
+        name: '',
+        address: '',
+        email: '',
+        telephone: ''
+   }
+
   constructor(props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
@@ -31,6 +40,7 @@ class Login extends Component {
       password: "",
       loading: false,
       message: "",
+      rdhs:this.rdhs,
       
     };
   }
@@ -65,9 +75,9 @@ class Login extends Component {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
           this.setState({
-                user_type:AuthService.getCurrentUser().roles
+                user_type:AuthService.getCurrentUser().roles,
+                user_branch:AuthService.getCurrentUser().branch
           });
-          console.log("USERRRRRR"+this.state.user_type);
           if(this.state.user_type=='ministry_admin'){
              this.props.history.push("/ministry_admin");
           }else if(this.state.user_type=='minister'){
@@ -79,6 +89,18 @@ class Login extends Component {
           }else if(this.state.user_type=='ministry_store_stock_keeper'){
              this.props.history.push("/ministry_store_stock_keeper");
           }else if(this.state.user_type=='rdhs_admin'){
+           
+    //         console.log(this.state.user_branch+"nnn");
+
+    // fetch(`/rdhs/${this.state.user_branch}`, {
+    //   method: 'GET',
+    //   headers: {
+    //     'Authorization': 'Bearer ' + authHeader(),
+    //   }
+    // })
+    //         .then(response => response.json())
+    //         .then(data => this.setState({ rdhs: data, isLoading: false,}));
+
              this.props.history.push("/rdhs_admin");
           }else if(this.state.user_type=='rdhs_director'){
              this.props.history.push("/rdhs_director");
@@ -97,7 +119,7 @@ class Login extends Component {
           }else if(this.state.user_type=='hospital_by_rdhs_stock_keeper'){
              this.props.history.push("/hospital_by_rdhs_stock_keeper");
           }else{
-             this.props.history.push("/ministry");
+             this.props.history.push("/");
           }
           // window.location.reload();
           
