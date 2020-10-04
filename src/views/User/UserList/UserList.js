@@ -13,6 +13,8 @@ import {
   CardFooter
 } from 'reactstrap';
 import Paginations from './Pagination';
+import authHeader from '../../../assets/services/auth-header_res';
+
 
 const divStyle = {
   display: 'flex',
@@ -28,7 +30,7 @@ class UserList extends Component {
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
     this.state = {
-      rdhs: [],
+      user: [],
       isLoading: true,
       currentPage: 1,
       dataPerPage: 5,
@@ -38,10 +40,20 @@ class UserList extends Component {
   //const [state, setstate] = useState(initialState);
   componentDidMount() {
     this.setState({ isLoading: true });
-
-    fetch('/rdhs_list')
+fetch('/user_list', {
+        // method: 'GET',
+        // withCredentials: true,
+        // credentials: 'include',
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
       .then(response => response.json())
-      .then(data => this.setState({ rdhs: data, isLoading: false }));
+      .then(data => this.setState({ user: data, isLoading: false }));
+      console.log(this.state.user);
+      // console.log(this.state);
   }
 
   updateSearch(event) {
@@ -82,15 +94,19 @@ class UserList extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-    const {rdhs, isLoading, dataPerPage, currentPage, search} = this.state;
+    const {user, isLoading, dataPerPage, currentPage, search} = this.state;
 
-    let filteredData = rdhs.filter(
-      (rdhs) => {
-        return rdhs.reg_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          rdhs.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          rdhs.address.toString().toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          rdhs.telephone.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          rdhs.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+    // let filteredData = user;
+    let filteredData = user.filter(
+      (user) => {
+        return user.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 || 
+        user.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+        user.branch.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 
+
+          // user.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          // user.branch.toString().toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          // user.telephone.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          // user.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
           ;
         //  rdhs.m_store_id.indexOf(this.state.search) !==-1;
       }
@@ -108,18 +124,18 @@ class UserList extends Component {
 
     const paginate = pageNumber => this.setState({ currentPage: pageNumber });
 
-    const groupList = currentData.map(rdhs => {
-      return <tr key={rdhs.reg_no}>
-        <td style={{ whiteSpace: 'nowrap' }}>{rdhs.reg_no}</td>
-        <td style={{ whiteSpace: 'nowrap' }}>{rdhs.name}</td>
-        <td style={{ whiteSpace: 'nowrap' }}>{rdhs.address}</td>
-        <td style={{ whiteSpace: 'nowrap' }}>{rdhs.email}</td>
-        <td style={{ whiteSpace: 'nowrap' }}>{rdhs.telephone}</td>
+    const groupList = currentData.map(user => {
+      return <tr>
+        <td style={{ whiteSpace: 'nowrap' }}>{user.UserName}</td>
+        <td style={{ whiteSpace: 'nowrap' }}>{user.email}</td>
+        <td style={{ whiteSpace: 'nowrap' }}>{user.branch}</td>
+        <td style={{ whiteSpace: 'nowrap' }}>{user.name}</td>
+        {/*<td style={{ whiteSpace: 'nowrap' }}>{user.telephone}</td>*/}
 
         <td>
-          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this RDHS ?')) this.remove(rdhs.reg_no) }}><i className="fa fa-trash"></i></Button>
+          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this RDHS ?')) this.remove(user.reg_no) }}><i className="fa fa-trash"></i></Button>
         
-          <Button size="sm" color="success" onClick={() => { this.onViewButtonClick(rdhs) }}><i className="icon-eye"></i></Button>
+          <Button size="sm" color="success" onClick={() => { this.onViewButtonClick(user) }}><i className="icon-eye"></i></Button>
         </td>
 
       </tr>
@@ -154,11 +170,10 @@ class UserList extends Component {
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table" style={{ borderRadius: '20px !important' }}>
                   <thead style={{ backgroundColor: '#244EAD', color: 'white', borderRadius: '20px !important' }}>
                     <tr>
-                      <th>Register No</th>
-                      <th>RDHS Name</th>
-                      <th>Address</th>
+                      <th>Username</th>
                       <th>E Mail</th>
-                      <th>Tel No</th>
+                      <th>Branch</th>
+                      <th>Role</th>
                       <th></th>
                       
                     </tr>
