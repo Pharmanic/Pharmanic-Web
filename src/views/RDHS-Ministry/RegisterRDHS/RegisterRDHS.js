@@ -28,7 +28,7 @@ import { Link, withRouter } from 'react-router-dom';
 import authHeader from '../../../assets/services/auth-header_res';
 import axios from 'axios';
 import AuthService from '../../../assets/services/auth.service';
-
+import swal from 'sweetalert';
 
 const API_URL = 'http://localhost:8080';
 class RegisterRDHS extends Component {
@@ -54,7 +54,8 @@ class RegisterRDHS extends Component {
       collapse: true,
       fadeIn: true,
       timeout: 300,
-      user_type:AuthService.getCurrentUser().roles
+      user_type:AuthService.getCurrentUser().roles,
+      rRes:0
     
     };
     this.handleChange = this.handleChange.bind(this);
@@ -85,11 +86,41 @@ class RegisterRDHS extends Component {
       body: JSON.stringify(item),
     })
       .then(res => res.json()) //returns array of data
-      ;
+      .then(response => this.setState({ rRes: response.reg_no}));
+  //  .then(data => this.setState({ rRes: data, isLoading: false}));
+    console.log("Item"+this.state.rRes);
+
+    if (this.state.rRes != 0) {
+      swal({
+        icon: "success",
+        text: "RDHS Saved Succesfully",
+        buttons: {
+          ok: "OK",
+          // view: "Show RDHSs"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+      this.resetForm();
+    }else{
+      swal({
+        icon: "error",
+        text: "Error Saving RDHS",
+        buttons: {
+          ok: "OK",
+          // view: "Show RDHSs"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    }
+
  
 
     // if(this.state.user_type='ministry'){
-       this.props.history.push('/'+this.state.user_type+'/rdhss/rdhs_list');
+      //  this.props.history.push('/'+this.state.user_type+'/rdhss/rdhs_list');
       // }else{
       //        this.props.history.push('/rdhss/rdhs_list');
       // }

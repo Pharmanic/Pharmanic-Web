@@ -22,9 +22,10 @@ import {
 } from 'reactstrap';
 
 import { } from 'reactstrap';
-
+import swal from 'sweetalert';
 import { Link, withRouter } from 'react-router-dom';
 import authHeader from '../../../assets/services/auth-header_res';
+import AuthService from '../../../assets/services/auth.service';
 
 
 
@@ -80,10 +81,12 @@ class MinistryStoreDetail extends Component {
             item: this.emptyItem,
             old_item: this.emptyItem,
             // shouldShowModal: false,
-            modalOrderId: -1
+            modalOrderId: -1,
+            rRes:0,
+            enableEdit:true
         };
         this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -140,6 +143,54 @@ class MinistryStoreDetail extends Component {
     //   });
     //   this.props.history.push('/ministrydamagestocks');
     // }
+
+    async handleSubmit(event) {
+      event.preventDefault();
+      const {item} = this.state;
+       console.log("Handle Submit 1");
+      console.log('object content', item);
+
+      await fetch('/ministry_store', {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authHeader()
+        },
+        body: JSON.stringify(item),
+      }) .then((response) => response.json())
+    // .then((response) => console.log(response))
+
+    .then(response => this.setState({ rRes: response.m_store_id}));;
+   console.log("rRes"+this.state.rRes);
+  if (this.state.rRes != 0) {
+      swal({
+        icon: "success",
+        text: "Ministry Store Updated Succesfully",
+        buttons: {
+          ok: "OK",
+          // view: "Show Ministry Stores"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    //   this.resetForm();
+    }else{
+      swal({
+        icon: "error",
+        text: "Error Updating Ministry Store",
+        buttons: {
+          ok: "OK",
+          // view: "Show Ministry Stores"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    }
+   this.setState({rRes:0});
+    }
   
 
     toggle() {
@@ -232,16 +283,18 @@ class MinistryStoreDetail extends Component {
 
 
 
-                                    <FormGroup row>
+                                    {/*<FormGroup row>
                                         <Col md="6">
                                             <FormGroup check className="radio">
-                                                <Input className="form-check-input" type="checkbox" id="radio2" name="radios" value="ministry_store" onClick={() => {
+                                                <Input className="form-check-input" type="checkbox" id="radio2" name="radios" value="ministry_store" 
+                                                onClick={() => {
                                                     this.setState({ enableEdit: !this.state.enableEdit }); this.enableEditing();
-                                                }} />
+                                                }} 
+                                                />
                                                 <Label check className="form-check-label" htmlFor="radio2">Enable Editing</Label>
                                             </FormGroup>
                                         </Col>
-                                    </FormGroup>
+                                    </FormGroup>*/}
                                     {/*<Button size="sm" color="success" onClick={() => {
                                         this.setState({ enableEdit: true }); this.enableEditing(); }} >Enable Edit</Button>*/}
 
