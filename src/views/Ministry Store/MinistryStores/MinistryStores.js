@@ -16,6 +16,7 @@ import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
 import authHeader from '../../../assets/services/auth-header_res';
 import AuthService from '../../../assets/services/auth.service';
+import swal from 'sweetalert';
 
 
 const divStyle = {
@@ -25,7 +26,7 @@ const divStyle = {
 
 
 class MinistryStores extends Component {
-  user_type:'';
+  user_type: '';
 
   constructor(props) {
     super(props);
@@ -38,95 +39,38 @@ class MinistryStores extends Component {
       currentPage: 1,
       dataPerPage: 5,
       search: '',
-      user_type:AuthService.getCurrentUser().roles,
-      
+      user_type: AuthService.getCurrentUser().roles,
+      rRes:0,
+
     };
     console.log(AuthService.getCurrentUser());
   }
+
+
   //const [state, setstate] = useState(initialState);
   componentDidMount() {
     this.setState({ isLoading: true });
     // console.log(this.state.user_type);
-    
-  fetch('/ministrystores', {
-        // method: 'GET',
-        // withCredentials: true,
-        // credentials: 'include',
-          headers: {
-                // 'Accept': 'application/json',
-                'Authorization': 'Bearer ' + authHeader(),
-                // 'Content-Type': 'application/json'
-            }
-})
+
+    fetch('/ministrystores', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
       .then(response => response.json())
-      .then(data =>{
+      .then(data => {
         console.log(data);
-       this.setState({ ministrystores: data, isLoading: false })
-       console.log("Stores"+this.state.user_type);
-    });
-      
-  
- // fetch('/ministrystores')
-    //   .then(response => response.json())
-    //   .then(data => this.setState({ ministrystores: data, isLoading: false }));
-  
+        this.setState({ ministrystores: data, isLoading: false })
+        console.log("Stores" + this.state.user_type);
+      });
 
 
-// fetch('/ministrystores', {
-//         // method: 'GET',
-//         // withCredentials: true,
-//         // credentials: 'include',
-//           headers: {
-//                 // 'Accept': 'application/json',
-//                 'Authorization': 'Bearer ' + authHeader(),
-//                 // 'Content-Type': 'application/json'
-//             }
-// }).then(response => response.json())
-//   .then(
-//       data => {
-//         console.log(data);
-//         // this.state.ministrystores=data;
-//         this.setState({
-//           ministrystores: data,
-//           isLoading:false,
-//         });
-//         console.log(data);
-//         // console.log(this.state.ministrystores);
-//       },
-//       error => {
-//         this.setState({
-//           content:
-//             (error.response && error.response.data) ||
-//             error.message ||
-//             error.toString()
-//         });
-//       }
-//     );
-
-
-    // )
-    // .catch(error => this.setState({
-    //     isLoading: false,
-    //     message: 'Something bad happened ' + error
-    // }));
-
-  // .then(response => response.json())
-  //     .then(data => this.setState({ ministrystores: data, isLoading: false }));
-
-// fetch('/ministrystores', {
-//             method: 'GET',
-//             headers: {
-//                 'Accept': 'application/json',
-//                 'Authorization': 'Bearer ' + authHeader()
-//                 // 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({
-//                 signature: generateKey(token),
-//                 eToken: token
-//             })
-//         })
-
-}
+  }
 
   updateSearch(event) {
     this.setState({ search: event.target.value.substr(0, 20) });
@@ -138,6 +82,24 @@ class MinistryStores extends Component {
     });
   }
 
+  delete (m_store_id) {
+    swal({
+      title: "Are you sure?",
+      text: "You Want to Delete this Ministry Store!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          // swal("Poof! Your imaginary file has been deleted!", {
+          //   icon: "success",
+          // });
+          this.remove(m_store_id);
+        }
+      });
+  }
+
   async remove(id) {
     await fetch(`/ministry_store/${id}`, {
       method: 'DELETE',
@@ -146,27 +108,41 @@ class MinistryStores extends Component {
         // 'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + authHeader(),
       }
-    }).then(() => {
-      // console.log("deleted");
-      //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
-      window.location.reload(false);
+    }) .then((response) => response.json())
+    // .then((response) => console.log(response))
 
-    });
+    .then(response => this.setState({ rRes: response}));
+    if(this.state.rRes==1){
+      swal({
+        icon: "success",
+        text: "Ministry Store Saved Succesfully",
+        buttons: {
+          ok: "OK",
+          // view: "Show Ministry Stores"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+      setTimeout(() => {   window.location.reload(false); }, 500);
+        
+    }else{
+      swal({
+        icon: "error",
+        text: "Error Saving Ministry Store",
+        buttons: {
+          ok: "OK",
+          // view: "Show Ministry Stores"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    
+    }
   }
 
-  // async remove(id) {
-  //   await fetch(`/ministry_store/${id}`, {
-  //     method: 'DELETE',
-  //     headers: {
-  //      'Authorization': 'Bearer ' + authHeader(),
-  //     }
-  //   }).then(() => {
-  //     // console.log("deleted");
-  //     //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
-  //     window.location.reload(false);
 
-  //   });
-  // }
 
   onRadioBtnClick(radioSelected) {
     this.setState({
@@ -181,16 +157,16 @@ class MinistryStores extends Component {
     console.log(ministrystores);
 
 
-//********************** Some error in filtering
+    //********************** Some error in filtering
 
     let filteredData = ministrystores.filter(
       (ministrystore) => {
-        return  ministrystore.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+        return ministrystore.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.m_store_id.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.tel_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           ministrystore.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          String(ministrystore.total_storage).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1  ||
+          String(ministrystore.total_storage).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           String(ministrystore.available_storage).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
           ;
         //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
@@ -201,8 +177,6 @@ class MinistryStores extends Component {
     if (isLoading) {
       return <p>Loading...</p>;
     }
-
-
 
     const indexOfLastData = currentPage * dataPerPage;
     const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -220,9 +194,10 @@ class MinistryStores extends Component {
         <td style={{ whiteSpace: 'nowrap' }}>{ministrystore.total_storage}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{ministrystore.available_storage}</td>
         <td>
-          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this Ministry Store ?')) this.remove(ministrystore.m_store_id) }}><i className="fa fa-trash"></i></Button>
-
-          <Button size="sm" color="success" tag={Link} to={"/"+this.state.user_type+"/ministry_store_detail/"+ministrystore.m_store_id}><i className="icon-eye"></i></Button>
+          {/*<Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this Ministry Store ?')) this.remove(ministrystore.m_store_id) }}><i className="fa fa-trash"></i></Button>*/}
+          {/*<Button size="sm" color="danger" onClick={this.delete()}><i className="fa fa-trash"></i></Button>*/}
+          <Button size="sm" color="danger" onClick={() => this.delete(ministrystore.m_store_id)}><i className="fa fa-trash"></i></Button>
+          <Button size="sm" color="success" tag={Link} to={"/" + this.state.user_type + "/ministry_store_detail/" + ministrystore.m_store_id}><i className="icon-eye"></i></Button>
         </td>
 
       </tr>
@@ -232,24 +207,24 @@ class MinistryStores extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-          
+
             <Card style={{ borderRadius: '20px' }}>
               <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                  <Row>
-              <Col md="8">
-             <b> Ministry Stores</b>
-              </Col>
-              <Col md="4" style={{ alignContent: 'center' }}>
-                <InputGroup>
-                  <InputGroupAddon addonType="prepend">
-                    <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
-                  </InputGroupAddon>
-                  <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search" type="text"
-                    value={this.state.search}
-                    onChange={this.updateSearch.bind(this)} />
-                </InputGroup>
-              </Col>
-            </Row>
+                <Row>
+                  <Col md="8">
+                    <b> Ministry Stores</b>
+                  </Col>
+                  <Col md="4" style={{ alignContent: 'center' }}>
+                    <InputGroup>
+                      <InputGroupAddon addonType="prepend">
+                        <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
+                      </InputGroupAddon>
+                      <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search" type="text"
+                        value={this.state.search}
+                        onChange={this.updateSearch.bind(this)} />
+                    </InputGroup>
+                  </Col>
+                </Row>
               </CardHeader>
               <CardBody>
 
