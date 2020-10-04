@@ -173,7 +173,7 @@ fetch('/user_list', {
                       <th>E Mail</th>
                       <th>Branch</th>
                       <th>Role</th>
-                      <th></th>
+                      <th>Options</th>
                       
                     </tr>
                   </thead>
