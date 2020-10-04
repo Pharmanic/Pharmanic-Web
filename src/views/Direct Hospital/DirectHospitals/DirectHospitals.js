@@ -151,8 +151,12 @@ class DirectHospitals extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-            <Row>
+          
+            <Card style={{ borderRadius: '20px' }}>
+              <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
+                  <Row>
               <Col md="8">
+             <b> Direct Hospitals</b>
               </Col>
               <Col md="4" style={{ alignContent: 'center' }}>
                 <InputGroup>
@@ -163,15 +167,10 @@ class DirectHospitals extends Component {
                     value={this.state.search}
                     onChange={this.updateSearch.bind(this)} />
                 </InputGroup>
-                <br></br>
               </Col>
             </Row>
-            <Card style={{ borderRadius: '20px' }}>
-              <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                <b>Direct Hospitals</b>
               </CardHeader>
               <CardBody>
-                <br />
 
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table" style={{ borderRadius: '20px !important' }}>
                   <thead style={{ backgroundColor: '#244EAD', color: 'white', borderRadius: '20px !important' }}>
