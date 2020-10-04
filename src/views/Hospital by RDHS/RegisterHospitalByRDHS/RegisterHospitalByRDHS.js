@@ -27,6 +27,7 @@ import {
 import { Link, withRouter } from 'react-router-dom';
 import authHeader from '../../../assets/services/auth-header_res';
 import AuthService from '../../../assets/services/auth.service';
+import swal from 'sweetalert';
 
 
 class RegisterHospitalByRDHS extends Component {
@@ -60,7 +61,8 @@ class RegisterHospitalByRDHS extends Component {
       fadeIn: true,
       timeout: 300,
       rdhss:[],
-      user_type:AuthService.getCurrentUser().roles
+      user_type:AuthService.getCurrentUser().roles,
+      rRes:0
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -68,6 +70,7 @@ class RegisterHospitalByRDHS extends Component {
 
   componentDidMount() {
     this.setState({isLoading: true});
+    // this.setState({rRes: 0});
     fetch('/rdhs_list', {
         // method: 'GET',
         // withCredentials: true,
@@ -80,6 +83,7 @@ class RegisterHospitalByRDHS extends Component {
 })
       .then(response => response.json())
       .then(data => this.setState({rdhss: data}));
+      
 
   }
 
@@ -120,8 +124,39 @@ class RegisterHospitalByRDHS extends Component {
       body: JSON.stringify(item),
     })
       .then(res => res.json()) //returns array of data
-      ;
-    this.props.history.push('/'+this.state.user_type+'/hospital_by_rdhs/hospital_by_rdhs_list');
+            //  .then(response => console.log("Response is"+response))
+       .then(response => this.setState({ rRes: response}));
+  //  .then(data => this.setState({ rRes: data, isLoading: false}));
+    console.log("Item"+this.state.rRes);
+
+    if (this.state.rRes != 0) {
+      swal({
+        icon: "success",
+        text: "RDHS Hospital Saved Succesfully",
+        buttons: {
+          ok: "OK",
+          // view: "Show RDHSs"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+      this.resetForm();
+    }else{
+      swal({
+        icon: "error",
+        text: "Error Saving RDHS Hospital",
+        buttons: {
+          ok: "OK",
+          // view: "Show RDHSs"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    }
+      
+    // this.props.history.push('/'+this.state.user_type+'/hospital_by_rdhs/hospital_by_rdhs_list');
   }
 
   toggle() {

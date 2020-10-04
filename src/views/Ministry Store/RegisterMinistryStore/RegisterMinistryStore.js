@@ -87,8 +87,6 @@ class RegisterMinistryStore extends Component {
       },
       body: JSON.stringify(item),
     })
-      // .then(res => console.log("REs in basic"+res)) //returns array of data
-      // console.log("rRes"+this.state.rRes);
     .then((response) => response.json())
     // .then((response) => console.log(response))
 
