@@ -46,27 +46,6 @@ class MinistryStoreDetail extends Component {
         total_storage: '',
         available_storage: ''
 
-        //enableEdit: false,
-
-        // track_id: {
-        //     track_id: '',
-        //     vehicle_id: {
-        //         vehicle_no: '',
-        //         type: '',
-        //         capacity: ''
-        //     },
-        //     driver_id: {
-        //         nic: '',
-        //         name: '',
-        //         email: '',
-        //         address: '',
-        //         telephone: ''
-        //     },
-        //     starting_point: '',
-        //     destination: '',
-        //     date: '',
-
-        // }
 
 
     };
@@ -124,25 +103,7 @@ class MinistryStoreDetail extends Component {
         
     }
 
-    // enableEdit(event) {
 
-
-    // }
-
-    // async handleSubmit(event) {
-    //   event.preventDefault();
-    //   const {item} = this.state;
-    //   console.log('object content', item);
-    //   await fetch('/supplyordertodh/add', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(item),
-    //   });
-    //   this.props.history.push('/ministrydamagestocks');
-    // }
 
     async handleSubmit(event) {
       event.preventDefault();
@@ -175,7 +136,7 @@ class MinistryStoreDetail extends Component {
         timer: 1500
 
       });
-    //   this.resetForm();
+    //   this.clearForm();
     }else{
       swal({
         icon: "error",
@@ -216,12 +177,6 @@ class MinistryStoreDetail extends Component {
     }
 
 
-    // onRadioBtnClick(radioSelected) {
-    //   this.setState({
-    //     radioSelected: radioSelected,
-    //   });
-    // }
-
     loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
     // toggleModal = (event) => {
@@ -237,38 +192,7 @@ class MinistryStoreDetail extends Component {
         if (isLoading) {
             return <p>Loading...</p>;
         }
-        /*
-            const trackList = ministrytracks.map(ministrytrack => {
-              return <option
-                key={ministrytrack.track_id}
-                value={ministrytrack.track_id}>
-                {ministrytrack.destination}
-              </option>
-            });*/
-
-        // const groupList = ministry_store_details.map(ministry_store_detail => {
-        /*return <tr key={ministry_store_details.reg_no}>
-          <td style={{ whiteSpace: 'nowrap' }}>{ministry_store_details.reg_no}</td>
-          <td style={{ whiteSpace: 'nowrap' }}>{ministry_store_details.reg_no}</td>
-          <td style={{ whiteSpace: 'nowrap' }}>{ministry_store_details.reg_no}</td>
-          <td style={{ whiteSpace: 'nowrap' }}>{ministry_store_details.reg_no}</td>*/
-        {/*<td style={{ whiteSpace: 'nowrap' }}>
-          {ministry_store_detail.can_supply_status === 1 ?
-            <Badge color="success">Available</Badge>
-            : <Badge color="danger">Not Available</Badge>}
-        </td>*/}
-        {/*<td> </td>*/ }
-        {/*<td></td>*/ }
-        {/*<td style={{ whiteSpace: 'nowrap' }}>
-          {ministry_store_detail.can_supply_status === 1 ?
-            <Button id={ministry_store_detail.id} block outline color="info" onClick={this.toggleModal}>Supply Orders</Button>
-            : <Button block outline color="info" disabled>Supply Order</Button>}
-        </td>*/}
-        {/*</tr>*/ }
-        // });
-
-        //const {shouldShowModal, modalOrderId} = this.state;
-        //console.log("shouldShowModal: " + shouldShowModal);
+      
         return (
             <div className="animated fadeIn">
 

@@ -24,6 +24,7 @@ import {
 import { } from 'reactstrap';
 import authHeader from '../../../assets/services/auth-header_res';
 import { Link, withRouter } from 'react-router-dom';
+import swal from 'sweetalert';
 
 
 class DirectHospitalDetail extends Component {
@@ -57,7 +58,7 @@ class DirectHospitalDetail extends Component {
             modalOrderId: -1
         };
         this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -98,25 +99,54 @@ class DirectHospitalDetail extends Component {
     }
  
 
-    // enableEdit(event) {
+      async handleSubmit(event) {
+        event.preventDefault();
+        const {item} = this.state.item;
 
+        fetch('/directhospital', {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
 
-    // }
+            },
+            body: JSON.stringify(this.state.item),
+        })
+            .then(response => response.json()) //returns array of data
+            .then(response => console.log("My Res 1  "+response.reg_no))
+            // .then(response => this.setState({ rRes: response.reg_no})) // tc
+            // .then(response => console.log("My Res2  "+response));;
+   console.log("rRes variable"+this.state.rRes);
+  if (this.state.rRes != 0) { // tc
+      swal({
+        icon: "success",
+        text: "Direct Hospital Updated Succesfully",
+        buttons: {
+          ok: "OK",
+          // view: "Show Direct Hospitals"
+          // hello: "Say hello!",
+        },
+        timer: 1500
 
-    // async handleSubmit(event) {
-    //   event.preventDefault();
-    //   const {item} = this.state;
-    //   console.log('object content', item);
-    //   await fetch('/supplyordertodh/add', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(item),
-    //   });
-    //   this.props.history.push('/ministrydamagestocks');
-    // }
+      });
+    //   this.resetForm();
+    }else{
+      swal({
+        icon: "error",
+        text: "Error Updating Direct Hospital",
+        buttons: {
+          ok: "OK",
+          // view: "Show Direct Hospitals"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    }
+//    this.setState({rRes:0});
+        // this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
+    }
     
 
     toggle() {
@@ -158,43 +188,12 @@ class DirectHospitalDetail extends Component {
     render() {
         const {isLoading, item} = this.state;
 
-        // this.state.enableEdit=false;
+        this.state.enableEdit=true;
         console.log('reqlist', item);
         if (isLoading) {
             return <p>Loading...</p>;
         }
-        /*
-            const trackList = ministrytracks.map(ministrytrack => {
-              return <option
-                key={ministrytrack.track_id}
-                value={ministrytrack.track_id}>
-                {ministrytrack.destination}
-              </option>
-            });*/
-
-        // const groupList = direct_hospital_details.map(direct_hospital_detail => {
-        /*return <tr key={direct_hospital_details.reg_no}>
-          <td style={{ whiteSpace: 'nowrap' }}>{direct_hospital_details.reg_no}</td>
-          <td style={{ whiteSpace: 'nowrap' }}>{direct_hospital_details.reg_no}</td>
-          <td style={{ whiteSpace: 'nowrap' }}>{direct_hospital_details.reg_no}</td>
-          <td style={{ whiteSpace: 'nowrap' }}>{direct_hospital_details.reg_no}</td>*/
-        {/*<td style={{ whiteSpace: 'nowrap' }}>
-          {direct_hospital_detail.can_supply_status === 1 ?
-            <Badge color="success">Available</Badge>
-            : <Badge color="danger">Not Available</Badge>}
-        </td>*/}
-        {/*<td> </td>*/ }
-        {/*<td></td>*/ }
-        {/*<td style={{ whiteSpace: 'nowrap' }}>
-          {direct_hospital_detail.can_supply_status === 1 ?
-            <Button id={rdhs_detail.id} block outline color="info" onClick={this.toggleModal}>Supply Orders</Button>
-            : <Button block outline color="info" disabled>Supply Order</Button>}
-        </td>*/}
-        {/*</tr>*/ }
-        // });
-
-        //const {shouldShowModal, modalOrderId} = this.state;
-        //console.log("shouldShowModal: " + shouldShowModal);
+  
         return (
             <div className="animated fadeIn">
 
@@ -209,7 +208,7 @@ class DirectHospitalDetail extends Component {
 
 
 
-                                    <FormGroup row>
+                                    {/*<FormGroup row>
                                         <Col md="6">
                                             <FormGroup check className="radio">
                                                 <Input className="form-check-input" type="checkbox" id="radio2" name="radios" value="RDHS Hospital" onClick={() => {
@@ -218,7 +217,7 @@ class DirectHospitalDetail extends Component {
                                                 <Label check className="form-check-label" htmlFor="radio2">Enable Editing</Label>
                                             </FormGroup>
                                         </Col>
-                                    </FormGroup>
+                                    </FormGroup>*/}
                                     {/*<Button size="sm" color="success" onClick={() => {
                                         this.setState({ enableEdit: true }); this.enableEditing(); }} >Enable Edit</Button>*/}
 

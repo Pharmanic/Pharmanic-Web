@@ -26,6 +26,7 @@ import { Link, withRouter } from 'react-router-dom';
 // import authHeader from '../../../assets/services//auth-header';
 import axios from 'axios';
 import authHeader from '../../../assets/services/auth-header_res';
+import swal from 'sweetalert';
 
 const API_URL = 'http://localhost:8080';
 
@@ -44,28 +45,7 @@ class RDHSDetail extends Component {
         address: '',
         email: '',
         telephone: ''
-        //enableEdit: false,
-
-        // track_id: {
-        //     track_id: '',
-        //     vehicle_id: {
-        //         vehicle_no: '',
-        //         type: '',
-        //         capacity: ''
-        //     },
-        //     driver_id: {
-        //         nic: '',
-        //         name: '',
-        //         email: '',
-        //         address: '',
-        //         telephone: ''
-        //     },
-        //     starting_point: '',
-        //     destination: '',
-        //     date: '',
-
-        // }
-
+     
 
     };
     constructor(props) {
@@ -101,25 +81,7 @@ class RDHSDetail extends Component {
     })
             .then(response => response.json())
             .then(data => this.setState({ item: data, isLoading: false, old_item: data, isLoading: false }));
-//   axios.get(API_URL + `/rdhss/${this.props.match.params.id}`, { headers: authHeader() }).then(
-//       response => {
-//         this.setState({
-//           item: response.data,
-//           isLoading: false, old_item: response.data, isLoading: false 
-//         });
-//         console.log(this.state.rdhs);
-//       },
-//       error => {
-//         this.setState({
-//           content:
-//             (error.response && error.response.data) ||
-//             error.message ||
-//             error.toString()
-//         });
-//       }
-//     );
-
-        
+       
 
 }
 
@@ -133,27 +95,6 @@ class RDHSDetail extends Component {
         item[name] = value;
         this.setState({ item });
     }
-
-    // enableEdit(event) {
-
-
-    // }
-
-    // async handleSubmit(event) {
-    //   event.preventDefault();
-    //   const {item} = this.state;
-    //   console.log('object content', item);
-    //   await fetch('/supplyordertodh/add', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(item),
-    //   });
-    //   this.props.history.push('/ministrydamagestocks');
-    // }
-
 
     toggle() {
         this.setState({
@@ -177,23 +118,59 @@ class RDHSDetail extends Component {
         this.setState({ item: this.state.old_item });
     }
 
+     clearForm = () => {
+        this.setState({ item: this.state.empty_item });
+    }
+
     async handleSubmit(event) {
         event.preventDefault();
         const {item} = this.state.item;
-        console.log("Before update"+this.state.item);
+        console.log("Before update"+this.state.item.name);
 
         await fetch('/rdhs', {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authHeader()
             },
-            body: JSON.stringify(item),
-        })
-            .then(res => res.json()) //returns array of data
-            ;
-        this.props.history.push('/rdhs/rdhs_list');
+            body: JSON.stringify(this.state.item),
+        }) .then((response) => response.json())
+        .then((response)=>console.log(response))
+    // .then((response) => console.log(response))
+
+    .then(response => this.setState({ rRes: response}));;
+   console.log("rRes"+this.state.rRes);
+  if (this.state.rRes != 0) {
+      swal({
+        icon: "success",
+        text: "RDHS Updated Succesfully",
+        buttons: {
+          ok: "OK",
+          // view: "Show RDHSs"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    //   this.clearForm();
+    }else{
+      swal({
+        icon: "error",
+        text: "Error Updating RDHS",
+        buttons: {
+          ok: "OK",
+          // view: "Show RDHSs"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
     }
+   this.setState({rRes:0});
+    }
+        // this.props.history.push('/rdhs/rdhs_list');
+    // }
 
 
     // onRadioBtnClick(radioSelected) {
@@ -212,7 +189,7 @@ class RDHSDetail extends Component {
     render() {
         const {rdhs_details, isLoading, item} = this.state;
 
-        // this.state.enableEdit=false;
+        this.state.enableEdit=true;
         console.log('reqlist', rdhs_details);
         if (isLoading) {
             return <p>Loading...</p>;
@@ -263,7 +240,7 @@ class RDHSDetail extends Component {
 
 
 
-                                    <FormGroup row>
+                                    {/*<FormGroup row>
                                         <Col md="6">
                                             <FormGroup check className="radio">
                                                 <Input className="form-check-input" type="checkbox" id="radio2" name="radios" value="RDHS" onClick={() => {
@@ -272,7 +249,7 @@ class RDHSDetail extends Component {
                                                 <Label check className="form-check-label" htmlFor="radio2">Enable Editing</Label>
                                             </FormGroup>
                                         </Col>
-                                    </FormGroup>
+                                    </FormGroup>*/}
                                     {/*<Button size="sm" color="success" onClick={() => {
                                         this.setState({ enableEdit: true }); this.enableEditing(); }} >Enable Edit</Button>*/}
 
