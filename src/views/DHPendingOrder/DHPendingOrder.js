@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-class CurrentStock extends Component {
+class DHPendingOrder extends Component {
   
 
   constructor(props) {
@@ -25,7 +25,7 @@ class CurrentStock extends Component {
   componentDidMount() {
     this.setState({isLoading: true});
 
-    fetch('/directhospitalrequestorders')
+    fetch('/dhrequestordersnotcoplete')
       .then(response => response.json())
       .then(data => this.setState({directhospitalrequestorders: data, isLoading: false}));
   }
@@ -33,6 +33,18 @@ class CurrentStock extends Component {
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
+    });
+  }
+
+  async close(id) {
+    await fetch(`/closeorder/${id}`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(() => {
+     
     });
   }
 
@@ -71,7 +83,7 @@ class CurrentStock extends Component {
           <Col>
             <Card>
               <CardHeader>
-                Direct Hospitals Drug Request Orders
+                Direct Hospitals
               </CardHeader>
               <CardBody>
                 
@@ -93,13 +105,17 @@ class CurrentStock extends Component {
               </CardBody>
             </Card>
           </Col>
-        </Row>   
-        {/* <Link to="/direct_hospital_request_order_form">
-          <Button className="btn-primary btn-pill" >New Order</Button>
-        </Link> */}
+        </Row>
+
+        
+       
+         
+        
+     
+   
       </div>
     );
   }
 }
 
-export default CurrentStock;
+export default DHPendingOrder;

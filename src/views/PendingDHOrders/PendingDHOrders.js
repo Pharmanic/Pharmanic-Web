@@ -25,7 +25,7 @@ class CurrentStock extends Component {
   componentDidMount() {
     this.setState({isLoading: true});
 
-    fetch('/directhospitalrequestorders')
+    fetch('/directhospitalpendingorders')
       .then(response => response.json())
       .then(data => this.setState({directhospitalrequestorders: data, isLoading: false}));
   }
@@ -33,6 +33,18 @@ class CurrentStock extends Component {
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
+    });
+  }
+
+  async close(id) {
+    await fetch(`/closeorder/${id}`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(() => {
+     
     });
   }
 
@@ -69,15 +81,15 @@ class CurrentStock extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-            <Card>
-              <CardHeader>
-                Direct Hospitals Drug Request Orders
+            <Card style={{borderRadius:'20px'}}>
+              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
+                Direct Hospital Request Orders
               </CardHeader>
               <CardBody>
                 
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead className="thead-light">
+                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
                   <tr>
                     <th>Order ID</th>
                     <th>Hospital</th>
