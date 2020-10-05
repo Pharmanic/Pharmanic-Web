@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 import authHeader from '../../../assets/services/auth-header_res';
 import axios from 'axios';
 import AuthService from '../../../assets/services/auth.service';
-
+import swal from 'sweetalert';
 
 const API_URL = 'http://localhost:8080';
 
@@ -98,24 +98,62 @@ fetch('/rdhs_list', {
     });
   }
 
+   delete (reg_no) {
+    swal({
+      title: "Are you sure?",
+      text: "You Want to Delete this RDHS!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          // swal("Poof! Your imaginary file has been deleted!", {
+          //   icon: "success",
+          // });
+          this.remove(reg_no);
+        }
+      });
+  }
+
   async remove(id) {
     await fetch(`/rdhs/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': 'Bearer ' + authHeader(),
       }
-    }).then(() => {
-      // console.log("deleted");
-      //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
-      window.location.reload(false);
+   }) .then((response) => response.json())
+    // .then((response) => console.log(response))
 
-    });
-    //  await axios.delete(API_URL + `/rdhs/${id}`, { headers: authHeader() })
-    //   .then(res => {
-    //     console.log(res);
-    //     console.log(res.data);
-    //     window.location.reload(false);
-    //   })
+    .then(response => this.setState({ rRes: response}));
+    if(this.state.rRes==1){
+      swal({
+        icon: "success",
+        text: "RDHS Saved Succesfully",
+        buttons: {
+          ok: "OK",
+          // view: "Show RDHSs"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+      setTimeout(() => {   window.location.reload(false); }, 500);
+        
+    }else{
+      swal({
+        icon: "error",
+        text: "Error Saving RDHS",
+        buttons: {
+          ok: "OK",
+          // view: "Show RDHSs"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    
+    }
   }
 
   onViewButtonClick(rdhsSelected) {
@@ -141,7 +179,7 @@ fetch('/rdhs_list', {
           rdhs.telephone.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           rdhs.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
           ;
-        //  rdhs.m_store_id.indexOf(this.state.search) !==-1;
+        //  rdhs.reg_no.indexOf(this.state.search) !==-1;
       }
     );
 
@@ -168,7 +206,7 @@ fetch('/rdhs_list', {
 
 
         <td>
-          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this RDHS ?')) this.remove(rdhs.reg_no) }}><i className="fa fa-trash"></i></Button>
+          <Button size="sm" color="danger" onClick={() => this.delete(rdhs.reg_no)}><i className="fa fa-trash"></i></Button>
 
           <Button size="sm" color="success" tag={Link} to={"/"+this.state.user_type+"/rdhs_detail/" + rdhs.reg_no}><i className="icon-eye"></i></Button>
         </td>
