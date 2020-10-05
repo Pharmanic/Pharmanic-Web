@@ -59,7 +59,6 @@ class CurrentStock extends Component {
         <td style={{whiteSpace: 'nowrap'}}>{directhospitalrequestorder.m_store_id.location}</td>
         <td style={{whiteSpace: 'nowrap'}}>{directhospitalrequestorder.date}</td>
         <td>  <Button block outline color="info" tag={Link} to={"/dhreqorderdetail/"+directhospitalrequestorder.order_id}>More Info</Button>  </td>
-        <td><Button size="sm" color="danger" onClick={() => {if(window.confirm('Are you sure you wish to close this order?You cant reverse this task')) this.close(directhospitalrequestorder.order_id)}}>Close Order</Button></td>
       </tr>
     });
 
@@ -94,9 +93,9 @@ class CurrentStock extends Component {
             </Card>
           </Col>
         </Row>   
-        {/* <Link to="/direct_hospital_request_order_form">
+        <Link to="/direct_hospital_request_order_form">
           <Button className="btn-primary btn-pill" >New Order</Button>
-        </Link> */}
+        </Link>
       </div>
     );
   }
