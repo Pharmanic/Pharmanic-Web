@@ -16,6 +16,7 @@ import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
 import authHeader from '../../../assets/services/auth-header_res';
 import AuthService from '../../../assets/services/auth.service';
+import swal from 'sweetalert';
 
 
 const divStyle = {
@@ -66,19 +67,61 @@ fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
 
  }
   
-
+ delete (reg_no) {
+    swal({
+      title: "Are you sure?",
+      text: "You Want to Delete this RDHS Hospital!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          // swal("Poof! Your imaginary file has been deleted!", {
+          //   icon: "success",
+          // });
+          this.remove(reg_no);
+        }
+      });
+  }
   async remove(id) {
     await fetch(`/hospitalByRdhs/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': 'Bearer ' + authHeader(),
       }
-    }).then(() => {
-      // console.log("deleted");
-      //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
-      window.location.reload(false);
+   }) .then((response) => response.json())
+    // .then((response) => console.log(response))
 
-    });
+    .then(response => this.setState({ rRes: response}));
+    if(this.state.rRes==1){
+      swal({
+        icon: "success",
+        text: "RDHS Hospital Saved Succesfully",
+        buttons: {
+          ok: "OK",
+          // view: "Show RDHS Hospitals"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+      setTimeout(() => {   window.location.reload(false); }, 500);
+        
+    }else{
+      swal({
+        icon: "error",
+        text: "Error Saving RDHS Hospital",
+        buttons: {
+          ok: "OK",
+          // view: "Show RDHS Hospitals"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    
+    }
   }
 
   updateSearch(event) {
@@ -111,7 +154,7 @@ fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
           String(hospitalByRDHS.address).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
           String(hospitalByRDHS.email).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
           ;
-        //  hospitalByRDHS.m_store_id.indexOf(this.state.search) !==-1;
+        //  hospitalByRDHS.reg_no.indexOf(this.state.search) !==-1;
       }
     );
 
@@ -128,7 +171,7 @@ fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
     const paginate = pageNumber => this.setState({ currentPage: pageNumber });
 
     const groupList = currentData.map(hospitalByRDHS => {
-      return <tr key={hospitalByRDHS.m_store_id}>
+      return <tr key={hospitalByRDHS.reg_no}>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.reg_no}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.name}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.rdhs.name}</td>
@@ -136,7 +179,7 @@ fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.email}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.telephone}</td>
         <td>
-          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this RDHS Hospital?')) this.remove(hospitalByRDHS.reg_no) }}><i className="fa fa-trash"></i></Button>
+          <Button size="sm" color="danger" onClick={() => this.delete(hospitalByRDHS.reg_no)}><i className="fa fa-trash"></i></Button>
           <Button size="sm" color="success" tag={Link} to={"/"+this.state.user_type+"/hospital_by_rdhs/" + hospitalByRDHS.reg_no}><i className="icon-eye"></i></Button>
 
         </td>
