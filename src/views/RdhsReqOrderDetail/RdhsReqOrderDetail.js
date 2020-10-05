@@ -90,7 +90,6 @@ class DHReqOrderDetail extends Component {
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
     this.state = {
       rdhsreqorderdetails: [], 
-      rdhsreqorderdetailssupplied: [], 
       isLoading: true,
       ministrytracks:[],
       item:this.emptyItem,
@@ -111,11 +110,6 @@ class DHReqOrderDetail extends Component {
     fetch(`/rdhsreqorderdetails/${this.props.match.params.id}`)
       .then(response => response.json())
       .then(data => this.setState({rdhsreqorderdetails: data, isLoading: false}));
-
-      fetch(`/rdhsreqorderdetailssupplied/${this.props.match.params.id}`)
-      .then(response => response.json())
-      .then(data => this.setState({rdhsreqorderdetailssupplied: data, isLoading: false}));
-
 
       fetch('/ministrytracks')
       .then(response => response.json())
@@ -185,7 +179,7 @@ class DHReqOrderDetail extends Component {
   }
 
   render() {
-    const {rdhsreqorderdetails, isLoading,ministrytracks,item,rdhsreqorderdetailssupplied} = this.state;
+    const {rdhsreqorderdetails, isLoading,ministrytracks,item} = this.state;
     console.log('reqlist',rdhsreqorderdetails);
     if (isLoading) {
       return <p>Loading...</p>;
@@ -217,20 +211,6 @@ class DHReqOrderDetail extends Component {
       </td>
       </tr>
     });
-
-    const groupList1 = rdhsreqorderdetailssupplied.map(rdhsreqorderdetailssupplie => {
-      return <tr key={rdhsreqorderdetailssupplie.id}>
-        <td style={{whiteSpace: 'nowrap'}}>{rdhsreqorderdetailssupplie.order_id.order_id}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{rdhsreqorderdetailssupplie.sr_no.name}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{rdhsreqorderdetailssupplie.quantity}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{rdhsreqorderdetailssupplie.order_id.m_store_id.m_store_id}</td>
-      <td style={{whiteSpace: 'nowrap'}}>
-              {rdhsreqorderdetailssupplie.supply_status===1?
-                <Badge color="success">Supplied</Badge>
-            :<Badge color="danger">Not Supplied</Badge>}
-        </td>
-      </tr>
-    });
     
     const {shouldShowModal, modalOrderId} = this.state;
     console.log("shouldShowModal: "+ shouldShowModal);
@@ -259,40 +239,6 @@ class DHReqOrderDetail extends Component {
                   </tbody>
                 </Table>
                 <Button block outline color="info" tag={Link} to="/ministry/directhospitalreqorder">Go Back</Button> 
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Card style={{borderRadius:'20px'}}>
-              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
-                Order Details From RDHS
-              </CardHeader>
-              <Row>
-                <Col md="10">
-                </Col>
-                <Col md="2">
-                <Button block outline color="info" tag={Link} to="/ministry/rdhsreqorder">Go Back</Button> 
-
-                </Col>
-              </Row>
-              <CardBody>                
-                <br />
-                <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
-                  <tr>
-                    <th>Order ID</th>
-                    <th>Medicine</th>
-                    <th>Quantity</th>
-                    <th>Ministry store ID</th>
-                    <th>Supply Status</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {groupList1}
-                  </tbody>
-                </Table>
               </CardBody>
             </Card>
           </Col>

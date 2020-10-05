@@ -235,7 +235,6 @@ class SupplyToDHModel extends Component {
                     </Col>
                     <Col xs="12" md="9">
                       <Input type="select" name="request_id" id="request_id"  value={item.request_id.id|| ''} onChange={this.handleChange} >
-                            <option>Select Request ID</option>
                             <option value={rdhsreqorderdetail.id}> {rdhsreqorderdetail.id}</option>
                                                                         
                       </Input>           
