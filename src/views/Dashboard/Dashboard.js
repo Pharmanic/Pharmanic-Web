@@ -22,6 +22,7 @@ import {
 } from 'reactstrap';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
+import authHeader from '../../assets/services/auth-header_res';
 
 const Widget03 = lazy(() => import('../../views/Widgets/Widget03'));
 
@@ -30,6 +31,11 @@ const brandSuccess = getStyle('--success')
 const brandInfo = getStyle('--info')
 const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
+
+let yearlyImportedQty;
+let yearlyImportedQtyYears;
+let average;
+
 
 // Card Chart 1
 const cardChartData1 = {
@@ -89,63 +95,7 @@ const cardChartOpts1 = {
 }
 
 
-// Card Chart 2
-const cardChartData2 = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: brandInfo,
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [1, 18, 9, 17, 34, 22, 11],
-    },
-  ],
-};
 
-const cardChartOpts2 = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  scales: {
-    xAxes: [
-      {
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent',
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
-        },
-
-      }],
-    yAxes: [
-      {
-        display: false,
-        ticks: {
-          display: false,
-          min: Math.min.apply(Math, cardChartData2.datasets[0].data) - 5,
-          max: Math.max.apply(Math, cardChartData2.datasets[0].data) + 5,
-        },
-      }],
-  },
-  elements: {
-    line: {
-      tension: 0.00001,
-      borderWidth: 1,
-    },
-    point: {
-      radius: 4,
-      hitRadius: 10,
-      hoverRadius: 4,
-    },
-  },
-};
 
 // Card Chart 3
 const cardChartData3 = {
@@ -453,15 +403,22 @@ const mainChartOpts = {
 };
 
 class Dashboard extends Component {
+  
   constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
+    this.ImportedQty_5years = this.ImportedQty_5years.bind(this);
+    this.ImportedQty_10years = this.ImportedQty_10years.bind(this);
+    this.ImportedQty = this.ImportedQty.bind(this);
+
 
     this.state = {
       dropdownOpen: false,
       radioSelected: 2,
+      // yearlyImportedQty: [],
+      // yearlyImportedQtyYears: [],
     };
   }
 
@@ -477,9 +434,265 @@ class Dashboard extends Component {
     });
   }
 
+   componentDidMount() {
+    this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
+
+    fetch('/yearlyImportMedicieSumYears5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyImportedQtyYears: data, isLoading: false })
+        // yearlyImportedQtyYears=this.state.yearlyImportedQtyYears;
+        console.log("Years" + this.state.yearlyImportedQtyYears);
+      });
+
+       fetch('/yearlyImportMedicieSum5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyImportedQty: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.yearlyImportedQty);
+      });
+
+
+
+
+  }
+
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
+  
+  ImportedQty_5years(){
+    console.log("say hy");
+    this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
+
+    fetch('/yearlyImportMedicieSumYears5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyImportedQtyYears: data, isLoading: false })
+        // yearlyImportedQtyYears=this.state.yearlyImportedQtyYears;
+        console.log("Years" + this.state.yearlyImportedQtyYears);
+      });
+
+       fetch('/yearlyImportMedicieSum5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyImportedQty: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.yearlyImportedQty);
+      });
+       
+
+      this.setState({ yearlyImportedQtyYears: []});
+      this.setState({ yearlyImportedQty: []});
+
+    
+  }
+  ImportedQty_10years(){
+    console.log("say hy");
+    this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
+
+    fetch('/yearlyImportMedicieSumYears10', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyImportedQtyYears: data, isLoading: false })
+        // yearlyImportedQtyYears=this.state.yearlyImportedQtyYears;
+        console.log("Years" + this.state.yearlyImportedQtyYears);
+      });
+
+       fetch('/yearlyImportMedicieSum10', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyImportedQty: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.yearlyImportedQty);
+      });
+       
+
+      this.setState({ yearlyImportedQtyYears: []});
+      this.setState({ yearlyImportedQty: []});
+
+    
+  }
+
+  ImportedQty(){
+    console.log("say hy");
+    this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
+
+    fetch('/yearlyImportMedicieSumYears', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyImportedQtyYears: data, isLoading: false })
+        // yearlyImportedQtyYears=this.state.yearlyImportedQtyYears;
+        console.log("Years" + this.state.yearlyImportedQtyYears);
+      });
+
+       fetch('/yearlyImportMedicieSum', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyImportedQty: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.yearlyImportedQty);
+      });
+       
+
+      this.setState({ yearlyImportedQtyYears: []});
+      this.setState({ yearlyImportedQty: []});
+
+    
+  }
 
   render() {
+     const {yearlyImportedQty,yearlyImportedQtyYears} = this.state;
+
+
+     // Card Chart 2
+const cardChartData2 = {
+   labels: this.state.yearlyImportedQty,
+  datasets: [
+    {
+      label: '',
+      backgroundColor: brandInfo,
+      borderColor: 'rgba(255,255,255,.55)',
+      data: this.state.yearlyImportedQtyYears,
+    },
+  ],
+};
+
+const cardChartOpts2 = {
+  tooltips: {
+    enabled: false,
+    custom: CustomTooltips
+  },
+  maintainAspectRatio: false,
+  legend: {
+    display: false,
+  },
+  scales: {
+    xAxes: [
+      {
+        gridLines: {
+          color: 'transparent',
+          zeroLineColor: 'transparent',
+        },
+        ticks: {
+          fontSize: 2,
+          fontColor: 'transparent',
+        },
+
+      }],
+    yAxes: [
+      {
+        display: false,
+        ticks: {
+          display: false,
+          min: Math.min.apply(Math, cardChartData2.datasets[0].data) - 5,
+          max: Math.max.apply(Math, cardChartData2.datasets[0].data) + 5,
+        },
+      }],
+  },
+  elements: {
+    line: {
+      tension: 0.00001,
+      borderWidth: 1,
+    },
+    point: {
+      radius: 4,
+      hitRadius: 10,
+      hoverRadius: 4,
+    },
+  },
+};
 
     return (
       <div className="animated fadeIn">
@@ -489,19 +702,18 @@ class Dashboard extends Component {
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right">
                   <ButtonDropdown id='card1' isOpen={this.state.card1} toggle={() => { this.setState({ card1: !this.state.card1 }); }}>
-                    <DropdownToggle caret className="p-0" color="transparent">
+                   <DropdownToggle caret className="p-0" color="transparent">
                       <i className="icon-settings"></i>
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem>Action</DropdownItem>
-                      <DropdownItem>Another action</DropdownItem>
-                      <DropdownItem disabled>Disabled action</DropdownItem>
-                      <DropdownItem>Something else here</DropdownItem>
+                      <DropdownItem onClick={this.ImportedQty_5years}>Last 5 Years</DropdownItem>
+                      <DropdownItem onClick={this.ImportedQty_10years}>Last 10 Years</DropdownItem>
+                      <DropdownItem onClick={this.ImportedQty}>All</DropdownItem>
                     </DropdownMenu>
                   </ButtonDropdown>
                 </ButtonGroup>
-                <div className="text-value">9.823</div>
-                <div>Members online</div>
+                <div className="text-value">450</div>
+                <div>Imported Stock</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
                 <Line data={cardChartData2} options={cardChartOpts2} height={70} />
