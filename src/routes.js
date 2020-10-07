@@ -72,6 +72,7 @@ const ListDrivers = React.lazy(() => import('./views/MinistryDrivers/DriversList
 const VEHRegister = React.lazy(() => import('./views/MinistryVehicles/RegisterVehicles'));
 const ListVehicles = React.lazy(() => import('./views/MinistryVehicles/VehiclesList'));
 const ListMedicines = React.lazy(() => import('./views/Medicine/Medicine'));
+const ListofMedicines = React.lazy(() => import('./views/MinistryMedicine/MinistryMedicine'));
 const MedRegister = React.lazy(() => import('./views/RegisterMedicine/RegisterMedicine'));
 const DirectHospitalList = React.lazy(() => import('./views/Direct Hospital/DirectHospitals'));
 const DirectHospitalRegister = React.lazy(() => import('./views/Direct Hospital/RegisterDirectHospital'));
@@ -170,6 +171,11 @@ const routes = [
   { path: '/ministry_medicines', exact: true, name: 'Ministry Medicines', component: ListMedicines },
   { path: '/ministry_medicines/ministry_medicine_list', exact: true, name: 'Ministry Medicines', component: ListMedicines },
   { path: '/ministry_medicines/register', exact: true, name: 'Ministry Medicines Registration', component:  MedRegister},
+
+  { path: '/ministry_medicines2', exact: true, name: 'Ministry Medicines', component: ListofMedicines },
+  { path: '/ministry_medicines/ministry_medicine_list2', exact: true, name: 'Ministry Medicines', component: ListofMedicines },
+  { path: '/ministry_medicines/register', exact: true, name: 'Ministry Medicines Registration', component:  MedRegister},
+
 
   { path: '/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },
   { path: '/direct_hospitals/direct_hospitals', exact: true, name: 'Direct Hospitals', component: DirectHospitalList },

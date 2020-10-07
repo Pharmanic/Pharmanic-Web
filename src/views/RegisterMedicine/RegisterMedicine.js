@@ -74,7 +74,7 @@ class RegisterMedicine extends Component {
     })
       .then(res => res.json()) //returns array of data
       ;
-    this.props.history.push('/ministry_medicines/ministry_medicine_list');
+    this.props.history.push('/ministry_medicines/ministry_medicine_list2');
   }
 
   toggle() {
