@@ -34,67 +34,15 @@ const brandDanger = getStyle('--danger')
 
 let yearlyImportedQty;
 let yearlyImportedQtyYears;
-let average;
+let average=0;
 
+let yearlyAvailableQty;
+let yearlyAvailableQtyYears;
+let availableAverage=0;
 
-// Card Chart 1
-const cardChartData1 = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: brandPrimary,
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [65, 59, 84, 84, 51, 55, 40],
-    },
-  ],
-};
-
-const cardChartOpts1 = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  scales: {
-    xAxes: [
-      {
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent',
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
-        },
-
-      }],
-    yAxes: [
-      {
-        display: false,
-        ticks: {
-          display: false,
-          min: Math.min.apply(Math, cardChartData1.datasets[0].data) - 5,
-          max: Math.max.apply(Math, cardChartData1.datasets[0].data) + 5,
-        },
-      }],
-  },
-  elements: {
-    line: {
-      borderWidth: 1,
-    },
-    point: {
-      radius: 4,
-      hitRadius: 10,
-      hoverRadius: 4,
-    },
-  }
-}
-
-
+let yearlySuppliedQty;
+let yearlySuppliedQtyYears;
+let suppliedAverage=0;
 
 
 // Card Chart 3
@@ -102,7 +50,7 @@ const cardChartData3 = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
     {
-      label: 'My First dataset',
+      label: '',
       backgroundColor: 'rgba(255,255,255,.2)',
       borderColor: 'rgba(255,255,255,.55)',
       data: [78, 81, 80, 45, 34, 12, 40],
@@ -146,7 +94,7 @@ const cardChartData4 = {
   labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
   datasets: [
     {
-      label: 'My First dataset',
+      label: '',
       backgroundColor: 'rgba(255,255,255,.3)',
       borderColor: 'transparent',
       data: [78, 81, 80, 45, 34, 12, 40, 75, 34, 89, 32, 68, 54, 72, 18, 98],
@@ -331,7 +279,7 @@ const mainChart = {
   labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
   datasets: [
     {
-      label: 'My First dataset',
+      label: '',
       backgroundColor: hexToRgba(brandInfo, 10),
       borderColor: brandInfo,
       pointHoverBackgroundColor: '#fff',
@@ -412,7 +360,12 @@ class Dashboard extends Component {
     this.ImportedQty_5years = this.ImportedQty_5years.bind(this);
     this.ImportedQty_10years = this.ImportedQty_10years.bind(this);
     this.ImportedQty = this.ImportedQty.bind(this);
-
+    this.AvailableQty_5years = this.AvailableQty_5years.bind(this);
+    this.AvailableQty_10years = this.AvailableQty_10years.bind(this);
+    this.AvailableQty = this.AvailableQty.bind(this);
+    this.SuppliedQty_5years = this.SuppliedQty_5years.bind(this);
+    this.SuppliedQty_10years = this.SuppliedQty_10years.bind(this);
+    this.SuppliedQty = this.SuppliedQty.bind(this);
 
     this.state = {
       dropdownOpen: false,
@@ -476,6 +429,144 @@ class Dashboard extends Component {
         console.log("Sums" + this.state.yearlyImportedQty);
       });
 
+         fetch('/yearlyImportMedicie5Avg', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ average: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.average);
+      });
+
+    
+    //load Available medicine charts
+
+    fetch('/yearlyAvailableMedicieSumYears5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyAvailableQtyYears: data, isLoading: false })
+        // yearlyAvailableQtyYears=this.state.yearlyAvailableQtyYears;
+        console.log("Years Av" + this.state.yearlyAvailableQtyYears);
+      });
+
+      fetch('/yearlyAvailableMedicieSum5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyAvailableQty: data, isLoading: false })
+        //  yearlyAvailableQty=this.state.yearlyAvailableQty;
+        console.log("Sums Av" + this.state.yearlyAvailableQty);
+      });
+
+          fetch('/yearlyAvailableMedicie5Avg', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ averageAvailable: data, isLoading: false })
+        //  yearlyAvailableQty=this.state.yearlyAvailableQty;
+        console.log("Avg Av" + this.state.averageAvailable);
+      });
+
+
+       //load Supplied medicine charts
+    
+    fetch('/yearlySuppliedMedicieSumYears5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlySuppliedQtyYears: data, isLoading: false })
+        // yearlyAvailableQtyYears=this.state.yearlyAvailableQtyYears;
+        console.log("Years Av" + this.state.yearlySuppliedQtyYears);
+      });
+
+      fetch('/yearlySuppliedMedicieSum5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlySuppliedQty: data, isLoading: false })
+        //  yearlyAvailableQty=this.state.yearlyAvailableQty;
+        console.log("Sums Av" + this.state.yearlySuppliedQty);
+      });
+
+          fetch('/yearlySuppliedMedicieAvg5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ averageSupplied: data, isLoading: false })
+        //  yearlyAvailableQty=this.state.yearlyAvailableQty;
+        console.log("Avg Av" + this.state.averageSupplied);
+      });
 
 
 
@@ -487,7 +578,6 @@ class Dashboard extends Component {
     console.log("say hy");
     this.setState({ isLoading: true });
     // console.log(this.state.user_type);
-
     fetch('/yearlyImportMedicieSumYears5', {
       // method: 'GET',
       // withCredentials: true,
@@ -525,13 +615,35 @@ class Dashboard extends Component {
         //  yearlyImportedQty=this.state.yearlyImportedQty;
         console.log("Sums" + this.state.yearlyImportedQty);
       });
+
+          fetch('/yearlyImportMedicie5Avg', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ average: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.average);
+      });
        
 
       this.setState({ yearlyImportedQtyYears: []});
       this.setState({ yearlyImportedQty: []});
+      this.setState({ average: 0});
+
 
     
   }
+
   ImportedQty_10years(){
     console.log("say hy");
     this.setState({ isLoading: true });
@@ -574,11 +686,30 @@ class Dashboard extends Component {
         //  yearlyImportedQty=this.state.yearlyImportedQty;
         console.log("Sums" + this.state.yearlyImportedQty);
       });
+
+       fetch('/yearlyImportMedicie10Avg', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ average: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.average);
+      });
        
 
       this.setState({ yearlyImportedQtyYears: []});
       this.setState({ yearlyImportedQty: []});
-
+      this.setState({ average: 0});
     
   }
 
@@ -624,16 +755,566 @@ class Dashboard extends Component {
         //  yearlyImportedQty=this.state.yearlyImportedQty;
         console.log("Sums" + this.state.yearlyImportedQty);
       });
+
+          fetch('/yearlyImportMedicieAvg', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ average: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.average);
+      });
        
 
       this.setState({ yearlyImportedQtyYears: []});
       this.setState({ yearlyImportedQty: []});
+      this.setState({ average: 0});
+    
+  }
+
+
+  //Available
+    AvailableQty_5years(){
+    // console.log("say hy");
+    this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
+    fetch('/yearlyAvailableMedicieSumYears5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyAvailableQtyYears: data, isLoading: false })
+        // yearlyAvailableQtyYears=this.state.yearlyAvailableQtyYears;
+        console.log("Years" + this.state.yearlyAvailableQtyYears);
+      });
+
+       fetch('/yearlyAvailableMedicieSum5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyAvailableQty: data, isLoading: false })
+        //  yearlyAvailableQty=this.state.yearlyAvailableQty;
+        console.log("Sums" + this.state.yearlyAvailableQty);
+      });
+
+          fetch('/yearlyAvailableMedicie5Avg', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ averageAvailable: data, isLoading: false })
+        //  yearlyAvailableQty=this.state.yearlyAvailableQty;
+        console.log("Sums" + this.state.averageAvailable);
+      });
+       
+
+      this.setState({ yearlyAvailableQtyYears: []});
+      this.setState({ yearlyAvailableQty: []});
+      this.setState({ averageAvailable: 0});
+
 
     
   }
 
+  AvailableQty_10years(){
+    console.log("say hy");
+    this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
+
+    fetch('/yearlyAvailableMedicieSumYears10', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyAvailableQtyYears: data, isLoading: false })
+        // yearlyAvailableQtyYears=this.state.yearlyAvailableQtyYears;
+        console.log("Years" + this.state.yearlyAvailableQtyYears);
+      });
+
+       fetch('/yearlyAvailableMedicieSum10', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyAvailableQty: data, isLoading: false })
+        //  yearlyAvailableQty=this.state.yearlyAvailableQty;
+        console.log("Sums" + this.state.yearlyAvailableQty);
+      });
+
+       fetch('/yearlyAvailableMedicie10Avg', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ averageAvailable: data, isLoading: false })
+        //  yearlyAvailableQty=this.state.yearlyAvailableQty;
+        console.log("Sums" + this.state.averageAvailable);
+      });
+       
+
+      this.setState({ yearlyAvailableQtyYears: []});
+      this.setState({ yearlyAvailableQty: []});
+      this.setState({ averageAvailable: 0});
+    
+  }
+
+  AvailableQty(){
+    console.log("say hy");
+    this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
+
+    fetch('/yearlyAvailableMedicieSumYears', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyAvailableQtyYears: data, isLoading: false })
+        // yearlyAvailableQtyYears=this.state.yearlyAvailableQtyYears;
+        console.log("Years" + this.state.yearlyAvailableQtyYears);
+      });
+
+       fetch('/yearlyAvailableMedicieSum', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyAvailableQty: data, isLoading: false })
+        //  yearlyAvailableQty=this.state.yearlyAvailableQty;
+        console.log("Sums" + this.state.yearlyAvailableQty);
+      });
+
+          fetch('/yearlyAvailableMedicieAvg', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ averageAvailable: data, isLoading: false })
+        //  yearlyAvailableQty=this.state.yearlyAvailableQty;
+        console.log("Sums" + this.state.averageAvailable);
+      });
+       
+
+      this.setState({ yearlyAvailableQtyYears: []});
+      this.setState({ yearlyAvailableQty: []});
+      this.setState({ averageAvailable: 0});
+    
+  }
+
+
+//Supplied
+SuppliedQty_5years(){
+    console.log("say hy");
+    this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
+    fetch('/yearlySuppliedMedicieSumYears5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlySuppliedQtyYears: data, isLoading: false })
+        // yearlySuppliedQtyYears=this.state.yearlySuppliedQtyYears;
+        console.log("Years" + this.state.yearlySuppliedQtyYears);
+      });
+
+       fetch('/yearlySuppliedMedicieSum5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlySuppliedQty: data, isLoading: false })
+        //  yearlySuppliedQty=this.state.yearlySuppliedQty;
+        console.log("Sums" + this.state.yearlySuppliedQty);
+      });
+
+          fetch('/yearlySuppliedMedicie5Avg', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ average: data, isLoading: false })
+        //  yearlySuppliedQty=this.state.yearlySuppliedQty;
+        console.log("Sums" + this.state.average);
+      });
+       
+
+      this.setState({ yearlySuppliedQtyYears: []});
+      this.setState({ yearlySuppliedQty: []});
+      this.setState({ average: 0});
+
+
+    
+  }
+
+  SuppliedQty_10years(){
+    console.log("say hy");
+    this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
+
+    fetch('/yearlySuppliedMedicieSumYears10', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlySuppliedQtyYears: data, isLoading: false })
+        // yearlySuppliedQtyYears=this.state.yearlySuppliedQtyYears;
+        console.log("Years" + this.state.yearlySuppliedQtyYears);
+      });
+
+       fetch('/yearlySuppliedMedicieSum10', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlySuppliedQty: data, isLoading: false })
+        //  yearlySuppliedQty=this.state.yearlySuppliedQty;
+        console.log("Sums" + this.state.yearlySuppliedQty);
+      });
+
+       fetch('/yearlySuppliedMedicie10Avg', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ average: data, isLoading: false })
+        //  yearlySuppliedQty=this.state.yearlySuppliedQty;
+        console.log("Sums" + this.state.average);
+      });
+       
+
+      this.setState({ yearlySuppliedQtyYears: []});
+      this.setState({ yearlySuppliedQty: []});
+      this.setState({ average: 0});
+    
+  }
+
+  SuppliedQty(){
+    console.log("say hy");
+    this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
+
+    fetch('/yearlySuppliedMedicieSumYears', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlySuppliedQtyYears: data, isLoading: false })
+        // yearlySuppliedQtyYears=this.state.yearlySuppliedQtyYears;
+        console.log("Years" + this.state.yearlySuppliedQtyYears);
+      });
+
+       fetch('/yearlySuppliedMedicieSum', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlySuppliedQty: data, isLoading: false })
+        //  yearlySuppliedQty=this.state.yearlySuppliedQty;
+        console.log("Sums" + this.state.yearlySuppliedQty);
+      });
+
+          fetch('/yearlySuppliedMedicieAvg', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ average: data, isLoading: false })
+        //  yearlySuppliedQty=this.state.yearlySuppliedQty;
+        console.log("Sums" + this.state.average);
+      });
+       
+
+      this.setState({ yearlySuppliedQtyYears: []});
+      this.setState({ yearlySuppliedQty: []});
+      this.setState({ average: 0});
+    
+  }
+
+  say(){
+    console.log("say say saysay");
+  }
+
   render() {
-     const {yearlyImportedQty,yearlyImportedQtyYears} = this.state;
+    //  const {yearlyImportedQty,yearlyImportedQtyYears,yearlyAvailableQty,yearlyAvailableQtyYears} = this.state;
+
+
+const cardChartDatafor1 = {
+  labels: this.state.yearlyImportedQtyYears,
+  datasets: [
+    {
+      label: '',
+      backgroundColor: 'rgba(255,255,255,.3)',
+      borderColor: 'transparent',
+      data: this.state.yearlyImportedQty,
+    },
+  ],
+};
+
+const cardChartOptsfor1 = {
+  tooltips: {
+    enabled: false,
+    custom: CustomTooltips
+  },
+  maintainAspectRatio: false,
+  legend: {
+    display: false,
+  },
+  scales: {
+    xAxes: [
+      {
+        display: false,
+        barPercentage: 0.6,
+      }],
+    yAxes: [
+      {
+        display: false,
+      }],
+  },
+};
+
+
+    // Card Chart data for 2
+const cardChartDatafor2 = {
+  labels: this.state.yearlyAvailableQtyYears,
+  datasets: [
+    {
+      label: '',
+      backgroundColor: 'rgba(255,255,255,.3)',
+      borderColor: 'transparent',
+      data: this.state.yearlyAvailableQty,
+    },
+  ],
+};
+
+const cardChartOptsfor2 = {
+  tooltips: {
+    enabled: false,
+    custom: CustomTooltips
+  },
+  maintainAspectRatio: false,
+  legend: {
+    display: false,
+  },
+  scales: {
+    xAxes: [
+      {
+        display: false,
+        barPercentage: 0.6,
+      }],
+    yAxes: [
+      {
+        display: false,
+      }],
+  },
+};
+
+    // Card Chart data for 3
+const cardChartDatafor3 = {
+  labels: this.state.yearlySuppliedQtyYears,
+  datasets: [
+    {
+      label: '',
+      backgroundColor: 'rgba(255,255,255,.3)',
+      borderColor: 'transparent',
+      data: this.state.yearlySuppliedQty,
+    },
+  ],
+};
+
+const cardChartOptsfor3 = {
+  tooltips: {
+    enabled: false,
+    custom: CustomTooltips
+  },
+  maintainAspectRatio: false,
+  legend: {
+    display: false,
+  },
+  scales: {
+    xAxes: [
+      {
+        display: false,
+        barPercentage: 0.6,
+      }],
+    yAxes: [
+      {
+        display: false,
+      }],
+  },
+};
+    
 
 
      // Card Chart 2
@@ -649,7 +1330,7 @@ const cardChartData2 = {
   ],
 };
 
-const cardChartOpts2 = {
+const cardChartOpts1 = {
   tooltips: {
     enabled: false,
     custom: CustomTooltips
@@ -694,10 +1375,167 @@ const cardChartOpts2 = {
   },
 };
 
+
+// Card Chart 1
+const cardChartData1 = {
+  labels:this.state.yearlyAvailableQty,
+  datasets: [
+    {
+      label: '',
+      backgroundColor: brandPrimary,
+      borderColor: 'rgba(255,255,255,.55)',
+      data: this.state.yearlyAvailableQtyYears,
+    },
+  ],
+};
+
+const cardChartOpts2 = {
+  tooltips: {
+    enabled: false,
+    custom: CustomTooltips
+  },
+  maintainAspectRatio: false,
+  legend: {
+    display: false,
+  },
+  scales: {
+    xAxes: [
+      {
+        gridLines: {
+          color: 'transparent',
+          zeroLineColor: 'transparent',
+        },
+        ticks: {
+          fontSize: 2,
+          fontColor: 'transparent',
+        },
+
+      }],
+    yAxes: [
+      {
+        display: false,
+        ticks: {
+          display: false,
+          min: Math.min.apply(Math, cardChartData1.datasets[0].data) - 5,
+          max: Math.max.apply(Math, cardChartData1.datasets[0].data) + 5,
+        },
+      }],
+  },
+  elements: {
+    line: {
+      borderWidth: 1,
+    },
+    point: {
+      radius: 4,
+      hitRadius: 10,
+      hoverRadius: 4,
+    },
+  }
+}
+
+
+
     return (
       <div className="animated fadeIn">
         <Row>
+
           <Col xs="12" sm="6" lg="3">
+            <Card className="text-white bg-info">
+              <CardBody className="pb-0">
+                <ButtonGroup className="float-right">
+                  <ButtonDropdown id='card41' isOpen={this.state.card41} toggle={() => { this.setState({ card41: !this.state.card41 }); }}>
+                    <DropdownToggle caret className="p-0" color="transparent">
+                      <i className="icon-settings"></i>
+                    </DropdownToggle>
+                    <DropdownMenu right>              
+                      <DropdownItem onClick={this.ImportedQty_5years}>Last 5 Years</DropdownItem>
+                      <DropdownItem onClick={this.ImportedQty_10years}>Last 10 Years</DropdownItem>
+                      <DropdownItem onClick={this.ImportedQty}>All</DropdownItem>
+                    </DropdownMenu>
+                  </ButtonDropdown>
+                </ButtonGroup>
+                <div className="text-value">{this.state.average}</div>
+                <div>Imported Stock</div>
+              </CardBody>
+              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
+                <Bar data={cardChartDatafor1} options={cardChartOptsfor1} height={70} />
+              </div>
+            </Card>
+          </Col>
+
+      <Col xs="12" sm="6" lg="3">
+            <Card className="text-white bg-primary">
+              <CardBody className="pb-0">
+                <ButtonGroup className="float-right">
+                  <ButtonDropdown id='card4' isOpen={this.state.card4} toggle={() => { this.setState({ card4: !this.state.card4 }); }}>
+                    <DropdownToggle caret className="p-0" color="transparent">
+                      <i className="icon-settings"></i>
+                    </DropdownToggle>
+                     <DropdownMenu right>
+                      <DropdownItem onClick={this.AvailableQty_5years}>Last 5 Years</DropdownItem>
+                      <DropdownItem onClick={this.AvailableQty_10years}>Last 10 Years</DropdownItem>
+                      <DropdownItem onClick={this.AvailableQty}>All</DropdownItem>
+                    </DropdownMenu>
+                  </ButtonDropdown>
+                </ButtonGroup>
+                <div className="text-value">{this.state.averageAvailable}</div>
+                <div>Available Stock</div>
+              </CardBody>
+              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
+                <Bar data={cardChartDatafor2} options={cardChartOptsfor2} height={70} />
+              </div>
+            </Card>
+          </Col>
+
+           <Col xs="12" sm="6" lg="3">
+            <Card className="text-white bg-warning">
+              <CardBody className="pb-0">
+                <ButtonGroup className="float-right">
+                  <ButtonDropdown id='card4_3' isOpen={this.state.card4_3} toggle={() => { this.setState({ card4_3: !this.state.card4_3 }); }}>
+                    <DropdownToggle caret className="p-0" color="transparent">
+                      <i className="icon-settings"></i>
+                    </DropdownToggle>
+                     <DropdownMenu right>
+                      <DropdownItem onClick={this.SuppliedQty_5years}>Last 5 Years</DropdownItem>
+                      <DropdownItem onClick={this.SuppliedQty_10years}>Last 10 Years</DropdownItem>
+                      <DropdownItem onClick={this.SuppliedQty}>All</DropdownItem>
+                    </DropdownMenu>
+                  </ButtonDropdown>
+                </ButtonGroup>
+                <div className="text-value">{this.state.averageSupplied}</div>
+                <div>Supplied Stock</div>
+              </CardBody>
+              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
+                <Bar data={cardChartDatafor3} options={cardChartOptsfor3} height={70} />
+              </div>
+            </Card>
+          </Col>
+
+        {/*  <Col xs="12" sm="6" lg="3">
+            <Card className="text-white bg-primary">
+              <CardBody className="pb-0">
+                <ButtonGroup className="float-right">
+                  <ButtonDropdown id='card4' isOpen={this.state.card4} toggle={() => { this.setState({ card4: !this.state.card4 }); }}>
+                    <DropdownToggle caret className="p-0" color="transparent">
+                      <i className="icon-settings"></i>
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                      <DropdownItem onClick={this.AvailableQty_5years}>Last 5 Years</DropdownItem>
+                      <DropdownItem onClick={this.AvailableQty_10years}>Last 10 Years</DropdownItem>
+                      <DropdownItem onClick={this.AvailableQty}>All</DropdownItem>
+                    </DropdownMenu>
+                  </ButtonDropdown>
+                </ButtonGroup>
+                <div className="text-value">{this.state.averageAvailable}</div>
+                <div>Available Stock</div>
+              </CardBody>
+              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
+                <Bar data={cardChartDatafor2} options={cardChartOptsfor2} height={70} />
+              </div>
+            </Card>
+          </Col>
+
+          {/*<Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right">
@@ -712,38 +1550,38 @@ const cardChartOpts2 = {
                     </DropdownMenu>
                   </ButtonDropdown>
                 </ButtonGroup>
-                <div className="text-value">450</div>
+                <div className="text-value">{this.state.average}</div>
                 <div>Imported Stock</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
                 <Line data={cardChartData2} options={cardChartOpts2} height={70} />
               </div>
             </Card>
-          </Col>
+          </Col>*/}
 
-          <Col xs="12" sm="6" lg="3">
-            <Card className="text-white bg-primary">
+          {/*<Col xs="12" sm="6" lg="3">
+            <Card className="text-white bg-danger">
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right">
                   <Dropdown id='card2' isOpen={this.state.card2} toggle={() => { this.setState({ card2: !this.state.card2 }); }}>
                     <DropdownToggle className="p-0" color="transparent">
-                      <i className="icon-location-pin"></i>
+                      <i className="icon-settings"></i>
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem>Action</DropdownItem>
-                      <DropdownItem>Another action</DropdownItem>
-                      <DropdownItem>Something else here</DropdownItem>
+                      <DropdownItem onClick={this.AvailableQty_5years}>Last 5 Years</DropdownItem>
+                      <DropdownItem onClick={this.AvailableQty_10years}>Last 10 Years</DropdownItem>
+                      <DropdownItem onClick={this.AvailableQty}>All</DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
                 </ButtonGroup>
-                <div className="text-value">9.823</div>
-                <div>Members online</div>
+                <div className="text-value">{this.state.averageAvailable}</div>
+                <div>Available Stock</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
                 <Line data={cardChartData1} options={cardChartOpts1} height={70} />
               </div>
             </Card>
-          </Col>
+          </Col>*/}
 
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-warning">
@@ -769,29 +1607,7 @@ const cardChartOpts2 = {
             </Card>
           </Col>
 
-          <Col xs="12" sm="6" lg="3">
-            <Card className="text-white bg-danger">
-              <CardBody className="pb-0">
-                <ButtonGroup className="float-right">
-                  <ButtonDropdown id='card4' isOpen={this.state.card4} toggle={() => { this.setState({ card4: !this.state.card4 }); }}>
-                    <DropdownToggle caret className="p-0" color="transparent">
-                      <i className="icon-settings"></i>
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem>Action</DropdownItem>
-                      <DropdownItem>Another action</DropdownItem>
-                      <DropdownItem>Something else here</DropdownItem>
-                    </DropdownMenu>
-                  </ButtonDropdown>
-                </ButtonGroup>
-                <div className="text-value">9.823</div>
-                <div>Members online</div>
-              </CardBody>
-              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
-                <Bar data={cardChartData4} options={cardChartOpts4} height={70} />
-              </div>
-            </Card>
-          </Col>
+          
         </Row>
         <Row>
           <Col>
@@ -1337,5 +2153,6 @@ const cardChartOpts2 = {
     );
   }
 }
+
 
 export default Dashboard;
