@@ -42,7 +42,11 @@ let availableAverage=0;
 
 let yearlySuppliedQty;
 let yearlySuppliedQtyYears;
-let suppliedAverage=0;
+let averageSupplied=0;
+
+let yearlyDamagedQty;
+let yearlyDamagedQtyYears;
+let averageDamaged=0;
 
 
 // Card Chart 3
@@ -366,6 +370,9 @@ class Dashboard extends Component {
     this.SuppliedQty_5years = this.SuppliedQty_5years.bind(this);
     this.SuppliedQty_10years = this.SuppliedQty_10years.bind(this);
     this.SuppliedQty = this.SuppliedQty.bind(this);
+    this.DamagedQty_5years = this.DamagedQty_5years.bind(this);
+    this.DamagedQty_10years = this.DamagedQty_10years.bind(this);
+    this.DamagedQty = this.DamagedQty.bind(this);
 
     this.state = {
       dropdownOpen: false,
@@ -568,7 +575,62 @@ class Dashboard extends Component {
         console.log("Avg Av" + this.state.averageSupplied);
       });
 
+fetch('/yearlyDamagedMedicieSumYears5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyDamagedQtyYears: data, isLoading: false })
+        // yearlyDamagedQtyYears=this.state.yearlyDamagedQtyYears;
+        console.log("Years" + this.state.yearlyDamagedQtyYears);
+      });
 
+       fetch('/yearlyDamagedMedicieSum5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyDamagedQty: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.yearlyDamagedQty);
+      });
+
+            fetch('/yearlyDamagedMedicieAvg5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ averageDamaged: data, isLoading: false })
+        //  yearlyAvailableQty=this.state.yearlyAvailableQty;
+        console.log("Avg Av" + this.state.averageDamaged);
+      });
 
   }
 
@@ -1036,7 +1098,7 @@ SuppliedQty_5years(){
         console.log("Sums" + this.state.yearlySuppliedQty);
       });
 
-          fetch('/yearlySuppliedMedicie5Avg', {
+            fetch('/yearlySuppliedMedicieAvg5', {
       // method: 'GET',
       // withCredentials: true,
       // credentials: 'include',
@@ -1050,15 +1112,15 @@ SuppliedQty_5years(){
       // .then(response => console.log(response))
       .then(data => {
         // console.log(data);
-        this.setState({ average: data, isLoading: false })
-        //  yearlySuppliedQty=this.state.yearlySuppliedQty;
-        console.log("Sums" + this.state.average);
+        this.setState({ averageSupplied: data, isLoading: false })
+        //  yearlyAvailableQty=this.state.yearlyAvailableQty;
+        console.log("Avg Av" + this.state.averageSupplied);
       });
        
 
       this.setState({ yearlySuppliedQtyYears: []});
       this.setState({ yearlySuppliedQty: []});
-      this.setState({ average: 0});
+      this.setState({ averageSupplied: 0});
 
 
     
@@ -1107,7 +1169,7 @@ SuppliedQty_5years(){
         console.log("Sums" + this.state.yearlySuppliedQty);
       });
 
-       fetch('/yearlySuppliedMedicie10Avg', {
+       fetch('/yearlySuppliedMedicieAvg10', {
       // method: 'GET',
       // withCredentials: true,
       // credentials: 'include',
@@ -1121,15 +1183,15 @@ SuppliedQty_5years(){
       // .then(response => console.log(response))
       .then(data => {
         // console.log(data);
-        this.setState({ average: data, isLoading: false })
+        this.setState({ averageSupplied: data, isLoading: false })
         //  yearlySuppliedQty=this.state.yearlySuppliedQty;
-        console.log("Sums" + this.state.average);
+        console.log("Sums" + this.state.averageSupplied);
       });
        
 
       this.setState({ yearlySuppliedQtyYears: []});
       this.setState({ yearlySuppliedQty: []});
-      this.setState({ average: 0});
+      this.setState({ averageSupplied: 0});
     
   }
 
@@ -1190,15 +1252,224 @@ SuppliedQty_5years(){
       // .then(response => console.log(response))
       .then(data => {
         // console.log(data);
-        this.setState({ average: data, isLoading: false })
+        this.setState({ averageSupplied: data, isLoading: false })
         //  yearlySuppliedQty=this.state.yearlySuppliedQty;
-        console.log("Sums" + this.state.average);
+        console.log("Sums" + this.state.averageSupplied);
       });
        
 
       this.setState({ yearlySuppliedQtyYears: []});
       this.setState({ yearlySuppliedQty: []});
-      this.setState({ average: 0});
+      this.setState({ averageSupplied: 0});
+    
+  }
+
+  //damaged
+DamagedQty_5years(){
+    console.log("say hy");
+    this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
+    fetch('/yearlyDamagedMedicieSumYears5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyDamagedQtyYears: data, isLoading: false })
+        // yearlyDamagedQtyYears=this.state.yearlyDamagedQtyYears;
+        console.log("Years" + this.state.yearlyDamagedQtyYears);
+      });
+
+       fetch('/yearlyDamagedMedicieSum5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyDamagedQty: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.yearlyDamagedQty);
+      });
+
+            fetch('/yearlyDamagedMedicieAvg5', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ averageDamaged: data, isLoading: false })
+        //  yearlyAvailableQty=this.state.yearlyAvailableQty;
+        console.log("Avg Av" + this.state.averageDamaged);
+      });
+       
+
+      this.setState({ yearlyDamagedQtyYears: []});
+      this.setState({ yearlyDamagedQty: []});
+      this.setState({ averageDamaged: 0});
+
+
+    
+  }
+
+  DamagedQty_10years(){
+    console.log("say hy");
+    this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
+
+    fetch('/yearlyDamagedMedicieSumYears10', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyDamagedQtyYears: data, isLoading: false })
+        // yearlyDamagedQtyYears=this.state.yearlyDamagedQtyYears;
+        console.log("Years" + this.state.yearlyDamagedQtyYears);
+      });
+
+       fetch('/yearlyDamagedMedicieSum10', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyDamagedQty: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.yearlyDamagedQty);
+      });
+
+       fetch('/yearlyDamagedMedicieAvg10', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ averageDamaged: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.averageDamaged);
+      });
+       
+
+      this.setState({ yearlyDamagedQtyYears: []});
+      this.setState({ yearlyDamagedQty: []});
+      this.setState({ averageDamaged: 0});
+    
+  }
+
+  DamagedQty(){
+    console.log("say hy");
+    this.setState({ isLoading: true });
+    // console.log(this.state.user_type);
+
+    fetch('/yearlyDamagedMedicieSumYears', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyDamagedQtyYears: data, isLoading: false })
+        // yearlyDamagedQtyYears=this.state.yearlyDamagedQtyYears;
+        console.log("Years" + this.state.yearlyDamagedQtyYears);
+      });
+
+       fetch('/yearlyDamagedMedicieSum', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ yearlyDamagedQty: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.yearlyDamagedQty);
+      });
+
+          fetch('/yearlyDamagedMedicieAvg', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ averageDamaged: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.averageDamaged);
+      });
+       
+
+      this.setState({ yearlyDamagedQtyYears: []});
+      this.setState({ yearlyDamagedQty: []});
+      this.setState({ averageDamaged: 0});
     
   }
 
@@ -1294,6 +1565,41 @@ const cardChartDatafor3 = {
 };
 
 const cardChartOptsfor3 = {
+  tooltips: {
+    enabled: false,
+    custom: CustomTooltips
+  },
+  maintainAspectRatio: false,
+  legend: {
+    display: false,
+  },
+  scales: {
+    xAxes: [
+      {
+        display: false,
+        barPercentage: 0.6,
+      }],
+    yAxes: [
+      {
+        display: false,
+      }],
+  },
+};
+    
+     // Card Chart data for 4
+const cardChartDatafor4 = {
+  labels: this.state.yearlyDamagedQtyYears,
+  datasets: [
+    {
+      label: '',
+      backgroundColor: 'rgba(255,255,255,.3)',
+      borderColor: 'transparent',
+      data: this.state.yearlyDamagedQty,
+    },
+  ],
+};
+
+const cardChartOptsfor4 = {
   tooltips: {
     enabled: false,
     custom: CustomTooltips
@@ -1511,6 +1817,30 @@ const cardChartOpts2 = {
             </Card>
           </Col>
 
+         <Col xs="12" sm="6" lg="3">
+            <Card className="text-white bg-danger">
+              <CardBody className="pb-0">
+                <ButtonGroup className="float-right">
+                  <ButtonDropdown id='card4_4' isOpen={this.state.card4_4} toggle={() => { this.setState({ card4_4: !this.state.card4_4 }); }}>
+                    <DropdownToggle caret className="p-0" color="transparent">
+                      <i className="icon-settings"></i>
+                    </DropdownToggle>
+                     <DropdownMenu right>
+                      <DropdownItem onClick={this.DamagedQty_5years}>Last 5 Years</DropdownItem>
+                      <DropdownItem onClick={this.DamagedQty_10years}>Last 10 Years</DropdownItem>
+                      <DropdownItem onClick={this.DamagedQty}>All</DropdownItem>
+                    </DropdownMenu>
+                  </ButtonDropdown>
+                </ButtonGroup>
+                <div className="text-value">{this.state.averageDamaged}</div>
+                <div>Damaged Stock</div>
+              </CardBody>
+              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
+                <Bar data={cardChartDatafor4} options={cardChartOptsfor4} height={70} />
+              </div>
+            </Card>
+          </Col>
+
         {/*  <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-primary">
               <CardBody className="pb-0">
@@ -1582,9 +1912,9 @@ const cardChartOpts2 = {
               </div>
             </Card>
           </Col>*/}
-
+{/*
           <Col xs="12" sm="6" lg="3">
-            <Card className="text-white bg-warning">
+            <Card className="text-white bg-danger">
               <CardBody className="pb-0">
                 <ButtonGroup className="float-right">
                   <Dropdown id='card3' isOpen={this.state.card3} toggle={() => { this.setState({ card3: !this.state.card3 }); }}>
@@ -1605,7 +1935,7 @@ const cardChartOpts2 = {
                 <Line data={cardChartData3} options={cardChartOpts3} height={70} />
               </div>
             </Card>
-          </Col>
+          </Col>*/}
 
           
         </Row>
