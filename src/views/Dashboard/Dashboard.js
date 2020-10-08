@@ -48,6 +48,12 @@ let yearlyDamagedQty;
 let yearlyDamagedQtyYears;
 let averageDamaged=0;
 
+let getCurrentImportedStock;
+let getCurrentAvailableStock;
+let getCurrentDamagedStock;
+let getCurrentSuppliedStock;
+
+
 
 // Card Chart 3
 const cardChartData3 = {
@@ -398,6 +404,26 @@ class Dashboard extends Component {
     this.setState({ isLoading: true });
     // console.log(this.state.user_type);
 
+
+       fetch('/yearlyImportMedicie5Avg', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ average: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.average);
+      });
+
     fetch('/yearlyImportMedicieSumYears5', {
       // method: 'GET',
       // withCredentials: true,
@@ -436,24 +462,7 @@ class Dashboard extends Component {
         console.log("Sums" + this.state.yearlyImportedQty);
       });
 
-         fetch('/yearlyImportMedicie5Avg', {
-      // method: 'GET',
-      // withCredentials: true,
-      // credentials: 'include',
-      headers: {
-        // 'Accept': 'application/json',
-        'Authorization': 'Bearer ' + authHeader(),
-        // 'Content-Type': 'application/json'
-      }
-    })
-      .then(response => response.json())
-      // .then(response => console.log(response))
-      .then(data => {
-        // console.log(data);
-        this.setState({ average: data, isLoading: false })
-        //  yearlyImportedQty=this.state.yearlyImportedQty;
-        console.log("Sums" + this.state.average);
-      });
+
 
     
     //load Available medicine charts
@@ -631,6 +640,84 @@ fetch('/yearlyDamagedMedicieSumYears5', {
         //  yearlyAvailableQty=this.state.yearlyAvailableQty;
         console.log("Avg Av" + this.state.averageDamaged);
       });
+
+      //get current stock details
+
+                   fetch('/getCurrentImportedStock', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ getCurrentImportedStock: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("THISSSSSSSSSSSSSSSSSSSS" + this.state.getCurrentImportedStock);
+      });
+
+                         fetch('/getCurrentSuppliedStock', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ getCurrentSuppliedStock: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("THISSSSSSSSSSSSSSSSSSSS" + this.state.getCurrentSuppliedStock);
+      });
+                         fetch('/getCurrentAvailableStock', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ getCurrentAvailableStock: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("THISSSSSSSSSSSSSSSSSSSS" + this.state.getCurrentAvailableStock);
+      });
+                         fetch('/getCurrentDamagedStock', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ getCurrentDamagedStock: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("THISSSSSSSSSSSSSSSSSSSS" + this.state.getCurrentDamagedStock);
+      });
+
+
 
   }
 
@@ -1760,8 +1847,9 @@ const cardChartOpts2 = {
                     </DropdownMenu>
                   </ButtonDropdown>
                 </ButtonGroup>
-                <div className="text-value">{this.state.average}</div>
-                <div>Imported Stock</div>
+                <div className="text-value">{this.state.getCurrentImportedStock}k</div>
+               <div>Imported Stock &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {this.state.average}k </div>
+           
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
                 <Bar data={cardChartDatafor1} options={cardChartOptsfor1} height={70} />
@@ -1784,8 +1872,8 @@ const cardChartOpts2 = {
                     </DropdownMenu>
                   </ButtonDropdown>
                 </ButtonGroup>
-                <div className="text-value">{this.state.averageAvailable}</div>
-                <div>Available Stock</div>
+                <div className="text-value">{this.state.getCurrentAvailableStock}k</div>
+                <div>Available Stock &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {this.state.averageAvailable}k </div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
                 <Bar data={cardChartDatafor2} options={cardChartOptsfor2} height={70} />
@@ -1808,8 +1896,8 @@ const cardChartOpts2 = {
                     </DropdownMenu>
                   </ButtonDropdown>
                 </ButtonGroup>
-                <div className="text-value">{this.state.averageSupplied}</div>
-                <div>Supplied Stock</div>
+                <div className="text-value">{this.state.getCurrentSuppliedStock}k</div>
+                <div>Supplied Stock  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {this.state.averageSupplied}k</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
                 <Bar data={cardChartDatafor3} options={cardChartOptsfor3} height={70} />
@@ -1832,8 +1920,8 @@ const cardChartOpts2 = {
                     </DropdownMenu>
                   </ButtonDropdown>
                 </ButtonGroup>
-                <div className="text-value">{this.state.averageDamaged}</div>
-                <div>Damaged Stock</div>
+                <div className="text-value">{this.state.getCurrentDamagedStock}k</div>
+                <div>Damaged Stock &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {this.state.averageDamaged}k</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
                 <Bar data={cardChartDatafor4} options={cardChartOptsfor4} height={70} />
