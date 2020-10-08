@@ -53,6 +53,10 @@ let getCurrentAvailableStock;
 let getCurrentDamagedStock;
 let getCurrentSuppliedStock;
 
+let dailyDamaged;
+let dailyAvailable;
+let dailySupplied;
+let dailyDates;
 
 
 // Card Chart 3
@@ -379,6 +383,8 @@ class Dashboard extends Component {
     this.DamagedQty_5years = this.DamagedQty_5years.bind(this);
     this.DamagedQty_10years = this.DamagedQty_10years.bind(this);
     this.DamagedQty = this.DamagedQty.bind(this);
+    this.mainChartMonth = this.mainChartMonth.bind(this); 
+    this.mainChartMonth3 = this.mainChartMonth3.bind(this);
 
     this.state = {
       dropdownOpen: false,
@@ -394,7 +400,171 @@ class Dashboard extends Component {
     });
   }
 
+  mainChartMonth(){
+          //daily counts 
+ fetch('/getTotalSuppliedStockDaily', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ dailyAvailable: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.dailyAvailable);
+      });
+       fetch('/getTotalAvailableStockDaily', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ dailySupplied: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.dailySupplied);
+      });
+       fetch('/getTotalDamagedStockDaily', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ dailyDamaged: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.dailyDamaged);
+      });
+
+      fetch('/getDatesDailyCounts', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ dailyDates: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.dailyDates);
+      });
+
+      this.setState({ dailyAvailable: []});
+      this.setState({ dailySupplied: []});
+      this.setState({ dailyDamaged: []});
+      this.setState({ dailyDates: []});
+  }
+
+  mainChartMonth3(){
+          //daily counts 
+ fetch('/getTotalSuppliedStockDaily3', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ dailyAvailable: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.dailyAvailable);
+      });
+       fetch('/getTotalAvailableStockDaily3', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ dailySupplied: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.dailySupplied);
+      });
+       fetch('/getTotalDamagedStockDaily3', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ dailyDamaged: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.dailyDamaged);
+      });
+
+      fetch('/getDatesDailyCounts', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ dailyDates: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.dailyDates);
+      });
+         this.setState({ dailyAvailable: []});
+      this.setState({ dailySupplied: []});
+      this.setState({ dailyDamaged: []});
+      this.setState({ dailyDates: []});
+  }
+
   onRadioBtnClick(radioSelected) {
+    console.log("Hello");
     this.setState({
       radioSelected: radioSelected,
     });
@@ -659,7 +829,7 @@ fetch('/yearlyDamagedMedicieSumYears5', {
         // console.log(data);
         this.setState({ getCurrentImportedStock: data, isLoading: false })
         //  yearlyImportedQty=this.state.yearlyImportedQty;
-        console.log("THISSSSSSSSSSSSSSSSSSSS" + this.state.getCurrentImportedStock);
+        // console.log("THIS" + this.state.getCurrentImportedStock);
       });
 
                          fetch('/getCurrentSuppliedStock', {
@@ -678,7 +848,7 @@ fetch('/yearlyDamagedMedicieSumYears5', {
         // console.log(data);
         this.setState({ getCurrentSuppliedStock: data, isLoading: false })
         //  yearlyImportedQty=this.state.yearlyImportedQty;
-        console.log("THISSSSSSSSSSSSSSSSSSSS" + this.state.getCurrentSuppliedStock);
+        // console.log("THISSSSS" + this.state.getCurrentSuppliedStock);
       });
                          fetch('/getCurrentAvailableStock', {
       // method: 'GET',
@@ -696,7 +866,7 @@ fetch('/yearlyDamagedMedicieSumYears5', {
         // console.log(data);
         this.setState({ getCurrentAvailableStock: data, isLoading: false })
         //  yearlyImportedQty=this.state.yearlyImportedQty;
-        console.log("THISSSSSSSSSSSSSSSSSSSS" + this.state.getCurrentAvailableStock);
+        // console.log("THISSSSSSSSSSSSSSSSSSSS" + this.state.getCurrentAvailableStock);
       });
                          fetch('/getCurrentDamagedStock', {
       // method: 'GET',
@@ -714,9 +884,84 @@ fetch('/yearlyDamagedMedicieSumYears5', {
         // console.log(data);
         this.setState({ getCurrentDamagedStock: data, isLoading: false })
         //  yearlyImportedQty=this.state.yearlyImportedQty;
-        console.log("THISSSSSSSSSSSSSSSSSSSS" + this.state.getCurrentDamagedStock);
+        // console.log("THISSSSSSSSSSSSSSSSSSSS" + this.state.getCurrentDamagedStock);
       });
 
+
+      //daily counts 
+ fetch('/getTotalSuppliedStockDaily', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ dailyAvailable: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.dailyAvailable);
+      });
+       fetch('/getTotalAvailableStockDaily', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ dailySupplied: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.dailySupplied);
+      });
+       fetch('/getTotalDamagedStockDaily', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ dailyDamaged: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.dailyDamaged);
+      });
+
+      fetch('/getDatesDailyCounts', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ dailyDates: data, isLoading: false })
+        //  yearlyDamagedQty=this.state.yearlyDamagedQty;
+        console.log("Sums" + this.state.dailyDates);
+      });
 
 
   }
@@ -1424,27 +1669,7 @@ DamagedQty_5years(){
 
   DamagedQty_10years(){
     console.log("say hy");
-    this.setState({ isLoading: true });
-    // console.log(this.state.user_type);
-
-    fetch('/yearlyDamagedMedicieSumYears10', {
-      // method: 'GET',
-      // withCredentials: true,
-      // credentials: 'include',
-      headers: {
-        // 'Accept': 'application/json',
-        'Authorization': 'Bearer ' + authHeader(),
-        // 'Content-Type': 'application/json'
-      }
-    })
-      .then(response => response.json())
-      // .then(response => console.log(response))
-      .then(data => {
-        // console.log(data);
-        this.setState({ yearlyDamagedQtyYears: data, isLoading: false })
-        // yearlyDamagedQtyYears=this.state.yearlyDamagedQtyYears;
-        console.log("Years" + this.state.yearlyDamagedQtyYears);
-      });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 
        fetch('/yearlyDamagedMedicieSum10', {
       // method: 'GET',
@@ -1826,6 +2051,94 @@ const cardChartOpts2 = {
   }
 }
 
+const mainChart1 = {
+  // labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+  labels:this.state.dailyDates,
+  datasets: [
+    {
+      label: 'Total Available',
+      backgroundColor: hexToRgba(brandInfo, 10),
+      borderColor: brandInfo,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 2,
+      // data: data1,
+      data:this.state.dailyAvailable,
+    },
+    {
+      label: 'Total Supplied',
+      backgroundColor: 'transparent',
+      borderColor: brandSuccess,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 2,
+      // data: data2,
+      data:this.state.dailySupplied,
+    },
+    {
+      label: 'Total Damaged',
+      backgroundColor: 'transparent',
+      borderColor: brandDanger,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 2,
+      // data: data2,
+      data:this.state.dailyDamaged,
+    },
+    {
+      label: 'Available Lower Limit',
+      backgroundColor: 'transparent',
+      borderColor: brandWarning,
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5],
+       data: data3, //this.state.average
+      // data:this.state.yearlySuppliedQty,
+    },
+  ],
+};
+
+const mainChart1Opts = {
+  tooltips: {
+    enabled: false,
+    custom: CustomTooltips,
+    intersect: true,
+    mode: 'index',
+    position: 'nearest',
+    callbacks: {
+      labelColor: function(tooltipItem, chart) {
+        return { backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor }
+      }
+    }
+  },
+  maintainAspectRatio: false,
+  legend: {
+    display: false,
+  },
+  scales: {
+    xAxes: [
+      {
+        gridLines: {
+          drawOnChartArea: false,
+        },
+      }],
+    yAxes: [
+      {
+        ticks: {
+          beginAtZero: true,
+          maxTicksLimit: 5,
+          stepSize: Math.ceil(250 / 10),
+          max: 250,
+        },
+      }],
+  },
+  elements: {
+    point: {
+      radius: 0,
+      hitRadius: 10,
+      hoverRadius: 4,
+      hoverBorderWidth: 3,
+    },
+  },
+};
+
 
 
     return (
@@ -2033,51 +2346,48 @@ const cardChartOpts2 = {
               <CardBody>
                 <Row>
                   <Col sm="5">
-                    <CardTitle className="mb-0">Traffic</CardTitle>
-                    <div className="small text-muted">November 2015</div>
+                    <CardTitle className="mb-0">Daily Stock Variations</CardTitle>
+                    {/*<div className="small text-muted">November 2015</div>*/}
                   </Col>
                   <Col sm="7" className="d-none d-sm-inline-block">
-                    <Button color="primary" className="float-right"><i className="icon-cloud-download"></i></Button>
+                    {/*<Button color="primary" className="float-right"><i className="icon-cloud-download"></i></Button>*/}
                     <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
                       <ButtonGroup className="mr-3" aria-label="First group">
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)} active={this.state.radioSelected === 1}>Day</Button>
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(2)} active={this.state.radioSelected === 2}>Month</Button>
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(3)} active={this.state.radioSelected === 3}>Year</Button>
+                        {/*<Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)} active={this.state.radioSelected === 1}>Day</Button>*/}
+                        <Button color="outline-secondary" onClick={() => this.mainChartMonth()} >Month</Button>
+                        <Button color="outline-secondary" onClick={() => this.mainChartMonth3()} >3 Months</Button>
                       </ButtonGroup>
                     </ButtonToolbar>
                   </Col>
                 </Row>
                 <div className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
-                  <Line data={mainChart} options={mainChartOpts} height={300} />
+                  <Line data={mainChart1} options={mainChart1Opts} height={300} />
                 </div>
               </CardBody>
               <CardFooter>
                 <Row className="text-center">
                   <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">Visits</div>
-                    <strong>29.703 Users (40%)</strong>
-                    <Progress className="progress-xs mt-2" color="success" value="40" />
+                   
+                    <Progress className="progress-xs mt-2" color="success" value="20" />
+                     <strong>Total Supplied Stock</strong>
                   </Col>
                   <Col sm={12} md className="mb-sm-2 mb-0 d-md-down-none">
-                    <div className="text-muted">Unique</div>
-                    <strong>24.093 Users (20%)</strong>
+                  
                     <Progress className="progress-xs mt-2" color="info" value="20" />
+                      <strong>Total Available Stock</strong>
+                  </Col>
+                   <Col sm={12} md className="mb-sm-2 mb-0">
+                    
+                    <Progress className="progress-xs mt-2" color="danger" value="20" />
+                    <strong>Total Damaged Stock</strong>
                   </Col>
                   <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">Pageviews</div>
-                    <strong>78.706 Views (60%)</strong>
-                    <Progress className="progress-xs mt-2" color="warning" value="60" />
+                    
+                    <Progress className="progress-xs mt-2" color="warning" value="20" />
+                    <strong>Stock Lower Limit</strong>
                   </Col>
-                  <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">New Users</div>
-                    <strong>22.123 Users (80%)</strong>
-                    <Progress className="progress-xs mt-2" color="danger" value="80" />
-                  </Col>
-                  <Col sm={12} md className="mb-sm-2 mb-0 d-md-down-none">
-                    <div className="text-muted">Bounce Rate</div>
-                    <strong>Average Rate (40.15%)</strong>
-                    <Progress className="progress-xs mt-2" color="primary" value="40" />
-                  </Col>
+                 
+               
                 </Row>
               </CardFooter>
             </Card>
