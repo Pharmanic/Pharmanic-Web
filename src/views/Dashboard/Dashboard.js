@@ -23,6 +23,7 @@ import {
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
 import authHeader from '../../assets/services/auth-header_res';
+import Widget04 from './Widget04';
 
 const Widget03 = lazy(() => import('../../views/Widgets/Widget03'));
 
@@ -962,6 +963,120 @@ fetch('/yearlyDamagedMedicieSumYears5', {
         //  yearlyDamagedQty=this.state.yearlyDamagedQty;
         console.log("Sums" + this.state.dailyDates);
       });
+
+         fetch('/medicineCount', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ medicineCount: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.medicineCount);
+      });
+
+        fetch('/getMinistryStoreCount', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ getMinistryStoreCount: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.getMinistryStoreCount);
+      });
+
+           fetch('/getRDHSHospitalCount', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ getRDHSHospitalCount: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.getRDHSHospitalCount);
+      });
+
+           fetch('/getRdhsCount', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ getRDHSCount: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.getRDHSCount);
+      });
+
+               fetch('/getDirectHospitalCount', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ getDirectHospitalCount: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.getDirectHospitalCount);
+      });
+               fetch('/getVehicleCount', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(data => {
+        // console.log(data);
+        this.setState({ getVehicleCount: data, isLoading: false })
+        //  yearlyImportedQty=this.state.yearlyImportedQty;
+        console.log("Sums" + this.state.getVehicleCount);
+      });
+
 
 
   }
@@ -2393,54 +2508,33 @@ const mainChart1Opts = {
             </Card>
           </Col>
         </Row>
-
-        <Row>
-          <Col xs="6" sm="6" lg="3">
-            <Suspense fallback={this.loading()}>
-              <Widget03 dataBox={() => ({ variant: 'facebook', friends: '89k', feeds: '459' })} >
-                <div className="chart-wrapper">
-                  <Line data={makeSocialBoxData(0)} options={socialChartOpts} height={90} />
-                </div>
-              </Widget03>
-            </Suspense>
+         <Row>
+          <Col sm="6" md="2">
+            <Widget04 icon="icon-mouse" color="info" header={this.state.medicineCount} value="0">Medicine</Widget04>
           </Col>
-
-          <Col xs="6" sm="6" lg="3">
-            <Suspense fallback={this.loading()}>
-              <Widget03 dataBox={() => ({ variant: 'twitter', followers: '973k', tweets: '1.792' })} >
-                <div className="chart-wrapper">
-                  <Line data={makeSocialBoxData(1)} options={socialChartOpts} height={90} />
-                </div>
-              </Widget03>
-            </Suspense>
+          <Col sm="6" md="2">
+            <Widget04 icon="icon-home" color="success" header={this.state.getMinistryStoreCount} value="0">Ministry Stores</Widget04>
           </Col>
-
-          <Col xs="6" sm="6" lg="3">
-            <Suspense fallback={this.loading()}>
-              <Widget03 dataBox={() => ({ variant: 'linkedin', contacts: '500+', feeds: '292' })} >
-                <div className="chart-wrapper">
-                  <Line data={makeSocialBoxData(2)} options={socialChartOpts} height={90} />
-                </div>
-              </Widget03>
-            </Suspense>
+          <Col sm="6" md="2">
+            <Widget04 icon="icon-home" color="warning" header={this.state.getRDHSCount} value="0">RDHS</Widget04>
           </Col>
-
-          <Col xs="6" sm="6" lg="3">
-            <Suspense fallback={this.loading()}>
-              <Widget03 dataBox={() => ({ variant: 'google-plus', followers: '894', circles: '92' })} >
-                <div className="chart-wrapper">
-                  <Line data={makeSocialBoxData(3)} options={socialChartOpts} height={90} />
-                </div>
-              </Widget03>
-            </Suspense>
+          <Col sm="6" md="2">
+            <Widget04 icon="icon-home" color="primary" header={this.state.getRDHSHospitalCount} value="0">RDHS Hospitals</Widget04>
+          </Col>
+          <Col sm="6" md="2">
+            <Widget04 icon="icon-home" color="danger" header={this.state.getDirectHospitalCount} value="0">Direct Hospitals</Widget04>
+          </Col>
+          <Col sm="6" md="2">
+            <Widget04 icon="icon-support" color="info" header={this.state.getVehicleCount} value="0">Vehicles</Widget04>
           </Col>
         </Row>
 
+       
         <Row>
           <Col>
             <Card>
               <CardHeader>
-                Traffic {' & '} Sales
+                Supply {' & '} Demand
               </CardHeader>
               <CardBody>
                 <Row>
@@ -2448,7 +2542,7 @@ const mainChart1Opts = {
                     <Row>
                       <Col sm="6">
                         <div className="callout callout-info">
-                          <small className="text-muted">New Clients</small>
+                          <small className="text-muted">Supply</small>
                           <br />
                           <strong className="h4">9,123</strong>
                           <div className="chart-wrapper">
@@ -2458,7 +2552,7 @@ const mainChart1Opts = {
                       </Col>
                       <Col sm="6">
                         <div className="callout callout-danger">
-                          <small className="text-muted">Recurring Clients</small>
+                          <small className="text-muted">Demand</small>
                           <br />
                           <strong className="h4">22,643</strong>
                           <div className="chart-wrapper">
