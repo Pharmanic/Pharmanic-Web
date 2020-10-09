@@ -42,6 +42,22 @@ class CurrentStock extends Component {
      .then(data => this.setState({medicines: data, isLoading: false}));
   }
 
+  async remove(id){
+    await fetch('/deletemedicine/${id}',{
+        method: 'DELETE',
+        headers:{
+            'Accept':'application/json',
+            'content-type':'application/json'
+
+        }
+    }).then(() => {
+      
+    });
+
+
+
+}
+
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
@@ -82,6 +98,9 @@ class CurrentStock extends Component {
         <td style={{whiteSpace: 'nowrap'}}>{medicine.name}</td>
         <td style={{whiteSpace: 'nowrap'}}>{medicine.side_effect}</td>
         <td style={{whiteSpace: 'nowrap'}}>{medicine.description}</td>
+        <td style={{whiteSpace: 'nowrap'}}>
+            <Button size="sm" color="danger" onClick={() => {if(window.confirm('Are you sure you wish to delete this stock?')) this.remove(ministrydriver.nic)}}><i className="fa fa-trash"></i></Button> 
+      </td>
       </tr>
     });
     return (

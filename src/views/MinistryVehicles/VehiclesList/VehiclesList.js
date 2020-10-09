@@ -36,7 +36,21 @@ class VehiclesList extends Component {
       .then(response => response.json())
       .then(data => this.setState({ministryvehicles: data, isLoading: false}));
   }
+  async remove(id){
+    await fetch('/deletemedicine/${id}',{
+        method: 'DELETE',
+        headers:{
+            'Accept':'application/json',
+            'content-type':'application/json'
 
+        }
+    }).then(() => {
+      
+    });
+
+
+
+}
   updateSearch(event){
     this.setState({search:event.target.value.substr(0,20)});
   }
@@ -80,6 +94,9 @@ class VehiclesList extends Component {
         <td style={{whiteSpace: 'nowrap'}}>{ministryvehicle.vehicle_no}</td>
         <td style={{whiteSpace: 'nowrap'}}>{ministryvehicle.type}</td>
         <td style={{whiteSpace: 'nowrap'}}>{ministryvehicle.capacity}</td>
+        <td style={{whiteSpace: 'nowrap'}}>
+            <Button size="sm" color="danger" onClick={() => {if(window.confirm('Are you sure you wish to delete this stock?')) this.remove(ministrydriver.nic)}}><i className="fa fa-trash"></i></Button> 
+      </td>
       </tr>
     });
     return (
