@@ -322,6 +322,8 @@ class Dashboard extends Component {
       getWeeklySupply: [],
       getWeeklySupplyDates: [],
        getWeeklyDemand: [],
+       getRDHSCurrentYearSupply:0,
+       getDirectCurrentYearSupply:0,
       // yearlyImportedQtyYears: [],
     };
   }
@@ -720,7 +722,7 @@ fetch('/yearlyDamagedMedicieSumYears5', {
       // .then(response => console.log(response))
       .then(data => {
         // console.log(data);
-        this.setState({ yearlyDamagedQty: data, isLoading: false })
+        this.setState({ yearlyDamagedQty: data, isLoading: false });
         //  yearlyDamagedQty=this.state.yearlyDamagedQty;
         console.log("Sums" + this.state.yearlyDamagedQty);
       });
@@ -739,7 +741,7 @@ fetch('/yearlyDamagedMedicieSumYears5', {
       // .then(response => console.log(response))
       .then(data => {
         // console.log(data);
-        this.setState({ averageDamaged: data, isLoading: false })
+        this.setState({ averageDamaged: data, isLoading: false });
         //  yearlyAvailableQty=this.state.yearlyAvailableQty;
         console.log("Avg Av" + this.state.averageDamaged);
       });
@@ -1062,11 +1064,73 @@ fetch('/yearlyDamagedMedicieSumYears5', {
       .then(data => {
         // console.log(data);
         this.setState({ getWeeklySupplyDates: data, isLoading: false })
-        console.log(this.state.getWeeklySupplyDates[0]+"WS+============");
+        // console.log(this.state.getWeeklySupplyDates[0]+"WS+============");
+
+
+      });
+
+
+
+         fetch('/getRDHSCurrentYearSupply', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.setState({ getRDHSCurrentYearSupply: data, isLoading: false });
+        // console.log(this.state.getRDHSCurrentYearSupply+"Cur RDHS+============");
+
+
+      });
+
+      
+         fetch('/getDirectCurrentYearSupply', {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.setState({ getDirectCurrentYearSupply: data, isLoading: false });
+        console.log(this.state.getDirectCurrentYearSupply+"Cur RDHS+============");
+
+
+      });
+
+           fetch('/getDirectCurrentYearDemand', {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.setState({ getDirectCurrentYearDemand: data, isLoading: false });
+        console.log(this.state.getDirectCurrentYearDemand+"Cur Demand Direct+============");
 
 
       });
       
+
+            fetch('/getRDHSCurrentYearDemand', {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.setState({ getRDHSCurrentYearDemand: data, isLoading: false });
+        console.log(this.state.getRDHSCurrentYearDemand+"Cur Demand RDHS+============");
+
+
+      });
         // console.log(getWeeklySupplyAr+"WS++++++++++++++++++++++++++++++++++");
 
   }
@@ -1076,22 +1140,7 @@ fetch('/yearlyDamagedMedicieSumYears5', {
   ImportedQty_5years(){
     console.log("say hy");
     this.setState({ isLoading: true });
-    // console.log(this.state.user_type)
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    ;
+   
     fetch('/yearlyImportMedicieSumYears5', {
       // method: 'GET',
       // withCredentials: true,
@@ -1910,7 +1959,7 @@ DamagedQty_5years(){
   }
 
   render() {
-    const{getWeeklySupply,getWeeklySupplyDates,getWeeklyDemand}=this.state;
+    const{getWeeklySupply,getWeeklySupplyDates,getWeeklyDemand,getDirectCurrentYearSupply,getRDHSCurrentYearSupply,getDirectCurrentYearDemand,getRDHSCurrentYearDemand}=this.state;
     //  const {yearlyImportedQty,yearlyImportedQtyYears,yearlyAvailableQty,yearlyAvailableQtyYears} = this.state;
 
 
@@ -2291,7 +2340,7 @@ const sparkLineChartData = [
 const makeSparkLineData = (dataSetNo, variant) => {
   const dataset = sparkLineChartData[dataSetNo];
   const data = {
-    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    labels: this.state.getWeeklySupplyDates,
     datasets: [
       {
         backgroundColor: 'transparent',
@@ -2627,7 +2676,7 @@ const sparklineChartOpts = {
                         <div className="callout callout-info">
                           <small className="text-muted">Supply</small>
                           <br />
-                          <strong className="h4">9,123</strong>
+                          <strong className="h4">{this.state.getDirectCurrentYearSupply+this.state.getRDHSCurrentYearSupply}</strong>
                           <div className="chart-wrapper">
                             <Line data={makeSparkLineData(0, brandPrimary)} options={sparklineChartOpts} width={100} height={30} />
                           </div>
@@ -2637,7 +2686,7 @@ const sparklineChartOpts = {
                         <div className="callout callout-danger">
                           <small className="text-muted">Demand</small>
                           <br />
-                          <strong className="h4">22,643</strong>
+                          <strong className="h4">{this.state.getDirectCurrentYearDemand+this.state.getRDHSCurrentYearDemand}</strong>
                           <div className="chart-wrapper">
                             <Line data={makeSparkLineData(1, brandDanger)} options={sparklineChartOpts} width={100} height={30} />
                           </div>
@@ -2722,6 +2771,42 @@ const sparklineChartOpts = {
                         <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[6]} />
                       </div>
                     </div>
+            
+               
+                     <div className="progress-group mb-4">
+                      <div className="progress-group-prepend">
+                        <span className="progress-group-text">
+                        {this.state.getWeeklySupplyDates[7]}
+                        </span>
+                      </div>
+                      <div className="progress-group-bars">
+                        <Progress className="progress-xs" color="info" value={this.state.getWeeklySupply[7]} />
+                        <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[7]} />
+                      </div>
+                    </div>
+                    <div className="progress-group mb-4">
+                      <div className="progress-group-prepend">
+                        <span className="progress-group-text">
+                        {this.state.getWeeklySupplyDates[8]}
+                        </span>
+                      </div>
+                      <div className="progress-group-bars">
+                        <Progress className="progress-xs" color="info" value={this.state.getWeeklySupply[8]} />
+                        <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[8]} />
+                      </div>
+                    </div>
+                    <div className="progress-group mb-4">
+                      <div className="progress-group-prepend">
+                        <span className="progress-group-text">
+                        {this.state.getWeeklySupplyDates[9]}
+                        </span>
+                      </div>
+                      <div className="progress-group-bars">
+                        <Progress className="progress-xs" color="info" value={this.state.getWeeklySupply[9]} />
+                        <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[9]} />
+                      </div>
+                    </div>
+
                     <div className="legend text-center">
                       <small>
                         <sup className="px-1"><Badge pill color="info">&nbsp;</Badge></sup>
