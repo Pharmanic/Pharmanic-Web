@@ -1127,11 +1127,42 @@ fetch('/yearlyDamagedMedicieSumYears5', {
     })
       .then(response => response.json())
       .then(data => {this.setState({ getRDHSCurrentYearDemand: data, isLoading: false });
-        console.log(this.state.getRDHSCurrentYearDemand+"Cur Demand RDHS+============");
+        // console.log(this.state.getRDHSCurrentYearDemand+"Cur Demand RDHS+============");
 
 
       });
-        // console.log(getWeeklySupplyAr+"WS++++++++++++++++++++++++++++++++++");
+      // console.log("Theseeeeeeeeeeeeeeeeeeeeeee");
+
+           fetch('/getRDHSHospitalCurrentYearDemand', {
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.setState({ getRDHSHospitalCurrentYearDemand: data, isLoading: false });
+        console.log(this.state.getRDHSHospitalCurrentYearDemand+"Cur Demand RDHS+/////////");
+
+
+      });
+
+       fetch('/getRDHSHospitalCurrentYearSupply', {
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.setState({ getRDHSHospitalCurrentYearSupply: data, isLoading: false });
+        console.log(this.state.getRDHSHospitalCurrentYearSupply+"Cur Demand RDHS////////////////");
+
+
+      });
+
+
+        // console.log(getWeeklySupplyAr+"WS++++++++++++++++++++++++++++++++++compend");
 
   }
 
@@ -1959,10 +1990,14 @@ DamagedQty_5years(){
   }
 
   render() {
-    const{getWeeklySupply,getWeeklySupplyDates,getWeeklyDemand,getDirectCurrentYearSupply,getRDHSCurrentYearSupply,getDirectCurrentYearDemand,getRDHSCurrentYearDemand}=this.state;
+    const{getWeeklySupply,getWeeklySupplyDates,getWeeklyDemand,getDirectCurrentYearSupply,getRDHSCurrentYearSupply,getDirectCurrentYearDemand,getRDHSCurrentYearDemand,getRDHSHospitalCurrentYearDemand,getRDHSHospitalCurrentYearSupply}=this.state;
     //  const {yearlyImportedQty,yearlyImportedQtyYears,yearlyAvailableQty,yearlyAvailableQtyYears} = this.state;
+// console.log("-------------"+this.state.getRDHSCurrentYearSupply+"---"+this.state.getRDHSCurrentYearDemand);
+var rdhsSupDim=((this.state.getRDHSCurrentYearSupply/this.state.getRDHSCurrentYearDemand).toFixed(2)*100);
+var dirSupDim=((this.state.getDirectCurrentYearSupply/this.state.getDirectCurrentYearDemand).toFixed(2)*100);
+var rdhsHospitalSupDim=((this.state.getRDHSHospitalCurrentYearSupply/this.state.getRDHSHospitalCurrentYearDemand).toFixed(2)*100);
 
-
+// rdhsSupDim=10;
 const cardChartDatafor1 = {
   labels: this.state.yearlyImportedQtyYears,
   datasets: [
@@ -2672,26 +2707,27 @@ const sparklineChartOpts = {
                 <Row>
                   <Col xs="12" md="6" xl="6">
                     <Row>
-                      <Col sm="6">
-                        <div className="callout callout-info">
-                          <small className="text-muted">Supply</small>
-                          <br />
-                          <strong className="h4">{this.state.getDirectCurrentYearSupply+this.state.getRDHSCurrentYearSupply}</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(0, brandPrimary)} options={sparklineChartOpts} width={100} height={30} />
-                          </div>
-                        </div>
-                      </Col>
-                      <Col sm="6">
+                       <Col sm="6">
                         <div className="callout callout-danger">
                           <small className="text-muted">Demand</small>
                           <br />
-                          <strong className="h4">{this.state.getDirectCurrentYearDemand+this.state.getRDHSCurrentYearDemand}</strong>
+                          <strong className="h4">{this.state.getDirectCurrentYearDemand+this.state.getRDHSCurrentYearDemand}k</strong>
                           <div className="chart-wrapper">
                             <Line data={makeSparkLineData(1, brandDanger)} options={sparklineChartOpts} width={100} height={30} />
                           </div>
                         </div>
                       </Col>
+                      <Col sm="6">
+                        <div className="callout callout-info">
+                          <small className="text-muted">Supply</small>
+                          <br />
+                          <strong className="h4">{this.state.getDirectCurrentYearSupply+this.state.getRDHSCurrentYearSupply}k</strong>
+                          <div className="chart-wrapper">
+                            <Line data={makeSparkLineData(0, brandPrimary)} options={sparklineChartOpts} width={100} height={30} />
+                          </div>
+                        </div>
+                      </Col>
+                     
                     </Row>
                     <hr className="mt-0" />
                     <div className="progress-group mb-4">
@@ -2821,9 +2857,9 @@ const sparklineChartOpts = {
                     <Row>
                       <Col sm="6">
                         <div className="callout callout-warning">
-                          <small className="text-muted">Pageviews</small>
+                          <small className="text-muted">Supply - RDHS</small>
                           <br />
-                          <strong className="h4">78,623</strong>
+                          <strong className="h4">{this.state.getRDHSCurrentYearDemand}k</strong>
                           <div className="chart-wrapper">
                             <Line data={makeSparkLineData(2, brandWarning)} options={sparklineChartOpts} width={100} height={30} />
                           </div>
@@ -2831,9 +2867,9 @@ const sparklineChartOpts = {
                       </Col>
                       <Col sm="6">
                         <div className="callout callout-success">
-                          <small className="text-muted">Organic</small>
+                          <small className="text-muted">Supply - Direct Hospital</small>
                           <br />
-                          <strong className="h4">49,123</strong>
+                          <strong className="h4">{this.state.getDirectCurrentYearDemand}k</strong>
                           <div className="chart-wrapper">
                             <Line data={makeSparkLineData(3, brandSuccess)} options={sparklineChartOpts} width={100} height={30} />
                           </div>
@@ -2844,45 +2880,45 @@ const sparklineChartOpts = {
                     <ul>
                       <div className="progress-group">
                         <div className="progress-group-header">
-                          <i className="icon-user progress-group-icon"></i>
-                          <span className="title">Male</span>
-                          <span className="ml-auto font-weight-bold">43%</span>
+                          <i className="icon-basket-loaded progress-group-icon"></i>
+                          <span className="title">Supply - RDHS</span>
+                          <span className="ml-auto font-weight-bold">{rdhsSupDim}%</span>
                         </div>
                         <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="warning" value="43" />
+                          <Progress className="progress-xs" color="warning" value={rdhsSupDim} />
                         </div>
                       </div>
-                      <div className="progress-group mb-5">
+                      
+                      
+                      <div className="progress-group ">
                         <div className="progress-group-header">
-                          <i className="icon-user-female progress-group-icon"></i>
-                          <span className="title">Female</span>
-                          <span className="ml-auto font-weight-bold">37%</span>
+                          <i className="icon-basket-loaded progress-group-icon"></i>
+                          <span className="title">Supply - Direct Hospital</span>
+                          <span className="ml-auto font-weight-bold">{dirSupDim}%</span>
                         </div>
                         <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="warning" value="37" />
+                          <Progress className="progress-xs" color="warning" value={dirSupDim} />
                         </div>
+                     
+                        
                       </div>
-                      <div className="progress-group">
+                       <div className="progress-group mb-5">
                         <div className="progress-group-header">
-                          <i className="icon-globe progress-group-icon"></i>
-                          <span className="title">Organic Search</span>
-                          <span className="ml-auto font-weight-bold">191,235 <span className="text-muted small">(56%)</span></span>
+                          <i className="icon-basket-loaded progress-group-icon"></i>
+                          <span className="title">Supply - RDHS Hospital</span>
+                          <span className="ml-auto font-weight-bold">{rdhsHospitalSupDim}%</span>
                         </div>
                         <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="success" value="56" />
+                          <Progress className="progress-xs" color="warning" value={rdhsHospitalSupDim} />
                         </div>
+
+
+
+
                       </div>
+                       
                       <div className="progress-group">
-                        <div className="progress-group-header">
-                          <i className="icon-social-facebook progress-group-icon"></i>
-                          <span className="title">Facebook</span>
-                          <span className="ml-auto font-weight-bold">51,223 <span className="text-muted small">(15%)</span></span>
-                        </div>
-                        <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="success" value="15" />
-                        </div>
-                      </div>
-                      <div className="progress-group">
+
                         <div className="progress-group-header">
                           <i className="icon-social-twitter progress-group-icon"></i>
                           <span className="title">Twitter</span>
