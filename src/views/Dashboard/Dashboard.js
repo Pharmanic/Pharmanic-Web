@@ -59,6 +59,10 @@ let dailyAvailable;
 let dailySupplied;
 let dailyDates;
 
+// var getWeeklySupplyAr = [];
+
+// var  getWeeklySupply: [];
+
 
 // Card Chart 3
 const cardChartData3 = {
@@ -195,82 +199,7 @@ const socialChartOpts = {
   },
 };
 
-// sparkline charts
-const sparkLineChartData = [
-  {
-    data: [35, 23, 56, 22, 97, 23, 64],
-    label: 'New Clients',
-  },
-  {
-    data: [65, 59, 84, 84, 51, 55, 40],
-    label: 'Recurring Clients',
-  },
-  {
-    data: [35, 23, 56, 22, 97, 23, 64],
-    label: 'Pageviews',
-  },
-  {
-    data: [65, 59, 84, 84, 51, 55, 40],
-    label: 'Organic',
-  },
-  {
-    data: [78, 81, 80, 45, 34, 12, 40],
-    label: 'CTR',
-  },
-  {
-    data: [1, 13, 9, 17, 34, 41, 38],
-    label: 'Bounce Rate',
-  },
-];
 
-const makeSparkLineData = (dataSetNo, variant) => {
-  const dataset = sparkLineChartData[dataSetNo];
-  const data = {
-    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    datasets: [
-      {
-        backgroundColor: 'transparent',
-        borderColor: variant ? variant : '#c2cfd6',
-        data: dataset.data,
-        label: dataset.label,
-      },
-    ],
-  };
-  return () => data;
-};
-
-const sparklineChartOpts = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  responsive: true,
-  maintainAspectRatio: true,
-  scales: {
-    xAxes: [
-      {
-        display: false,
-      }],
-    yAxes: [
-      {
-        display: false,
-      }],
-  },
-  elements: {
-    line: {
-      borderWidth: 2,
-    },
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-      hoverBorderWidth: 3,
-    },
-  },
-  legend: {
-    display: false,
-  },
-};
 
 // Main Chart
 
@@ -390,7 +319,9 @@ class Dashboard extends Component {
     this.state = {
       dropdownOpen: false,
       radioSelected: 2,
-      // yearlyImportedQty: [],
+      getWeeklySupply: [],
+      getWeeklySupplyDates: [],
+       getWeeklyDemand: [],
       // yearlyImportedQtyYears: [],
     };
   }
@@ -573,6 +504,7 @@ class Dashboard extends Component {
 
    componentDidMount() {
     this.setState({ isLoading: true });
+    // this.setState({ getWeeklySupply: []});
     // console.log(this.state.user_type);
 
 
@@ -1073,11 +1005,69 @@ fetch('/yearlyDamagedMedicieSumYears5', {
       .then(data => {
         // console.log(data);
         this.setState({ getVehicleCount: data, isLoading: false })
+        //  console.log("" + this.state.getVehicleCount);
         //  yearlyImportedQty=this.state.yearlyImportedQty;
-        console.log("Sums" + this.state.getVehicleCount);
       });
 
 
+               fetch('/getWeeklySupply', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data);
+        this.setState({ getWeeklySupply: data, isLoading: false })
+        // getWeeklySupplyAr.push(this.state.getWeeklySupply[0]);
+
+
+      });
+
+      fetch('/getWeeklyDemand', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data);
+        this.setState({ getWeeklyDemand: data, isLoading: false })
+        // getWeeklySupplyAr.push(this.state.getWeeklySupply[0]);
+
+
+      });
+
+            fetch('/getWeeklySupplyDates', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data);
+        this.setState({ getWeeklySupplyDates: data, isLoading: false })
+        console.log(this.state.getWeeklySupplyDates[0]+"WS+============");
+
+
+      });
+      
+        // console.log(getWeeklySupplyAr+"WS++++++++++++++++++++++++++++++++++");
 
   }
 
@@ -1086,7 +1076,22 @@ fetch('/yearlyDamagedMedicieSumYears5', {
   ImportedQty_5years(){
     console.log("say hy");
     this.setState({ isLoading: true });
-    // console.log(this.state.user_type);
+    // console.log(this.state.user_type)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ;
     fetch('/yearlyImportMedicieSumYears5', {
       // method: 'GET',
       // withCredentials: true,
@@ -1905,6 +1910,7 @@ DamagedQty_5years(){
   }
 
   render() {
+    const{getWeeklySupply,getWeeklySupplyDates,getWeeklyDemand}=this.state;
     //  const {yearlyImportedQty,yearlyImportedQtyYears,yearlyAvailableQty,yearlyAvailableQtyYears} = this.state;
 
 
@@ -2254,6 +2260,83 @@ const mainChart1Opts = {
   },
 };
 
+// sparkline charts
+const sparkLineChartData = [
+  {
+    data: this.state.getWeeklySupply,
+    label: 'Supply',
+  },
+  {
+    data: this.state.getWeeklyDemand,
+    label: 'Demand',
+  },
+  {
+    data: [35, 23, 56, 22, 97, 23, 64],
+    label: 'Pageviews',
+  },
+  {
+    data: [65, 59, 84, 84, 51, 55, 40],
+    label: 'Organic',
+  },
+  {
+    data: [78, 81, 80, 45, 34, 12, 40],
+    label: 'CTR',
+  },
+  {
+    data: [1, 13, 9, 17, 34, 41, 38],
+    label: 'Bounce Rate',
+  },
+];
+
+const makeSparkLineData = (dataSetNo, variant) => {
+  const dataset = sparkLineChartData[dataSetNo];
+  const data = {
+    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    datasets: [
+      {
+        backgroundColor: 'transparent',
+        borderColor: variant ? variant : '#c2cfd6',
+        data: dataset.data,
+        label: dataset.label,
+      },
+    ],
+  };
+  return () => data;
+};
+
+const sparklineChartOpts = {
+  tooltips: {
+    enabled: false,
+    custom: CustomTooltips
+  },
+  responsive: true,
+  maintainAspectRatio: true,
+  scales: {
+    xAxes: [
+      {
+        display: false,
+      }],
+    yAxes: [
+      {
+        display: false,
+      }],
+  },
+  elements: {
+    line: {
+      borderWidth: 2,
+    },
+    point: {
+      radius: 0,
+      hitRadius: 10,
+      hoverRadius: 4,
+      hoverBorderWidth: 3,
+    },
+  },
+  legend: {
+    display: false,
+  },
+};
+
 
 
     return (
@@ -2565,87 +2648,87 @@ const mainChart1Opts = {
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                          Monday
+                          {this.state.getWeeklySupplyDates[0]}
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="34" />
-                        <Progress className="progress-xs" color="danger" value="78" />
+                        <Progress className="progress-xs" color="info" value={this.state.getWeeklySupply[0]} />
+                        <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[0]}  />
                       </div>
                     </div>
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Tuesday
+                        {this.state.getWeeklySupplyDates[1]}
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="56" />
-                        <Progress className="progress-xs" color="danger" value="94" />
+                        <Progress className="progress-xs" color="info" value={this.state.getWeeklySupply[1]} />
+                        <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[1]} />
                       </div>
                     </div>
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Wednesday
+                        {this.state.getWeeklySupplyDates[2]}
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="12" />
-                        <Progress className="progress-xs" color="danger" value="67" />
+                        <Progress className="progress-xs" color="info" value={this.state.getWeeklySupply[2]} />
+                        <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[2]} />
                       </div>
                     </div>
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Thursday
+                        {this.state.getWeeklySupplyDates[3]}
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="43" />
-                        <Progress className="progress-xs" color="danger" value="91" />
+                        <Progress className="progress-xs" color="info" value={this.state.getWeeklySupply[3]} />
+                        <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[3]} />
                       </div>
                     </div>
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Friday
+                        {this.state.getWeeklySupplyDates[4]}
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="22" />
-                        <Progress className="progress-xs" color="danger" value="73" />
+                        <Progress className="progress-xs" color="info" value={this.state.getWeeklySupply[4]} />
+                        <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[4]} />
                       </div>
                     </div>
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Saturday
+                        {this.state.getWeeklySupplyDates[5]}
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="53" />
-                        <Progress className="progress-xs" color="danger" value="82" />
+                        <Progress className="progress-xs" color="info" value={this.state.getWeeklySupply[5]} />
+                        <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[5]} />
                       </div>
                     </div>
                     <div className="progress-group mb-4">
                       <div className="progress-group-prepend">
                         <span className="progress-group-text">
-                        Sunday
+                        {this.state.getWeeklySupplyDates[6]}
                         </span>
                       </div>
                       <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="9" />
-                        <Progress className="progress-xs" color="danger" value="69" />
+                        <Progress className="progress-xs" color="info" value={this.state.getWeeklySupply[6]} />
+                        <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[6]} />
                       </div>
                     </div>
                     <div className="legend text-center">
                       <small>
                         <sup className="px-1"><Badge pill color="info">&nbsp;</Badge></sup>
-                        New clients
+                        Supply
                         &nbsp;
                         <sup className="px-1"><Badge pill color="danger">&nbsp;</Badge></sup>
-                        Recurring clients
+                        Demand
                       </small>
                     </div>
                   </Col>
