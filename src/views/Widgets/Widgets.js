@@ -72,7 +72,7 @@ class Widgets extends Component {
           </Col>
           <Col xs="12" sm="6" lg="3">
             <Widget01 color="warning" header="$98.111,00" smallText="">
-              <small className="text-muted">Excepteur sint occaecat...</small>
+              <small className="text-muted">Excepteur sint ...</small>
             </Widget01>
           </Col>
           <Col xs="12" sm="6" lg="3">
@@ -87,7 +87,7 @@ class Widgets extends Component {
           </Col>
           <Col xs="12" sm="6" lg="3">
             <Widget01 color="danger" variant="inverse" header="$98.111,00" smallText="">
-              <small className="text-muted">Excepteur sint occaecat...</small>
+              <small className="text-muted">Excepteur sint occaecat.......</small>
             </Widget01>
           </Col>
           <Col xs="12" sm="6" lg="3">
@@ -178,7 +178,7 @@ class Widgets extends Component {
           </Col>
         </Row>
         <CardGroup className="mb-4">
-          <Widget04 icon="icon-people" color="info" header="87.500" value="25">Visitors</Widget04>
+          <Widget04 icon="icon-people" color="info" header="87.500" value="25">Visitorsaaaaa</Widget04>
           <Widget04 icon="icon-user-follow" color="success" header="385" value="25">New Clients</Widget04>
           <Widget04 icon="icon-basket-loaded" color="warning" header="1238" value="25">Products sold</Widget04>
           <Widget04 icon="icon-pie-chart" color="primary" header="28%" value="25">Returning Visitors</Widget04>
