@@ -1,0 +1,7 @@
+{
+    "name": "IssueDrugtoHos",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./IssueDrugtoHos.js"
+  }
+  

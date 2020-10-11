@@ -28,14 +28,12 @@ import { Link, withRouter } from 'react-router-dom';
 
 
 
-class rdhs_driverreg extends Component {
+class RdhsOrdertoMS extends Component {
 
     emptyItem = {
-        nic:'',
-        name: '',
-        email: '',
-        address:'',
-        telephone:''
+        stock_id:'',
+        export_date: '',
+        order_date: ''
       };
 
   constructor(props) {
@@ -66,7 +64,7 @@ class rdhs_driverreg extends Component {
     event.preventDefault();
     const {item} = this.state;
 
-    await fetch('/rdhs_driverreg/add', {
+    await fetch('/rdhsexportedstock/add', {
       method:'POST',
       headers: {
         'Accept': 'application/json',
@@ -77,7 +75,7 @@ class rdhs_driverreg extends Component {
     this.setState({
       item:this.emptyItem
     });
-   // this.props.history.push('/exportedstocks');
+ //   this.props.history.push('/exportedstocks');
   }
 
   toggle() {
@@ -97,62 +95,44 @@ class rdhs_driverreg extends Component {
         
         <Row>
           <Col>
-            <Card>
-              <CardHeader>
-                RDHS Driver Registration
+            <Card style={{borderRadius:'20px'}}>
+              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
+                Order Medicene from Ministry Store
               </CardHeader>
               <CardBody>
                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal">           
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">NIC</Label>
+                      <Label htmlFor="text-input">Stock No</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="nic" name="nic" placeholder="NIC" value={item.nic|| ''}
-                            onChange={this.handleChange} autoComplete="nic" />
+                      <Input type="text" id="stock_id" name="stock_id" placeholder="Stock ID" value={item.stock_id|| ''}
+                            onChange={this.handleChange} autoComplete="stock_id" />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Driver's name</Label>
+                      <Label htmlFor="text-input">Import date</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="name" name="name" placeholder="name" value={item.name|| ''}
-                            onChange={this.handleChange} autoComplete="name"/>
+                      <Input type="text" id="export_date" name="export_date" placeholder="Import Date" value={item.export_date|| ''}
+                            onChange={this.handleChange} autoComplete="export_date"/>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Email</Label>
+                      <Label htmlFor="text-input">Order date</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="email" name="email" placeholder="email" value={item.email|| ''}
-                            onChange={this.handleChange} autoComplete="email"/>
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Address</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input type="text" id="address" name="address" placeholder="Address" value={item.address|| ''}
-                            onChange={this.handleChange} autoComplete="address"/>
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Telephone number</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input type="text" id="telephone" name="telephone" placeholder="Telephone number" value={item.telephone|| ''}
-                            onChange={this.handleChange} autoComplete="telephone"/>
+                      <Input type="text" id="order_date" name="order_date" placeholder="Order Date" value={item.order_date|| ''}
+                            onChange={this.handleChange} autoComplete="order_date"/>
                     </Col>
                   </FormGroup>
                   <FormGroup>
-                    <Button size="lm" color="primary" type="submit"> <i className="fa fa-dot-circle-o"></i>Submit</Button>{' '}{' '}{' '}{' '}{' '}{' '}
-                    <Button size="lm" color="danger"><i className="fa fa-ban"></i>Cancel</Button>
+                    <Button size="sm" color="primary" type="submit"> <i className="fa fa-dot-circle-o"></i>Save</Button>{' '}
+                    <Button size="sm" color="danger"><i className="fa fa-ban"></i>Cancel</Button>
                     <div style={{float: 'right'}}>
-                    <Button size="lm" color="primary"tag={Link} to="/rdhs_reg">Back</Button>
+                    <Button size="lm" color="primary"tag={Link} to="/rdhsOrderToMSDetail">Click to get order details</Button>
                     </div>
                    </FormGroup>
                 </Form>
@@ -167,4 +147,4 @@ class rdhs_driverreg extends Component {
   }
 }
 
-export default rdhs_driverreg;
+export default RdhsOrdertoMS;

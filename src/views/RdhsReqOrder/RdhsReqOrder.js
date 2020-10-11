@@ -23,11 +23,11 @@ class CurrentStock extends Component {
   }
 
   componentDidMount() {
-    this.setState({isLoading: true});
+  //   this.setState({isLoading: true});
 
-    fetch('/rdhsrequestordersnotcomplete')
-      .then(response => response.json())
-      .then(data => this.setState({rdhsrequestorders: data, isLoading: false}));
+  //    fetch('/rdhsrequestordersnotcomplete')
+  //     .then(response => response.json())
+  //     .then(data => this.setState({rdhsrequestorders: data, isLoading: false}));
   }
 
   async close(id) {

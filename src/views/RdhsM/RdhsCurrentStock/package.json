@@ -1,0 +1,7 @@
+{
+    "name": "RdhsCurrentStock",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./RdhsCurrentStock.js"
+  }
+  

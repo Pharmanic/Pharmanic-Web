@@ -69,7 +69,7 @@ class rdhs_order_medicine extends Component {
     }
     const {item} = this.state;
 
-    await fetch('/rdhs/rdhs_order_medicine', {
+    await fetch('/Rrdhs_order_medicine', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -80,7 +80,7 @@ class rdhs_order_medicine extends Component {
       .then(res => console.log(res)) //returns array of data
       console.log();
       ;
-    this.props.history.push('/rdhs/rdhs_order_medicine');
+   // this.props.history.push('/rdhs/rdhs_order_medicine');
   }
 
   toggle() {

@@ -9,6 +9,61 @@ export default {
         text: 'NEW',
       },
     },
+
+    {
+      name: 'RDHS',
+      icon: 'icon-list',
+      children: [
+       
+        {
+          name: 'RegistrationDriver',
+          url: '/rdhsdriverreg',
+        },
+        {
+          name: 'DriverList',
+          url: '/rdhsdriverlist',
+        },
+        {
+          name: 'RegistrationVehicle',
+          url: '/rdhsvehiclereg',
+        },
+        {
+          name: 'VehicleList',
+          url: '/rdhsvehiclelist',
+        },
+        // {
+        //   name: 'Register driver',
+        //   url: '/rdhs_driverreg',
+        // },
+       
+        {
+          name: 'Currently stock',
+          url: '/rdhscurrentstockform',
+        },
+        {
+          name: 'Issue hospital drug',
+          url: '/rdhsissuedrug',
+        },
+        {
+          name: 'Expiring medicine',
+          url: '/rdhsexpiringmed',
+        },
+        {
+          name: 'Medicine Requests',
+          url: '/rdhsMedOrderfrmHos',
+        },
+        {
+          name: 'Order Medicine',
+          url: '/rdhsOrderToMS',
+        },
+        {
+          name: 'Hospital details',
+          url: '/rdhsallhosdetail',
+        },
+
+      ],
+    },
+    
     {
       name: 'Hospital By RDHS',
     ///  url: '/ministry_stores',

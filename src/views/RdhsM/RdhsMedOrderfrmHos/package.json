@@ -1,0 +1,7 @@
+{
+    "name": "RdhsMedOrderfrmHos",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./RdhsMedOrderfrmHos.js"
+  }
+  
