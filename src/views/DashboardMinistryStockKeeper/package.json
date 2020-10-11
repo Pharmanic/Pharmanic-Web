@@ -1,0 +1,6 @@
+{
+  "name": "DashboardMinistryStockKeeper",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./DashboardMinistryStockKeeper.js"
+}

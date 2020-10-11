@@ -1,0 +1,6 @@
+{
+  "name": "RDHSStockKeeperLayout",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./RDHSStockKeeperLayout.js"
+}

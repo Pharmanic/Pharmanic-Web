@@ -25,10 +25,16 @@ import {
   Row,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
+import authHeader from '../../../assets/services/auth-header_res';
+import AuthService from '../../../assets/services/auth.service';
+import swal from 'sweetalert';
+
+
+
 class RegisterMinistryStore extends Component {
 
   emptyItem = {
-    m_store_is:'',
+    m_store_id: '',
     name: '',
     email: '',
     tel_no: '',
@@ -37,6 +43,8 @@ class RegisterMinistryStore extends Component {
     available_storage: ''
 
   };
+  user_type: '';
+  rRes:'';
 
   constructor(props) {
     super(props);
@@ -47,7 +55,10 @@ class RegisterMinistryStore extends Component {
       item: this.emptyItem,
       collapse: true,
       fadeIn: true,
-      timeout: 300
+      timeout: 300,
+      user_type: AuthService.getCurrentUser().roles,
+      rRes:0,
+     
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -70,14 +81,46 @@ class RegisterMinistryStore extends Component {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+
       },
       body: JSON.stringify(item),
     })
-      .then(res => console.log(res)) //returns array of data
-      console.log();
-      ;
-    this.props.history.push('/ministry_stores/ministry_stores_list');
+    .then((response) => response.json())
+    // .then((response) => console.log(response))
+
+    .then(response => this.setState({ rRes: response.m_store_id}));
+  //  .then(data => this.setState({ rRes: data, isLoading: false}));
+    console.log("Item"+this.state.rRes);
+
+    if (this.state.rRes != 0) {
+      swal({
+        icon: "success",
+        text: "Ministry Store Saved Succesfully",
+        buttons: {
+          ok: "OK",
+          // view: "Show Ministry Stores"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+      this.resetForm();
+    }else{
+      swal({
+        icon: "error",
+        text: "Error Saving Ministry Store",
+        buttons: {
+          ok: "OK",
+          // view: "Show Ministry Stores"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    }
+
   }
 
   toggle() {
@@ -103,11 +146,11 @@ class RegisterMinistryStore extends Component {
           <Col xs="12" md="8">
             <Card>
               <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                <b>Ministry Ware Houses Registration</b>
+                <b>Ministry Store Registration</b>
               </CardHeader>
               <CardBody>
                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="ministryStoreForm">
-                  
+
                   <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Ministry store ID</Label>

@@ -6,7 +6,7 @@ import {Container,Input,Button,Label,Form,FormGroup,Table, Card,
     Col,} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-class Rdhs_Track extends Component {
+class Rdhs_Hospital_Return_Track extends Component {
 
   emptyItem = {
     track_id: '',
@@ -36,6 +36,7 @@ class Rdhs_Track extends Component {
        
          this.handleChange = this.handleChange.bind(this);
          this.handleSubmit = this.handleSubmit.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
          this.state.reg_no=localStorage.getItem('reg_no');
     }
 
@@ -76,16 +77,26 @@ class Rdhs_Track extends Component {
       if(name=='nic'){
         const driver=this.state.driver;
         console.log('drivr nic',driver);
-        const store=driver.find(ms => ms.nic==target.value);
-        console.log('drivr collection',store);
-        item[name]=store;
-        this.setState({item});
-        console.log('drivr item', item[name]);
+       
+
+        var regx=/^[1-9]{9}[vV]$|^[0-9]{12}$/;
+        var vall1=document.getElementById('nic').value;
+ 
+        if(regx.test(vall1)){
+         document.getElementById('nic').style.borderColor = "";
+         const store=driver.find(ms => ms.nic==target.value);
+         console.log('drivr collection',store);
+         item[name]=store;
+         this.setState({item});
+         console.log('drivr item', item[name]);
+        }else{
+         document.getElementById('nic').style.borderColor = "red";
+        }
+ 
+
+
       }else if(name=='reg_no'){
         const rdds=this.state.rdhs;
-      //  const currentstock = store.find(mcs => mcs.stockId==stockId);
-       // this.state.batches=currentstock;
-
         const exportedstock=rdds.find(es => es.reg_no==target.value);
         item[name]=exportedstock;
         this.setState({item});
@@ -98,13 +109,12 @@ class Rdhs_Track extends Component {
       }else{
         item[name] = value;
         this.setState({item});
-       // console.log('item',item);
       }
 
 
       }
      
-   
+      
       async handleSubmit(event) {
       
         event.preventDefault();
@@ -147,6 +157,9 @@ class Rdhs_Track extends Component {
             body: JSON.stringify(ret),
           });
         })
+        alert('return sucessfully..');
+        window.location.replace("/#/returncart");
+
 
         
       }
@@ -212,4 +225,4 @@ class Rdhs_Track extends Component {
     }
 }
  
-export default Rdhs_Track;
+export default Rdhs_Hospital_Return_Track;

@@ -70,7 +70,7 @@ class CurrentStock extends Component {
           <Col>
             <Card>
               <CardHeader>
-                Direct Hospitals
+                Direct Hospitals Drug Request Orders
               </CardHeader>
               <CardBody>
                 
@@ -92,14 +92,10 @@ class CurrentStock extends Component {
               </CardBody>
             </Card>
           </Col>
-        </Row>
-
-        
-       
-         
-        
-     
-   
+        </Row>   
+        <Link to="/direct_hospital_request_order_form">
+          <Button className="btn-primary btn-pill" >New Order</Button>
+        </Link>
       </div>
     );
   }

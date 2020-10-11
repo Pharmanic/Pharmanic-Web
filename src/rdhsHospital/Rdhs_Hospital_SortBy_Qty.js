@@ -21,6 +21,13 @@ class Rdhs_Hospital_SortBy_Qty extends Component {
     updateSearch(event){
         this.setState({search:event.target.value.substr(0,20)});
       }
+
+      async goAdding(sr_no,name,quantity){
+        localStorage.setItem('sr_no',sr_no);
+        localStorage.setItem('name',name);
+        localStorage.setItem('quantity',quantity);
+        window.location.replace("/#/rhorder");
+      }
     render() { 
         const {Drug} =this.state;
 
@@ -40,7 +47,7 @@ class Rdhs_Hospital_SortBy_Qty extends Component {
                <td>{drug.medicine.name}</td>
                <td>{drug.medicine.description}</td>
                <td>{drug.quantity}</td>
-               <td><Button color="primary">Add Order Cart</Button></td>
+               <td><Button color="primary" onClick={()=>this.goAdding(drug.medicine.sr_no,drug.medicine.name,drug.quantity)}>Add Order Cart</Button></td>
               
                
            </tr>
@@ -51,7 +58,7 @@ class Rdhs_Hospital_SortBy_Qty extends Component {
             <FormGroup>
              
             <Link to='/rhcstock'><Button color="primary">Back</Button></Link>{' '}{' '}{' '}{' '}
-            <Link to='/returncart'><Button color="primary">View Return Cart</Button></Link>
+            <Link to='/rhordercart'><Button color="primary">View  Cart</Button></Link>
                 </FormGroup>
 
           
@@ -89,6 +96,7 @@ class Rdhs_Hospital_SortBy_Qty extends Component {
              </tbody>
          
          </Table>
+         
 
          </Card>
 

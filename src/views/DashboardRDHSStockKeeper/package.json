@@ -1,0 +1,6 @@
+{
+  "name": "DashboardRDHSStockKeeper",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./DashboardRDHSStockKeeper.js"
+}
