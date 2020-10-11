@@ -50,39 +50,39 @@ class DefaultAside extends Component {
   render() {
 
     // eslint-disable-next-line
-    const { children, ...attributes } = this.props;
-    const {ministrynearestexpiringlist,isLoading,dhrequestordersnotcoplete,rdhsrequestordersnotcomplete} = this.state;
+    // const { children, ...attributes } = this.props;
+    // const {ministrynearestexpiringlist,isLoading,dhrequestordersnotcoplete,rdhsrequestordersnotcomplete} = this.state;
 
-    const groupList = ministrynearestexpiringlist.map(ministrynearestexpiring => {
-      return<ListGroupItem action tag="a" href="#" className="list-group-item-accent-danger list-group-item-divider" key={ministrynearestexpiring.batch_id}>
-      <div>{ministrynearestexpiring.batch_id}</div>
-        <div>{ministrynearestexpiring.sr_no.name}</div>
-        <div>You have a medicine expiring at your nearest </div>
-        <small className="text-muted mr-3">
-                  <i className="icon-calendar"></i>&nbsp; {ministrynearestexpiring.expire_date}
-        </small>
-        <small className="text-muted">
-                  <i className="icon-location-pin"></i> {ministrynearestexpiring.m_store_id.location}
-        </small>
+    // const groupList = ministrynearestexpiringlist.map(ministrynearestexpiring => {
+    //   return<ListGroupItem action tag="a" href="#" className="list-group-item-accent-danger list-group-item-divider" key={ministrynearestexpiring.batch_id}>
+    //   <div>{ministrynearestexpiring.batch_id}</div>
+    //     <div>{ministrynearestexpiring.sr_no.name}</div>
+    //     <div>You have a medicine expiring at your nearest </div>
+    //     <small className="text-muted mr-3">
+    //               <i className="icon-calendar"></i>&nbsp; {ministrynearestexpiring.expire_date}
+    //     </small>
+    //     <small className="text-muted">
+    //               <i className="icon-location-pin"></i> {ministrynearestexpiring.m_store_id.location}
+    //     </small>
         
-    </ListGroupItem>
-    });
+    // </ListGroupItem>
+    // });
 
-    const groupList2 = dhrequestordersnotcoplete.map(dhrequestorder => {
-      return<ListGroupItem action tag="a" href="#" className="list-group-item-accent-danger list-group-item-divider" key={dhrequestorder.order_id}>
-      <div>You have a reuest from{dhrequestorder.hospital_reg_no.reg_no}</div>
-        <div>Ministry store:-{dhrequestorder.m_store_id.m_store_id}</div>
+    // const groupList2 = dhrequestordersnotcoplete.map(dhrequestorder => {
+    //   return<ListGroupItem action tag="a" href="#" className="list-group-item-accent-danger list-group-item-divider" key={dhrequestorder.order_id}>
+    //   <div>You have a reuest from{dhrequestorder.hospital_reg_no.reg_no}</div>
+    //     <div>Ministry store:-{dhrequestorder.m_store_id.m_store_id}</div>
         
-    </ListGroupItem>
-    });
+    // </ListGroupItem>
+    // });
 
-    const groupList3 = rdhsrequestordersnotcomplete.map(rdhsrequestorders => {
-      return<ListGroupItem action tag="a" href="#" className="list-group-item-accent-danger list-group-item-divider" key={rdhsrequestorders.order_id}>
-      <div>You have a reuest from{rdhsrequestorders.rdhs_reg_no.reg_no}</div>
-        <div>Ministry store:-{rdhsrequestorders.m_store_id.m_store_id}</div>
+    // const groupList3 = rdhsrequestordersnotcomplete.map(rdhsrequestorders => {
+    //   return<ListGroupItem action tag="a" href="#" className="list-group-item-accent-danger list-group-item-divider" key={rdhsrequestorders.order_id}>
+    //   <div>You have a reuest from{rdhsrequestorders.rdhs_reg_no.reg_no}</div>
+    //     <div>Ministry store:-{rdhsrequestorders.m_store_id.m_store_id}</div>
         
-    </ListGroupItem>
-    });
+    // </ListGroupItem>
+    // });
 
     return (
       <React.Fragment>
@@ -116,9 +116,9 @@ class DefaultAside extends Component {
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
             <ListGroup className="list-group-accent" tag={'div'}>
-  
+{/*   
               {groupList}
-              
+               */}
              
               
               
@@ -128,8 +128,8 @@ class DefaultAside extends Component {
           <TabPane tabId="2" className="p-3">
             
             <hr />
-            {groupList2}
-            {groupList3}
+            {/* {groupList2}
+            {groupList3} */}
             
           </TabPane>
           <TabPane tabId="3" className="p-3">

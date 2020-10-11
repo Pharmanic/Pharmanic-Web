@@ -1,0 +1,7 @@
+{
+    "name": "RdhsOrderToMSDetail",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./RdhsOrderToMSDetail.js"
+  }
+  

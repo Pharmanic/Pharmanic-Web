@@ -8,14 +8,11 @@ import {
   Table,
   InputGroup,
   InputGroupAddon,
-  Button,
   Input,
+  Button,
   CardFooter
 } from 'reactstrap';
-import Paginations from './Pagination';
-
-
-
+//import Paginations from './Pagination';
 
 class CurrentStock extends Component {
   
@@ -25,22 +22,23 @@ class CurrentStock extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.state = {medicines: [], isLoading: true,filter:"",
+    this.state = {ministryvehicles: [], isLoading: true,search:'',
     currentPage:1,
     dataPerPage:5,}; 
   }
 
-  handleChange = event =>{
-    this.setState({filter:event.target.value});
-  }
+
 
   componentDidMount() {
     this.setState({isLoading: true});
 
-    fetch('/medicines')
+    fetch('/Rdhs_vehiclereg')
       .then(response => response.json())
-      .then(data => this.setState({medicines: data, isLoading: false}));
-      console.log('fwuyerf',this.state.medicines);
+      .then(data => this.setState({ministryvehicles: data, isLoading: false}));
+  }
+
+  updateSearch(event){
+    this.setState({search:event.target.value.substr(0,20)});
   }
 
   toggle() {
@@ -58,15 +56,15 @@ class CurrentStock extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-    const {medicines, isLoading,filter,currentPage,dataPerPage} = this.state;
-    const lowercasedFilter = filter.toLowerCase();
-    const filteredData = medicines.filter(item => {
-      return Object.keys(item).some(key =>
-        item[key].toLowerCase().includes(lowercasedFilter)
-        );
-    })
-
-
+    const {ministryvehicles, isLoading,search,currentPage,dataPerPage} = this.state;
+    
+    let filteredData=ministryvehicles.filter(
+      (ministryvehicle)=>{
+        return ministryvehicle.vehicle_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+              //  ministrystore.m_store_id.indexOf(this.state.search) !==-1;
+      }
+    );
+    
     const indexOfLastData=currentPage * dataPerPage;
     const indexOfFirstData=indexOfLastData - dataPerPage;
     const currentData=filteredData.slice(indexOfFirstData,indexOfLastData);
@@ -77,12 +75,11 @@ class CurrentStock extends Component {
       return <p>Loading...</p>;
     }
 
-    const groupList = filteredData.map(medicine => {
-      return <tr key={medicine.sr_no}>
-        <td style={{whiteSpace: 'nowrap'}}>{medicine.sr_no}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{medicine.name}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{medicine.side_effect}</td>
-        <td style={{whiteSpace: 'nowrap'}}>{medicine.description}</td>
+    const groupList = currentData.map(ministryvehicle => {
+      return <tr key={ministryvehicle.vehicle_no}>
+        <td style={{whiteSpace: 'nowrap'}}>{ministryvehicle.vehicle_no}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{ministryvehicle.type}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{ministryvehicle.capacity}</td>
       </tr>
     });
     return (
@@ -97,15 +94,15 @@ class CurrentStock extends Component {
             <InputGroupAddon addonType="prepend">
               <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
             </InputGroupAddon>
-            <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search a Medicine" value={filter} onChange={this.handleChange}/>
-          </InputGroup>
+            <Input type="text" id="input1-group2" name="input1-group2" placeholder="Search by Vehicle Number" value={this.state.search}
+                    onChange={this.updateSearch.bind(this)}/>
+          </InputGroup> 
           <br></br>
           </Col>
           </Row>
-          
-            <Card style={{borderRadius:'20px'}}>
+            <Card  style={{borderRadius:'20px'}}>
               <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
-                Medicines
+                RDHS Vehicles
               </CardHeader>
               <CardBody>
                 
@@ -113,11 +110,9 @@ class CurrentStock extends Component {
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
                   <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
                   <tr>
-                    <th>SR No</th>
-                    <th>Name</th>
-                    <th>Side Effects</th>
-                    <th>Description  </th>
-                 
+                    <th>Vehicle Number</th>
+                    <th>Type</th>
+                    <th>Capacity (T)</th>                  
                   </tr>
                   </thead>
                   <tbody>
@@ -129,20 +124,13 @@ class CurrentStock extends Component {
               <Row>
               <Col md="9"></Col>
               <Col md="3">
-              <Paginations dataPerPage={dataPerPage} totalData={filteredData.length} paginate={paginate}/>
+              {/* <Paginations dataPerPage={dataPerPage} totalData={filteredData.length} paginate={paginate}/> */}
               </Col>
               </Row>
               </CardFooter>
             </Card>
           </Col>
-        </Row>
-
-        
-       
-         
-        
-     
-   
+        </Row>   
       </div>
     );
   }

@@ -1,0 +1,7 @@
+{
+    "name": "RdhsCurrentStockForm",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./RdhsCurrentStockForm.js"
+  }
+  
