@@ -37,7 +37,7 @@ class VehiclesList extends Component {
       .then(data => this.setState({ministryvehicles: data, isLoading: false}));
   }
   async remove(id){
-    await fetch('/deletemedicine/${id}',{
+    await fetch('/deleteministryvehicle/${id}',{
         method: 'DELETE',
         headers:{
             'Accept':'application/json',

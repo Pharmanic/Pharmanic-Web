@@ -43,7 +43,7 @@ class CurrentStock extends Component {
   }
 
   async remove(id){
-    await fetch('/deletemedicine/${id}',{
+    await fetch('/deleteministrymedicene/${id}',{
         method: 'DELETE',
         headers:{
             'Accept':'application/json',
