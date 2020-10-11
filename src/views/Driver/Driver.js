@@ -35,9 +35,9 @@ class CurrentStock extends Component {
     this.setState({isLoading: true});
 
     fetch('/ministrydrivers')
-      .then(response => response.json())
-      .then(data => this.setState({ministrydrivers: data, isLoading: false}));
-  }
+     .then(response => response.json())
+     .then(data => this.setState({ministrydrivers: data, isLoading: false}));
+ }
 
   toggle() {
     this.setState({
@@ -85,10 +85,7 @@ class CurrentStock extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-          <Row>
-          <Col md="8">
-          </Col>
-          <Col lg="4" >
+          <Col lg="5" >
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <Button type="button" color="primary"><i className="fa fa-search"></i></Button>
@@ -97,16 +94,15 @@ class CurrentStock extends Component {
           </InputGroup> 
           <br></br>
           </Col>
-          </Row>
-            <Card style={{borderRadius:'20px'}}>
-              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
+            <Card>
+              <CardHeader>
                 Ministry Drivers
               </CardHeader>
               <CardBody>
                 
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
+                  <thead className="thead-light">
                   <tr>
                     <th>NIC</th>
                     <th>Name</th>
@@ -121,12 +117,7 @@ class CurrentStock extends Component {
                 </Table>
               </CardBody>
               <CardFooter>
-              <Row>
-              <Col md="9"></Col>
-              <Col md="3">
               <Paginations dataPerPage={dataPerPage} totalData={filteredData.length} paginate={paginate}/>
-              </Col>
-              </Row>
               </CardFooter>
             </Card>
           </Col>

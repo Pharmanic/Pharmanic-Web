@@ -25,21 +25,9 @@ class CurrentStock extends Component {
   componentDidMount() {
   //   this.setState({isLoading: true});
 
-  //    fetch('/rdhsrequestordersnotcomplete')
-  //     .then(response => response.json())
-  //     .then(data => this.setState({rdhsrequestorders: data, isLoading: false}));
-  }
-
-  async close(id) {
-    await fetch(`/closeorderrdhs/${id}`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).then(() => {
-     
-    });
+    fetch('/rdhsrequestorders')
+      .then(response => response.json())
+      .then(data => this.setState({rdhsrequestorders: data, isLoading: false}));
   }
 
   toggle() {
@@ -71,7 +59,6 @@ class CurrentStock extends Component {
         <td style={{whiteSpace: 'nowrap'}}>{rdhsrequestorder.m_store_id.location}</td>
         <td style={{whiteSpace: 'nowrap'}}>{rdhsrequestorder.date}</td>
         <td>  <Button block outline color="info"tag={Link} to={"/rdhsreqorderdetail/"+rdhsrequestorder.order_id} >More Info</Button>  </td>
-        {/* <td><Button size="sm" color="danger" onClick={() => {if(window.confirm('Are you sure you wish to close this order?You cant reverse this task')) this.close(rdhsrequestorder.order_id)}}>Close Order</Button></td> */}
       </tr>
     });
 
@@ -81,15 +68,15 @@ class CurrentStock extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-            <Card style={{borderRadius:'20px'}}>
-              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
-                RDHS Request Orders
+            <Card>
+              <CardHeader>
+                Direct Hospitals
               </CardHeader>
               <CardBody>
                 
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
+                  <thead className="thead-light">
                   <tr>
                     <th>Order ID</th>
                     <th>Hospital</th>

@@ -22,8 +22,9 @@ import {
 } from 'reactstrap';
 
 import { } from 'reactstrap';
-
+import authHeader from '../../../assets/services/auth-header_res';
 import { Link, withRouter } from 'react-router-dom';
+import swal from 'sweetalert';
 
 
 class HospitalByRDHSDetail extends Component {
@@ -38,9 +39,17 @@ class HospitalByRDHSDetail extends Component {
         reg_no: '',
         name: '',
         address: '',
+           telephone: '',
         email: '',
-        telephone: '',
-        doctor_incharge: ''
+        doctor_incharge: '',
+         rdhs: {
+      reg_no: '',
+      address: '',
+      email: '',
+      name: '',
+      telephone: ''
+
+    }
 
     };
     constructor(props) {
@@ -53,10 +62,11 @@ class HospitalByRDHSDetail extends Component {
             // ministrytracks: [],
             item: this.emptyItem,
             // shouldShowModal: false,
-            modalOrderId: -1
+            modalOrderId: -1,
+            rRes:0
         };
         this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -67,9 +77,14 @@ class HospitalByRDHSDetail extends Component {
         this.setState({ isLoading: true, danger: false, modal: false, });
         this.toggleDanger = this.toggleDanger.bind(this);
         console.log('param', this.props.match);
-        fetch(`/hospitalByRdhs/${this.props.match.params.id}`)
+        fetch(`/hospitalByRdhs/${this.props.match.params.id}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + authHeader(),
+      }
+    })
             .then(response => response.json())
-            .then(data => this.setState({ item: data, isLoading: false,old_item: data, isLoading: false }));
+            .then(data => this.setState({ item: data, isLoading: false, old_item: data, isLoading: false }));
         // this.loadData();
 
         // fetch('/ministrytracks')
@@ -88,35 +103,6 @@ class HospitalByRDHSDetail extends Component {
         this.setState({ item });
     }
 
-    // enableEdit(event) {
-
-
-    // }
-
-    // async handleSubmit(event) {
-    //   event.preventDefault();
-    //   const {item} = this.state;
-    //   console.log('object content', item);
-    //   await fetch('/supplyordertodh/add', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(item),
-    //   });
-    //   this.props.history.push('/ministrydamagestocks');
-    // }
-    // loadData() {
-    //     this.setState({
-    //         reg_no: this.state.rdhs_hospital_details.reg_no,
-    //         address: this.state.rdhs_hospital_details.address,
-    //         name: this.state.rdhs_hospital_details.name,
-    //         email: this.state.rdhs_hospital_details.email,
-    //         telephone: this.state.rdhs_hospital_details.telephone,
-    //         doctor_incharge: this.state.rdhs_hospital_details.doctor_incharge,
-    //     });
-    // }
 
     toggle() {
         this.setState({
@@ -140,8 +126,57 @@ class HospitalByRDHSDetail extends Component {
         this.setState({ item: this.state.old_item });
     }
 
-    formFieldsChanged(){
-        
+    formFieldsChanged(event) {
+
+    }
+    async handleSubmit(event) {
+        event.preventDefault();
+        const {item} = this.state.item;
+        console.log("Hospital by RDHS");
+
+        fetch('/hospitalByRdhs', {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+
+            },
+            body: JSON.stringify(this.state.item),
+        })
+            .then(response => response.json()) //returns array of data
+            .then(response => console.log("My Res 1  "+response.reg_no))
+            // .then(response => this.setState({ rRes: response.reg_no})) // tc
+            // .then(response => console.log("My Res2  "+response));;
+   console.log("rRes variable"+this.state.rRes);
+  if (this.state.rRes == 0) { // tc
+      swal({
+        icon: "success",
+        text: "Hospital by RDHS Updated Succesfully",
+        buttons: {
+          ok: "OK",
+          // view: "Show Hospital by RDHSs"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    //   this.resetForm();
+    }else{
+      swal({
+        icon: "error",
+        text: "Error Updating Hospital by RDHS",
+        buttons: {
+          ok: "OK",
+          // view: "Show Hospital by RDHSs"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    }
+//    this.setState({rRes:0});
+        // this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
     }
 
 
@@ -161,8 +196,8 @@ class HospitalByRDHSDetail extends Component {
     render() {
         const {isLoading, item} = this.state;
 
-        // this.state.enableEdit=false;
-        console.log('reqlist', item);
+        this.state.enableEdit=true;
+        // console.log('reqlist', item);
         if (isLoading) {
             return <p>Loading...</p>;
         }
@@ -205,14 +240,14 @@ class HospitalByRDHSDetail extends Component {
                     <Col xs="12" md="8">
                         <Card>
                             <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                                <b>RDHS Hospital - {item.name}</b>
+                                <b>RDHS Hospital - {this.state.old_item.name}</b>
                             </CardHeader>
                             <CardBody>
-                                <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="RDHS HospitalForm">
+                                <Form onSubmit={this.handleSubmit} method="put" encType="multipart/form-data" className="form-horizontal" id="RDHS HospitalForm">
 
 
 
-                                    <FormGroup row>
+                                    {/*<FormGroup row> // check input
                                         <Col md="6">
                                             <FormGroup check className="radio">
                                                 <Input className="form-check-input" type="checkbox" id="radio2" name="radios" value="RDHS Hospital" onClick={() => {
@@ -221,7 +256,7 @@ class HospitalByRDHSDetail extends Component {
                                                 <Label check className="form-check-label" htmlFor="radio2">Enable Editing</Label>
                                             </FormGroup>
                                         </Col>
-                                    </FormGroup>
+                                    </FormGroup>*/}
                                     {/*<Button size="sm" color="success" onClick={() => {
                                         this.setState({ enableEdit: true }); this.enableEditing(); }} >Enable Edit</Button>*/}
 
@@ -240,6 +275,16 @@ class HospitalByRDHSDetail extends Component {
                                         </Col>
                                         <Col xs="12" md="9">
                                             <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={item.name || ''}
+                                                onChange={this.handleChange} autoComplete="name" disabled={!this.state.enableEdit} />
+                                        </Col>
+                                    </FormGroup>
+
+                                       <FormGroup row>
+                                        <Col md="3">
+                                            <Label htmlFor="text-input">Related RDHS</Label>
+                                        </Col>
+                                        <Col xs="12" md="9">
+                                            <Input type="text" id="name" name="name" placeholder="Name" initialValue="" value={item.rdhs.name || ''}
                                                 onChange={this.handleChange} autoComplete="name" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>
@@ -279,7 +324,7 @@ class HospitalByRDHSDetail extends Component {
                                             <Label htmlFor="text-input">Doctor Incharge</Label>
                                         </Col>
                                         <Col xs="12" md="9">
-                                            <Input type="text" id="doctor_incharge" name="doctor_incharge" placeholder="Tel No" initialValue="" value={item.telephone || ''}
+                                            <Input type="text" id="doctor_incharge" name="doctor_incharge" placeholder="Tel No" initialValue="" value={item.doctor_incharge || ''}
                                                 onChange={this.handleChange} autoComplete="telephone" disabled={!this.state.enableEdit} />
                                         </Col>
                                     </FormGroup>

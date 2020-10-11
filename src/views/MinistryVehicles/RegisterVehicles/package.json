@@ -1,0 +1,7 @@
+{
+  "name": "RegisterVehicles",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./RegisterVehicles.js"
+}
+ 

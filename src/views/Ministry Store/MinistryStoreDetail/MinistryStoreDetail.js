@@ -22,8 +22,11 @@ import {
 } from 'reactstrap';
 
 import { } from 'reactstrap';
-
+import swal from 'sweetalert';
 import { Link, withRouter } from 'react-router-dom';
+import authHeader from '../../../assets/services/auth-header_res';
+import AuthService from '../../../assets/services/auth.service';
+
 
 
 class MinistryStoreDetail extends Component {
@@ -43,27 +46,6 @@ class MinistryStoreDetail extends Component {
         total_storage: '',
         available_storage: ''
 
-        //enableEdit: false,
-
-        // track_id: {
-        //     track_id: '',
-        //     vehicle_id: {
-        //         vehicle_no: '',
-        //         type: '',
-        //         capacity: ''
-        //     },
-        //     driver_id: {
-        //         nic: '',
-        //         name: '',
-        //         email: '',
-        //         address: '',
-        //         telephone: ''
-        //     },
-        //     starting_point: '',
-        //     destination: '',
-        //     date: '',
-
-        // }
 
 
     };
@@ -78,10 +60,12 @@ class MinistryStoreDetail extends Component {
             item: this.emptyItem,
             old_item: this.emptyItem,
             // shouldShowModal: false,
-            modalOrderId: -1
+            modalOrderId: -1,
+            rRes:0,
+            enableEdit:true
         };
         this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -92,7 +76,12 @@ class MinistryStoreDetail extends Component {
         this.setState({ isLoading: true, danger: false, modal: false, });
         this.toggleDanger = this.toggleDanger.bind(this);
         console.log('param', this.props.match);
-        fetch(`/ministry_stores/${this.props.match.params.id}`)
+        fetch(`/ministry_stores/${this.props.match.params.id}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + authHeader(),
+      }
+    })
             .then(response => response.json())
             .then(data => this.setState({ item: data, isLoading: false, old_item: data, isLoading: false }));
         // this.loadData();
@@ -114,25 +103,55 @@ class MinistryStoreDetail extends Component {
         
     }
 
-    // enableEdit(event) {
 
 
-    // }
+    async handleSubmit(event) {
+      event.preventDefault();
+      const {item} = this.state;
+       console.log("Handle Submit 1");
+      console.log('object content', item);
 
-    // async handleSubmit(event) {
-    //   event.preventDefault();
-    //   const {item} = this.state;
-    //   console.log('object content', item);
-    //   await fetch('/supplyordertodh/add', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(item),
-    //   });
-    //   this.props.history.push('/ministrydamagestocks');
-    // }
+      await fetch('/ministry_store', {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authHeader()
+        },
+        body: JSON.stringify(item),
+      }) .then((response) => response.json())
+    // .then((response) => console.log(response))
+
+    .then(response => this.setState({ rRes: response.m_store_id}));;
+   console.log("rRes"+this.state.rRes);
+  if (this.state.rRes != 0) {
+      swal({
+        icon: "success",
+        text: "Ministry Store Updated Succesfully",
+        buttons: {
+          ok: "OK",
+          // view: "Show Ministry Stores"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    //   this.clearForm();
+    }else{
+      swal({
+        icon: "error",
+        text: "Error Updating Ministry Store",
+        buttons: {
+          ok: "OK",
+          // view: "Show Ministry Stores"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    }
+   this.setState({rRes:0});
+    }
   
 
     toggle() {
@@ -158,12 +177,6 @@ class MinistryStoreDetail extends Component {
     }
 
 
-    // onRadioBtnClick(radioSelected) {
-    //   this.setState({
-    //     radioSelected: radioSelected,
-    //   });
-    // }
-
     loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
     // toggleModal = (event) => {
@@ -179,38 +192,7 @@ class MinistryStoreDetail extends Component {
         if (isLoading) {
             return <p>Loading...</p>;
         }
-        /*
-            const trackList = ministrytracks.map(ministrytrack => {
-              return <option
-                key={ministrytrack.track_id}
-                value={ministrytrack.track_id}>
-                {ministrytrack.destination}
-              </option>
-            });*/
-
-        // const groupList = ministry_store_details.map(ministry_store_detail => {
-        /*return <tr key={ministry_store_details.reg_no}>
-          <td style={{ whiteSpace: 'nowrap' }}>{ministry_store_details.reg_no}</td>
-          <td style={{ whiteSpace: 'nowrap' }}>{ministry_store_details.reg_no}</td>
-          <td style={{ whiteSpace: 'nowrap' }}>{ministry_store_details.reg_no}</td>
-          <td style={{ whiteSpace: 'nowrap' }}>{ministry_store_details.reg_no}</td>*/
-        {/*<td style={{ whiteSpace: 'nowrap' }}>
-          {ministry_store_detail.can_supply_status === 1 ?
-            <Badge color="success">Available</Badge>
-            : <Badge color="danger">Not Available</Badge>}
-        </td>*/}
-        {/*<td> </td>*/ }
-        {/*<td></td>*/ }
-        {/*<td style={{ whiteSpace: 'nowrap' }}>
-          {ministry_store_detail.can_supply_status === 1 ?
-            <Button id={ministry_store_detail.id} block outline color="info" onClick={this.toggleModal}>Supply Orders</Button>
-            : <Button block outline color="info" disabled>Supply Order</Button>}
-        </td>*/}
-        {/*</tr>*/ }
-        // });
-
-        //const {shouldShowModal, modalOrderId} = this.state;
-        //console.log("shouldShowModal: " + shouldShowModal);
+      
         return (
             <div className="animated fadeIn">
 
@@ -218,23 +200,25 @@ class MinistryStoreDetail extends Component {
                     <Col xs="12" md="8">
                         <Card>
                             <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                                <b>ministry_store - {item.name}</b>
+                                <b>Ministry Store - {item.name}</b>
                             </CardHeader>
                             <CardBody>
                                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="ministry_storeForm">
 
 
 
-                                    <FormGroup row>
+                                    {/*<FormGroup row>
                                         <Col md="6">
                                             <FormGroup check className="radio">
-                                                <Input className="form-check-input" type="checkbox" id="radio2" name="radios" value="ministry_store" onClick={() => {
+                                                <Input className="form-check-input" type="checkbox" id="radio2" name="radios" value="ministry_store" 
+                                                onClick={() => {
                                                     this.setState({ enableEdit: !this.state.enableEdit }); this.enableEditing();
-                                                }} />
+                                                }} 
+                                                />
                                                 <Label check className="form-check-label" htmlFor="radio2">Enable Editing</Label>
                                             </FormGroup>
                                         </Col>
-                                    </FormGroup>
+                                    </FormGroup>*/}
                                     {/*<Button size="sm" color="success" onClick={() => {
                                         this.setState({ enableEdit: true }); this.enableEditing(); }} >Enable Edit</Button>*/}
 

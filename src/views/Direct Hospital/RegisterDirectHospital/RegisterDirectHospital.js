@@ -25,6 +25,11 @@ import {
   Row,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
+import authHeader from '../../../assets/services/auth-header_res';
+import AuthService from '../../../assets/services/auth.service';
+import swal from 'sweetalert';
+
+
 class RegisterdirectHospital extends Component {
 
    emptyItem = {
@@ -45,7 +50,10 @@ class RegisterdirectHospital extends Component {
       item: this.emptyItem,
       collapse: true,
       fadeIn: true,
-      timeout: 300
+      timeout: 300,
+      user_type:AuthService.getCurrentUser().roles,
+      rRes:0
+
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -68,13 +76,45 @@ class RegisterdirectHospital extends Component {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+
       },
       body: JSON.stringify(item),
     })
-    .then(res => res.json()) //returns array of data
+    .then(res => res.json())
+     .then(response => this.setState({ rRes: response.reg_no}));
+  //  .then(data => this.setState({ rRes: data, isLoading: false}));
+    console.log("Item"+this.state.rRes);
+
+    if (this.state.rRes != 0) {
+      swal({
+        icon: "success",
+        text: "Direct Hospital Saved Succesfully",
+        buttons: {
+          ok: "OK",
+          // view: "Show Direct Hospitals"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+      this.resetForm();
+    }else{
+      swal({
+        icon: "error",
+        text: "Error Saving Direct Hospital",
+        buttons: {
+          ok: "OK",
+          // view: "Show Direct Hospitals"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    } //returns array of data
     ;
-    this.props.history.push('/direct_hospitals/direct_hospitals'); 
+    // this.props.history.push('/'+this.state.user_type+'/direct_hospitals/direct_hospitals'); 
   }
 
   toggle() {
@@ -100,7 +140,7 @@ class RegisterdirectHospital extends Component {
           <Col xs="12" md="8">
             <Card>
               <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                <b>RDHS Hospital Registration</b>
+                <b>Direct Hospital Hospital Registration</b>
               </CardHeader>
               <CardBody>
                 <Form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data" className="form-horizontal" id="direct_hospital_Form">
@@ -165,7 +205,7 @@ class RegisterdirectHospital extends Component {
               </CardBody>
               {/*<CardFooter>*/}
               {/*<Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>{' '}
-                  <Button type="reset" size="sm" color="danger" tag={Link} to="/hospital_by_rdhss/hospital_by_rdhss_list"><i className="fa fa-ban"></i> Reset</Button>*/}
+                  <Button type="reset" size="sm" color="danger" tag={Link} to="/hospital_by_Direct Hospitals/hospital_by_Direct Hospitals_list"><i className="fa fa-ban"></i> Reset</Button>*/}
               {/*</CardFooter>*/}
             </Card>
           </Col>

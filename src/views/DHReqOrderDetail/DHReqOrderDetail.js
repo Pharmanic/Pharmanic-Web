@@ -173,8 +173,6 @@ class DHReqOrderDetail extends Component {
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
-
-
   toggleModal = (event)=>{
     console.log(event.target.id);
     this.setState({shouldShowModal: !this.state.shouldShowModal, modalOrderId: event.target.id})
@@ -207,19 +205,12 @@ class DHReqOrderDetail extends Component {
             :<Badge color="danger">Not Available</Badge>}
         </td>
       <td style={{whiteSpace: 'nowrap'}}>
-      {dhreqorderdetail.can_supply_status===1 && dhreqorderdetail.supply_status===0? 
+      {dhreqorderdetail.can_supply_status===1?    
       <Button id = {dhreqorderdetail.id} block outline color="info" onClick= {this.toggleModal}>Supply Orders</Button>               
             : <Button block outline color="info" disabled>Supply Order</Button>}    
       </td>
-      <td style={{whiteSpace: 'nowrap'}}>
-              {dhreqorderdetail.supply_status===1?
-                <Badge color="success">Supplied</Badge>
-            :<Badge color="danger">Not Supplied</Badge>}
-        </td>
       </tr>
     });
-
-    
     
     const {shouldShowModal, modalOrderId} = this.state;
     console.log("shouldShowModal: "+ shouldShowModal);
@@ -227,36 +218,27 @@ class DHReqOrderDetail extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-            <Card style={{borderRadius:'20px'}}>
-              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
-                Order Details from Direct Hospitals
+            <Card>
+              <CardHeader>
+                Damage Stock
               </CardHeader>
-              <Row>
-                <Col md="10">
-                </Col>
-                <Col md="2">
-                <Button block outline color="info" tag={Link} to="/ministry/directhospitalreqorder">Go Back</Button>
-                </Col>
-              </Row>
               <CardBody>                
                 <br />
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead style={{backgroundColor:'#244EAD', color:'white',borderRadius:'20px !important'}}>
+                  <thead className="thead-light">
                   <tr>
                     <th>Order ID</th>
                     <th>Medicine</th>
                     <th>Quantity</th>
                     <th>Ministry store ID</th>
-                    <th>Available Status</th>
-                    <th>Action</th>
-                    <th>Supply Status</th>
+                    <th>Status</th>
                   </tr>
                   </thead>
                   <tbody>
                   {groupList}
                   </tbody>
                 </Table>
-                
+                <Button block outline color="info" tag={Link} to="/ministry/directhospitalreqorder">Go Back</Button> 
               </CardBody>
             </Card>
           </Col>

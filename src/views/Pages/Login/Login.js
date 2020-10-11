@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import Logo from "../../../assets/img/brand/loginimage.jpg";
-import AuthService from "../services/auth.service";
+import AuthService from "../../../assets/services/auth.service";
 import CheckButton from "react-validation/build/button";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import Popup from 'react-popup';
+import authHeader from '../../../assets/services/auth-header_res';
 
 const required = value => {
   if (!value) {
@@ -20,6 +21,14 @@ const required = value => {
 
 class Login extends Component {
 
+   rdhs = {
+        reg_no: '',
+        name: '',
+        address: '',
+        email: '',
+        telephone: ''
+   }
+
   constructor(props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
@@ -30,7 +39,9 @@ class Login extends Component {
       username: "",
       password: "",
       loading: false,
-      message: ""
+      message: "",
+      rdhs:this.rdhs,
+      
     };
   }
 
@@ -54,7 +65,8 @@ class Login extends Component {
 
     this.setState({
       message: "",
-      loading: true
+      loading: true,
+      // user_type:AuthService.getCurrentUser().roles
     });
 
     this.form.validateAll();
@@ -62,8 +74,55 @@ class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
-          this.props.history.push("/dashboard");
-          window.location.reload();
+          this.setState({
+                user_type:AuthService.getCurrentUser().roles,
+                user_branch:AuthService.getCurrentUser().branch
+          });
+          if(this.state.user_type=='ministry_admin'){
+             this.props.history.push("/ministry_admin");
+          }else if(this.state.user_type=='minister'){
+             this.props.history.push("/minister");
+          }else if(this.state.user_type=='ministry_stock_keeper'){
+             this.props.history.push("/ministry_stock_keeper");
+          }else if(this.state.user_type=='ministry_store_admin'){
+             this.props.history.push("/ministry_store_admin");
+          }else if(this.state.user_type=='ministry_store_stock_keeper'){
+             this.props.history.push("/ministry_store_stock_keeper");
+          }else if(this.state.user_type=='rdhs_admin'){
+           
+    //         console.log(this.state.user_branch+"nnn");
+
+    // fetch(`/rdhs/${this.state.user_branch}`, {
+    //   method: 'GET',
+    //   headers: {
+    //     'Authorization': 'Bearer ' + authHeader(),
+    //   }
+    // })
+    //         .then(response => response.json())
+    //         .then(data => this.setState({ rdhs: data, isLoading: false,}));
+
+             this.props.history.push("/rdhs_admin");
+          }else if(this.state.user_type=='rdhs_director'){
+             this.props.history.push("/rdhs_director");
+          }else if(this.state.user_type=='rdhs_stock_keeper'){
+             this.props.history.push("/rdhs_stock_keeper");
+          }else if(this.state.user_type=='direct_hospital_admin'){
+             this.props.history.push("/direct_hospital_admin");
+          }else if(this.state.user_type=='direct_hospital_doctor_incharge'){
+             this.props.history.push("/direct_hospital_doctor_incharge");
+          }else if(this.state.user_type=='direct_hospital_stock_keeper'){
+             this.props.history.push("/direct_hospital_stock_keeper");
+          }else if(this.state.user_type=='hospital_by_rdhs_admin'){
+             this.props.history.push("/hospital_by_rdhs_admin");
+          }else if(this.state.user_type=='hospital_by_rdhs_doctor_incharge'){
+             this.props.history.push("/hospital_by_rdhs_doctor_incharge");
+          }else if(this.state.user_type=='hospital_by_rdhs_stock_keeper'){
+             this.props.history.push("/hospital_by_rdhs_stock_keeper");
+          }else{
+             this.props.history.push("/");
+          }
+          // window.location.reload();
+          
         },
         error => {
           const resMessage =

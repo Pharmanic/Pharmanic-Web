@@ -1,0 +1,3 @@
+import DirectHospitalDoctorInChargeLayout from './DirectHospitalDoctorInChargeLayout';
+
+export default DirectHospitalDoctorInChargeLayout;

@@ -14,6 +14,10 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 import { Link } from 'react-router-dom';
+import authHeader from '../../../assets/services/auth-header_res';
+import AuthService from '../../../assets/services/auth.service';
+import swal from 'sweetalert';
+
 
 const divStyle = {
   display: 'flex',
@@ -22,7 +26,7 @@ const divStyle = {
 
 class HospitalByRDHS extends Component {
 
-
+user_type:'';
   constructor(props) {
     super(props);
 
@@ -33,31 +37,91 @@ class HospitalByRDHS extends Component {
       isLoading: true,
       currentPage: 1,
       dataPerPage: 5,
-      search: ''
+      search: '',
+      user_type:AuthService.getCurrentUser().roles
     };
   }
   //const [state, setstate] = useState(initialState);
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch('/hospital_by_rdhs/hospital_by_rdhs_list')
-      .then(response => response.json())
-      .then(data => this.setState({ hospitalByRDHSs: data, isLoading: false }));
-  }
+    // fetch('/hospital_by_rdhs/hospital_by_rdhs_list')
+    //   .then(response => response.json())
+    //   .then(data => this.setState({ hospitalByRDHSs: data, isLoading: false }));
 
+fetch('/hospital_by_rdhs/hospital_by_rdhs_list', {
+        
+          headers: {
+                // 'Accept': 'application/json',
+                'Authorization': 'Bearer ' + authHeader(),
+                // 'Content-Type': 'application/json'
+            }
+})
+      .then(response => response.json())
+      .then(data =>{
+        console.log(data);
+       this.setState({ hospitalByRDHSs: data, isLoading: false })
+      //  console.log("2nd"+data.get(0));
+    });
+
+
+ }
+  
+ delete (reg_no) {
+    swal({
+      title: "Are you sure?",
+      text: "You Want to Delete this RDHS Hospital!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          // swal("Poof! Your imaginary file has been deleted!", {
+          //   icon: "success",
+          // });
+          this.remove(reg_no);
+        }
+      });
+  }
   async remove(id) {
     await fetch(`/hospitalByRdhs/${id}`, {
       method: 'DELETE',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Authorization': 'Bearer ' + authHeader(),
       }
-    }).then(() => {
-      // console.log("deleted");
-      //this.props.history.push('/hospital_by_rdhs/hospital_by_rdhs_list');
-      window.location.reload(false);
+   }) .then((response) => response.json())
+    // .then((response) => console.log(response))
 
-    });
+    .then(response => this.setState({ rRes: response}));
+    if(this.state.rRes==1){
+      swal({
+        icon: "success",
+        text: "RDHS Hospital Saved Succesfully",
+        buttons: {
+          ok: "OK",
+          // view: "Show RDHS Hospitals"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+      setTimeout(() => {   window.location.reload(false); }, 500);
+        
+    }else{
+      swal({
+        icon: "error",
+        text: "Error Saving RDHS Hospital",
+        buttons: {
+          ok: "OK",
+          // view: "Show RDHS Hospitals"
+          // hello: "Say hello!",
+        },
+        timer: 1500
+
+      });
+    
+    }
   }
 
   updateSearch(event) {
@@ -84,13 +148,13 @@ class HospitalByRDHS extends Component {
     let filteredData = hospitalByRDHSs.filter(
       (hospitalByRDHS) => {
         return hospitalByRDHS.reg_no.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(hospitalByRDHS.name).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||          
           hospitalByRDHS.rdhs.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.telephone.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.address.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-          hospitalByRDHS.email.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+          String(hospitalByRDHS.telephone).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(hospitalByRDHS.address).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+          String(hospitalByRDHS.email).toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
           ;
-        //  hospitalByRDHS.m_store_id.indexOf(this.state.search) !==-1;
+        //  hospitalByRDHS.reg_no.indexOf(this.state.search) !==-1;
       }
     );
 
@@ -107,7 +171,7 @@ class HospitalByRDHS extends Component {
     const paginate = pageNumber => this.setState({ currentPage: pageNumber });
 
     const groupList = currentData.map(hospitalByRDHS => {
-      return <tr key={hospitalByRDHS.m_store_id}>
+      return <tr key={hospitalByRDHS.reg_no}>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.reg_no}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.name}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.rdhs.name}</td>
@@ -115,8 +179,8 @@ class HospitalByRDHS extends Component {
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.email}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{hospitalByRDHS.telephone}</td>
         <td>
-          <Button size="sm" color="danger" onClick={() => { if (window.confirm('Are you sure you want to delete this RDHS Hospital?')) this.remove(hospitalByRDHS.reg_no) }}><i className="fa fa-trash"></i></Button>
-          <Button size="sm" color="success" tag={Link} to={"/hospital_by_rdhs/" + hospitalByRDHS.reg_no}><i className="icon-eye"></i></Button>
+          <Button size="sm" color="danger" onClick={() => this.delete(hospitalByRDHS.reg_no)}><i className="fa fa-trash"></i></Button>
+          <Button size="sm" color="success" tag={Link} to={"/"+this.state.user_type+"/hospital_by_rdhs/" + hospitalByRDHS.reg_no}><i className="icon-eye"></i></Button>
 
         </td>
 
@@ -125,11 +189,15 @@ class HospitalByRDHS extends Component {
     });
 
     return (
-      <div className="animated fadeIn">
+     <div className="animated fadeIn">
         <Row>
           <Col>
-            <Row>
+          
+            <Card style={{ borderRadius: '20px' }}>
+              <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
+                  <Row>
               <Col md="8">
+             <b> RDHS Hospitals</b>
               </Col>
               <Col md="4" style={{ alignContent: 'center' }}>
                 <InputGroup>
@@ -140,15 +208,10 @@ class HospitalByRDHS extends Component {
                     value={this.state.search}
                     onChange={this.updateSearch.bind(this)} />
                 </InputGroup>
-                <br></br>
               </Col>
             </Row>
-            <Card style={{ borderRadius: '20px' }}>
-              <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
-                <b>Hospital By RDHS List</b>
               </CardHeader>
               <CardBody>
-                <br />
 
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table" style={{ borderRadius: '20px !important' }}>
                   <thead style={{ backgroundColor: '#244EAD', color: 'white', borderRadius: '20px !important' }}>
