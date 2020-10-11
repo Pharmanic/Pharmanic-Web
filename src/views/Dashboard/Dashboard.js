@@ -324,7 +324,7 @@ class Dashboard extends Component {
        getWeeklyDemand: [],
        getRDHSCurrentYearSupply:0,
        getDirectCurrentYearSupply:0,
-      // yearlyImportedQtyYears: [],
+      getCurrentStockOfAll: [],
     };
   }
 
@@ -1161,6 +1161,20 @@ fetch('/yearlyDamagedMedicieSumYears5', {
 
       });
 
+             fetch('/getCurrentStockOfAll', {
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.setState({ getCurrentStockOfAll: data, isLoading: false });
+        console.log(this.state.getCurrentStockOfAll+"Current Stock of All");
+
+
+      });
+
 
         // console.log(getWeeklySupplyAr+"WS++++++++++++++++++++++++++++++++++compend");
 
@@ -1990,12 +2004,15 @@ DamagedQty_5years(){
   }
 
   render() {
-    const{getWeeklySupply,getWeeklySupplyDates,getWeeklyDemand,getDirectCurrentYearSupply,getRDHSCurrentYearSupply,getDirectCurrentYearDemand,getRDHSCurrentYearDemand,getRDHSHospitalCurrentYearDemand,getRDHSHospitalCurrentYearSupply}=this.state;
-    //  const {yearlyImportedQty,yearlyImportedQtyYears,yearlyAvailableQty,yearlyAvailableQtyYears} = this.state;
-// console.log("-------------"+this.state.getRDHSCurrentYearSupply+"---"+this.state.getRDHSCurrentYearDemand);
+    const{getWeeklySupply,getWeeklySupplyDates,getWeeklyDemand,getDirectCurrentYearSupply,getRDHSCurrentYearSupply,getDirectCurrentYearDemand,getRDHSCurrentYearDemand,getRDHSHospitalCurrentYearDemand,getRDHSHospitalCurrentYearSupply,getCurrentStockOfAll}=this.state;
+
 var rdhsSupDim=((this.state.getRDHSCurrentYearSupply/this.state.getRDHSCurrentYearDemand).toFixed(2)*100);
 var dirSupDim=((this.state.getDirectCurrentYearSupply/this.state.getDirectCurrentYearDemand).toFixed(2)*100);
 var rdhsHospitalSupDim=((this.state.getRDHSHospitalCurrentYearSupply/this.state.getRDHSHospitalCurrentYearDemand).toFixed(2)*100);
+var allStock=getCurrentStockOfAll[0]+getCurrentStockOfAll[1]+getCurrentStockOfAll[2]+this.state.getCurrentAvailableStock;
+var minPre=(this.state.getCurrentAvailableStock/allStock).toFixed(2)*100;
+var rdhsPre=(getCurrentStockOfAll[0]/allStock).toFixed(2)*100;var rdhsHPre=(getCurrentStockOfAll[1]/allStock).toFixed(2)*100;var dirPre=(getCurrentStockOfAll[2]/allStock).toFixed(2)*100;
+// var allStock=getCurrentAvailableStock;
 
 // rdhsSupDim=10;
 const cardChartDatafor1 = {
@@ -2890,7 +2907,7 @@ const sparklineChartOpts = {
                       </div>
                       
                       
-                      <div className="progress-group ">
+                      <div className="progress-group">
                         <div className="progress-group-header">
                           <i className="icon-basket-loaded progress-group-icon"></i>
                           <span className="title">Supply - Direct Hospital</span>
@@ -2920,22 +2937,48 @@ const sparklineChartOpts = {
                       <div className="progress-group">
 
                         <div className="progress-group-header">
-                          <i className="icon-social-twitter progress-group-icon"></i>
-                          <span className="title">Twitter</span>
-                          <span className="ml-auto font-weight-bold">37,564 <span className="text-muted small">(11%)</span></span>
+                          <i className="icon-layers progress-group-icon"></i>
+                          <span className="title">Ministry Store Stock</span>
+                          <span className="ml-auto font-weight-bold">{this.state.getCurrentAvailableStock}k <span className="text-muted small">({minPre}%)</span></span>
                         </div>
                         <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="success" value="11" />
+                          <Progress className="progress-xs" color="success" value={minPre} />
                         </div>
                       </div>
+
                       <div className="progress-group">
+
                         <div className="progress-group-header">
-                          <i className="icon-social-linkedin progress-group-icon"></i>
-                          <span className="title">LinkedIn</span>
-                          <span className="ml-auto font-weight-bold">27,319 <span className="text-muted small">(8%)</span></span>
+                          <i className="icon-layers progress-group-icon"></i>
+                          <span className="title">RDHS Stock</span>
+                          <span className="ml-auto font-weight-bold">{this.state.getCurrentStockOfAll[0]}k<span className="text-muted small">({rdhsPre}%)</span></span>
                         </div>
                         <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="success" value="8" />
+                          <Progress className="progress-xs" color="success" value={rdhsPre} />
+                        </div>
+                      </div>
+
+                           <div className="progress-group">
+
+                        <div className="progress-group-header">
+                          <i className="icon-layers progress-group-icon"></i>
+                          <span className="title">Direct Hospital Stock</span>
+                          <span className="ml-auto font-weight-bold">{this.state.getCurrentStockOfAll[2]}k <span className="text-muted small">({dirPre}%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value={dirPre} />
+                        </div>
+                      </div>
+
+
+                      <div className="progress-group">
+                        <div className="progress-group-header">
+                          <i className="icon-layers progress-group-icon"></i>
+                          <span className="title">RDHS Hospital Stock</span>
+                          <span className="ml-auto font-weight-bold">{this.state.getCurrentStockOfAll[1]}k<span className="text-muted small">({rdhsHPre}%)</span></span>
+                        </div>
+                        <div className="progress-group-bars">
+                          <Progress className="progress-xs" color="success" value={rdhsHPre} />
                         </div>
                       </div>
                       <div className="divider text-center">
