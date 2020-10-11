@@ -34,12 +34,12 @@ class CurrentStock extends Component {
     this.setState({filter:event.target.value});
   }
 
-  componentDidMount() {
+   componentDidMount() {
     this.setState({isLoading: true});
 
     fetch('/medicines')
-      .then(response => response.json())
-      .then(data => this.setState({medicines: data, isLoading: false}));
+   .then(response => response.json())
+     .then(data => this.setState({medicines: data, isLoading: false}));
   }
 
   toggle() {
@@ -111,8 +111,6 @@ class CurrentStock extends Component {
                     <th>Name</th>
                     <th>Side Effects</th>
                     <th>Description</th>
-                    <th>Description</th>
-                    <th>Description  </th>
                  
                   </tr>
                   </thead>

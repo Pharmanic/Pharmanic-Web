@@ -1,0 +1,7 @@
+{
+    "name": "RegisterMedicine",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./RegisterMedicine.js"
+  }
+  

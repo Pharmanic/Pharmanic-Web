@@ -14,7 +14,13 @@ import {
 } from 'reactstrap';
 import Paginations from './Pagination';
 
-class CurrentStock extends Component {
+
+const divStyle = {
+  display: 'flex',
+  alignItems: 'right'
+};
+
+class DriversList extends Component {
   
 
   constructor(props) {
@@ -37,6 +43,22 @@ class CurrentStock extends Component {
     fetch('/ministrydrivers')
      .then(response => response.json())
      .then(data => this.setState({ministrydrivers: data, isLoading: false}));
+ }
+
+ async remove(id){
+      await fetch('/deleteministrydriver/${id}',{
+          method: 'DELETE',
+          headers:{
+              'Accept':'application/json',
+              'content-type':'application/json'
+
+          }
+      }).then(() => {
+        
+      });
+
+
+
  }
 
   toggle() {
@@ -79,6 +101,10 @@ class CurrentStock extends Component {
         <td style={{whiteSpace: 'nowrap'}}>{ministrydriver.email}</td>
         <td style={{whiteSpace: 'nowrap'}}>{ministrydriver.address}</td>
         <td style={{whiteSpace: 'nowrap'}}>{ministrydriver.telephone}</td>
+        <td style={{whiteSpace: 'nowrap'}}>
+            <Button size="sm" color="danger" onClick={() => {if(window.confirm('Are you sure you wish to delete this stock?')) this.remove(ministrydriver.nic)}}><i className="fa fa-trash"></i></Button> 
+      </td>
+
       </tr>
     });
     return (
@@ -95,7 +121,7 @@ class CurrentStock extends Component {
           <br></br>
           </Col>
             <Card>
-              <CardHeader>
+              <CardHeader style={{ backgroundColor: '#1b8eb7', color: 'white', borderRadius: '5px' }}>
                 Ministry Drivers
               </CardHeader>
               <CardBody>
@@ -128,4 +154,4 @@ class CurrentStock extends Component {
   }
 }
 
-export default CurrentStock;
+export default DriversList;

@@ -35,7 +35,7 @@ class CurrentStock extends Component {
   componentDidMount() {
     this.setState({isLoading: true});
 
-    fetch('/directhospitals')
+    fetch('/direct_hospital/direct_hospital_list')
       .then(response => response.json())
       .then(data => this.setState({directhospitals: data, isLoading: false}));
   }

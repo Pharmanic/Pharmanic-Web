@@ -9,6 +9,13 @@ export default {
         text: 'NEW',
       },
     },
+////  <<<<<<< bhashitha
+    
+
+    {
+      name: 'LM Hospital',
+      url: '/ministry/directhospitalreqorder',
+      icon: 'icon-bell',
     {
       name: 'Hospital By RDHS',
     ///  url: '/ministry_stores',
