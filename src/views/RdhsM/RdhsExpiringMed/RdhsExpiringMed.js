@@ -1,4 +1,4 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
 import {
   Badge,
   Button,
@@ -25,7 +25,7 @@ import {
   Row,
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-class ExpireStockForm extends Component {
+class CurrentStockForm extends Component {
 
   emptyItem = {
     date: '',
@@ -39,8 +39,8 @@ class ExpireStockForm extends Component {
       import_quantity: '0',
       supplyed_quantity: '0',
       damage_quantity: '0',
-      r_store_id: {
-        r_store_id: '',
+      m_store_id: {
+        m_store_id: '',
         location: ''
       },
       sr_no: {
@@ -54,11 +54,12 @@ class ExpireStockForm extends Component {
         export_date: '',
         order_date: ''
       }
-    }
+    },
+    status:'0'
   };
 
   emptyStore = {
-    r_store_id: '',
+    m_store_id: '',
     location: ''
   }
 
@@ -78,10 +79,10 @@ class ExpireStockForm extends Component {
       collapse: true,
       fadeIn: true,
       timeout: 300,
-      rdhsstores: [],
+      ministrystores: [],
       isLoading: true,
       medicines: [],
-      rdhscurrentstocks: [],
+      ministrycurrentstocks: [],
       medicine: this.emptyMedicine,
       store: this.emptyStore
     };
@@ -90,17 +91,17 @@ class ExpireStockForm extends Component {
   }
   componentDidMount() {
     this.setState({ isLoading: true });
-    fetch('/rdhsstores')
+    fetch('/ministrystores')
       .then(response => response.json())
-      .then(data => this.setState({ rdhsstores: data }));
+      .then(data => this.setState({ ministrystores: data }));
 
-    fetch('/rdhsmedicines')
+    fetch('/medicines')
       .then(response => response.json())
       .then(data => this.setState({ medicines: data, isLoading: false }));
 
-    fetch('/rdhscurrentstocks')
+    fetch('/ministrycurrentstocks')
       .then(response => response.json())
-      .then(data => this.setState({ rdhscurrentstocks: data, isLoading: false }));
+      .then(data => this.setState({ ministrycurrentstocks: data, isLoading: false }));
 
   }
 
@@ -112,11 +113,11 @@ class ExpireStockForm extends Component {
     console.log('name', name);
     let item = { ...this.state.item };
     if (name == 'batch_id') {
-      const rdhscurrentstocks = this.state.rdhscurrentstocks;
-      console.log('rdhscurrentstocks', rdhscurrentstocks);
-      const rdhscurrentstock = rdhscurrentstocks.find(mcs => mcs.batch_id == target.value);
-      console.log('rdhscurrentstock', rdhscurrentstock);
-      item[name] = rdhscurrentstock;
+      const ministrycurrentstocks = this.state.ministrycurrentstocks;
+      console.log('ministrycurrentstocks', ministrycurrentstocks);
+      const ministrycurrentstock = ministrycurrentstocks.find(mcs => mcs.batch_id == target.value);
+      console.log('ministrycurrentstock', ministrycurrentstock);
+      item[name] = ministrycurrentstock;
       this.setState({ item });
       console.log('item', item);
     } else {
@@ -127,7 +128,18 @@ class ExpireStockForm extends Component {
 
   }
 
- 
+  // handleSelect(event){
+  //   const target = event.target;
+  //   const value = target.value;
+  //   const ministrystores= state.ministrystores;
+  //   console.log('stores',ministrystores);
+  //   const store = ministrystores.find(ms => ms.m_store_id==target.value);
+  //   const name = target.name;
+  //   let item = {...this.state.item};
+  //   item[name] = value;
+  //   this.setState({item});
+  // }
+
   async handleSubmit(event) {
     event.preventDefault();
     const {item} = this.state;
@@ -140,7 +152,10 @@ class ExpireStockForm extends Component {
       },
       body: JSON.stringify(item),
     });
-    //this.props.history.push('/rdhsdamagestocks');
+    this.setState({
+      item:this.emptyItem
+    });
+    //this.props.history.push('/ministrydamagestocks');
   }
 
   toggle() {
@@ -151,15 +166,21 @@ class ExpireStockForm extends Component {
     this.setState((prevState) => { return { fadeIn: !prevState } });
   }
 
+  cancelForm(){
+    this.setState({
+      item:this.emptyItem
+    });
+  }
+
   render() {
-    const {item, rdhscurrentstocks} = this.state;
+    const {item, ministrycurrentstocks} = this.state;
     const title = <h2>{'Add Group'}</h2>;
 
-    const batchList = rdhscurrentstocks.map(rdhscurrentstock => {
+    const batchList = ministrycurrentstocks.map(ministrycurrentstock => {
       return <option
-        key={rdhscurrentstock.batch_id}
-        value={rdhscurrentstock.batch_id}>
-        {rdhscurrentstock.batch_id}
+        key={ministrycurrentstock.batch_id}
+        value={ministrycurrentstock.batch_id}>
+        {ministrycurrentstock.batch_id}
       </option>
     });
 
@@ -167,8 +188,8 @@ class ExpireStockForm extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-            <Card>
-              <CardHeader>
+            <Card style={{borderRadius:'20px'}}>
+              <CardHeader style={{backgroundColor:'#1b8eb7',color:'white',borderRadius:'5px'}}>
                 <strong>Damage Drug</strong> Form
               </CardHeader>
               <CardBody>
@@ -182,7 +203,6 @@ class ExpireStockForm extends Component {
                         <option>Select a batch</option>
                         {batchList}
                       </Input>
-
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -208,13 +228,13 @@ class ExpireStockForm extends Component {
                       <Label htmlFor="text-input">Reason</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="reason" name="reason" placeholder="reason(expired/damaged/other])" value={item.reason || ''}
+                      <Input type="text" id="reason" name="reason" placeholder="reason" value={item.reason || ''}
                         onChange={this.handleChange} autoComplete="reason" />
                     </Col>
                   </FormGroup>
                   <FormGroup>
-                    <Button size="sm" color="primary" tag={Link} to="/rdhsexpiringmedd" type="submit"><i className="fa fa-dot-circle-o"></i>Save</Button>{' '}
-                    <Button size="sm" color="danger" >Cancel</Button>
+                    <Button size="sm" color="primary" type="submit"><i className="fa fa-dot-circle-o"></i>Save</Button>{' '}
+                    <Button size="sm" color="danger" onClick={() => { this.cancelForm()}}><i className="fa fa-ban"></i>Cancel</Button>
                   </FormGroup>
                 </Form>
               </CardBody>
@@ -228,4 +248,4 @@ class ExpireStockForm extends Component {
   }
 }
 
-export default ExpireStockForm;
+export default CurrentStockForm;

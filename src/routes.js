@@ -107,6 +107,7 @@ const RdhsOrderToMS= React.lazy(() => import('./views/RdhsM/RdhsOrderToMS'));
 const RdhsOrderToMSDetail= React.lazy(() => import('./views/RdhsM/RdhsOrderToMSDetail/RdhsOrderToMSDetail'));
 const RdhsDriverList= React.lazy(() => import('./views/RdhsM/RdhsDriverList'));
 const RdhsVehicleList= React.lazy(() => import('./views/RdhsM/RdhsVehicleList'));
+const RdhsCurrentStockList= React.lazy(() => import('./views/RdhsM/RdhsCurrentStockList'));
 
 //Ministry 
 const MinistryStoresList = React.lazy(() => import('./views/Ministry Store/MinistryStores'));
@@ -160,6 +161,7 @@ const routes = [
 { path: '/rdhsOrderToMSDetail', name: 'RdhsOrderToMSDetail', component: RdhsOrderToMSDetail},
 { path: '/rdhsdriverlist', name: 'RdhsDriverList', component: RdhsDriverList},
 { path: '/rdhsvehiclelist', name: 'RdhsVehicleList', component: RdhsVehicleList},
+{ path: '/rdhscurrentstock', name: 'RdhsCurrentStockList', component: RdhsCurrentStockList},
 
   { path: '/dhstock', name: 'LM_Hospital_Current_Stock', component: LM_Hospital_Current_Stock },
   { path: '/dhordercart', name: 'LM_Hospital_View_Order_Cart', component: LM_Hospital_View_Order_Cart },

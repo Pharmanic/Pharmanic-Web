@@ -14,9 +14,10 @@ export default {
       name: 'RDHS',
       icon: 'icon-list',
       children: [
+      
        
         {
-          name: 'RegistrationDriver',
+          name: 'Driver Registration',
           url: '/rdhsdriverreg',
         },
         {
@@ -24,22 +25,26 @@ export default {
           url: '/rdhsdriverlist',
         },
         {
-          name: 'RegistrationVehicle',
+          name: 'Vehicle Registration',
           url: '/rdhsvehiclereg',
         },
         {
           name: 'VehicleList',
           url: '/rdhsvehiclelist',
         },
+        {
+          name: 'Current Stock',
+          url: '/rdhscurrentstock',
+        },
         // {
         //   name: 'Register driver',
         //   url: '/rdhs_driverreg',
         // },
        
-        {
-          name: 'Currently stock',
-          url: '/rdhscurrentstockform',
-        },
+        // {
+        //   name: 'Currently stock',
+        //   url: '/rdhscurrentstockform',
+        // },
         {
           name: 'Issue hospital drug',
           url: '/rdhsissuedrug',
