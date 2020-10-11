@@ -322,6 +322,8 @@ class Dashboard extends Component {
       getWeeklySupply: [],
       getWeeklySupplyDates: [],
        getWeeklyDemand: [],
+       getRDHSCurrentYearSupply:0,
+       getDirectCurrentYearSupply:0,
       // yearlyImportedQtyYears: [],
     };
   }
@@ -720,7 +722,7 @@ fetch('/yearlyDamagedMedicieSumYears5', {
       // .then(response => console.log(response))
       .then(data => {
         // console.log(data);
-        this.setState({ yearlyDamagedQty: data, isLoading: false })
+        this.setState({ yearlyDamagedQty: data, isLoading: false });
         //  yearlyDamagedQty=this.state.yearlyDamagedQty;
         console.log("Sums" + this.state.yearlyDamagedQty);
       });
@@ -739,7 +741,7 @@ fetch('/yearlyDamagedMedicieSumYears5', {
       // .then(response => console.log(response))
       .then(data => {
         // console.log(data);
-        this.setState({ averageDamaged: data, isLoading: false })
+        this.setState({ averageDamaged: data, isLoading: false });
         //  yearlyAvailableQty=this.state.yearlyAvailableQty;
         console.log("Avg Av" + this.state.averageDamaged);
       });
@@ -1062,12 +1064,105 @@ fetch('/yearlyDamagedMedicieSumYears5', {
       .then(data => {
         // console.log(data);
         this.setState({ getWeeklySupplyDates: data, isLoading: false })
-        console.log(this.state.getWeeklySupplyDates[0]+"WS+============");
+        // console.log(this.state.getWeeklySupplyDates[0]+"WS+============");
+
+
+      });
+
+
+
+         fetch('/getRDHSCurrentYearSupply', {
+      // method: 'GET',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.setState({ getRDHSCurrentYearSupply: data, isLoading: false });
+        // console.log(this.state.getRDHSCurrentYearSupply+"Cur RDHS+============");
+
+
+      });
+
+      
+         fetch('/getDirectCurrentYearSupply', {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.setState({ getDirectCurrentYearSupply: data, isLoading: false });
+        console.log(this.state.getDirectCurrentYearSupply+"Cur RDHS+============");
+
+
+      });
+
+           fetch('/getDirectCurrentYearDemand', {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.setState({ getDirectCurrentYearDemand: data, isLoading: false });
+        console.log(this.state.getDirectCurrentYearDemand+"Cur Demand Direct+============");
 
 
       });
       
-        // console.log(getWeeklySupplyAr+"WS++++++++++++++++++++++++++++++++++");
+
+            fetch('/getRDHSCurrentYearDemand', {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.setState({ getRDHSCurrentYearDemand: data, isLoading: false });
+        // console.log(this.state.getRDHSCurrentYearDemand+"Cur Demand RDHS+============");
+
+
+      });
+      // console.log("Theseeeeeeeeeeeeeeeeeeeeeee");
+
+           fetch('/getRDHSHospitalCurrentYearDemand', {
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.setState({ getRDHSHospitalCurrentYearDemand: data, isLoading: false });
+        console.log(this.state.getRDHSHospitalCurrentYearDemand+"Cur Demand RDHS+/////////");
+
+
+      });
+
+       fetch('/getRDHSHospitalCurrentYearSupply', {
+      headers: {
+        // 'Accept': 'application/json',
+        'Authorization': 'Bearer ' + authHeader(),
+        // 'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.setState({ getRDHSHospitalCurrentYearSupply: data, isLoading: false });
+        console.log(this.state.getRDHSHospitalCurrentYearSupply+"Cur Demand RDHS////////////////");
+
+
+      });
+
+
+        // console.log(getWeeklySupplyAr+"WS++++++++++++++++++++++++++++++++++compend");
 
   }
 
@@ -1076,22 +1171,7 @@ fetch('/yearlyDamagedMedicieSumYears5', {
   ImportedQty_5years(){
     console.log("say hy");
     this.setState({ isLoading: true });
-    // console.log(this.state.user_type)
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    ;
+   
     fetch('/yearlyImportMedicieSumYears5', {
       // method: 'GET',
       // withCredentials: true,
@@ -1910,10 +1990,14 @@ DamagedQty_5years(){
   }
 
   render() {
-    const{getWeeklySupply,getWeeklySupplyDates,getWeeklyDemand}=this.state;
+    const{getWeeklySupply,getWeeklySupplyDates,getWeeklyDemand,getDirectCurrentYearSupply,getRDHSCurrentYearSupply,getDirectCurrentYearDemand,getRDHSCurrentYearDemand,getRDHSHospitalCurrentYearDemand,getRDHSHospitalCurrentYearSupply}=this.state;
     //  const {yearlyImportedQty,yearlyImportedQtyYears,yearlyAvailableQty,yearlyAvailableQtyYears} = this.state;
+// console.log("-------------"+this.state.getRDHSCurrentYearSupply+"---"+this.state.getRDHSCurrentYearDemand);
+var rdhsSupDim=((this.state.getRDHSCurrentYearSupply/this.state.getRDHSCurrentYearDemand).toFixed(2)*100);
+var dirSupDim=((this.state.getDirectCurrentYearSupply/this.state.getDirectCurrentYearDemand).toFixed(2)*100);
+var rdhsHospitalSupDim=((this.state.getRDHSHospitalCurrentYearSupply/this.state.getRDHSHospitalCurrentYearDemand).toFixed(2)*100);
 
-
+// rdhsSupDim=10;
 const cardChartDatafor1 = {
   labels: this.state.yearlyImportedQtyYears,
   datasets: [
@@ -2291,7 +2375,7 @@ const sparkLineChartData = [
 const makeSparkLineData = (dataSetNo, variant) => {
   const dataset = sparkLineChartData[dataSetNo];
   const data = {
-    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    labels: this.state.getWeeklySupplyDates,
     datasets: [
       {
         backgroundColor: 'transparent',
@@ -2623,26 +2707,27 @@ const sparklineChartOpts = {
                 <Row>
                   <Col xs="12" md="6" xl="6">
                     <Row>
-                      <Col sm="6">
-                        <div className="callout callout-info">
-                          <small className="text-muted">Supply</small>
-                          <br />
-                          <strong className="h4">9,123</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(0, brandPrimary)} options={sparklineChartOpts} width={100} height={30} />
-                          </div>
-                        </div>
-                      </Col>
-                      <Col sm="6">
+                       <Col sm="6">
                         <div className="callout callout-danger">
                           <small className="text-muted">Demand</small>
                           <br />
-                          <strong className="h4">22,643</strong>
+                          <strong className="h4">{this.state.getDirectCurrentYearDemand+this.state.getRDHSCurrentYearDemand}k</strong>
                           <div className="chart-wrapper">
                             <Line data={makeSparkLineData(1, brandDanger)} options={sparklineChartOpts} width={100} height={30} />
                           </div>
                         </div>
                       </Col>
+                      <Col sm="6">
+                        <div className="callout callout-info">
+                          <small className="text-muted">Supply</small>
+                          <br />
+                          <strong className="h4">{this.state.getDirectCurrentYearSupply+this.state.getRDHSCurrentYearSupply}k</strong>
+                          <div className="chart-wrapper">
+                            <Line data={makeSparkLineData(0, brandPrimary)} options={sparklineChartOpts} width={100} height={30} />
+                          </div>
+                        </div>
+                      </Col>
+                     
                     </Row>
                     <hr className="mt-0" />
                     <div className="progress-group mb-4">
@@ -2722,6 +2807,42 @@ const sparklineChartOpts = {
                         <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[6]} />
                       </div>
                     </div>
+            
+               
+                     <div className="progress-group mb-4">
+                      <div className="progress-group-prepend">
+                        <span className="progress-group-text">
+                        {this.state.getWeeklySupplyDates[7]}
+                        </span>
+                      </div>
+                      <div className="progress-group-bars">
+                        <Progress className="progress-xs" color="info" value={this.state.getWeeklySupply[7]} />
+                        <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[7]} />
+                      </div>
+                    </div>
+                    <div className="progress-group mb-4">
+                      <div className="progress-group-prepend">
+                        <span className="progress-group-text">
+                        {this.state.getWeeklySupplyDates[8]}
+                        </span>
+                      </div>
+                      <div className="progress-group-bars">
+                        <Progress className="progress-xs" color="info" value={this.state.getWeeklySupply[8]} />
+                        <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[8]} />
+                      </div>
+                    </div>
+                    <div className="progress-group mb-4">
+                      <div className="progress-group-prepend">
+                        <span className="progress-group-text">
+                        {this.state.getWeeklySupplyDates[9]}
+                        </span>
+                      </div>
+                      <div className="progress-group-bars">
+                        <Progress className="progress-xs" color="info" value={this.state.getWeeklySupply[9]} />
+                        <Progress className="progress-xs" color="danger" value={this.state.getWeeklyDemand[9]} />
+                      </div>
+                    </div>
+
                     <div className="legend text-center">
                       <small>
                         <sup className="px-1"><Badge pill color="info">&nbsp;</Badge></sup>
@@ -2736,9 +2857,9 @@ const sparklineChartOpts = {
                     <Row>
                       <Col sm="6">
                         <div className="callout callout-warning">
-                          <small className="text-muted">Pageviews</small>
+                          <small className="text-muted">Supply - RDHS</small>
                           <br />
-                          <strong className="h4">78,623</strong>
+                          <strong className="h4">{this.state.getRDHSCurrentYearDemand}k</strong>
                           <div className="chart-wrapper">
                             <Line data={makeSparkLineData(2, brandWarning)} options={sparklineChartOpts} width={100} height={30} />
                           </div>
@@ -2746,9 +2867,9 @@ const sparklineChartOpts = {
                       </Col>
                       <Col sm="6">
                         <div className="callout callout-success">
-                          <small className="text-muted">Organic</small>
+                          <small className="text-muted">Supply - Direct Hospital</small>
                           <br />
-                          <strong className="h4">49,123</strong>
+                          <strong className="h4">{this.state.getDirectCurrentYearDemand}k</strong>
                           <div className="chart-wrapper">
                             <Line data={makeSparkLineData(3, brandSuccess)} options={sparklineChartOpts} width={100} height={30} />
                           </div>
@@ -2759,45 +2880,45 @@ const sparklineChartOpts = {
                     <ul>
                       <div className="progress-group">
                         <div className="progress-group-header">
-                          <i className="icon-user progress-group-icon"></i>
-                          <span className="title">Male</span>
-                          <span className="ml-auto font-weight-bold">43%</span>
+                          <i className="icon-basket-loaded progress-group-icon"></i>
+                          <span className="title">Supply - RDHS</span>
+                          <span className="ml-auto font-weight-bold">{rdhsSupDim}%</span>
                         </div>
                         <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="warning" value="43" />
+                          <Progress className="progress-xs" color="warning" value={rdhsSupDim} />
                         </div>
                       </div>
-                      <div className="progress-group mb-5">
+                      
+                      
+                      <div className="progress-group ">
                         <div className="progress-group-header">
-                          <i className="icon-user-female progress-group-icon"></i>
-                          <span className="title">Female</span>
-                          <span className="ml-auto font-weight-bold">37%</span>
+                          <i className="icon-basket-loaded progress-group-icon"></i>
+                          <span className="title">Supply - Direct Hospital</span>
+                          <span className="ml-auto font-weight-bold">{dirSupDim}%</span>
                         </div>
                         <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="warning" value="37" />
+                          <Progress className="progress-xs" color="warning" value={dirSupDim} />
                         </div>
+                     
+                        
                       </div>
-                      <div className="progress-group">
+                       <div className="progress-group mb-5">
                         <div className="progress-group-header">
-                          <i className="icon-globe progress-group-icon"></i>
-                          <span className="title">Organic Search</span>
-                          <span className="ml-auto font-weight-bold">191,235 <span className="text-muted small">(56%)</span></span>
+                          <i className="icon-basket-loaded progress-group-icon"></i>
+                          <span className="title">Supply - RDHS Hospital</span>
+                          <span className="ml-auto font-weight-bold">{rdhsHospitalSupDim}%</span>
                         </div>
                         <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="success" value="56" />
+                          <Progress className="progress-xs" color="warning" value={rdhsHospitalSupDim} />
                         </div>
+
+
+
+
                       </div>
+                       
                       <div className="progress-group">
-                        <div className="progress-group-header">
-                          <i className="icon-social-facebook progress-group-icon"></i>
-                          <span className="title">Facebook</span>
-                          <span className="ml-auto font-weight-bold">51,223 <span className="text-muted small">(15%)</span></span>
-                        </div>
-                        <div className="progress-group-bars">
-                          <Progress className="progress-xs" color="success" value="15" />
-                        </div>
-                      </div>
-                      <div className="progress-group">
+
                         <div className="progress-group-header">
                           <i className="icon-social-twitter progress-group-icon"></i>
                           <span className="title">Twitter</span>
