@@ -186,6 +186,7 @@ class Charts extends Component {
               </div>
             </CardBody>
           </Card>
+
           <Card>
             <CardHeader>
               Doughnut Chart
@@ -201,6 +202,8 @@ class Charts extends Component {
               </div>
             </CardBody>
           </Card>
+
+          
           <Card>
             <CardHeader>
               Radar Chart

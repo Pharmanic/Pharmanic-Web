@@ -59,9 +59,6 @@ let dailyAvailable;
 let dailySupplied;
 let dailyDates;
 
-// var getWeeklySupplyAr = [];
-
-// var  getWeeklySupply: [];
 
 
 // Card Chart 3
@@ -325,6 +322,7 @@ class Dashboard extends Component {
        getRDHSCurrentYearSupply:0,
        getDirectCurrentYearSupply:0,
       getCurrentStockOfAll: [],
+      dailyAvailable: [],
     };
   }
 
@@ -407,7 +405,7 @@ class Dashboard extends Component {
         // console.log(data);
         this.setState({ dailyDates: data, isLoading: false })
         //  yearlyDamagedQty=this.state.yearlyDamagedQty;
-        console.log("Sums" + this.state.dailyDates);
+        console.log(">>" + this.state.dailyDates);
       });
 
       this.setState({ dailyAvailable: []});
@@ -2004,7 +2002,7 @@ DamagedQty_5years(){
   }
 
   render() {
-    const{getWeeklySupply,getWeeklySupplyDates,getWeeklyDemand,getDirectCurrentYearSupply,getRDHSCurrentYearSupply,getDirectCurrentYearDemand,getRDHSCurrentYearDemand,getRDHSHospitalCurrentYearDemand,getRDHSHospitalCurrentYearSupply,getCurrentStockOfAll}=this.state;
+    const{dailyAvailable,getWeeklySupply,getWeeklySupplyDates,getWeeklyDemand,getDirectCurrentYearSupply,getRDHSCurrentYearSupply,getDirectCurrentYearDemand,getRDHSCurrentYearDemand,getRDHSHospitalCurrentYearDemand,getRDHSHospitalCurrentYearSupply,getCurrentStockOfAll}=this.state;
 
 var rdhsSupDim=((this.state.getRDHSCurrentYearSupply/this.state.getRDHSCurrentYearDemand).toFixed(2)*100);
 var dirSupDim=((this.state.getDirectCurrentYearSupply/this.state.getDirectCurrentYearDemand).toFixed(2)*100);
@@ -2013,6 +2011,7 @@ var allStock=getCurrentStockOfAll[0]+getCurrentStockOfAll[1]+getCurrentStockOfAl
 var minPre=(this.state.getCurrentAvailableStock/allStock).toFixed(2)*100;
 var rdhsPre=(getCurrentStockOfAll[0]/allStock).toFixed(2)*100;var rdhsHPre=(getCurrentStockOfAll[1]/allStock).toFixed(2)*100;var dirPre=(getCurrentStockOfAll[2]/allStock).toFixed(2)*100;
 // var allStock=getCurrentAvailableStock;
+// this.state.dailyAvailable[0]=this.state.dailyAvailable[0]+100;
 
 // rdhsSupDim=10;
 const cardChartDatafor1 = {
@@ -2989,7 +2988,7 @@ const sparklineChartOpts = {
                   </Col>
                 </Row>
                 <br />
-                <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
+                {/*<Table hover responsive className="table-outline mb-0 d-none d-sm-table">
                   <thead className="thead-light">
                   <tr>
                     <th className="text-center"><i className="icon-people"></i></th>
@@ -3213,7 +3212,7 @@ const sparklineChartOpts = {
                     </td>
                   </tr>
                   </tbody>
-                </Table>
+                </Table>*/}
               </CardBody>
             </Card>
           </Col>
